@@ -22,6 +22,13 @@ import students from "./students.json";
 import teachers from "./teachers.json";
 import aiSettings from "./aiSettings.json";
 import academics from "./academics.json";
+import questions from "./questions.json";
+import flashcardDecks from "./flashcardDecks.json";
+import mindmaps from "./mindmaps.json";
+import knowledgeChunks from "./knowledgeChunks.json";
+import revision from "./revision.json";
+import sourceDocuments from "./sourceDocuments.json";
+import knowledge from "./knowledge.json";
 
-const messages = { common, validation, meta, layout, list, detail, form, auth, errors, dashboard, users, settings, auditLogs, profile, attachments, dataTransfer, numberFormat, notifications, schoolClasses, students, teachers, aiSettings, academics };
+const messages = { common, validation, meta, layout, list, detail, form, auth, errors, dashboard, users, settings, auditLogs, profile, attachments, dataTransfer, numberFormat, notifications, schoolClasses, students, teachers, aiSettings, academics, questions, flashcardDecks, mindmaps, knowledgeChunks, revision, sourceDocuments, knowledge };
 export default messages;

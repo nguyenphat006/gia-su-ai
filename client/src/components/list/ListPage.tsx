@@ -73,6 +73,10 @@ export interface ListPageProps<T> {
   onImport?: () => void;
   /** "Xem nhanh" trong menu ⋯ của dòng: ngăn phải dùng lại Hero của trang chi tiết */
   quickView?: QuickViewConfig<T>;
+  /** Nút phụ đặt trước nút chính trên PageHeader (vd. "AI soạn nháp") — dùng hạn chế */
+  headerExtra?: React.ReactNode;
+  /** Nội dung dưới tiêu đề trang (vd. TabsList khi một trang có nhiều danh sách) */
+  headerContent?: React.ReactNode;
   /** Modal / Drawer của module */
   children?: React.ReactNode;
 }
@@ -116,6 +120,8 @@ export function ListPage<T extends object>({
   onExport,
   onImport,
   quickView,
+  headerExtra,
+  headerContent,
   children,
 }: ListPageProps<T>) {
   const t = useTranslations("list");
@@ -244,14 +250,21 @@ export function ListPage<T extends object>({
         title={title}
         subtitle={subtitle}
         extra={
-          onCreate && (
-            <Button onClick={onCreate} aria-label={createLabel ?? t("page.create", { entity: entityLabel })}>
-              <Plus />
-              <span className="list-page__create-text">{createLabel ?? t("page.create", { entity: entityLabel })}</span>
-            </Button>
+          (headerExtra || onCreate) && (
+            <>
+              {headerExtra}
+              {onCreate && (
+                <Button onClick={onCreate} aria-label={createLabel ?? t("page.create", { entity: entityLabel })}>
+                  <Plus />
+                  <span className="list-page__create-text">{createLabel ?? t("page.create", { entity: entityLabel })}</span>
+                </Button>
+              )}
+            </>
           )
         }
-      />
+      >
+        {headerContent}
+      </PageHeader>
 
       {/* Thanh công cụ + bảng chung một khối nền */}
       <div className="list-card">

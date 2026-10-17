@@ -1,0 +1,25 @@
+{
+  "pageTitle": "Flashcard",
+  "title": "Flashcard",
+  "entity": "bộ flashcard",
+  "searchPlaceholder": "Tìm theo tên bộ thẻ, chủ đề…",
+  "fields": {
+    "title": "Tên bộ thẻ",
+    "cardCount": "Số thẻ",
+    "cards": "Danh sách thẻ",
+    "front": "Mặt trước",
+    "back": "Mặt sau"
+  },
+  "form": {
+    "createTitle": "Thêm bộ flashcard",
+    "editTitle": "Sửa bộ flashcard",
+    "titlePlaceholder": "Ví dụ: Thuật ngữ quang hợp",
+    "cardsHint": "Mặt trước là câu hỏi / thuật ngữ, mặt sau là đáp án / giải nghĩa",
+    "cardLabel": "Thẻ {index}",
+    "frontPlaceholder": "Câu hỏi hoặc thuật ngữ",
+    "backPlaceholder": "Đáp án hoặc giải nghĩa",
+    "addCard": "Thêm thẻ",
+    "removeCard": "Bỏ thẻ {index}",
+    "minCards": "Cần ít nhất 1 thẻ"
+  }
+}

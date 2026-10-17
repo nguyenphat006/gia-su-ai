@@ -1,0 +1,61 @@
+{
+  "pageTitle": "Question bank",
+  "title": "Question bank",
+  "entity": "question",
+  "searchPlaceholder": "Search by content, topic, answer…",
+  "fields": {
+    "content": "Question",
+    "questionType": "Question type",
+    "difficulty": "Difficulty",
+    "status": "Review status",
+    "options": "Options",
+    "correctAnswer": "Correct answer",
+    "sampleAnswer": "Sample answer",
+    "explanation": "Explanation",
+    "hint": "Hint",
+    "sourceDocument": "Source document"
+  },
+  "questionType": {
+    "MULTIPLE_CHOICE": "Multiple choice",
+    "ESSAY": "Essay"
+  },
+  "difficulty": {
+    "NHAN_BIET": "Recall",
+    "THONG_HIEU": "Understanding",
+    "VAN_DUNG": "Application"
+  },
+  "status": {
+    "PENDING": "Pending",
+    "APPROVED": "Approved",
+    "REJECTED": "Rejected"
+  },
+  "form": {
+    "createTitle": "Add question",
+    "editTitle": "Edit question",
+    "optionLabel": "Option {letter}",
+    "optionsHint": "Enter 4 different options and pick the correct one",
+    "correctRequired": "Select the correct option",
+    "optionsDuplicate": "Options must not repeat",
+    "markCorrect": "Correct answer",
+    "contentMin": "At least {min} characters"
+  },
+  "aiDraft": {
+    "title": "AI question draft",
+    "description": "The AI drafts questions for a topic; pick the good ones and save them to the bank (status Approved).",
+    "count": "Number of questions",
+    "countRange": "From {min} to {max} questions",
+    "difficulties": "Difficulty",
+    "difficultiesPlaceholder": "All levels",
+    "generate": "Generate draft",
+    "regenerate": "Generate again",
+    "back": "Change request",
+    "empty": "The AI returned no valid questions, try again or change the topic",
+    "selected": "{count}/{total} selected",
+    "saveSelected": "Save selected questions",
+    "saved": "Saved {count, plural, one {# question} other {# questions}}",
+    "partialSaved": "Saved {saved}, {failed} failed: {message}",
+    "noneSelected": "Select at least one question to save",
+    "discardTitle": "Discard the AI drafts?",
+    "discardDescription": "Unsaved questions will be lost."
+  }
+}

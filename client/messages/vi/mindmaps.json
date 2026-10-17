@@ -1,0 +1,30 @@
+{
+  "pageTitle": "Sơ đồ tư duy",
+  "title": "Sơ đồ tư duy",
+  "entity": "sơ đồ tư duy",
+  "searchPlaceholder": "Tìm theo tên sơ đồ, chủ đề…",
+  "fields": {
+    "title": "Tên sơ đồ",
+    "nodeCount": "Số nút",
+    "nodes": "Các nút",
+    "label": "Nội dung nút",
+    "parent": "Nút cha"
+  },
+  "form": {
+    "createTitle": "Thêm sơ đồ tư duy",
+    "editTitle": "Sửa sơ đồ tư duy",
+    "titlePlaceholder": "Ví dụ: Sơ đồ quang hợp",
+    "nodesHint": "Nút đầu tiên là gốc; mỗi nút khác chọn một nút cha (không chọn được nút con của chính nó)",
+    "root": "Gốc",
+    "rootPlaceholder": "Ý chính của sơ đồ",
+    "nodePlaceholder": "Nội dung nút",
+    "parentPlaceholder": "Chọn nút cha",
+    "unnamed": "(chưa đặt tên)",
+    "addNode": "Thêm nút",
+    "removeNode": "Bỏ nút {index}",
+    "labelsRequired": "Mọi nút phải có nội dung",
+    "parentRequired": "Mọi nút (trừ gốc) phải có nút cha",
+    "preview": "Xem trước cây",
+    "previewEmpty": "Chưa có nút nào"
+  }
+}

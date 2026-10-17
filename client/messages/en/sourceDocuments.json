@@ -1,0 +1,51 @@
+{
+  "entity": "document",
+  "searchPlaceholder": "Search by document title, topic…",
+  "fields": {
+    "title": "Document title",
+    "status": "Processing",
+    "progress": "Progress",
+    "chunkCount": "Chunks",
+    "questionCount": "Questions",
+    "generateQuestions": "Generate questions from document",
+    "errorMessage": "Processing error",
+    "rawText": "Extracted text",
+    "createdBy": "Uploaded by"
+  },
+  "status": {
+    "PROCESSING": "Processing",
+    "COMPLETED": "Completed",
+    "FAILED": "Failed"
+  },
+  "upload": {
+    "button": "Upload document",
+    "title": "Upload a document",
+    "description": "The system reads the document, splits it into knowledge chunks for the AI tutor and can generate questions for review.",
+    "dropTitle": "Drag and drop or click to choose a file",
+    "dropHint": "PDF, DOCX or TXT, up to 50MB",
+    "file": "Document file",
+    "fileRequired": "Choose a document file",
+    "fileType": "Only PDF, DOCX or TXT files are accepted",
+    "fileSize": "The file is larger than 50MB",
+    "titleHint": "Leave blank to use the file name",
+    "generateHint": "The AI creates questions in Pending status for teachers to review",
+    "submit": "Upload",
+    "uploaded": "Uploaded, the system is reading the document"
+  },
+  "form": {
+    "editTitle": "Edit document details"
+  },
+  "detail": {
+    "title": "Document details",
+    "noText": "No extracted text yet",
+    "processingHint": "Processing {processed}/{total} chunks, the list refreshes every 15 seconds",
+    "approveAll": "Approve all questions",
+    "rejectAll": "Reject all pending questions",
+    "approveConfirm": "Approve every pending question of this document?",
+    "approveDescription": "Approved questions join the question bank for student practice.",
+    "rejectConfirm": "Reject every pending question of this document?",
+    "rejectDescription": "Rejected questions are hidden from students; you can still edit them in the question bank.",
+    "reviewed": "Updated {count, plural, one {# question} other {# questions}}",
+    "loadError": "Could not load the document details"
+  }
+}

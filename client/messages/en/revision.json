@@ -1,0 +1,31 @@
+{
+  "sharedGrade": "All grades",
+  "fields": {
+    "grade": "Grade",
+    "schoolClass": "Class (private)",
+    "topic": "Topic",
+    "title": "Title",
+    "origin": "Origin"
+  },
+  "form": {
+    "gradeHint": "Leave blank to share with all grades",
+    "schoolClassPlaceholder": "Select a class (optional)",
+    "schoolClassHint": "Only students in this class will see it",
+    "topicPlaceholder": "e.g. Photosynthesis in plants",
+    "selectGrade": "Select grade"
+  },
+  "origin": {
+    "MANUAL": "Manual",
+    "AI": "AI generated",
+    "DOCUMENT": "From document"
+  },
+  "aiDraft": {
+    "button": "AI draft",
+    "generating": "AI is drafting, this may take 10–30 seconds…",
+    "needTopicGrade": "Enter a topic and select a grade before asking the AI",
+    "failed": "The AI could not create a draft, please try again",
+    "filled": "AI draft filled in, please review before saving",
+    "replaceTitle": "Replace the current content with the AI draft?",
+    "replaceDescription": "The title and content currently in the form will be replaced."
+  }
+}

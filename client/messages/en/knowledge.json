@@ -1,0 +1,7 @@
+{
+  "pageTitle": "RAG knowledge",
+  "tabs": {
+    "documents": "Source documents",
+    "chunks": "Knowledge chunks"
+  }
+}

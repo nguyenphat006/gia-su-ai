@@ -1,0 +1,23 @@
+{
+  "entity": "knowledge chunk",
+  "searchPlaceholder": "Search by title, content, topic…",
+  "fields": {
+    "title": "Title",
+    "content": "Content",
+    "sourceDocument": "Source document",
+    "embedding": "Embedding",
+    "chunkIndex": "Chunk order"
+  },
+  "embedding": {
+    "embedded": "Embedded",
+    "pending": "Pending embedding"
+  },
+  "form": {
+    "createTitle": "Add knowledge chunk",
+    "editTitle": "Edit knowledge chunk",
+    "titlePlaceholder": "e.g. What is photosynthesis",
+    "contentPlaceholder": "Knowledge the AI tutor uses to answer students",
+    "contentHint": "Changing the content re-embeds the chunk",
+    "contentMin": "At least {min} characters"
+  }
+}

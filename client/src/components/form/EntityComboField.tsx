@@ -17,10 +17,12 @@ interface EntityComboFieldProps<T extends FieldValues, TItem> extends EntityOpti
   className?: string;
   /** Giá trị trong form là số (id) */
   numeric?: boolean;
+  /** Cho phép bỏ chọn (trường không bắt buộc) */
+  allowClear?: boolean;
 }
 
 /** Trường chọn thực thể động (ĐVT, người dùng, khách hàng…) */
-export function EntityComboField<T extends FieldValues, TItem>({ name, label, rules, placeholder, hint, className, numeric = true, ...source }: EntityComboFieldProps<T, TItem>) {
+export function EntityComboField<T extends FieldValues, TItem>({ name, label, rules, placeholder, hint, className, numeric = true, allowClear, ...source }: EntityComboFieldProps<T, TItem>) {
   const { control } = useFormContext<T>();
   const { field, fieldState } = useController({ name, control, rules });
   const opts = useEntityOptions(source);
@@ -33,6 +35,7 @@ export function EntityComboField<T extends FieldValues, TItem>({ name, label, ru
         value={field.value == null ? null : String(field.value)}
         onChange={(v) => field.onChange(v === null ? null : numeric ? Number(v) : v)}
         placeholder={placeholder}
+        allowClear={allowClear}
         onSearch={opts.onSearch}
         onReachEnd={opts.onReachEnd}
         onOpenChange={opts.onOpenChange}

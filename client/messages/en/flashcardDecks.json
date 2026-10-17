@@ -1,0 +1,25 @@
+{
+  "pageTitle": "Flashcards",
+  "title": "Flashcards",
+  "entity": "flashcard deck",
+  "searchPlaceholder": "Search by deck title, topic…",
+  "fields": {
+    "title": "Deck title",
+    "cardCount": "Cards",
+    "cards": "Cards",
+    "front": "Front",
+    "back": "Back"
+  },
+  "form": {
+    "createTitle": "Add flashcard deck",
+    "editTitle": "Edit flashcard deck",
+    "titlePlaceholder": "e.g. Photosynthesis terms",
+    "cardsHint": "The front holds a question or term, the back holds the answer or meaning",
+    "cardLabel": "Card {index}",
+    "frontPlaceholder": "Question or term",
+    "backPlaceholder": "Answer or meaning",
+    "addCard": "Add card",
+    "removeCard": "Remove card {index}",
+    "minCards": "At least one card is required"
+  }
+}

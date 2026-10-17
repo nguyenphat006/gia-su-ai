@@ -1,0 +1,30 @@
+{
+  "pageTitle": "Mind maps",
+  "title": "Mind maps",
+  "entity": "mind map",
+  "searchPlaceholder": "Search by mind map title, topic…",
+  "fields": {
+    "title": "Mind map title",
+    "nodeCount": "Nodes",
+    "nodes": "Nodes",
+    "label": "Node text",
+    "parent": "Parent node"
+  },
+  "form": {
+    "createTitle": "Add mind map",
+    "editTitle": "Edit mind map",
+    "titlePlaceholder": "e.g. Photosynthesis map",
+    "nodesHint": "The first node is the root; every other node picks a parent (its own descendants are not allowed)",
+    "root": "Root",
+    "rootPlaceholder": "Main idea of the map",
+    "nodePlaceholder": "Node text",
+    "parentPlaceholder": "Select parent node",
+    "unnamed": "(untitled)",
+    "addNode": "Add node",
+    "removeNode": "Remove node {index}",
+    "labelsRequired": "Every node needs text",
+    "parentRequired": "Every node except the root needs a parent",
+    "preview": "Tree preview",
+    "previewEmpty": "No nodes yet"
+  }
+}

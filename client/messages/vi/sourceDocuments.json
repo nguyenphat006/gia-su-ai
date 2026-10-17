@@ -1,0 +1,51 @@
+{
+  "entity": "tài liệu",
+  "searchPlaceholder": "Tìm theo tên tài liệu, chủ đề…",
+  "fields": {
+    "title": "Tên tài liệu",
+    "status": "Xử lý",
+    "progress": "Tiến độ",
+    "chunkCount": "Số đoạn",
+    "questionCount": "Số câu hỏi",
+    "generateQuestions": "Sinh câu hỏi từ tài liệu",
+    "errorMessage": "Lỗi xử lý",
+    "rawText": "Văn bản trích xuất",
+    "createdBy": "Người tải lên"
+  },
+  "status": {
+    "PROCESSING": "Đang xử lý",
+    "COMPLETED": "Hoàn tất",
+    "FAILED": "Lỗi"
+  },
+  "upload": {
+    "button": "Tải tài liệu",
+    "title": "Tải tài liệu lên",
+    "description": "Hệ thống đọc tài liệu, chia thành các đoạn tri thức cho gia sư AI và có thể sinh câu hỏi chờ duyệt.",
+    "dropTitle": "Kéo thả hoặc bấm để chọn tệp",
+    "dropHint": "PDF, DOCX hoặc TXT, tối đa 50MB",
+    "file": "Tệp tài liệu",
+    "fileRequired": "Chọn tệp tài liệu",
+    "fileType": "Chỉ nhận tệp PDF, DOCX hoặc TXT",
+    "fileSize": "Tệp vượt quá 50MB",
+    "titleHint": "Bỏ trống = dùng tên tệp",
+    "generateHint": "AI sinh câu hỏi ở trạng thái Chờ duyệt để giáo viên duyệt",
+    "submit": "Tải lên",
+    "uploaded": "Đã tải lên, hệ thống đang đọc tài liệu"
+  },
+  "form": {
+    "editTitle": "Sửa thông tin tài liệu"
+  },
+  "detail": {
+    "title": "Chi tiết tài liệu",
+    "noText": "Chưa có văn bản trích xuất",
+    "processingHint": "Đang xử lý {processed}/{total} đoạn, danh sách tự làm mới mỗi 15 giây",
+    "approveAll": "Duyệt tất cả câu hỏi",
+    "rejectAll": "Loại tất cả câu hỏi chờ duyệt",
+    "approveConfirm": "Duyệt mọi câu hỏi đang chờ của tài liệu này?",
+    "approveDescription": "Các câu được duyệt sẽ vào ngân hàng câu hỏi cho học sinh luyện tập.",
+    "rejectConfirm": "Loại mọi câu hỏi đang chờ duyệt của tài liệu này?",
+    "rejectDescription": "Các câu bị loại không hiện cho học sinh; vẫn có thể sửa lại trong Ngân hàng câu hỏi.",
+    "reviewed": "Đã cập nhật {count} câu hỏi",
+    "loadError": "Không tải được chi tiết tài liệu"
+  }
+}

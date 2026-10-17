@@ -1,0 +1,23 @@
+{
+  "entity": "đoạn tri thức",
+  "searchPlaceholder": "Tìm theo tiêu đề, nội dung, chủ đề…",
+  "fields": {
+    "title": "Tiêu đề",
+    "content": "Nội dung",
+    "sourceDocument": "Tài liệu nguồn",
+    "embedding": "Nhúng vector",
+    "chunkIndex": "Thứ tự đoạn"
+  },
+  "embedding": {
+    "embedded": "Đã nhúng",
+    "pending": "Chờ nhúng"
+  },
+  "form": {
+    "createTitle": "Thêm đoạn tri thức",
+    "editTitle": "Sửa đoạn tri thức",
+    "titlePlaceholder": "Ví dụ: Khái niệm quang hợp",
+    "contentPlaceholder": "Nội dung kiến thức gia sư AI dùng để trả lời học sinh",
+    "contentHint": "Sửa nội dung thì đoạn sẽ được nhúng lại vector",
+    "contentMin": "Nội dung tối thiểu {min} ký tự"
+  }
+}

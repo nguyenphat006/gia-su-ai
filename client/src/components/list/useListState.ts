@@ -3,8 +3,8 @@
 import { useCallback, useMemo } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-/** Tham số dành riêng; mọi tham số khác trên URL là bộ lọc, gửi thẳng lên API. */
-const RESERVED = new Set(["q", "page", "page_size", "ordering"]);
+/** Tham số dành riêng; mọi tham số khác trên URL là bộ lọc, gửi thẳng lên API. `tab` = tab đang mở của trang nhiều danh sách. */
+const RESERVED = new Set(["q", "page", "page_size", "ordering", "tab"]);
 
 export interface ListStateOptions {
   defaultPageSize?: number;

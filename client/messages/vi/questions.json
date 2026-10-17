@@ -1,0 +1,61 @@
+{
+  "pageTitle": "Ngân hàng câu hỏi",
+  "title": "Ngân hàng câu hỏi",
+  "entity": "câu hỏi",
+  "searchPlaceholder": "Tìm theo nội dung, chủ đề, đáp án…",
+  "fields": {
+    "content": "Nội dung câu hỏi",
+    "questionType": "Loại câu hỏi",
+    "difficulty": "Mức độ",
+    "status": "Trạng thái duyệt",
+    "options": "Phương án",
+    "correctAnswer": "Đáp án đúng",
+    "sampleAnswer": "Đáp án mẫu",
+    "explanation": "Giải thích",
+    "hint": "Gợi ý",
+    "sourceDocument": "Tài liệu nguồn"
+  },
+  "questionType": {
+    "MULTIPLE_CHOICE": "Trắc nghiệm",
+    "ESSAY": "Tự luận"
+  },
+  "difficulty": {
+    "NHAN_BIET": "Nhận biết",
+    "THONG_HIEU": "Thông hiểu",
+    "VAN_DUNG": "Vận dụng"
+  },
+  "status": {
+    "PENDING": "Chờ duyệt",
+    "APPROVED": "Đã duyệt",
+    "REJECTED": "Từ chối"
+  },
+  "form": {
+    "createTitle": "Thêm câu hỏi",
+    "editTitle": "Sửa câu hỏi",
+    "optionLabel": "Phương án {letter}",
+    "optionsHint": "Nhập đủ 4 phương án khác nhau và chọn một đáp án đúng",
+    "correctRequired": "Chọn phương án đúng",
+    "optionsDuplicate": "Các phương án không được trùng nhau",
+    "markCorrect": "Đáp án đúng",
+    "contentMin": "Nội dung tối thiểu {min} ký tự"
+  },
+  "aiDraft": {
+    "title": "AI soạn nháp câu hỏi",
+    "description": "AI soạn các câu hỏi theo chủ đề; chọn câu phù hợp rồi lưu vào ngân hàng (trạng thái Đã duyệt).",
+    "count": "Số câu",
+    "countRange": "Từ {min} đến {max} câu",
+    "difficulties": "Mức độ",
+    "difficultiesPlaceholder": "Tất cả mức độ",
+    "generate": "Soạn nháp",
+    "regenerate": "Soạn lại",
+    "back": "Đổi yêu cầu",
+    "empty": "AI chưa trả về câu hỏi hợp lệ, hãy thử lại hoặc đổi chủ đề",
+    "selected": "Đã chọn {count}/{total} câu",
+    "saveSelected": "Lưu các câu đã chọn",
+    "saved": "Đã lưu {count} câu hỏi",
+    "partialSaved": "Đã lưu {saved} câu, {failed} câu lỗi: {message}",
+    "noneSelected": "Chọn ít nhất một câu để lưu",
+    "discardTitle": "Bỏ các câu AI vừa soạn?",
+    "discardDescription": "Các câu chưa lưu sẽ mất."
+  }
+}

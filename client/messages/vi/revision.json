@@ -1,0 +1,31 @@
+{
+  "sharedGrade": "Dùng chung",
+  "fields": {
+    "grade": "Khối",
+    "schoolClass": "Lớp (riêng)",
+    "topic": "Chủ đề",
+    "title": "Tiêu đề",
+    "origin": "Nguồn"
+  },
+  "form": {
+    "gradeHint": "Bỏ trống = dùng chung cho mọi khối",
+    "schoolClassPlaceholder": "Chọn lớp (không bắt buộc)",
+    "schoolClassHint": "Chỉ học sinh lớp này thấy nội dung",
+    "topicPlaceholder": "Ví dụ: Quang hợp ở thực vật",
+    "selectGrade": "Chọn khối"
+  },
+  "origin": {
+    "MANUAL": "Nhập tay",
+    "AI": "AI sinh",
+    "DOCUMENT": "Từ tài liệu"
+  },
+  "aiDraft": {
+    "button": "AI soạn nháp",
+    "generating": "AI đang soạn, có thể mất 10–30 giây…",
+    "needTopicGrade": "Nhập chủ đề và chọn khối trước khi nhờ AI soạn",
+    "failed": "AI chưa soạn được, vui lòng thử lại",
+    "filled": "Đã điền bản nháp của AI, hãy kiểm tra trước khi lưu",
+    "replaceTitle": "Thay nội dung đang nhập bằng bản nháp AI?",
+    "replaceDescription": "Tiêu đề và nội dung hiện có trong form sẽ bị thay thế."
+  }
+}
