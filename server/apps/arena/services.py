@@ -28,6 +28,8 @@ from apps.revision.practice import DEFAULT_TOPIC, pick_questions
 from .models import ArenaMatch, ArenaParticipant, MatchMode, MatchStatus
 
 SECONDS_PER_QUESTION = 30
+# Thời gian client hiển thị đáp án / chuyển câu (không tính vào câu kế tiếp)
+REVEAL_GRACE_SECONDS = 6
 DEFAULT_COUNT = 10
 AI_ACCURACY = 0.7
 AI_THINK_SECONDS = (3, 7)
@@ -87,7 +89,8 @@ def _time_left(match_id: int, user_id) -> int:
     started = cache.get(_timer_key(match_id, user_id))
     if started is None:
         return 0
-    return max(0, SECONDS_PER_QUESTION - int(timezone.now().timestamp() - started))
+    elapsed = int(timezone.now().timestamp() - started) - REVEAL_GRACE_SECONDS
+    return max(0, min(SECONDS_PER_QUESTION, SECONDS_PER_QUESTION - elapsed))
 
 
 def _award_pvp(question_index: int, me: ArenaParticipant, other: ArenaParticipant):
@@ -156,14 +159,14 @@ def submit_answer(match_id: int, user, question_index: int, answer: str) -> dict
             opponent_move = _ai_move(match, other, question_index)
         elif len(other.answers) > question_index:
             _award_pvp(question_index, me, other)
-            scores = {str(p.user_id): p.score for p in (me, other)}
+            scores = {str(p.user_id): p.score for p in (me, other)}  # điểm sau câu `question_index`
         _start_timer(match.id, user.id)
         done = len(me.answers) >= len(match.questions)
 
     return {
         'result': {'question_index': question_index, 'is_correct': is_correct, 'correct_answer': question['correct_answer'],
                    'explanation': question['explanation'], 'time_left': time_left, 'points': entry['points']},
-        'opponent_move': opponent_move, 'scores': scores, 'done': done,
+        'question_index': question_index, 'opponent_move': opponent_move, 'scores': scores, 'done': done,
         'my_score': me.score, 'opponent_score': other.score,
     }
 

@@ -12,6 +12,7 @@ function newBattle(): BattleState {
 }
 
 const aiOutcome = (index: number, correct: boolean, my: number, opp: number, done = false) => ({
+  question_index: index,
   result: { question_index: index, is_correct: correct, correct_answer: "A", explanation: "", time_left: 20, points: correct ? 30 : 0 },
   opponent_move: { question_index: index, is_correct: true, time_left: 10, points: 20 },
   done,

@@ -2615,18 +2615,6 @@ paths:
         description: Which field to use when ordering the results.
         schema:
           type: string
-      - name: page
-        required: false
-        in: query
-        description: A page number within the paginated result set.
-        schema:
-          type: integer
-      - name: page_size
-        required: false
-        in: query
-        description: Number of results to return per page.
-        schema:
-          type: integer
       - name: search
         required: false
         in: query
@@ -2643,7 +2631,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PaginatedChatMessageList'
+                type: array
+                items:
+                  $ref: '#/components/schemas/ChatMessage'
           description: ''
     post:
       operationId: learn_chat_sessions_messages_create
@@ -7521,6 +7511,8 @@ components:
     AiAnswerOutcome:
       type: object
       properties:
+        question_index:
+          type: integer
         result:
           $ref: '#/components/schemas/AnswerResult'
         opponent_move:
@@ -7536,6 +7528,7 @@ components:
       - my_score
       - opponent_move
       - opponent_score
+      - question_index
       - result
     AiDraftRequestRequest:
       type: object
@@ -7782,6 +7775,12 @@ components:
           type: integer
         full_name:
           type: string
+        grade:
+          type: integer
+          nullable: true
+        class_name:
+          type: string
+          nullable: true
         total_score:
           type: integer
         wins:
@@ -7789,7 +7788,9 @@ components:
         is_me:
           type: boolean
       required:
+      - class_name
       - full_name
+      - grade
       - is_me
       - rank
       - total_score
@@ -10233,39 +10234,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/AuditLogEvent'
-    PaginatedChatMessageList:
-      type: object
-      required:
-      - count
-      - total_pages
-      - current_page
-      - page_size
-      - results
-      properties:
-        count:
-          type: integer
-          example: 123
-        total_pages:
-          type: integer
-          example: 13
-        current_page:
-          type: integer
-          example: 1
-        page_size:
-          type: integer
-          example: 10
-        next:
-          type: string
-          nullable: true
-          format: uri
-        previous:
-          type: string
-          nullable: true
-          format: uri
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/ChatMessage'
     PaginatedChatPairList:
       type: object
       required:

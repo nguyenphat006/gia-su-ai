@@ -9,7 +9,7 @@ Client gửi {"type": ..., ...}:
     queue.join {same_grade}                     -> queue.waiting | match.start (cả hai)
     queue.leave                                 -> queue.left
     match.answer {match_id, question_index, answer}
-        -> (mình) match.answer_result; (cả hai, khi đủ 2 người trả lời câu đó) match.scores;
+        -> (mình) match.answer_result; (cả hai, khi đủ 2 người trả lời câu đó) match.scores {question_index, scores};
            (cả hai, khi hết câu) match.finished
     match.leave {match_id}                      -> xử thua; đối thủ nhận match.finished
 Server gửi lỗi: {"type": "error", "message": ...}. Mất kết nối giữa trận = bỏ cuộc.
@@ -207,7 +207,8 @@ class ArenaConsumer(AsyncJsonWebsocketConsumer):
         player_ids = await self._player_ids(match_id)
         if outcome['scores'] is not None:
             for uid in player_ids:
-                await self._to_user(uid, {'type': 'match.scores', 'match_id': match_id, 'scores': outcome['scores']})
+                await self._to_user(uid, {'type': 'match.scores', 'match_id': match_id,
+                                          'question_index': outcome['question_index'], 'scores': outcome['scores']})
         if await database_sync_to_async(_all_answered)(match_id):
             await self._finish(match_id, player_ids)
 

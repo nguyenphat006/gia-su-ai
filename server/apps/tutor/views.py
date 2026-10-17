@@ -61,7 +61,7 @@ class ChatSessionViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.
         return success_response(message=_("Đã xóa cuộc trò chuyện"))
 
     @extend_schema(tags=[TAG], summary="Tin nhắn trong phiên (cũ -> mới)", responses=ChatMessageSerializer(many=True))
-    @action(detail=True, methods=['get'], url_path='messages')
+    @action(detail=True, methods=['get'], url_path='messages', pagination_class=None)
     def messages(self, request, pk=None):
         session = self.get_object()
         rows = list(session.messages.order_by('-id')[:MESSAGE_LIMIT])[::-1]

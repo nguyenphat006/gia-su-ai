@@ -2551,57 +2551,6 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/reports/students/batch-delete/": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** @description Xóa mềm hàng loạt. Body: {"ids": [...]}. Bản ghi bị `check_can_destroy` chặn sẽ được bỏ qua. */
-        post: operations["reports_students_batch_delete_create"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/reports/students/batch-status/": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** @description Bật/tắt trạng thái hàng loạt. Body: {"ids": [...], "is_active": true | false}. */
-        post: operations["reports_students_batch_status_create"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/reports/students/excel-template/": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** @description API Tải file mẫu Excel (.xlsx) dùng cho chức năng Nhập dữ liệu (Import). */
-        get: operations["reports_students_excel_template_retrieve"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
     "/api/v1/reports/students/export-columns/": {
         parameters: {
             query?: never;
@@ -2631,23 +2580,6 @@ export interface paths {
         put?: never;
         /** @description API Xuất danh sách dữ liệu ra file Excel (.xlsx) hoặc CSV chuẩn Enterprise (Hỗ trợ Sync & Async Queue). */
         post: operations["reports_students_export_excel_create"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/reports/students/statistics/": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** @description Số liệu tổng quan: tổng / đang hoạt động / ngưng / mới trong tháng. */
-        get: operations["reports_students_statistics_retrieve"];
-        put?: never;
-        post?: never;
         delete?: never;
         options?: never;
         head?: never;
@@ -3649,6 +3581,7 @@ export interface components {
             count: number;
         };
         AiAnswerOutcome: {
+            question_index: number;
             result: components["schemas"]["AnswerResult"];
             opponent_move: components["schemas"]["OpponentMove"];
             done: boolean;
@@ -3758,6 +3691,8 @@ export interface components {
             rank: number;
             user_id: number;
             full_name: string;
+            grade: number | null;
+            class_name: string | null;
             total_score: number;
             wins: number;
             is_me: boolean;
@@ -3967,6 +3902,7 @@ export interface components {
         ChatPair: {
             readonly id: number;
             user_id: number;
+            readonly student_id: number | null;
             student_name: string;
             readonly class_name: string | null;
             session_id: number;
@@ -4382,6 +4318,7 @@ export interface components {
         LeaderRow: {
             rank: number;
             user_id: number;
+            student_id: number | null;
             full_name: string;
             student_code: string | null;
             class_name: string | null;
@@ -4814,21 +4751,6 @@ export interface components {
             /** Format: uri */
             previous?: string | null;
             results: components["schemas"]["AuditLogEvent"][];
-        };
-        PaginatedChatMessageList: {
-            /** @example 123 */
-            count: number;
-            /** @example 13 */
-            total_pages: number;
-            /** @example 1 */
-            current_page: number;
-            /** @example 10 */
-            page_size: number;
-            /** Format: uri */
-            next?: string | null;
-            /** Format: uri */
-            previous?: string | null;
-            results: components["schemas"]["ChatMessage"][];
         };
         PaginatedChatPairList: {
             /** @example 123 */
@@ -5580,6 +5502,7 @@ export interface components {
             readonly id: number;
             /** Học sinh */
             readonly user_id: number;
+            readonly student_id: number | null;
             student_name: string;
             readonly class_name: string | null;
             /** Loại bài */
@@ -8572,10 +8495,6 @@ export interface operations {
             query?: {
                 /** @description Which field to use when ordering the results. */
                 ordering?: string;
-                /** @description A page number within the paginated result set. */
-                page?: number;
-                /** @description Number of results to return per page. */
-                page_size?: number;
                 /** @description A search term. */
                 search?: string;
             };
@@ -8593,7 +8512,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["PaginatedChatMessageList"];
+                    "application/json": components["schemas"]["ChatMessage"][];
                 };
             };
         };
@@ -10215,9 +10134,11 @@ export interface operations {
                 page?: number;
                 /** @description Number of results to return per page. */
                 page_size?: number;
+                q?: string;
                 school_class?: number;
                 /** @description A search term. */
                 search?: string;
+                status?: "ABANDONED" | "FINISHED" | "IN_PROGRESS";
                 user?: number;
             };
             header?: never;
@@ -10383,6 +10304,7 @@ export interface operations {
                 page?: number;
                 /** @description Number of results to return per page. */
                 page_size?: number;
+                q?: string;
                 quiz_type?: string;
                 school_class?: number;
                 /** @description A search term. */
@@ -10564,75 +10486,6 @@ export interface operations {
             };
         };
     };
-    reports_students_batch_delete_create: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["StudentReportRequest"];
-                "application/x-www-form-urlencoded": components["schemas"]["StudentReportRequest"];
-                "multipart/form-data": components["schemas"]["StudentReportRequest"];
-            };
-        };
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["StudentReport"];
-                };
-            };
-        };
-    };
-    reports_students_batch_status_create: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["StudentReportRequest"];
-                "application/x-www-form-urlencoded": components["schemas"]["StudentReportRequest"];
-                "multipart/form-data": components["schemas"]["StudentReportRequest"];
-            };
-        };
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["StudentReport"];
-                };
-            };
-        };
-    };
-    reports_students_excel_template_retrieve: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["StudentReport"];
-                };
-            };
-        };
-    };
     reports_students_export_columns_retrieve: {
         parameters: {
             query?: never;
@@ -10685,25 +10538,6 @@ export interface operations {
                 "multipart/form-data": components["schemas"]["StudentReportRequest"];
             };
         };
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["StudentReport"];
-                };
-            };
-        };
-    };
-    reports_students_statistics_retrieve: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
         responses: {
             200: {
                 headers: {

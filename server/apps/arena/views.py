@@ -68,6 +68,7 @@ class OpponentMoveSerializer(serializers.Serializer):
 
 
 class AiAnswerOutcomeSerializer(serializers.Serializer):
+    question_index = serializers.IntegerField()
     result = AnswerResultSerializer()
     opponent_move = OpponentMoveSerializer()
     done = serializers.BooleanField()
@@ -125,6 +126,8 @@ class ArenaLeaderRowSerializer(serializers.Serializer):
     rank = serializers.IntegerField()
     user_id = serializers.IntegerField()
     full_name = serializers.CharField()
+    grade = serializers.IntegerField(allow_null=True)
+    class_name = serializers.CharField(allow_null=True)
     total_score = serializers.IntegerField()
     wins = serializers.IntegerField()
     is_me = serializers.BooleanField()
@@ -259,9 +262,12 @@ class ArenaLeaderboardView(APIView):
         grade = request.query_params.get('grade')
         if grade and grade.isdigit():
             qs = qs.filter(user__student_profile__grade=int(grade))
-        rows = (qs.values('user_id', 'user__full_name')
+        rows = (qs.values('user_id', 'user__full_name', 'user__student_profile__grade',
+                          'user__student_profile__school_class__name')
                 .annotate(total_score=Sum('score'), wins=Count('id', filter=Q(is_winner=True)))
                 .order_by('-total_score', 'user_id')[:limit])
-        data = [{'rank': i, 'user_id': r['user_id'], 'full_name': r['user__full_name'], 'total_score': r['total_score'] or 0,
+        data = [{'rank': i, 'user_id': r['user_id'], 'full_name': r['user__full_name'],
+                 'grade': r['user__student_profile__grade'], 'class_name': r['user__student_profile__school_class__name'],
+                 'total_score': r['total_score'] or 0,
                  'wins': r['wins'], 'is_me': r['user_id'] == request.user.id} for i, r in enumerate(rows, start=1)]
         return success_response(data=ArenaLeaderRowSerializer(data, many=True).data)
