@@ -4,3 +4,5 @@ client/src/types/api.generated.ts text eol=lf
 # Bản dịch backend: .po sinh bởi makemessages (LF), .mo nhị phân do compilemessages biên dịch
 server/locale/**/*.po text eol=lf
 server/locale/**/*.mo binary
+# Script chạy trên Linux (Render / Docker): luôn LF
+*.sh text eol=lf
