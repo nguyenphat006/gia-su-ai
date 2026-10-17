@@ -24,6 +24,7 @@ api_v1_patterns = [
     path('', include('apps.revision.urls')),
     path('', include('apps.gamification.urls')),
     path('', include('apps.tutor.urls')),
+    path('', include('apps.arena.urls')),
     # [startmodule] app mới được chèn phía trên dòng này
 ]
 

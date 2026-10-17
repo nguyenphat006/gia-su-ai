@@ -91,6 +91,7 @@ LOCAL_APPS = [
     'apps.gamification',
     'apps.analytics',
     'apps.tutor',
+    'apps.arena',
     # [startmodule] app mới được chèn phía trên dòng này
 ]
 

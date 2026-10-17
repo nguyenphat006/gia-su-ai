@@ -14,7 +14,7 @@ from django.db.models import Q
 from django.utils.translation import gettext as _
 from rest_framework.exceptions import NotFound, ValidationError
 
-from apps.ai.client import generate_json
+from apps.ai.client import AiUnavailable, generate_json
 from apps.ai.prompts import essay_grading_prompt
 from apps.analytics.models import EventType, record_event
 from apps.gamification import services as gamification
@@ -50,8 +50,13 @@ def pick_questions(user, *, grade, topic: str, count: int, question_type: str = 
     chosen = list(Question.objects.filter(id__in=random.sample(ids, min(count, len(ids)))))
     missing = count - len(chosen)
     if missing > 0:
-        drafts = generation.draft_questions(topic=topic or _("Ôn tập KHTN"), grade=grade, count=missing,
-                                            question_type=question_type, difficulties=difficulties or [])
+        try:
+            drafts = generation.draft_questions(topic=topic or _("Ôn tập KHTN"), grade=grade, count=missing,
+                                                question_type=question_type, difficulties=difficulties or [])
+        except AiUnavailable:
+            if not chosen:
+                raise
+            drafts = []  # AI lỗi / hết lượt nhưng ngân hàng đã có câu -> vẫn cho làm bài với số câu hiện có
         with transaction.atomic():
             chosen += [
                 Question.objects.create(grade=grade, topic=topic or _("Ôn tập KHTN"), origin=Origin.AI,
