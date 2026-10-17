@@ -1131,6 +1131,461 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/learn/arena/ai/start/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Bắt đầu đấu với AI
+         * @description Bắt đầu trận đấu với AI.
+         */
+        post: operations["learn_arena_ai_start_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/learn/arena/leaderboard/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Bảng vàng đấu trường
+         * @description Bảng vàng đấu trường: tổng điểm các trận đã kết thúc. Lọc `grade`.
+         */
+        get: operations["learn_arena_leaderboard_list"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/learn/arena/matches/{match_id}/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Kết quả trận đấu
+         * @description Kết quả 1 trận tôi đã tham gia.
+         */
+        get: operations["learn_arena_matches_retrieve"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/learn/arena/matches/{match_id}/analysis/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Nhận xét AI sau trận
+         * @description Cô Trang (AI) nhận xét bài làm của tôi trong trận (tạo 1 lần, lần sau đọc lại).
+         */
+        post: operations["learn_arena_matches_analysis_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/learn/arena/matches/{match_id}/answer/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Trả lời câu (đấu AI)
+         * @description Trả lời 1 câu khi đấu AI — server chấm, AI đi nước của nó cho cùng câu.
+         */
+        post: operations["learn_arena_matches_answer_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/learn/arena/matches/{match_id}/finish/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Kết thúc trận đấu AI
+         * @description Kết thúc trận đấu AI (đã trả lời hết câu) -> chốt thắng / thua, cộng XP.
+         */
+        post: operations["learn_arena_matches_finish_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/learn/arena/me/matches/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Lịch sử đấu của tôi
+         * @description 20 trận gần nhất của tôi.
+         */
+        get: operations["learn_arena_me_matches_list"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/learn/arena/me/stats/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Thống kê đấu trường của tôi
+         * @description Số trận / thắng / thua / tỉ lệ thắng / tổng điểm của tôi (chỉ trận đã kết thúc).
+         */
+        get: operations["learn_arena_me_stats_retrieve"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/learn/chat/sessions/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Các phiên trò chuyện của tôi */
+        get: operations["learn_chat_sessions_list"];
+        put?: never;
+        /** Tạo phiên trò chuyện mới */
+        post: operations["learn_chat_sessions_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/learn/chat/sessions/{id}/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /** Xóa phiên trò chuyện */
+        delete: operations["learn_chat_sessions_destroy"];
+        options?: never;
+        head?: never;
+        /** Đổi tên phiên */
+        patch: operations["learn_chat_sessions_partial_update"];
+        trace?: never;
+    };
+    "/api/v1/learn/chat/sessions/{id}/messages/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Tin nhắn trong phiên (cũ -> mới) */
+        get: operations["learn_chat_sessions_messages_list"];
+        put?: never;
+        /** Gửi câu hỏi cho gia sư AI */
+        post: operations["learn_chat_sessions_messages_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/learn/leaderboard/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Bảng xếp hạng
+         * @description Bảng xếp hạng: `scope=weekly` (XP tuần, mặc định) | `month` (tổng XP trong tháng) | `all` (tổng XP).
+         *     Lọc `grade` để xem trong khối. Chỉ lộ họ tên + lớp (không lộ tài khoản / email).
+         */
+        get: operations["learn_leaderboard_list"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/learn/me/challenges/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Thử thách của tôi
+         * @description Thử thách kỳ hiện tại kèm tiến độ của tôi.
+         */
+        get: operations["learn_me_challenges_list"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/learn/me/check-in/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Điểm danh hằng ngày
+         * @description Điểm danh đầu ngày — giao diện học sinh gọi khi mở; gọi nhiều lần trong ngày không cộng thêm.
+         */
+        post: operations["learn_me_check_in_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/learn/me/stats/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Thành tích của tôi
+         * @description Thống kê của học sinh đang đăng nhập (XP, chuỗi ngày, danh hiệu, hạng tuần).
+         */
+        get: operations["learn_me_stats_retrieve"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/learn/practice/flashcards/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Lấy bộ flashcard theo chủ đề
+         * @description Bộ flashcard theo chủ đề (có sẵn hoặc AI tạo mới và lưu lại).
+         */
+        post: operations["learn_practice_flashcards_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/learn/practice/flashcards/submit/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Nộp bài kiểm tra flashcard
+         * @description Nộp bài kiểm tra flashcard (chọn mặt sau đúng cho từng thẻ).
+         */
+        post: operations["learn_practice_flashcards_submit_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/learn/practice/mindmap/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Lấy sơ đồ tư duy theo chủ đề
+         * @description Sơ đồ tư duy theo chủ đề (có sẵn hoặc AI tạo mới và lưu lại).
+         */
+        post: operations["learn_practice_mindmap_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/learn/practice/quiz/check/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Chấm một câu trả lời
+         * @description Chấm 1 câu ngay khi trả lời (tự luận: AI chấm, có thể gửi ảnh bài làm).
+         */
+        post: operations["learn_practice_quiz_check_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/learn/practice/quiz/history/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Lịch sử ôn tập của tôi
+         * @description 20 lượt ôn tập gần nhất của tôi.
+         */
+        get: operations["learn_practice_quiz_history_list"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/learn/practice/quiz/start/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Bắt đầu bài ôn tập
+         * @description Lấy đề ôn tập (ngân hàng trước, AI bù). Không kèm đáp án.
+         */
+        post: operations["learn_practice_quiz_start_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/learn/practice/quiz/submit/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Nộp bài ôn tập
+         * @description Nộp bài: server chấm lại, lưu lịch sử, cộng XP (10 / câu đúng), tính thử thách.
+         */
+        post: operations["learn_practice_quiz_submit_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/learn/practice/topics/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Chủ đề gợi ý
+         * @description Chủ đề đang có câu hỏi trong ngân hàng (gợi ý cho ô chọn chủ đề).
+         */
+        get: operations["learn_practice_topics_list"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/mindmaps/": {
         parameters: {
             query?: never;
@@ -1859,6 +2314,358 @@ export interface paths {
         };
         /** @description Số liệu tổng quan: tổng / đang hoạt động / ngưng / mới trong tháng. */
         get: operations["questions_statistics_retrieve"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/reports/arena-matches/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Lịch sử trận đấu */
+        get: operations["reports_arena_matches_list"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/reports/arena-matches/{id}/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Chi tiết trận đấu (từng câu) */
+        get: operations["reports_arena_matches_retrieve"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/reports/chat-logs/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Nhật ký hỏi đáp gia sư AI
+         * @description Câu hỏi của học sinh kèm câu trả lời ngay sau đó (để giáo viên theo dõi chất lượng gia sư AI).
+         */
+        get: operations["reports_chat_logs_list"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/reports/chat-logs/{id}/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Chi tiết một lượt hỏi đáp
+         * @description Câu hỏi của học sinh kèm câu trả lời ngay sau đó (để giáo viên theo dõi chất lượng gia sư AI).
+         */
+        get: operations["reports_chat_logs_retrieve"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/reports/heatmap/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Heatmap giờ học
+         * @description Giờ học tập trong tuần (thứ × giờ).
+         */
+        get: operations["reports_heatmap_list"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/reports/overview/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Tổng quan học tập
+         * @description Tổng quan hoạt động học sinh trong khoảng thời gian (mặc định 30 ngày).
+         */
+        get: operations["reports_overview_retrieve"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/reports/quiz-attempts/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Lịch sử ôn tập */
+        get: operations["reports_quiz_attempts_list"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/reports/quiz-attempts/{id}/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Chi tiết lượt ôn tập */
+        get: operations["reports_quiz_attempts_retrieve"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/reports/students/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Thống kê theo học sinh
+         * @description Số liệu học tập từng học sinh (đếm theo khoảng thời gian nếu có date_from / date_to). Chỉ đọc + xuất Excel.
+         */
+        get: operations["reports_students_list"];
+        put?: never;
+        /** @description Số liệu học tập từng học sinh (đếm theo khoảng thời gian nếu có date_from / date_to). Chỉ đọc + xuất Excel. */
+        post: operations["reports_students_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/reports/students/{id}/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Thống kê một học sinh
+         * @description Số liệu học tập từng học sinh (đếm theo khoảng thời gian nếu có date_from / date_to). Chỉ đọc + xuất Excel.
+         */
+        get: operations["reports_students_retrieve"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/reports/students/{id}/summary/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Chỉ số tổng hợp của một học sinh
+         * @description Số liệu học tập từng học sinh (đếm theo khoảng thời gian nếu có date_from / date_to). Chỉ đọc + xuất Excel.
+         */
+        get: operations["reports_students_summary_retrieve"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/reports/students/{id}/timeline/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Dòng thời gian hoạt động của một học sinh
+         * @description Số liệu học tập từng học sinh (đếm theo khoảng thời gian nếu có date_from / date_to). Chỉ đọc + xuất Excel.
+         */
+        get: operations["reports_students_timeline_list"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/reports/students/batch-delete/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Xóa mềm hàng loạt. Body: {"ids": [...]}. Bản ghi bị `check_can_destroy` chặn sẽ được bỏ qua. */
+        post: operations["reports_students_batch_delete_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/reports/students/batch-status/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Bật/tắt trạng thái hàng loạt. Body: {"ids": [...], "is_active": true | false}. */
+        post: operations["reports_students_batch_status_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/reports/students/excel-template/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description API Tải file mẫu Excel (.xlsx) dùng cho chức năng Nhập dữ liệu (Import). */
+        get: operations["reports_students_excel_template_retrieve"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/reports/students/export-columns/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description API trả về danh sách các trường dữ liệu (fields) của Model phục vụ cấu hình xuất file. */
+        get: operations["reports_students_export_columns_retrieve"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/reports/students/export-excel/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description API Xuất danh sách dữ liệu ra file Excel (.xlsx) hoặc CSV chuẩn Enterprise (Hỗ trợ Sync & Async Queue). */
+        get: operations["reports_students_export_excel_retrieve"];
+        put?: never;
+        /** @description API Xuất danh sách dữ liệu ra file Excel (.xlsx) hoặc CSV chuẩn Enterprise (Hỗ trợ Sync & Async Queue). */
+        post: operations["reports_students_export_excel_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/reports/students/statistics/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Số liệu tổng quan: tổng / đang hoạt động / ngưng / mới trong tháng. */
+        get: operations["reports_students_statistics_retrieve"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/reports/xp-leaderboard/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Bảng xếp hạng XP
+         * @description Học sinh nhận nhiều XP nhất trong khoảng thời gian (thay báo cáo BXH tháng bản cũ).
+         */
+        get: operations["reports_xp_leaderboard_list"];
         put?: never;
         post?: never;
         delete?: never;
@@ -2841,6 +3648,13 @@ export interface components {
             date: string;
             count: number;
         };
+        AiAnswerOutcome: {
+            result: components["schemas"]["AnswerResult"];
+            opponent_move: components["schemas"]["OpponentMove"];
+            done: boolean;
+            my_score: number;
+            opponent_score: number;
+        };
         AiDraftRequestRequest: {
             grade?: (components["schemas"]["GradeEnum"] | components["schemas"]["NullEnum"]) | null;
             topic: string;
@@ -2848,6 +3662,14 @@ export interface components {
             count: number;
             /** @default MULTIPLE_CHOICE */
             question_type: components["schemas"]["QuestionTypeEnum"];
+            difficulties?: components["schemas"]["DifficultyEnum"][];
+        };
+        AiMatchStartRequest: {
+            /** @default  */
+            topic: string;
+            grade?: (components["schemas"]["GradeEnum"] | components["schemas"]["NullEnum"]) | null;
+            /** @default 10 */
+            count: number;
             difficulties?: components["schemas"]["DifficultyEnum"][];
         };
         /** @description Serializer ĐỌC cấu hình AI. */
@@ -2904,6 +3726,99 @@ export interface components {
             description?: string | null;
             /** Trạng thái hoạt động */
             is_active?: boolean;
+        };
+        Analysis: {
+            /** Format: double */
+            score: number | null;
+            analysis: string;
+            advice: string;
+        };
+        AnswerItemRequest: {
+            question_id: number;
+            /** @default  */
+            answer: string;
+        };
+        AnswerResult: {
+            question_index: number;
+            is_correct: boolean;
+            correct_answer: string;
+            explanation: string;
+            time_left: number;
+            points: number | null;
+        };
+        ArenaAnswerRequest: {
+            question_index: number;
+            /**
+             * @description Bỏ trống khi hết giờ
+             * @default
+             */
+            answer: string;
+        };
+        ArenaLeaderRow: {
+            rank: number;
+            user_id: number;
+            full_name: string;
+            total_score: number;
+            wins: number;
+            is_me: boolean;
+        };
+        ArenaMatchDetail: {
+            readonly id: number;
+            /** Chế độ */
+            mode: components["schemas"]["ModeEnum"];
+            /** Chủ đề */
+            topic: string;
+            /** Khối */
+            grade?: number | null;
+            /** Trạng thái */
+            status?: components["schemas"]["MatchStatusEnum"];
+            readonly total_questions: number;
+            readonly participants: {
+                [key: string]: unknown;
+            }[];
+            /** Format: date-time */
+            created_at: string;
+            /** Format: date-time */
+            ended_at: string | null;
+            /** @description Từng câu: đề, đáp án đúng, câu trả lời + điểm của từng người chơi. */
+            readonly answers: {
+                [key: string]: unknown;
+            }[];
+            /** Nhận xét AI */
+            ai_analysis?: unknown;
+        };
+        ArenaMatchReport: {
+            readonly id: number;
+            /** Chế độ */
+            mode: components["schemas"]["ModeEnum"];
+            /** Chủ đề */
+            topic: string;
+            /** Khối */
+            grade?: number | null;
+            /** Trạng thái */
+            status?: components["schemas"]["MatchStatusEnum"];
+            readonly total_questions: number;
+            readonly participants: {
+                [key: string]: unknown;
+            }[];
+            /** Format: date-time */
+            created_at: string;
+            /** Format: date-time */
+            ended_at: string | null;
+        };
+        ArenaQuestion: {
+            index: number;
+            content: string;
+            options: string[];
+            hint: string;
+            difficulty: string;
+        };
+        ArenaStats: {
+            total_matches: number;
+            wins: number;
+            losses: number;
+            win_rate: number;
+            total_score: number;
         };
         /** @description Serializer cho tệp đính kèm đa hình (Attachments). */
         Attachment: {
@@ -3016,11 +3931,94 @@ export interface components {
             label: string;
             count: number;
         };
+        ChallengeProgress: {
+            id: number;
+            code: string;
+            name: string;
+            description: string;
+            period: string;
+            goal: number;
+            progress: number;
+            completed: boolean;
+            xp_reward: number;
+            points_reward: number;
+        };
         /** @description Serializer xử lý đổi mật khẩu cho người dùng hiện tại. */
         ChangePasswordRequest: {
             old_password: string;
             new_password: string;
             confirm_password: string;
+        };
+        ChatMessage: {
+            readonly id: number;
+            /** Vai trò */
+            readonly role: components["schemas"]["RoleEnum"];
+            /** Nội dung */
+            readonly content: string;
+            /** Bị chặn */
+            readonly is_blocked: boolean;
+            readonly image_urls: string[];
+            /**
+             * Thời điểm
+             * Format: date-time
+             */
+            readonly created_at: string;
+        };
+        ChatPair: {
+            readonly id: number;
+            user_id: number;
+            student_name: string;
+            readonly class_name: string | null;
+            session_id: number;
+            question: string;
+            answer: string | null;
+            answer_role: string | null;
+            /** Bị chặn */
+            is_blocked?: boolean;
+            /** Lý do chặn */
+            block_reason?: string | null;
+            /** Format: date-time */
+            created_at: string;
+        };
+        ChatSession: {
+            readonly id: number;
+            /** Tiêu đề */
+            title?: string;
+            /**
+             * Tin nhắn gần nhất
+             * Format: date-time
+             */
+            readonly last_message_at: string | null;
+            /**
+             * Thời điểm tạo
+             * Format: date-time
+             */
+            readonly created_at: string;
+        };
+        ChatSessionRequest: {
+            /** Tiêu đề */
+            title?: string;
+        };
+        CheckAnswerRequest: {
+            question_id: number;
+            /** @default  */
+            answer: string;
+            /**
+             * Format: binary
+             * @description Ảnh bài làm tự luận
+             */
+            image?: string;
+        };
+        CheckAnswerResult: {
+            is_correct: boolean;
+            correct_answer: string;
+            explanation: string;
+            score: number;
+            feedback: string;
+        };
+        CheckIn: {
+            checked_in: boolean;
+            current_streak: number;
         };
         /**
          * @description Serializer hiển thị hồ sơ cá nhân và quyền hạn của chính người dùng đang đăng nhập (/auth/me/).
@@ -3076,6 +4074,12 @@ export interface components {
         CustomTokenObtainPairRequest: {
             username: string;
             password: string;
+        };
+        DailyPoint: {
+            /** Format: date */
+            date: string;
+            active_students: number;
+            events: number;
         };
         DashboardOverview: {
             kpis: components["schemas"]["Kpi"][];
@@ -3154,6 +4158,16 @@ export interface components {
          */
         DocumentStatusEnum: "PROCESSING" | "COMPLETED" | "FAILED";
         /**
+         * @description * `LOGIN` - Vào học
+         *     * `CHAT` - Hỏi gia sư AI
+         *     * `QUIZ` - Làm bài ôn tập
+         *     * `FLASHCARD_VIEW` - Xem flashcard
+         *     * `MINDMAP_VIEW` - Xem sơ đồ tư duy
+         *     * `ARENA` - Thi đấu đấu trường
+         * @enum {string}
+         */
+        EventTypeEnum: "LOGIN" | "CHAT" | "QUIZ" | "FLASHCARD_VIEW" | "MINDMAP_VIEW" | "ARENA";
+        /**
          * @description * `DOCUMENT` - Tài liệu chung
          *     * `IMAGE` - Hình ảnh / Bản chụp
          *     * `CAD_DRAWING` - Bản vẽ kỹ thuật CAD / DWG
@@ -3163,6 +4177,11 @@ export interface components {
          * @enum {string}
          */
         FileCategoryEnum: "DOCUMENT" | "IMAGE" | "CAD_DRAWING" | "SPEC_SHEET" | "CONTRACT" | "OTHER";
+        FlashcardAnswerRequest: {
+            card_index: number;
+            /** @default  */
+            answer: string;
+        };
         FlashcardDeck: {
             readonly id: number;
             /** Khối */
@@ -3232,6 +4251,10 @@ export interface components {
                 [key: string]: unknown;
             }[];
         };
+        FlashcardQuizSubmitRequest: {
+            deck_id: number;
+            answers: components["schemas"]["FlashcardAnswerRequest"][];
+        };
         /**
          * @description * `6` - Khối 6
          *     * `7` - Khối 7
@@ -3265,6 +4288,12 @@ export interface components {
          * @enum {string}
          */
         HealthStatusStatusEnum: "ok" | "degraded" | "error";
+        HeatmapCell: {
+            /** @description 1 = Thứ Hai ... 7 = Chủ nhật */
+            weekday: number;
+            hour: number;
+            count: number;
+        };
         ImportCredential: {
             student_code: string;
             full_name: string;
@@ -3349,6 +4378,65 @@ export interface components {
             hint: string;
             href: string | null;
         };
+        LeaderRow: {
+            rank: number;
+            user_id: number;
+            full_name: string;
+            student_code: string | null;
+            class_name: string | null;
+            xp: number;
+        };
+        LeaderboardRow: {
+            rank: number;
+            user_id: number;
+            full_name: string;
+            grade: number | null;
+            class_name: string | null;
+            xp: number;
+            level_title: string;
+            is_me: boolean;
+        };
+        LearnFlashcardDeck: {
+            id: number;
+            title: string;
+            topic: string;
+            grade: number | null;
+            cards: {
+                [key: string]: unknown;
+            }[];
+        };
+        LearnMindmap: {
+            id: number;
+            title: string;
+            topic: string;
+            grade: number | null;
+            nodes: {
+                [key: string]: unknown;
+            }[];
+        };
+        LearningEvent: {
+            readonly id: number;
+            /** Loại sự kiện */
+            event_type: components["schemas"]["EventTypeEnum"];
+            /** Loại nguồn */
+            source_type?: string | null;
+            /**
+             * Id nguồn
+             * Format: int64
+             */
+            source_id?: number | null;
+            /** Thông tin phụ */
+            metadata?: unknown;
+            /** Format: date-time */
+            occurred_at: string;
+        };
+        Level: {
+            title: string;
+            min_xp: number;
+            next_title: string | null;
+            next_min_xp: number | null;
+            progress: number;
+        };
         /**
          * @description * `INFO` - Thông tin
          *     * `SUCCESS` - Thành công
@@ -3364,6 +4452,40 @@ export interface components {
         LogoutRequestRequest: {
             refresh: string;
         };
+        MatchHistory: {
+            match_id: number;
+            mode: string;
+            topic: string;
+            status: string;
+            score: number;
+            opponent_name: string;
+            opponent_score: number;
+            is_winner: boolean;
+            xp_earned: number;
+            /** Format: date-time */
+            created_at: string;
+        };
+        MatchResult: {
+            match_id: number;
+            mode: string;
+            topic: string;
+            status: string;
+            total_questions: number;
+            participants: components["schemas"]["ParticipantResult"][];
+        };
+        MatchStarted: {
+            match_id: number;
+            topic: string;
+            seconds_per_question: number;
+            questions: components["schemas"]["ArenaQuestion"][];
+        };
+        /**
+         * @description * `IN_PROGRESS` - Đang đấu
+         *     * `FINISHED` - Đã kết thúc
+         *     * `ABANDONED` - Bỏ dở
+         * @enum {string}
+         */
+        MatchStatusEnum: "IN_PROGRESS" | "FINISHED" | "ABANDONED";
         Mindmap: {
             readonly id: number;
             /** Khối */
@@ -3433,6 +4555,12 @@ export interface components {
                 [key: string]: unknown;
             }[];
         };
+        /**
+         * @description * `PVP` - Đấu với bạn
+         *     * `AI` - Đấu với AI
+         * @enum {string}
+         */
+        ModeEnum: "PVP" | "AI";
         /** @description Serializer thêm Action đơn lẻ vào module có sẵn. */
         ModuleAddActionRequest: {
             /** @description Mã hành động, ví dụ 'APPROVE', 'EXPORT' */
@@ -3560,6 +4688,17 @@ export interface components {
             /** @description Danh sách ID các Module theo thứ tự mong muốn từ trên xuống dưới */
             ordered_ids: number[];
         };
+        MyStats: {
+            total_xp: number;
+            weekly_xp: number;
+            points: number;
+            current_streak: number;
+            longest_streak: number;
+            /** Format: date */
+            last_study_date: string | null;
+            level: components["schemas"]["Level"];
+            weekly_rank: number | null;
+        };
         Notification: {
             readonly id: number;
             /** Mức độ */
@@ -3591,6 +4730,12 @@ export interface components {
          * @enum {string}
          */
         NumberFormatEnum: "INTL" | "VN";
+        OpponentMove: {
+            question_index: number;
+            is_correct: boolean;
+            time_left: number;
+            points: number;
+        };
         /**
          * @description * `MANUAL` - Nhập tay
          *     * `AI` - AI sinh
@@ -3598,6 +4743,17 @@ export interface components {
          * @enum {string}
          */
         OriginEnum: "MANUAL" | "AI" | "DOCUMENT";
+        Overview: {
+            total_students: number;
+            active_students: number;
+            chat_questions: number;
+            quiz_attempts: number;
+            arena_matches: number;
+            flashcard_views: number;
+            mindmap_views: number;
+            quiz_accuracy: number | null;
+            daily: components["schemas"]["DailyPoint"][];
+        };
         PaginatedAiSettingList: {
             /** @example 123 */
             count: number;
@@ -3612,6 +4768,21 @@ export interface components {
             /** Format: uri */
             previous?: string | null;
             results: components["schemas"]["AiSetting"][];
+        };
+        PaginatedArenaMatchReportList: {
+            /** @example 123 */
+            count: number;
+            /** @example 13 */
+            total_pages: number;
+            /** @example 1 */
+            current_page: number;
+            /** @example 10 */
+            page_size: number;
+            /** Format: uri */
+            next?: string | null;
+            /** Format: uri */
+            previous?: string | null;
+            results: components["schemas"]["ArenaMatchReport"][];
         };
         PaginatedAttachmentList: {
             /** @example 123 */
@@ -3642,6 +4813,51 @@ export interface components {
             /** Format: uri */
             previous?: string | null;
             results: components["schemas"]["AuditLogEvent"][];
+        };
+        PaginatedChatMessageList: {
+            /** @example 123 */
+            count: number;
+            /** @example 13 */
+            total_pages: number;
+            /** @example 1 */
+            current_page: number;
+            /** @example 10 */
+            page_size: number;
+            /** Format: uri */
+            next?: string | null;
+            /** Format: uri */
+            previous?: string | null;
+            results: components["schemas"]["ChatMessage"][];
+        };
+        PaginatedChatPairList: {
+            /** @example 123 */
+            count: number;
+            /** @example 13 */
+            total_pages: number;
+            /** @example 1 */
+            current_page: number;
+            /** @example 10 */
+            page_size: number;
+            /** Format: uri */
+            next?: string | null;
+            /** Format: uri */
+            previous?: string | null;
+            results: components["schemas"]["ChatPair"][];
+        };
+        PaginatedChatSessionList: {
+            /** @example 123 */
+            count: number;
+            /** @example 13 */
+            total_pages: number;
+            /** @example 1 */
+            current_page: number;
+            /** @example 10 */
+            page_size: number;
+            /** Format: uri */
+            next?: string | null;
+            /** Format: uri */
+            previous?: string | null;
+            results: components["schemas"]["ChatSession"][];
         };
         PaginatedDataTransferJobList: {
             /** @example 123 */
@@ -3687,6 +4903,21 @@ export interface components {
             /** Format: uri */
             previous?: string | null;
             results: components["schemas"]["KnowledgeChunk"][];
+        };
+        PaginatedLearningEventList: {
+            /** @example 123 */
+            count: number;
+            /** @example 13 */
+            total_pages: number;
+            /** @example 1 */
+            current_page: number;
+            /** @example 10 */
+            page_size: number;
+            /** Format: uri */
+            next?: string | null;
+            /** Format: uri */
+            previous?: string | null;
+            results: components["schemas"]["LearningEvent"][];
         };
         PaginatedMindmapList: {
             /** @example 123 */
@@ -3778,6 +5009,21 @@ export interface components {
             previous?: string | null;
             results: components["schemas"]["Question"][];
         };
+        PaginatedQuizAttemptReportList: {
+            /** @example 123 */
+            count: number;
+            /** @example 13 */
+            total_pages: number;
+            /** @example 1 */
+            current_page: number;
+            /** @example 10 */
+            page_size: number;
+            /** Format: uri */
+            next?: string | null;
+            /** Format: uri */
+            previous?: string | null;
+            results: components["schemas"]["QuizAttemptReport"][];
+        };
         PaginatedRoleList: {
             /** @example 123 */
             count: number;
@@ -3838,6 +5084,21 @@ export interface components {
             previous?: string | null;
             results: components["schemas"]["Student"][];
         };
+        PaginatedStudentReportList: {
+            /** @example 123 */
+            count: number;
+            /** @example 13 */
+            total_pages: number;
+            /** @example 1 */
+            current_page: number;
+            /** @example 10 */
+            page_size: number;
+            /** Format: uri */
+            next?: string | null;
+            /** Format: uri */
+            previous?: string | null;
+            results: components["schemas"]["StudentReport"][];
+        };
         PaginatedTeacherList: {
             /** @example 123 */
             count: number;
@@ -3867,6 +5128,15 @@ export interface components {
             /** Format: uri */
             previous?: string | null;
             results: components["schemas"]["User"][];
+        };
+        ParticipantResult: {
+            user_id: number | null;
+            name: string;
+            score: number;
+            correct_count: number;
+            is_winner: boolean;
+            xp_earned: number;
+            is_me: boolean;
         };
         /** @description Serializer GHI: kiểm tra giá trị đúng kiểu (số / bật-tắt). */
         PatchedAiSettingCreateUpdateRequest: {
@@ -3912,6 +5182,10 @@ export interface components {
             description?: string | null;
             /** Trạng thái hoạt động */
             is_active?: boolean;
+        };
+        PatchedChatSessionRequest: {
+            /** Tiêu đề */
+            title?: string;
         };
         PatchedFlashcardDeckCreateUpdateRequest: {
             /** Khối */
@@ -4166,6 +5440,15 @@ export interface components {
              */
             readonly created_at: string;
         };
+        PublicQuestion: {
+            id: number;
+            content: string;
+            options: string[] | null;
+            question_type: string;
+            difficulty: string;
+            topic: string;
+            hint: string;
+        };
         Question: {
             readonly id: number;
             /** Khối */
@@ -4290,6 +5573,79 @@ export interface components {
          * @enum {string}
          */
         QuestionTypeEnum: "MULTIPLE_CHOICE" | "ESSAY";
+        QuizAttemptHistory: {
+            readonly id: number;
+            /** Loại bài */
+            quiz_type?: components["schemas"]["QuizTypeEnum"];
+            /** Khối */
+            grade?: number | null;
+            /** Chủ đề */
+            topic?: string | null;
+            /** Số câu */
+            total_questions: number;
+            /** Số câu đúng */
+            correct_count: number;
+            /** XP nhận được */
+            xp_earned?: number;
+            /** Format: date-time */
+            created_at: string;
+        };
+        QuizAttemptReport: {
+            readonly id: number;
+            /** Học sinh */
+            readonly user_id: number;
+            student_name: string;
+            readonly class_name: string | null;
+            /** Loại bài */
+            quiz_type?: components["schemas"]["QuizTypeEnum"];
+            /** Khối */
+            grade?: number | null;
+            /** Chủ đề */
+            topic?: string | null;
+            /** Số câu */
+            total_questions: number;
+            /** Số câu đúng */
+            correct_count: number;
+            readonly accuracy: number;
+            /** XP nhận được */
+            xp_earned?: number;
+            /** Chi tiết bài làm */
+            answers?: unknown;
+            /** Format: date-time */
+            created_at: string;
+        };
+        QuizResult: {
+            attempt_id: number;
+            total_questions: number;
+            correct_count: number;
+            xp_earned: number;
+            completed_challenges: string[];
+            results: {
+                [key: string]: unknown;
+            }[];
+        };
+        QuizStartRequest: {
+            grade?: (components["schemas"]["GradeEnum"] | components["schemas"]["NullEnum"]) | null;
+            /** @default  */
+            topic: string;
+            /** @default 10 */
+            count: number;
+            /** @default MULTIPLE_CHOICE */
+            question_type: components["schemas"]["QuestionTypeEnum"];
+            difficulties?: components["schemas"]["DifficultyEnum"][];
+        };
+        QuizSubmitRequest: {
+            grade?: (components["schemas"]["GradeEnum"] | components["schemas"]["NullEnum"]) | null;
+            /** @default  */
+            topic: string;
+            answers: components["schemas"]["AnswerItemRequest"][];
+        };
+        /**
+         * @description * `CHINH_PHUC` - Chinh phục kiến thức
+         *     * `FLASHCARD_QUIZ` - Kiểm tra flashcard
+         * @enum {string}
+         */
+        QuizTypeEnum: "CHINH_PHUC" | "FLASHCARD_QUIZ";
         RecentActivity: {
             id: string;
             created_at: string;
@@ -4321,6 +5677,13 @@ export interface components {
             /** Format: date-time */
             readonly updated_at: string;
         };
+        /**
+         * @description * `USER` - Học sinh
+         *     * `MODEL` - Gia sư AI
+         *     * `SYSTEM` - Hệ thống
+         * @enum {string}
+         */
+        RoleEnum: "USER" | "MODEL" | "SYSTEM";
         /** @description Serializer nhận ma trận phân quyền hàng loạt cho nhiều Role. */
         RoleMatrixBatchRequest: {
             /** @description Map giữa Role ID và danh sách Permission IDs: { '1': [1, 2, 3], '2': [4, 5] } */
@@ -4423,6 +5786,20 @@ export interface components {
             subtitle: string | null;
             image: string | null;
             url: string;
+        };
+        SendMessageRequest: {
+            /** @default  */
+            content: string;
+            /** Format: binary */
+            image?: string;
+        };
+        SendMessageResult: {
+            user_message: components["schemas"]["ChatMessage"];
+            ai_message: components["schemas"]["ChatMessage"];
+            xp_delta: number;
+            blocked: boolean;
+            completed_challenges: string[];
+            session: components["schemas"]["ChatSession"];
         };
         /** @description Serializer ĐỌC tài liệu nguồn (không kèm raw_text — xem ở trang chi tiết). */
         SourceDocument: {
@@ -4549,7 +5926,7 @@ export interface components {
             readonly school_class_name: string;
             readonly must_change_password: boolean;
             /** Format: date-time */
-            readonly last_login: string;
+            readonly last_login: string | null;
             /** @description Chỉ có ngay sau khi tạo với mật khẩu tự sinh; mọi lần đọc sau là null. */
             readonly initial_password: string | null;
             /** Mô tả / Ghi chú kỹ thuật */
@@ -4625,6 +6002,58 @@ export interface components {
             errors: string[];
             credentials: components["schemas"]["ImportCredential"][];
         };
+        StudentReport: {
+            readonly id: number;
+            readonly user_id: number;
+            /** Mã học sinh */
+            readonly student_code: string;
+            full_name: string;
+            username: string;
+            /** Khối */
+            readonly grade: components["schemas"]["GradeEnum"];
+            /** Lớp */
+            readonly school_class: number | null;
+            /** @default  */
+            school_class_name: string;
+            chat_count: number;
+            quiz_count: number;
+            arena_count: number;
+            flashcard_count: number;
+            mindmap_count: number;
+            total_xp: number | null;
+            current_streak: number | null;
+            /** Format: date-time */
+            last_active_at: string | null;
+            readonly level_title: string;
+            /** Trạng thái hoạt động */
+            readonly is_active: boolean;
+        };
+        StudentReportRequest: {
+            full_name: string;
+            username: string;
+            /** @default  */
+            school_class_name: string;
+            chat_count: number;
+            quiz_count: number;
+            arena_count: number;
+            flashcard_count: number;
+            mindmap_count: number;
+            total_xp: number | null;
+            current_streak: number | null;
+            /** Format: date-time */
+            last_active_at: string | null;
+        };
+        StudentStatsDetail: {
+            total_xp: number;
+            weekly_xp: number;
+            points: number;
+            current_streak: number;
+            longest_streak: number;
+            level_title: string;
+            quiz_accuracy: number | null;
+            arena_wins: number;
+            arena_matches: number;
+        };
         SystemSettings: {
             /** Tên ứng dụng */
             app_name: string;
@@ -4677,7 +6106,7 @@ export interface components {
             /** Bộ môn */
             readonly subject: string | null;
             /** Format: date-time */
-            readonly last_login: string;
+            readonly last_login: string | null;
             readonly initial_password: string | null;
             /** Mô tả / Ghi chú kỹ thuật */
             readonly description: string | null;
@@ -4729,6 +6158,10 @@ export interface components {
         };
         TokenRefreshRequest: {
             refresh: string;
+        };
+        TopicRequestRequest: {
+            grade?: (components["schemas"]["GradeEnum"] | components["schemas"]["NullEnum"]) | null;
+            topic: string;
         };
         UnreadCount: {
             count: number;
@@ -5781,6 +7214,7 @@ export interface operations {
         parameters: {
             query?: {
                 academic_year?: string;
+                academic_year__icontains?: string;
                 code__icontains?: string;
                 /**
                  * @description * `6` - Khối 6
@@ -6852,6 +8286,610 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["KnowledgeChunk"];
+                };
+            };
+        };
+    };
+    learn_arena_ai_start_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["AiMatchStartRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["AiMatchStartRequest"];
+                "multipart/form-data": components["schemas"]["AiMatchStartRequest"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MatchStarted"];
+                };
+            };
+        };
+    };
+    learn_arena_leaderboard_list: {
+        parameters: {
+            query?: {
+                grade?: number;
+                limit?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ArenaLeaderRow"][];
+                };
+            };
+        };
+    };
+    learn_arena_matches_retrieve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                match_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MatchResult"];
+                };
+            };
+        };
+    };
+    learn_arena_matches_analysis_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                match_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Analysis"];
+                };
+            };
+        };
+    };
+    learn_arena_matches_answer_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                match_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ArenaAnswerRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["ArenaAnswerRequest"];
+                "multipart/form-data": components["schemas"]["ArenaAnswerRequest"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AiAnswerOutcome"];
+                };
+            };
+        };
+    };
+    learn_arena_matches_finish_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                match_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MatchResult"];
+                };
+            };
+        };
+    };
+    learn_arena_me_matches_list: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MatchHistory"][];
+                };
+            };
+        };
+    };
+    learn_arena_me_stats_retrieve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ArenaStats"];
+                };
+            };
+        };
+    };
+    learn_chat_sessions_list: {
+        parameters: {
+            query?: {
+                /** @description Which field to use when ordering the results. */
+                ordering?: string;
+                /** @description A page number within the paginated result set. */
+                page?: number;
+                /** @description Number of results to return per page. */
+                page_size?: number;
+                /** @description A search term. */
+                search?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PaginatedChatSessionList"];
+                };
+            };
+        };
+    };
+    learn_chat_sessions_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["ChatSessionRequest"];
+                "multipart/form-data": components["schemas"]["ChatSessionRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["ChatSessionRequest"];
+            };
+        };
+        responses: {
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ChatSession"];
+                };
+            };
+        };
+    };
+    learn_chat_sessions_destroy: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description A unique integer value identifying this phiên trò chuyện. */
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description No response body */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    learn_chat_sessions_partial_update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description A unique integer value identifying this phiên trò chuyện. */
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["PatchedChatSessionRequest"];
+                "multipart/form-data": components["schemas"]["PatchedChatSessionRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["PatchedChatSessionRequest"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ChatSession"];
+                };
+            };
+        };
+    };
+    learn_chat_sessions_messages_list: {
+        parameters: {
+            query?: {
+                /** @description Which field to use when ordering the results. */
+                ordering?: string;
+                /** @description A page number within the paginated result set. */
+                page?: number;
+                /** @description Number of results to return per page. */
+                page_size?: number;
+                /** @description A search term. */
+                search?: string;
+            };
+            header?: never;
+            path: {
+                /** @description A unique integer value identifying this phiên trò chuyện. */
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PaginatedChatMessageList"];
+                };
+            };
+        };
+    };
+    learn_chat_sessions_messages_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description A unique integer value identifying this phiên trò chuyện. */
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "multipart/form-data": components["schemas"]["SendMessageRequest"];
+                "application/json": components["schemas"]["SendMessageRequest"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SendMessageResult"];
+                };
+            };
+        };
+    };
+    learn_leaderboard_list: {
+        parameters: {
+            query?: {
+                grade?: number;
+                limit?: number;
+                scope?: "all" | "month" | "weekly";
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LeaderboardRow"][];
+                };
+            };
+        };
+    };
+    learn_me_challenges_list: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ChallengeProgress"][];
+                };
+            };
+        };
+    };
+    learn_me_check_in_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CheckIn"];
+                };
+            };
+        };
+    };
+    learn_me_stats_retrieve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MyStats"];
+                };
+            };
+        };
+    };
+    learn_practice_flashcards_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["TopicRequestRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["TopicRequestRequest"];
+                "multipart/form-data": components["schemas"]["TopicRequestRequest"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LearnFlashcardDeck"];
+                };
+            };
+        };
+    };
+    learn_practice_flashcards_submit_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["FlashcardQuizSubmitRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["FlashcardQuizSubmitRequest"];
+                "multipart/form-data": components["schemas"]["FlashcardQuizSubmitRequest"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["QuizResult"];
+                };
+            };
+        };
+    };
+    learn_practice_mindmap_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["TopicRequestRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["TopicRequestRequest"];
+                "multipart/form-data": components["schemas"]["TopicRequestRequest"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LearnMindmap"];
+                };
+            };
+        };
+    };
+    learn_practice_quiz_check_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CheckAnswerRequest"];
+                "multipart/form-data": components["schemas"]["CheckAnswerRequest"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CheckAnswerResult"];
+                };
+            };
+        };
+    };
+    learn_practice_quiz_history_list: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["QuizAttemptHistory"][];
+                };
+            };
+        };
+    };
+    learn_practice_quiz_start_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["QuizStartRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["QuizStartRequest"];
+                "multipart/form-data": components["schemas"]["QuizStartRequest"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PublicQuestion"][];
+                };
+            };
+        };
+    };
+    learn_practice_quiz_submit_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["QuizSubmitRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["QuizSubmitRequest"];
+                "multipart/form-data": components["schemas"]["QuizSubmitRequest"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["QuizResult"];
+                };
+            };
+        };
+    };
+    learn_practice_topics_list: {
+        parameters: {
+            query?: {
+                grade?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": string[];
                 };
             };
         };
@@ -8166,6 +10204,548 @@ export interface operations {
             };
         };
     };
+    reports_arena_matches_list: {
+        parameters: {
+            query?: {
+                /** @description YYYY-MM-DD */
+                date_from?: string;
+                /** @description YYYY-MM-DD */
+                date_to?: string;
+                grade?: number;
+                mode?: "AI" | "PVP";
+                /** @description Which field to use when ordering the results. */
+                ordering?: string;
+                /** @description A page number within the paginated result set. */
+                page?: number;
+                /** @description Number of results to return per page. */
+                page_size?: number;
+                school_class?: number;
+                /** @description A search term. */
+                search?: string;
+                user?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PaginatedArenaMatchReportList"];
+                };
+            };
+        };
+    };
+    reports_arena_matches_retrieve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description A unique integer value identifying this trận đấu. */
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ArenaMatchDetail"];
+                };
+            };
+        };
+    };
+    reports_chat_logs_list: {
+        parameters: {
+            query?: {
+                blocked?: boolean;
+                /** @description YYYY-MM-DD */
+                date_from?: string;
+                /** @description YYYY-MM-DD */
+                date_to?: string;
+                grade?: number;
+                /** @description Which field to use when ordering the results. */
+                ordering?: string;
+                /** @description A page number within the paginated result set. */
+                page?: number;
+                /** @description Number of results to return per page. */
+                page_size?: number;
+                q?: string;
+                school_class?: number;
+                /** @description A search term. */
+                search?: string;
+                user?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PaginatedChatPairList"];
+                };
+            };
+        };
+    };
+    reports_chat_logs_retrieve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description A unique integer value identifying this tin nhắn. */
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ChatPair"];
+                };
+            };
+        };
+    };
+    reports_heatmap_list: {
+        parameters: {
+            query?: {
+                /** @description YYYY-MM-DD */
+                date_from?: string;
+                /** @description YYYY-MM-DD */
+                date_to?: string;
+                grade?: number;
+                school_class?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HeatmapCell"][];
+                };
+            };
+        };
+    };
+    reports_overview_retrieve: {
+        parameters: {
+            query?: {
+                /** @description YYYY-MM-DD */
+                date_from?: string;
+                /** @description YYYY-MM-DD */
+                date_to?: string;
+                grade?: number;
+                school_class?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Overview"];
+                };
+            };
+        };
+    };
+    reports_quiz_attempts_list: {
+        parameters: {
+            query?: {
+                /** @description YYYY-MM-DD */
+                date_from?: string;
+                /** @description YYYY-MM-DD */
+                date_to?: string;
+                grade?: number;
+                /** @description Which field to use when ordering the results. */
+                ordering?: string;
+                /** @description A page number within the paginated result set. */
+                page?: number;
+                /** @description Number of results to return per page. */
+                page_size?: number;
+                quiz_type?: string;
+                school_class?: number;
+                /** @description A search term. */
+                search?: string;
+                user?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PaginatedQuizAttemptReportList"];
+                };
+            };
+        };
+    };
+    reports_quiz_attempts_retrieve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description A unique integer value identifying this lượt làm bài. */
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["QuizAttemptReport"];
+                };
+            };
+        };
+    };
+    reports_students_list: {
+        parameters: {
+            query?: {
+                /** @description YYYY-MM-DD */
+                date_from?: string;
+                /** @description YYYY-MM-DD */
+                date_to?: string;
+                grade?: number;
+                is_active?: boolean;
+                /** @description Which field to use when ordering the results. */
+                ordering?: string;
+                /** @description A page number within the paginated result set. */
+                page?: number;
+                /** @description Number of results to return per page. */
+                page_size?: number;
+                school_class?: number;
+                /** @description A search term. */
+                search?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PaginatedStudentReportList"];
+                };
+            };
+        };
+    };
+    reports_students_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["StudentReportRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["StudentReportRequest"];
+                "multipart/form-data": components["schemas"]["StudentReportRequest"];
+            };
+        };
+        responses: {
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudentReport"];
+                };
+            };
+        };
+    };
+    reports_students_retrieve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description A unique integer value identifying this học sinh. */
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudentReport"];
+                };
+            };
+        };
+    };
+    reports_students_summary_retrieve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description A unique integer value identifying this học sinh. */
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudentStatsDetail"];
+                };
+            };
+        };
+    };
+    reports_students_timeline_list: {
+        parameters: {
+            query?: {
+                event_type?: string;
+                is_active?: boolean;
+                /** @description Which field to use when ordering the results. */
+                ordering?: string;
+                /** @description A page number within the paginated result set. */
+                page?: number;
+                /** @description Number of results to return per page. */
+                page_size?: number;
+                /** @description A search term. */
+                search?: string;
+            };
+            header?: never;
+            path: {
+                /** @description A unique integer value identifying this học sinh. */
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PaginatedLearningEventList"];
+                };
+            };
+        };
+    };
+    reports_students_batch_delete_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["StudentReportRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["StudentReportRequest"];
+                "multipart/form-data": components["schemas"]["StudentReportRequest"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudentReport"];
+                };
+            };
+        };
+    };
+    reports_students_batch_status_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["StudentReportRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["StudentReportRequest"];
+                "multipart/form-data": components["schemas"]["StudentReportRequest"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudentReport"];
+                };
+            };
+        };
+    };
+    reports_students_excel_template_retrieve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudentReport"];
+                };
+            };
+        };
+    };
+    reports_students_export_columns_retrieve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudentReport"];
+                };
+            };
+        };
+    };
+    reports_students_export_excel_retrieve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudentReport"];
+                };
+            };
+        };
+    };
+    reports_students_export_excel_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["StudentReportRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["StudentReportRequest"];
+                "multipart/form-data": components["schemas"]["StudentReportRequest"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudentReport"];
+                };
+            };
+        };
+    };
+    reports_students_statistics_retrieve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudentReport"];
+                };
+            };
+        };
+    };
+    reports_xp_leaderboard_list: {
+        parameters: {
+            query?: {
+                /** @description YYYY-MM-DD */
+                date_from?: string;
+                /** @description YYYY-MM-DD */
+                date_to?: string;
+                grade?: number;
+                limit?: number;
+                school_class?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LeaderRow"][];
+                };
+            };
+        };
+    };
     roles_list: {
         parameters: {
             query?: {
@@ -9355,6 +11935,7 @@ export interface operations {
                 updated_at__date__gte?: string;
                 updated_at__date__lte?: string;
                 user__full_name__icontains?: string;
+                user__username__icontains?: string;
             };
             header?: never;
             path?: never;

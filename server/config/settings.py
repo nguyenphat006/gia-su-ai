@@ -329,6 +329,7 @@ SPECTACULAR_SETTINGS = {
         'DocumentStatusEnum': 'apps.knowledge.models.DocumentStatus',
         'QuestionStatusEnum': 'apps.revision.models.QuestionStatus',
         'DifficultyEnum': 'apps.revision.models.Difficulty',
+        'MatchStatusEnum': 'apps.arena.models.MatchStatus',
     },
 }
 

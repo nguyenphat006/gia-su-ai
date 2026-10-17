@@ -37,7 +37,11 @@ class ChatSessionViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.
     http_method_names = ['get', 'post', 'patch', 'delete']
     parser_classes = [JSONParser, MultiPartParser, FormParser]  # gửi câu hỏi kèm ảnh = multipart
 
+    queryset = ChatSession.objects.none()  # cho drf-spectacular suy ra kiểu; dữ liệu thật lấy ở get_queryset
+
     def get_queryset(self):
+        if getattr(self, 'swagger_fake_view', False):
+            return ChatSession.objects.none()
         return ChatSession.objects.filter(user=self.request.user).order_by('-last_message_at', '-created_at', '-id')
 
     def perform_create(self, serializer):

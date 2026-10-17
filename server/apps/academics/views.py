@@ -44,7 +44,7 @@ class SchoolClassViewSet(BaseERPViewSet):
     filterset_fields = {
         'is_active': ['exact'],
         'grade': ['exact', 'in'],
-        'academic_year': ['exact'],
+        'academic_year': ['exact', 'icontains'],
         'homeroom_teacher': ['exact'],
         'code': ['icontains'],
         'name': ['icontains'],
@@ -152,10 +152,11 @@ class TeacherViewSet(_ProfileViewSet):
         'subject': ['icontains'],
         'employee_code': ['icontains'],
         'user__full_name': ['icontains'],
+        'user__username': ['icontains'],
         'updated_at': ['date__gte', 'date__lte'],
     }
     search_fields = ['employee_code', 'subject', 'user__full_name', 'user__username', 'user__email']
-    ordering_fields = ['created_at', 'updated_at', 'employee_code', 'user__full_name']
+    ordering_fields = ['created_at', 'updated_at', 'employee_code', 'user__full_name', 'user__last_login']
     excel_columns = [
         {'key': 'employee_code', 'label': 'Mã giáo viên', 'type': 'string', 'default_selected': True, 'required': False},
         {'key': 'full_name', 'label': 'Họ và tên', 'type': 'string', 'default_selected': True, 'required': True},

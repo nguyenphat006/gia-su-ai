@@ -1,5 +1,4 @@
 """Test trang Tổng quan: số liệu gộp, khối lọc theo quyền."""
-from django.apps import apps as django_apps
 from django.contrib.auth import get_user_model
 from django.core.cache import cache
 from django.test import TestCase, override_settings
@@ -37,20 +36,16 @@ class DashboardOverviewTests(TestCase):
         resp = self.client.get(URL)
         self.assertEqual(resp.status_code, 200)
         data = resp.json()['data']
-        # Khối NVL chỉ có khi còn module mẫu master_data
-        has_sample = django_apps.is_installed('apps.master_data')
-        expected = {'users', 'exports', 'activity'} | ({'materials'} if has_sample else set())
-        self.assertEqual({k['key'] for k in data['kpis']}, expected)
+        self.assertEqual({k['key'] for k in data['kpis']}, {'active_students', 'chats', 'arena', 'users', 'activity'})
         self.assertEqual(len(data['activity']), 14)
-        if has_sample:
-            self.assertIsInstance(data['materials_by_category'], list)
+        self.assertIsNone(data['materials_by_category'])
         self.assertIsInstance(data['recent_activity'], list)
 
     def test_blocks_filtered_by_permission(self):
         user = self._user_with('USER_READ')
         self.client.force_authenticate(user)
         data = self.client.get(URL).json()['data']
-        self.assertEqual({k['key'] for k in data['kpis']}, {'users', 'exports'})
+        self.assertEqual({k['key'] for k in data['kpis']}, {'users'})
         self.assertIsNone(data['activity'])
         self.assertIsNone(data['materials_by_category'])
         self.assertIsNone(data['recent_activity'])

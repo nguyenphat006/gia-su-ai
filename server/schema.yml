@@ -991,6 +991,10 @@ paths:
         schema:
           type: string
       - in: query
+        name: academic_year__icontains
+        schema:
+          type: string
+      - in: query
         name: code__icontains
         schema:
           type: string
@@ -2274,6 +2278,712 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/KnowledgeChunk'
+          description: ''
+  /api/v1/learn/arena/ai/start/:
+    post:
+      operationId: learn_arena_ai_start_create
+      description: Bắt đầu trận đấu với AI.
+      summary: Bắt đầu đấu với AI
+      tags:
+      - Học sinh - Đấu trường
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AiMatchStartRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AiMatchStartRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AiMatchStartRequest'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MatchStarted'
+          description: ''
+  /api/v1/learn/arena/leaderboard/:
+    get:
+      operationId: learn_arena_leaderboard_list
+      description: 'Bảng vàng đấu trường: tổng điểm các trận đã kết thúc. Lọc `grade`.'
+      summary: Bảng vàng đấu trường
+      parameters:
+      - in: query
+        name: grade
+        schema:
+          type: integer
+      - in: query
+        name: limit
+        schema:
+          type: integer
+      tags:
+      - Học sinh - Đấu trường
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ArenaLeaderRow'
+          description: ''
+  /api/v1/learn/arena/matches/{match_id}/:
+    get:
+      operationId: learn_arena_matches_retrieve
+      description: Kết quả 1 trận tôi đã tham gia.
+      summary: Kết quả trận đấu
+      parameters:
+      - in: path
+        name: match_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - Học sinh - Đấu trường
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MatchResult'
+          description: ''
+  /api/v1/learn/arena/matches/{match_id}/analysis/:
+    post:
+      operationId: learn_arena_matches_analysis_create
+      description: Cô Trang (AI) nhận xét bài làm của tôi trong trận (tạo 1 lần, lần
+        sau đọc lại).
+      summary: Nhận xét AI sau trận
+      parameters:
+      - in: path
+        name: match_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - Học sinh - Đấu trường
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Analysis'
+          description: ''
+  /api/v1/learn/arena/matches/{match_id}/answer/:
+    post:
+      operationId: learn_arena_matches_answer_create
+      description: Trả lời 1 câu khi đấu AI — server chấm, AI đi nước của nó cho cùng
+        câu.
+      summary: Trả lời câu (đấu AI)
+      parameters:
+      - in: path
+        name: match_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - Học sinh - Đấu trường
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArenaAnswerRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ArenaAnswerRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ArenaAnswerRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AiAnswerOutcome'
+          description: ''
+  /api/v1/learn/arena/matches/{match_id}/finish/:
+    post:
+      operationId: learn_arena_matches_finish_create
+      description: Kết thúc trận đấu AI (đã trả lời hết câu) -> chốt thắng / thua,
+        cộng XP.
+      summary: Kết thúc trận đấu AI
+      parameters:
+      - in: path
+        name: match_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - Học sinh - Đấu trường
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MatchResult'
+          description: ''
+  /api/v1/learn/arena/me/matches/:
+    get:
+      operationId: learn_arena_me_matches_list
+      description: 20 trận gần nhất của tôi.
+      summary: Lịch sử đấu của tôi
+      tags:
+      - Học sinh - Đấu trường
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MatchHistory'
+          description: ''
+  /api/v1/learn/arena/me/stats/:
+    get:
+      operationId: learn_arena_me_stats_retrieve
+      description: Số trận / thắng / thua / tỉ lệ thắng / tổng điểm của tôi (chỉ trận
+        đã kết thúc).
+      summary: Thống kê đấu trường của tôi
+      tags:
+      - Học sinh - Đấu trường
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArenaStats'
+          description: ''
+  /api/v1/learn/chat/sessions/:
+    get:
+      operationId: learn_chat_sessions_list
+      summary: Các phiên trò chuyện của tôi
+      parameters:
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - Học sinh - Gia sư AI
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedChatSessionList'
+          description: ''
+    post:
+      operationId: learn_chat_sessions_create
+      summary: Tạo phiên trò chuyện mới
+      tags:
+      - Học sinh - Gia sư AI
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChatSessionRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ChatSessionRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ChatSessionRequest'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatSession'
+          description: ''
+  /api/v1/learn/chat/sessions/{id}/:
+    patch:
+      operationId: learn_chat_sessions_partial_update
+      summary: Đổi tên phiên
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this phiên trò chuyện.
+        required: true
+      tags:
+      - Học sinh - Gia sư AI
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedChatSessionRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedChatSessionRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedChatSessionRequest'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatSession'
+          description: ''
+    delete:
+      operationId: learn_chat_sessions_destroy
+      summary: Xóa phiên trò chuyện
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this phiên trò chuyện.
+        required: true
+      tags:
+      - Học sinh - Gia sư AI
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/learn/chat/sessions/{id}/messages/:
+    get:
+      operationId: learn_chat_sessions_messages_list
+      summary: Tin nhắn trong phiên (cũ -> mới)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this phiên trò chuyện.
+        required: true
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - Học sinh - Gia sư AI
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedChatMessageList'
+          description: ''
+    post:
+      operationId: learn_chat_sessions_messages_create
+      summary: Gửi câu hỏi cho gia sư AI
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this phiên trò chuyện.
+        required: true
+      tags:
+      - Học sinh - Gia sư AI
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SendMessageRequest'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SendMessageRequest'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SendMessageResult'
+          description: ''
+  /api/v1/learn/leaderboard/:
+    get:
+      operationId: learn_leaderboard_list
+      description: |-
+        Bảng xếp hạng: `scope=weekly` (XP tuần, mặc định) | `month` (tổng XP trong tháng) | `all` (tổng XP).
+        Lọc `grade` để xem trong khối. Chỉ lộ họ tên + lớp (không lộ tài khoản / email).
+      summary: Bảng xếp hạng
+      parameters:
+      - in: query
+        name: grade
+        schema:
+          type: integer
+      - in: query
+        name: limit
+        schema:
+          type: integer
+      - in: query
+        name: scope
+        schema:
+          type: string
+          enum:
+          - all
+          - month
+          - weekly
+      tags:
+      - Học sinh - Thành tích
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LeaderboardRow'
+          description: ''
+  /api/v1/learn/me/challenges/:
+    get:
+      operationId: learn_me_challenges_list
+      description: Thử thách kỳ hiện tại kèm tiến độ của tôi.
+      summary: Thử thách của tôi
+      tags:
+      - Học sinh - Thành tích
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ChallengeProgress'
+          description: ''
+  /api/v1/learn/me/check-in/:
+    post:
+      operationId: learn_me_check_in_create
+      description: Điểm danh đầu ngày — giao diện học sinh gọi khi mở; gọi nhiều lần
+        trong ngày không cộng thêm.
+      summary: Điểm danh hằng ngày
+      tags:
+      - Học sinh - Thành tích
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckIn'
+          description: ''
+  /api/v1/learn/me/stats/:
+    get:
+      operationId: learn_me_stats_retrieve
+      description: Thống kê của học sinh đang đăng nhập (XP, chuỗi ngày, danh hiệu,
+        hạng tuần).
+      summary: Thành tích của tôi
+      tags:
+      - Học sinh - Thành tích
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MyStats'
+          description: ''
+  /api/v1/learn/practice/flashcards/:
+    post:
+      operationId: learn_practice_flashcards_create
+      description: Bộ flashcard theo chủ đề (có sẵn hoặc AI tạo mới và lưu lại).
+      summary: Lấy bộ flashcard theo chủ đề
+      tags:
+      - Học sinh - Ôn tập
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TopicRequestRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TopicRequestRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TopicRequestRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LearnFlashcardDeck'
+          description: ''
+  /api/v1/learn/practice/flashcards/submit/:
+    post:
+      operationId: learn_practice_flashcards_submit_create
+      description: Nộp bài kiểm tra flashcard (chọn mặt sau đúng cho từng thẻ).
+      summary: Nộp bài kiểm tra flashcard
+      tags:
+      - Học sinh - Ôn tập
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FlashcardQuizSubmitRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/FlashcardQuizSubmitRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/FlashcardQuizSubmitRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuizResult'
+          description: ''
+  /api/v1/learn/practice/mindmap/:
+    post:
+      operationId: learn_practice_mindmap_create
+      description: Sơ đồ tư duy theo chủ đề (có sẵn hoặc AI tạo mới và lưu lại).
+      summary: Lấy sơ đồ tư duy theo chủ đề
+      tags:
+      - Học sinh - Ôn tập
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TopicRequestRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TopicRequestRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TopicRequestRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LearnMindmap'
+          description: ''
+  /api/v1/learn/practice/quiz/check/:
+    post:
+      operationId: learn_practice_quiz_check_create
+      description: 'Chấm 1 câu ngay khi trả lời (tự luận: AI chấm, có thể gửi ảnh
+        bài làm).'
+      summary: Chấm một câu trả lời
+      tags:
+      - Học sinh - Ôn tập
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CheckAnswerRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CheckAnswerRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckAnswerResult'
+          description: ''
+  /api/v1/learn/practice/quiz/history/:
+    get:
+      operationId: learn_practice_quiz_history_list
+      description: 20 lượt ôn tập gần nhất của tôi.
+      summary: Lịch sử ôn tập của tôi
+      tags:
+      - Học sinh - Ôn tập
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/QuizAttemptHistory'
+          description: ''
+  /api/v1/learn/practice/quiz/start/:
+    post:
+      operationId: learn_practice_quiz_start_create
+      description: Lấy đề ôn tập (ngân hàng trước, AI bù). Không kèm đáp án.
+      summary: Bắt đầu bài ôn tập
+      tags:
+      - Học sinh - Ôn tập
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuizStartRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/QuizStartRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/QuizStartRequest'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PublicQuestion'
+          description: ''
+  /api/v1/learn/practice/quiz/submit/:
+    post:
+      operationId: learn_practice_quiz_submit_create
+      description: 'Nộp bài: server chấm lại, lưu lịch sử, cộng XP (10 / câu đúng),
+        tính thử thách.'
+      summary: Nộp bài ôn tập
+      tags:
+      - Học sinh - Ôn tập
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuizSubmitRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/QuizSubmitRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/QuizSubmitRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuizResult'
+          description: ''
+  /api/v1/learn/practice/topics/:
+    get:
+      operationId: learn_practice_topics_list
+      description: Chủ đề đang có câu hỏi trong ngân hàng (gợi ý cho ô chọn chủ đề).
+      summary: Chủ đề gợi ý
+      parameters:
+      - in: query
+        name: grade
+        schema:
+          type: integer
+      tags:
+      - Học sinh - Ôn tập
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
           description: ''
   /api/v1/mindmaps/:
     get:
@@ -4014,6 +4724,758 @@ paths:
               schema:
                 $ref: '#/components/schemas/Question'
           description: ''
+  /api/v1/reports/arena-matches/:
+    get:
+      operationId: reports_arena_matches_list
+      summary: Lịch sử trận đấu
+      parameters:
+      - in: query
+        name: date_from
+        schema:
+          type: string
+        description: YYYY-MM-DD
+      - in: query
+        name: date_to
+        schema:
+          type: string
+        description: YYYY-MM-DD
+      - in: query
+        name: grade
+        schema:
+          type: integer
+      - in: query
+        name: mode
+        schema:
+          type: string
+          enum:
+          - AI
+          - PVP
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - in: query
+        name: school_class
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - in: query
+        name: user
+        schema:
+          type: integer
+      tags:
+      - Báo cáo học tập
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedArenaMatchReportList'
+          description: ''
+  /api/v1/reports/arena-matches/{id}/:
+    get:
+      operationId: reports_arena_matches_retrieve
+      summary: Chi tiết trận đấu (từng câu)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this trận đấu.
+        required: true
+      tags:
+      - Báo cáo học tập
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArenaMatchDetail'
+          description: ''
+  /api/v1/reports/chat-logs/:
+    get:
+      operationId: reports_chat_logs_list
+      description: Câu hỏi của học sinh kèm câu trả lời ngay sau đó (để giáo viên
+        theo dõi chất lượng gia sư AI).
+      summary: Nhật ký hỏi đáp gia sư AI
+      parameters:
+      - in: query
+        name: blocked
+        schema:
+          type: boolean
+      - in: query
+        name: date_from
+        schema:
+          type: string
+        description: YYYY-MM-DD
+      - in: query
+        name: date_to
+        schema:
+          type: string
+        description: YYYY-MM-DD
+      - in: query
+        name: grade
+        schema:
+          type: integer
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - in: query
+        name: q
+        schema:
+          type: string
+      - in: query
+        name: school_class
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - in: query
+        name: user
+        schema:
+          type: integer
+      tags:
+      - Báo cáo học tập
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedChatPairList'
+          description: ''
+  /api/v1/reports/chat-logs/{id}/:
+    get:
+      operationId: reports_chat_logs_retrieve
+      description: Câu hỏi của học sinh kèm câu trả lời ngay sau đó (để giáo viên
+        theo dõi chất lượng gia sư AI).
+      summary: Chi tiết một lượt hỏi đáp
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this tin nhắn.
+        required: true
+      tags:
+      - Báo cáo học tập
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatPair'
+          description: ''
+  /api/v1/reports/heatmap/:
+    get:
+      operationId: reports_heatmap_list
+      description: Giờ học tập trong tuần (thứ × giờ).
+      summary: Heatmap giờ học
+      parameters:
+      - in: query
+        name: date_from
+        schema:
+          type: string
+        description: YYYY-MM-DD
+      - in: query
+        name: date_to
+        schema:
+          type: string
+        description: YYYY-MM-DD
+      - in: query
+        name: grade
+        schema:
+          type: integer
+      - in: query
+        name: school_class
+        schema:
+          type: integer
+      tags:
+      - Báo cáo học tập
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/HeatmapCell'
+          description: ''
+  /api/v1/reports/overview/:
+    get:
+      operationId: reports_overview_retrieve
+      description: Tổng quan hoạt động học sinh trong khoảng thời gian (mặc định 30
+        ngày).
+      summary: Tổng quan học tập
+      parameters:
+      - in: query
+        name: date_from
+        schema:
+          type: string
+        description: YYYY-MM-DD
+      - in: query
+        name: date_to
+        schema:
+          type: string
+        description: YYYY-MM-DD
+      - in: query
+        name: grade
+        schema:
+          type: integer
+      - in: query
+        name: school_class
+        schema:
+          type: integer
+      tags:
+      - Báo cáo học tập
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Overview'
+          description: ''
+  /api/v1/reports/quiz-attempts/:
+    get:
+      operationId: reports_quiz_attempts_list
+      summary: Lịch sử ôn tập
+      parameters:
+      - in: query
+        name: date_from
+        schema:
+          type: string
+        description: YYYY-MM-DD
+      - in: query
+        name: date_to
+        schema:
+          type: string
+        description: YYYY-MM-DD
+      - in: query
+        name: grade
+        schema:
+          type: integer
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - in: query
+        name: quiz_type
+        schema:
+          type: string
+      - in: query
+        name: school_class
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - in: query
+        name: user
+        schema:
+          type: integer
+      tags:
+      - Báo cáo học tập
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedQuizAttemptReportList'
+          description: ''
+  /api/v1/reports/quiz-attempts/{id}/:
+    get:
+      operationId: reports_quiz_attempts_retrieve
+      summary: Chi tiết lượt ôn tập
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this lượt làm bài.
+        required: true
+      tags:
+      - Báo cáo học tập
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuizAttemptReport'
+          description: ''
+  /api/v1/reports/students/:
+    get:
+      operationId: reports_students_list
+      description: Số liệu học tập từng học sinh (đếm theo khoảng thời gian nếu có
+        date_from / date_to). Chỉ đọc + xuất Excel.
+      summary: Thống kê theo học sinh
+      parameters:
+      - in: query
+        name: date_from
+        schema:
+          type: string
+        description: YYYY-MM-DD
+      - in: query
+        name: date_to
+        schema:
+          type: string
+        description: YYYY-MM-DD
+      - in: query
+        name: grade
+        schema:
+          type: integer
+      - in: query
+        name: is_active
+        schema:
+          type: boolean
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - in: query
+        name: school_class
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - Báo cáo học tập
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedStudentReportList'
+          description: ''
+    post:
+      operationId: reports_students_create
+      description: Số liệu học tập từng học sinh (đếm theo khoảng thời gian nếu có
+        date_from / date_to). Chỉ đọc + xuất Excel.
+      tags:
+      - reports
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StudentReportRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/StudentReportRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/StudentReportRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StudentReport'
+          description: ''
+  /api/v1/reports/students/{id}/:
+    get:
+      operationId: reports_students_retrieve
+      description: Số liệu học tập từng học sinh (đếm theo khoảng thời gian nếu có
+        date_from / date_to). Chỉ đọc + xuất Excel.
+      summary: Thống kê một học sinh
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this học sinh.
+        required: true
+      tags:
+      - Báo cáo học tập
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StudentReport'
+          description: ''
+  /api/v1/reports/students/{id}/summary/:
+    get:
+      operationId: reports_students_summary_retrieve
+      description: Số liệu học tập từng học sinh (đếm theo khoảng thời gian nếu có
+        date_from / date_to). Chỉ đọc + xuất Excel.
+      summary: Chỉ số tổng hợp của một học sinh
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this học sinh.
+        required: true
+      tags:
+      - Báo cáo học tập
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StudentStatsDetail'
+          description: ''
+  /api/v1/reports/students/{id}/timeline/:
+    get:
+      operationId: reports_students_timeline_list
+      description: Số liệu học tập từng học sinh (đếm theo khoảng thời gian nếu có
+        date_from / date_to). Chỉ đọc + xuất Excel.
+      summary: Dòng thời gian hoạt động của một học sinh
+      parameters:
+      - in: query
+        name: event_type
+        schema:
+          type: string
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this học sinh.
+        required: true
+      - in: query
+        name: is_active
+        schema:
+          type: boolean
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - Báo cáo học tập
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedLearningEventList'
+          description: ''
+  /api/v1/reports/students/batch-delete/:
+    post:
+      operationId: reports_students_batch_delete_create
+      description: 'Xóa mềm hàng loạt. Body: {"ids": [...]}. Bản ghi bị `check_can_destroy`
+        chặn sẽ được bỏ qua.'
+      tags:
+      - reports
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StudentReportRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/StudentReportRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/StudentReportRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StudentReport'
+          description: ''
+  /api/v1/reports/students/batch-status/:
+    post:
+      operationId: reports_students_batch_status_create
+      description: 'Bật/tắt trạng thái hàng loạt. Body: {"ids": [...], "is_active":
+        true | false}.'
+      tags:
+      - reports
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StudentReportRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/StudentReportRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/StudentReportRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StudentReport'
+          description: ''
+  /api/v1/reports/students/excel-template/:
+    get:
+      operationId: reports_students_excel_template_retrieve
+      description: API Tải file mẫu Excel (.xlsx) dùng cho chức năng Nhập dữ liệu
+        (Import).
+      tags:
+      - reports
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StudentReport'
+          description: ''
+  /api/v1/reports/students/export-columns/:
+    get:
+      operationId: reports_students_export_columns_retrieve
+      description: API trả về danh sách các trường dữ liệu (fields) của Model phục
+        vụ cấu hình xuất file.
+      tags:
+      - reports
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StudentReport'
+          description: ''
+  /api/v1/reports/students/export-excel/:
+    get:
+      operationId: reports_students_export_excel_retrieve
+      description: API Xuất danh sách dữ liệu ra file Excel (.xlsx) hoặc CSV chuẩn
+        Enterprise (Hỗ trợ Sync & Async Queue).
+      tags:
+      - reports
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StudentReport'
+          description: ''
+    post:
+      operationId: reports_students_export_excel_create
+      description: API Xuất danh sách dữ liệu ra file Excel (.xlsx) hoặc CSV chuẩn
+        Enterprise (Hỗ trợ Sync & Async Queue).
+      tags:
+      - reports
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StudentReportRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/StudentReportRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/StudentReportRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StudentReport'
+          description: ''
+  /api/v1/reports/students/statistics/:
+    get:
+      operationId: reports_students_statistics_retrieve
+      description: 'Số liệu tổng quan: tổng / đang hoạt động / ngưng / mới trong tháng.'
+      tags:
+      - reports
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StudentReport'
+          description: ''
+  /api/v1/reports/xp-leaderboard/:
+    get:
+      operationId: reports_xp_leaderboard_list
+      description: Học sinh nhận nhiều XP nhất trong khoảng thời gian (thay báo cáo
+        BXH tháng bản cũ).
+      summary: Bảng xếp hạng XP
+      parameters:
+      - in: query
+        name: date_from
+        schema:
+          type: string
+        description: YYYY-MM-DD
+      - in: query
+        name: date_to
+        schema:
+          type: string
+        description: YYYY-MM-DD
+      - in: query
+        name: grade
+        schema:
+          type: integer
+      - in: query
+        name: limit
+        schema:
+          type: integer
+      - in: query
+        name: school_class
+        schema:
+          type: integer
+      tags:
+      - Báo cáo học tập
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LeaderRow'
+          description: ''
   /api/v1/roles/:
     get:
       operationId: roles_list
@@ -5428,6 +6890,10 @@ paths:
         name: user__full_name__icontains
         schema:
           type: string
+      - in: query
+        name: user__username__icontains
+        schema:
+          type: string
       tags:
       - Giáo viên
       security:
@@ -6137,6 +7603,25 @@ components:
       required:
       - count
       - date
+    AiAnswerOutcome:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/AnswerResult'
+        opponent_move:
+          $ref: '#/components/schemas/OpponentMove'
+        done:
+          type: boolean
+        my_score:
+          type: integer
+        opponent_score:
+          type: integer
+      required:
+      - done
+      - my_score
+      - opponent_move
+      - opponent_score
+      - result
     AiDraftRequestRequest:
       type: object
       properties:
@@ -6164,6 +7649,27 @@ components:
             $ref: '#/components/schemas/DifficultyEnum'
       required:
       - topic
+    AiMatchStartRequest:
+      type: object
+      properties:
+        topic:
+          type: string
+          default: ''
+          maxLength: 255
+        grade:
+          nullable: true
+          oneOf:
+          - $ref: '#/components/schemas/GradeEnum'
+          - $ref: '#/components/schemas/NullEnum'
+        count:
+          type: integer
+          maximum: 20
+          minimum: 1
+          default: 10
+        difficulties:
+          type: array
+          items:
+            $ref: '#/components/schemas/DifficultyEnum'
     AiSetting:
       type: object
       description: Serializer ĐỌC cấu hình AI.
@@ -6292,6 +7798,236 @@ components:
       - key
       - label
       - value
+    Analysis:
+      type: object
+      properties:
+        score:
+          type: number
+          format: double
+          nullable: true
+        analysis:
+          type: string
+        advice:
+          type: string
+      required:
+      - advice
+      - analysis
+      - score
+    AnswerItemRequest:
+      type: object
+      properties:
+        question_id:
+          type: integer
+        answer:
+          type: string
+          default: ''
+      required:
+      - question_id
+    AnswerResult:
+      type: object
+      properties:
+        question_index:
+          type: integer
+        is_correct:
+          type: boolean
+        correct_answer:
+          type: string
+        explanation:
+          type: string
+        time_left:
+          type: integer
+        points:
+          type: integer
+          nullable: true
+      required:
+      - correct_answer
+      - explanation
+      - is_correct
+      - points
+      - question_index
+      - time_left
+    ArenaAnswerRequest:
+      type: object
+      properties:
+        question_index:
+          type: integer
+          minimum: 0
+        answer:
+          type: string
+          default: ''
+          description: Bỏ trống khi hết giờ
+      required:
+      - question_index
+    ArenaLeaderRow:
+      type: object
+      properties:
+        rank:
+          type: integer
+        user_id:
+          type: integer
+        full_name:
+          type: string
+        total_score:
+          type: integer
+        wins:
+          type: integer
+        is_me:
+          type: boolean
+      required:
+      - full_name
+      - is_me
+      - rank
+      - total_score
+      - user_id
+      - wins
+    ArenaMatchDetail:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        mode:
+          allOf:
+          - $ref: '#/components/schemas/ModeEnum'
+          title: Chế độ
+        topic:
+          type: string
+          title: Chủ đề
+          maxLength: 255
+        grade:
+          type: integer
+          maximum: 32767
+          minimum: 0
+          nullable: true
+          title: Khối
+        status:
+          allOf:
+          - $ref: '#/components/schemas/MatchStatusEnum'
+          title: Trạng thái
+        total_questions:
+          type: integer
+          readOnly: true
+        participants:
+          type: array
+          items:
+            type: object
+            additionalProperties: {}
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+        ended_at:
+          type: string
+          format: date-time
+          nullable: true
+        answers:
+          type: array
+          items:
+            type: object
+            additionalProperties: {}
+          description: 'Từng câu: đề, đáp án đúng, câu trả lời + điểm của từng người
+            chơi.'
+          readOnly: true
+        ai_analysis:
+          nullable: true
+          title: Nhận xét AI
+      required:
+      - answers
+      - created_at
+      - ended_at
+      - id
+      - mode
+      - participants
+      - topic
+      - total_questions
+    ArenaMatchReport:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        mode:
+          allOf:
+          - $ref: '#/components/schemas/ModeEnum'
+          title: Chế độ
+        topic:
+          type: string
+          title: Chủ đề
+          maxLength: 255
+        grade:
+          type: integer
+          maximum: 32767
+          minimum: 0
+          nullable: true
+          title: Khối
+        status:
+          allOf:
+          - $ref: '#/components/schemas/MatchStatusEnum'
+          title: Trạng thái
+        total_questions:
+          type: integer
+          readOnly: true
+        participants:
+          type: array
+          items:
+            type: object
+            additionalProperties: {}
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+        ended_at:
+          type: string
+          format: date-time
+          nullable: true
+      required:
+      - created_at
+      - ended_at
+      - id
+      - mode
+      - participants
+      - topic
+      - total_questions
+    ArenaQuestion:
+      type: object
+      properties:
+        index:
+          type: integer
+        content:
+          type: string
+        options:
+          type: array
+          items:
+            type: string
+        hint:
+          type: string
+        difficulty:
+          type: string
+      required:
+      - content
+      - difficulty
+      - hint
+      - index
+      - options
+    ArenaStats:
+      type: object
+      properties:
+        total_matches:
+          type: integer
+        wins:
+          type: integer
+        losses:
+          type: integer
+        win_rate:
+          type: integer
+        total_score:
+          type: integer
+      required:
+      - losses
+      - total_matches
+      - total_score
+      - win_rate
+      - wins
     Attachment:
       type: object
       description: Serializer cho tệp đính kèm đa hình (Attachments).
@@ -6545,6 +8281,40 @@ components:
       required:
       - count
       - label
+    ChallengeProgress:
+      type: object
+      properties:
+        id:
+          type: integer
+        code:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        period:
+          type: string
+        goal:
+          type: integer
+        progress:
+          type: integer
+        completed:
+          type: boolean
+        xp_reward:
+          type: integer
+        points_reward:
+          type: integer
+      required:
+      - code
+      - completed
+      - description
+      - goal
+      - id
+      - name
+      - period
+      - points_reward
+      - progress
+      - xp_reward
     ChangePasswordRequest:
       type: object
       description: Serializer xử lý đổi mật khẩu cho người dùng hiện tại.
@@ -6565,6 +8335,163 @@ components:
       - confirm_password
       - new_password
       - old_password
+    ChatMessage:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        role:
+          allOf:
+          - $ref: '#/components/schemas/RoleEnum'
+          readOnly: true
+          title: Vai trò
+        content:
+          type: string
+          readOnly: true
+          title: Nội dung
+        is_blocked:
+          type: boolean
+          readOnly: true
+          title: Bị chặn
+        image_urls:
+          type: array
+          items:
+            type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          title: Thời điểm
+      required:
+      - content
+      - created_at
+      - id
+      - image_urls
+      - is_blocked
+      - role
+    ChatPair:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        user_id:
+          type: integer
+        student_name:
+          type: string
+        class_name:
+          type: string
+          nullable: true
+          readOnly: true
+        session_id:
+          type: integer
+        question:
+          type: string
+        answer:
+          type: string
+          nullable: true
+        answer_role:
+          type: string
+          nullable: true
+        is_blocked:
+          type: boolean
+          title: Bị chặn
+        block_reason:
+          type: string
+          nullable: true
+          title: Lý do chặn
+          maxLength: 500
+        created_at:
+          type: string
+          format: date-time
+      required:
+      - answer
+      - answer_role
+      - class_name
+      - created_at
+      - id
+      - question
+      - session_id
+      - student_name
+      - user_id
+    ChatSession:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          title: Tiêu đề
+          maxLength: 255
+        last_message_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+          title: Tin nhắn gần nhất
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          title: Thời điểm tạo
+      required:
+      - created_at
+      - id
+      - last_message_at
+    ChatSessionRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          title: Tiêu đề
+          maxLength: 255
+    CheckAnswerRequest:
+      type: object
+      properties:
+        question_id:
+          type: integer
+        answer:
+          type: string
+          default: ''
+          maxLength: 5000
+        image:
+          type: string
+          format: binary
+          description: Ảnh bài làm tự luận
+      required:
+      - question_id
+    CheckAnswerResult:
+      type: object
+      properties:
+        is_correct:
+          type: boolean
+        correct_answer:
+          type: string
+        explanation:
+          type: string
+        score:
+          type: integer
+        feedback:
+          type: string
+      required:
+      - correct_answer
+      - explanation
+      - feedback
+      - is_correct
+      - score
+    CheckIn:
+      type: object
+      properties:
+        checked_in:
+          type: boolean
+        current_streak:
+          type: integer
+      required:
+      - checked_in
+      - current_streak
     CurrentUserProfile:
       type: object
       description: |-
@@ -6677,6 +8604,20 @@ components:
       required:
       - password
       - username
+    DailyPoint:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date
+        active_students:
+          type: integer
+        events:
+          type: integer
+      required:
+      - active_students
+      - date
+      - events
     DashboardOverview:
       type: object
       properties:
@@ -6830,6 +8771,22 @@ components:
         * `PROCESSING` - Đang xử lý
         * `COMPLETED` - Hoàn tất
         * `FAILED` - Lỗi
+    EventTypeEnum:
+      enum:
+      - LOGIN
+      - CHAT
+      - QUIZ
+      - FLASHCARD_VIEW
+      - MINDMAP_VIEW
+      - ARENA
+      type: string
+      description: |-
+        * `LOGIN` - Vào học
+        * `CHAT` - Hỏi gia sư AI
+        * `QUIZ` - Làm bài ôn tập
+        * `FLASHCARD_VIEW` - Xem flashcard
+        * `MINDMAP_VIEW` - Xem sơ đồ tư duy
+        * `ARENA` - Thi đấu đấu trường
     FileCategoryEnum:
       enum:
       - DOCUMENT
@@ -6846,6 +8803,17 @@ components:
         * `SPEC_SHEET` - Bản thông số kỹ thuật
         * `CONTRACT` - Hợp đồng / Đơn vị chứng từ
         * `OTHER` - Khác
+    FlashcardAnswerRequest:
+      type: object
+      properties:
+        card_index:
+          type: integer
+          minimum: 0
+        answer:
+          type: string
+          default: ''
+      required:
+      - card_index
     FlashcardDeck:
       type: object
       properties:
@@ -7017,6 +8985,18 @@ components:
       required:
       - cards
       - title
+    FlashcardQuizSubmitRequest:
+      type: object
+      properties:
+        deck_id:
+          type: integer
+        answers:
+          type: array
+          items:
+            $ref: '#/components/schemas/FlashcardAnswerRequest'
+      required:
+      - answers
+      - deck_id
     GradeEnum:
       enum:
       - 6
@@ -7075,6 +9055,20 @@ components:
         * `ok` - ok
         * `degraded` - degraded
         * `error` - error
+    HeatmapCell:
+      type: object
+      properties:
+        weekday:
+          type: integer
+          description: 1 = Thứ Hai ... 7 = Chủ nhật
+        hour:
+          type: integer
+        count:
+          type: integer
+      required:
+      - count
+      - hour
+      - weekday
     ImportCredential:
       type: object
       properties:
@@ -7289,6 +9283,159 @@ components:
       - label
       - previous
       - value
+    LeaderRow:
+      type: object
+      properties:
+        rank:
+          type: integer
+        user_id:
+          type: integer
+        full_name:
+          type: string
+        student_code:
+          type: string
+          nullable: true
+        class_name:
+          type: string
+          nullable: true
+        xp:
+          type: integer
+      required:
+      - class_name
+      - full_name
+      - rank
+      - student_code
+      - user_id
+      - xp
+    LeaderboardRow:
+      type: object
+      properties:
+        rank:
+          type: integer
+        user_id:
+          type: integer
+        full_name:
+          type: string
+        grade:
+          type: integer
+          nullable: true
+        class_name:
+          type: string
+          nullable: true
+        xp:
+          type: integer
+        level_title:
+          type: string
+        is_me:
+          type: boolean
+      required:
+      - class_name
+      - full_name
+      - grade
+      - is_me
+      - level_title
+      - rank
+      - user_id
+      - xp
+    LearnFlashcardDeck:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        topic:
+          type: string
+        grade:
+          type: integer
+          nullable: true
+        cards:
+          type: array
+          items:
+            type: object
+            additionalProperties: {}
+      required:
+      - cards
+      - grade
+      - id
+      - title
+      - topic
+    LearnMindmap:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        topic:
+          type: string
+        grade:
+          type: integer
+          nullable: true
+        nodes:
+          type: array
+          items:
+            type: object
+            additionalProperties: {}
+      required:
+      - grade
+      - id
+      - nodes
+      - title
+      - topic
+    LearningEvent:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        event_type:
+          allOf:
+          - $ref: '#/components/schemas/EventTypeEnum'
+          title: Loại sự kiện
+        source_type:
+          type: string
+          nullable: true
+          title: Loại nguồn
+          maxLength: 30
+        source_id:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: -9223372036854775808
+          format: int64
+          nullable: true
+          title: Id nguồn
+        metadata:
+          nullable: true
+          title: Thông tin phụ
+        occurred_at:
+          type: string
+          format: date-time
+      required:
+      - event_type
+      - id
+      - occurred_at
+    Level:
+      type: object
+      properties:
+        title:
+          type: string
+        min_xp:
+          type: integer
+        next_title:
+          type: string
+          nullable: true
+        next_min_xp:
+          type: integer
+          nullable: true
+        progress:
+          type: integer
+      required:
+      - min_xp
+      - next_min_xp
+      - next_title
+      - progress
+      - title
     LevelEnum:
       enum:
       - INFO
@@ -7317,6 +9464,93 @@ components:
           minLength: 1
       required:
       - refresh
+    MatchHistory:
+      type: object
+      properties:
+        match_id:
+          type: integer
+        mode:
+          type: string
+        topic:
+          type: string
+        status:
+          type: string
+        score:
+          type: integer
+        opponent_name:
+          type: string
+        opponent_score:
+          type: integer
+        is_winner:
+          type: boolean
+        xp_earned:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+      required:
+      - created_at
+      - is_winner
+      - match_id
+      - mode
+      - opponent_name
+      - opponent_score
+      - score
+      - status
+      - topic
+      - xp_earned
+    MatchResult:
+      type: object
+      properties:
+        match_id:
+          type: integer
+        mode:
+          type: string
+        topic:
+          type: string
+        status:
+          type: string
+        total_questions:
+          type: integer
+        participants:
+          type: array
+          items:
+            $ref: '#/components/schemas/ParticipantResult'
+      required:
+      - match_id
+      - mode
+      - participants
+      - status
+      - topic
+      - total_questions
+    MatchStarted:
+      type: object
+      properties:
+        match_id:
+          type: integer
+        topic:
+          type: string
+        seconds_per_question:
+          type: integer
+        questions:
+          type: array
+          items:
+            $ref: '#/components/schemas/ArenaQuestion'
+      required:
+      - match_id
+      - questions
+      - seconds_per_question
+      - topic
+    MatchStatusEnum:
+      enum:
+      - IN_PROGRESS
+      - FINISHED
+      - ABANDONED
+      type: string
+      description: |-
+        * `IN_PROGRESS` - Đang đấu
+        * `FINISHED` - Đã kết thúc
+        * `ABANDONED` - Bỏ dở
     Mindmap:
       type: object
       properties:
@@ -7488,6 +9722,14 @@ components:
       required:
       - nodes
       - title
+    ModeEnum:
+      enum:
+      - PVP
+      - AI
+      type: string
+      description: |-
+        * `PVP` - Đấu với bạn
+        * `AI` - Đấu với AI
     ModuleAddActionRequest:
       type: object
       description: Serializer thêm Action đơn lẻ vào module có sẵn.
@@ -7768,6 +10010,37 @@ components:
             dưới
       required:
       - ordered_ids
+    MyStats:
+      type: object
+      properties:
+        total_xp:
+          type: integer
+        weekly_xp:
+          type: integer
+        points:
+          type: integer
+        current_streak:
+          type: integer
+        longest_streak:
+          type: integer
+        last_study_date:
+          type: string
+          format: date
+          nullable: true
+        level:
+          $ref: '#/components/schemas/Level'
+        weekly_rank:
+          type: integer
+          nullable: true
+      required:
+      - current_streak
+      - last_study_date
+      - level
+      - longest_streak
+      - points
+      - total_xp
+      - weekly_rank
+      - weekly_xp
     Notification:
       type: object
       properties:
@@ -7838,6 +10111,22 @@ components:
       description: |-
         * `INTL` - Quốc tế (1,250.50)
         * `VN` - Việt Nam (1.250,50)
+    OpponentMove:
+      type: object
+      properties:
+        question_index:
+          type: integer
+        is_correct:
+          type: boolean
+        time_left:
+          type: integer
+        points:
+          type: integer
+      required:
+      - is_correct
+      - points
+      - question_index
+      - time_left
     OriginEnum:
       enum:
       - MANUAL
@@ -7848,6 +10137,40 @@ components:
         * `MANUAL` - Nhập tay
         * `AI` - AI sinh
         * `DOCUMENT` - Từ tài liệu
+    Overview:
+      type: object
+      properties:
+        total_students:
+          type: integer
+        active_students:
+          type: integer
+        chat_questions:
+          type: integer
+        quiz_attempts:
+          type: integer
+        arena_matches:
+          type: integer
+        flashcard_views:
+          type: integer
+        mindmap_views:
+          type: integer
+        quiz_accuracy:
+          type: integer
+          nullable: true
+        daily:
+          type: array
+          items:
+            $ref: '#/components/schemas/DailyPoint'
+      required:
+      - active_students
+      - arena_matches
+      - chat_questions
+      - daily
+      - flashcard_views
+      - mindmap_views
+      - quiz_accuracy
+      - quiz_attempts
+      - total_students
     PaginatedAiSettingList:
       type: object
       required:
@@ -7881,6 +10204,39 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/AiSetting'
+    PaginatedArenaMatchReportList:
+      type: object
+      required:
+      - count
+      - total_pages
+      - current_page
+      - page_size
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        total_pages:
+          type: integer
+          example: 13
+        current_page:
+          type: integer
+          example: 1
+        page_size:
+          type: integer
+          example: 10
+        next:
+          type: string
+          nullable: true
+          format: uri
+        previous:
+          type: string
+          nullable: true
+          format: uri
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ArenaMatchReport'
     PaginatedAttachmentList:
       type: object
       required:
@@ -7947,6 +10303,105 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/AuditLogEvent'
+    PaginatedChatMessageList:
+      type: object
+      required:
+      - count
+      - total_pages
+      - current_page
+      - page_size
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        total_pages:
+          type: integer
+          example: 13
+        current_page:
+          type: integer
+          example: 1
+        page_size:
+          type: integer
+          example: 10
+        next:
+          type: string
+          nullable: true
+          format: uri
+        previous:
+          type: string
+          nullable: true
+          format: uri
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChatMessage'
+    PaginatedChatPairList:
+      type: object
+      required:
+      - count
+      - total_pages
+      - current_page
+      - page_size
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        total_pages:
+          type: integer
+          example: 13
+        current_page:
+          type: integer
+          example: 1
+        page_size:
+          type: integer
+          example: 10
+        next:
+          type: string
+          nullable: true
+          format: uri
+        previous:
+          type: string
+          nullable: true
+          format: uri
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChatPair'
+    PaginatedChatSessionList:
+      type: object
+      required:
+      - count
+      - total_pages
+      - current_page
+      - page_size
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        total_pages:
+          type: integer
+          example: 13
+        current_page:
+          type: integer
+          example: 1
+        page_size:
+          type: integer
+          example: 10
+        next:
+          type: string
+          nullable: true
+          format: uri
+        previous:
+          type: string
+          nullable: true
+          format: uri
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChatSession'
     PaginatedDataTransferJobList:
       type: object
       required:
@@ -8046,6 +10501,39 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/KnowledgeChunk'
+    PaginatedLearningEventList:
+      type: object
+      required:
+      - count
+      - total_pages
+      - current_page
+      - page_size
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        total_pages:
+          type: integer
+          example: 13
+        current_page:
+          type: integer
+          example: 1
+        page_size:
+          type: integer
+          example: 10
+        next:
+          type: string
+          nullable: true
+          format: uri
+        previous:
+          type: string
+          nullable: true
+          format: uri
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/LearningEvent'
     PaginatedMindmapList:
       type: object
       required:
@@ -8244,6 +10732,39 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Question'
+    PaginatedQuizAttemptReportList:
+      type: object
+      required:
+      - count
+      - total_pages
+      - current_page
+      - page_size
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        total_pages:
+          type: integer
+          example: 13
+        current_page:
+          type: integer
+          example: 1
+        page_size:
+          type: integer
+          example: 10
+        next:
+          type: string
+          nullable: true
+          format: uri
+        previous:
+          type: string
+          nullable: true
+          format: uri
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuizAttemptReport'
     PaginatedRoleList:
       type: object
       required:
@@ -8376,6 +10897,39 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Student'
+    PaginatedStudentReportList:
+      type: object
+      required:
+      - count
+      - total_pages
+      - current_page
+      - page_size
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        total_pages:
+          type: integer
+          example: 13
+        current_page:
+          type: integer
+          example: 1
+        page_size:
+          type: integer
+          example: 10
+        next:
+          type: string
+          nullable: true
+          format: uri
+        previous:
+          type: string
+          nullable: true
+          format: uri
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/StudentReport'
     PaginatedTeacherList:
       type: object
       required:
@@ -8442,6 +10996,32 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/User'
+    ParticipantResult:
+      type: object
+      properties:
+        user_id:
+          type: integer
+          nullable: true
+        name:
+          type: string
+        score:
+          type: integer
+        correct_count:
+          type: integer
+        is_winner:
+          type: boolean
+        xp_earned:
+          type: integer
+        is_me:
+          type: boolean
+      required:
+      - correct_count
+      - is_me
+      - is_winner
+      - name
+      - score
+      - user_id
+      - xp_earned
     PatchedAiSettingCreateUpdateRequest:
       type: object
       description: 'Serializer GHI: kiểm tra giá trị đúng kiểu (số / bật-tắt).'
@@ -8518,6 +11098,13 @@ components:
         is_active:
           type: boolean
           title: Trạng thái hoạt động
+    PatchedChatSessionRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          title: Tiêu đề
+          maxLength: 255
     PatchedFlashcardDeckCreateUpdateRequest:
       type: object
       properties:
@@ -9055,6 +11642,34 @@ components:
       - module
       - permission_code
       - permission_name
+    PublicQuestion:
+      type: object
+      properties:
+        id:
+          type: integer
+        content:
+          type: string
+        options:
+          type: array
+          items:
+            type: string
+          nullable: true
+        question_type:
+          type: string
+        difficulty:
+          type: string
+        topic:
+          type: string
+        hint:
+          type: string
+      required:
+      - content
+      - difficulty
+      - hint
+      - id
+      - options
+      - question_type
+      - topic
     Question:
       type: object
       properties:
@@ -9353,6 +11968,192 @@ components:
       description: |-
         * `MULTIPLE_CHOICE` - Trắc nghiệm
         * `ESSAY` - Tự luận
+    QuizAttemptHistory:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        quiz_type:
+          allOf:
+          - $ref: '#/components/schemas/QuizTypeEnum'
+          title: Loại bài
+        grade:
+          type: integer
+          maximum: 32767
+          minimum: 0
+          nullable: true
+          title: Khối
+        topic:
+          type: string
+          nullable: true
+          title: Chủ đề
+          maxLength: 255
+        total_questions:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          title: Số câu
+        correct_count:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          title: Số câu đúng
+        xp_earned:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          title: XP nhận được
+        created_at:
+          type: string
+          format: date-time
+      required:
+      - correct_count
+      - created_at
+      - id
+      - total_questions
+    QuizAttemptReport:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        user_id:
+          type: integer
+          title: Học sinh
+          readOnly: true
+        student_name:
+          type: string
+        class_name:
+          type: string
+          nullable: true
+          readOnly: true
+        quiz_type:
+          allOf:
+          - $ref: '#/components/schemas/QuizTypeEnum'
+          title: Loại bài
+        grade:
+          type: integer
+          maximum: 32767
+          minimum: 0
+          nullable: true
+          title: Khối
+        topic:
+          type: string
+          nullable: true
+          title: Chủ đề
+          maxLength: 255
+        total_questions:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          title: Số câu
+        correct_count:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          title: Số câu đúng
+        accuracy:
+          type: integer
+          readOnly: true
+        xp_earned:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          title: XP nhận được
+        answers:
+          nullable: true
+          title: Chi tiết bài làm
+        created_at:
+          type: string
+          format: date-time
+      required:
+      - accuracy
+      - class_name
+      - correct_count
+      - created_at
+      - id
+      - student_name
+      - total_questions
+      - user_id
+    QuizResult:
+      type: object
+      properties:
+        attempt_id:
+          type: integer
+        total_questions:
+          type: integer
+        correct_count:
+          type: integer
+        xp_earned:
+          type: integer
+        completed_challenges:
+          type: array
+          items:
+            type: string
+        results:
+          type: array
+          items:
+            type: object
+            additionalProperties: {}
+      required:
+      - attempt_id
+      - completed_challenges
+      - correct_count
+      - results
+      - total_questions
+      - xp_earned
+    QuizStartRequest:
+      type: object
+      properties:
+        grade:
+          nullable: true
+          oneOf:
+          - $ref: '#/components/schemas/GradeEnum'
+          - $ref: '#/components/schemas/NullEnum'
+        topic:
+          type: string
+          default: ''
+          maxLength: 255
+        count:
+          type: integer
+          maximum: 20
+          minimum: 1
+          default: 10
+        question_type:
+          allOf:
+          - $ref: '#/components/schemas/QuestionTypeEnum'
+          default: MULTIPLE_CHOICE
+        difficulties:
+          type: array
+          items:
+            $ref: '#/components/schemas/DifficultyEnum'
+    QuizSubmitRequest:
+      type: object
+      properties:
+        grade:
+          nullable: true
+          oneOf:
+          - $ref: '#/components/schemas/GradeEnum'
+          - $ref: '#/components/schemas/NullEnum'
+        topic:
+          type: string
+          default: ''
+          maxLength: 255
+        answers:
+          type: array
+          items:
+            $ref: '#/components/schemas/AnswerItemRequest'
+      required:
+      - answers
+    QuizTypeEnum:
+      enum:
+      - CHINH_PHUC
+      - FLASHCARD_QUIZ
+      type: string
+      description: |-
+        * `CHINH_PHUC` - Chinh phục kiến thức
+        * `FLASHCARD_QUIZ` - Kiểm tra flashcard
     RecentActivity:
       type: object
       properties:
@@ -9439,6 +12240,16 @@ components:
       - role_name
       - updated_at
       - users_count
+    RoleEnum:
+      enum:
+      - USER
+      - MODEL
+      - SYSTEM
+      type: string
+      description: |-
+        * `USER` - Học sinh
+        * `MODEL` - Gia sư AI
+        * `SYSTEM` - Hệ thống
     RoleMatrixBatchRequest:
       type: object
       description: Serializer nhận ma trận phân quyền hàng loạt cho nhiều Role.
@@ -9695,6 +12506,40 @@ components:
       - subtitle
       - title
       - url
+    SendMessageRequest:
+      type: object
+      properties:
+        content:
+          type: string
+          default: ''
+          maxLength: 4000
+        image:
+          type: string
+          format: binary
+    SendMessageResult:
+      type: object
+      properties:
+        user_message:
+          $ref: '#/components/schemas/ChatMessage'
+        ai_message:
+          $ref: '#/components/schemas/ChatMessage'
+        xp_delta:
+          type: integer
+        blocked:
+          type: boolean
+        completed_challenges:
+          type: array
+          items:
+            type: string
+        session:
+          $ref: '#/components/schemas/ChatSession'
+      required:
+      - ai_message
+      - blocked
+      - completed_challenges
+      - session
+      - user_message
+      - xp_delta
     SourceDocument:
       type: object
       description: Serializer ĐỌC tài liệu nguồn (không kèm raw_text — xem ở trang
@@ -10024,6 +12869,7 @@ components:
           type: string
           format: date-time
           readOnly: true
+          nullable: true
         initial_password:
           type: string
           nullable: true
@@ -10216,6 +13062,157 @@ components:
       - count
       - credentials
       - errors
+    StudentReport:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        user_id:
+          type: integer
+          readOnly: true
+        student_code:
+          type: string
+          readOnly: true
+          title: Mã học sinh
+        full_name:
+          type: string
+        username:
+          type: string
+        grade:
+          allOf:
+          - $ref: '#/components/schemas/GradeEnum'
+          readOnly: true
+          title: Khối
+        school_class:
+          type: integer
+          readOnly: true
+          nullable: true
+          title: Lớp
+        school_class_name:
+          type: string
+          default: ''
+        chat_count:
+          type: integer
+        quiz_count:
+          type: integer
+        arena_count:
+          type: integer
+        flashcard_count:
+          type: integer
+        mindmap_count:
+          type: integer
+        total_xp:
+          type: integer
+          nullable: true
+        current_streak:
+          type: integer
+          nullable: true
+        last_active_at:
+          type: string
+          format: date-time
+          nullable: true
+        level_title:
+          type: string
+          readOnly: true
+        is_active:
+          type: boolean
+          readOnly: true
+          title: Trạng thái hoạt động
+      required:
+      - arena_count
+      - chat_count
+      - current_streak
+      - flashcard_count
+      - full_name
+      - grade
+      - id
+      - is_active
+      - last_active_at
+      - level_title
+      - mindmap_count
+      - quiz_count
+      - school_class
+      - student_code
+      - total_xp
+      - user_id
+      - username
+    StudentReportRequest:
+      type: object
+      properties:
+        full_name:
+          type: string
+          minLength: 1
+        username:
+          type: string
+          minLength: 1
+        school_class_name:
+          type: string
+          minLength: 1
+          default: ''
+        chat_count:
+          type: integer
+        quiz_count:
+          type: integer
+        arena_count:
+          type: integer
+        flashcard_count:
+          type: integer
+        mindmap_count:
+          type: integer
+        total_xp:
+          type: integer
+          nullable: true
+        current_streak:
+          type: integer
+          nullable: true
+        last_active_at:
+          type: string
+          format: date-time
+          nullable: true
+      required:
+      - arena_count
+      - chat_count
+      - current_streak
+      - flashcard_count
+      - full_name
+      - last_active_at
+      - mindmap_count
+      - quiz_count
+      - total_xp
+      - username
+    StudentStatsDetail:
+      type: object
+      properties:
+        total_xp:
+          type: integer
+        weekly_xp:
+          type: integer
+        points:
+          type: integer
+        current_streak:
+          type: integer
+        longest_streak:
+          type: integer
+        level_title:
+          type: string
+        quiz_accuracy:
+          type: integer
+          nullable: true
+        arena_wins:
+          type: integer
+        arena_matches:
+          type: integer
+      required:
+      - arena_matches
+      - arena_wins
+      - current_streak
+      - level_title
+      - longest_streak
+      - points
+      - quiz_accuracy
+      - total_xp
+      - weekly_xp
     SystemSettings:
       type: object
       properties:
@@ -10343,6 +13340,7 @@ components:
           type: string
           format: date-time
           readOnly: true
+          nullable: true
         initial_password:
           type: string
           nullable: true
@@ -10493,6 +13491,20 @@ components:
           minLength: 1
       required:
       - refresh
+    TopicRequestRequest:
+      type: object
+      properties:
+        grade:
+          nullable: true
+          oneOf:
+          - $ref: '#/components/schemas/GradeEnum'
+          - $ref: '#/components/schemas/NullEnum'
+        topic:
+          type: string
+          minLength: 1
+          maxLength: 255
+      required:
+      - topic
     UnreadCount:
       type: object
       properties:

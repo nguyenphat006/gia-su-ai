@@ -13,7 +13,7 @@ from django.contrib.auth import get_user_model
 from django.core.cache import cache
 from django.utils import translation
 from django.db.models import Count
-from django.db.models.functions import Coalesce, TruncDate
+from django.db.models.functions import TruncDate
 from django.utils import timezone
 from drf_spectacular.utils import extend_schema
 from rest_framework import permissions, serializers
@@ -52,16 +52,37 @@ def _kpi_users(user, perms, now):
     }
 
 
-def _kpi_materials(user, perms, now):
-    if not apps.is_installed('apps.master_data') or not _can(perms, 'MATERIAL_READ'):
+def _learning_kpi(perms, now, *, key, label, event_type, hint, href):
+    if not _can(perms, 'REPORT_READ'):
         return None
-    Material = apps.get_model('master_data', 'Material')
-    qs = Material.objects.all()
-    new_30, prev_30 = _window(qs, 'created_at', 30, now)
+    from apps.analytics.models import LearningEvent
+    current, previous = _window(LearningEvent.objects.filter(event_type=event_type), 'occurred_at', 7, now)
+    return {'key': key, 'label': label, 'value': current, 'delta': current - previous, 'previous': previous,
+            'hint': hint, 'href': href}
+
+
+def _kpi_active_students(user, perms, now):
+    if not _can(perms, 'REPORT_READ'):
+        return None
+    from apps.analytics.models import LearningEvent
+    events = LearningEvent.objects.all()
+    start = now - timedelta(days=7)
+    current = events.filter(occurred_at__gte=start).values('user').distinct().count()
+    previous = events.filter(occurred_at__gte=start - timedelta(days=7), occurred_at__lt=start).values('user').distinct().count()
     return {
-        'key': 'materials', 'label': _('Nguyên vật liệu'), 'value': qs.count(),
-        'delta': new_30, 'previous': prev_30, 'hint': _('thêm mới trong 30 ngày'), 'href': '/master-data/materials',
+        'key': 'active_students', 'label': _('Học sinh hoạt động'), 'value': current, 'delta': current - previous,
+        'previous': previous, 'hint': _('trong 7 ngày, so với 7 ngày trước'), 'href': '/reports',
     }
+
+
+def _kpi_chats(user, perms, now):
+    return _learning_kpi(perms, now, key='chats', label=_('Câu hỏi gia sư AI'), event_type='CHAT',
+                         hint=_('trong 7 ngày, so với 7 ngày trước'), href='/reports')
+
+
+def _kpi_arena(user, perms, now):
+    return _learning_kpi(perms, now, key='arena', label=_('Trận đấu trường'), event_type='ARENA',
+                         hint=_('trong 7 ngày, so với 7 ngày trước'), href='/reports')
 
 
 def _kpi_exports(user, perms, now):
@@ -94,7 +115,7 @@ def _kpi_activity(user, perms, now):
     }
 
 
-KPI_BUILDERS = [_kpi_users, _kpi_materials, _kpi_exports, _kpi_activity]
+KPI_BUILDERS = [_kpi_active_students, _kpi_chats, _kpi_arena, _kpi_users, _kpi_activity]
 
 
 def _activity_series(perms):
@@ -117,21 +138,8 @@ def _activity_series(perms):
 
 
 def _materials_by_category(perms):
-    if not apps.is_installed('apps.master_data') or not _can(perms, 'MATERIAL_READ'):
-        return None
-    Material = apps.get_model('master_data', 'Material')
-    rows = list(
-        Material.objects
-        .annotate(group=Coalesce('category__parent__name', 'category__name'))
-        .values('group')
-        .annotate(count=Count('id'))
-        .order_by('-count')
-    )
-    top = [{'label': r['group'] or _('Chưa phân nhóm'), 'count': r['count']} for r in rows[:TOP_CATEGORIES]]
-    rest = sum(r['count'] for r in rows[TOP_CATEGORIES:])
-    if rest:
-        top.append({'label': _('Khác'), 'count': rest})
-    return top
+    """Khối biểu đồ nhóm NVL của template ERP — dự án không dùng (giữ khóa API để frontend template không vỡ)."""
+    return None
 
 
 def _recent_activity(perms):
