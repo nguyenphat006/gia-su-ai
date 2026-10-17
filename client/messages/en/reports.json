@@ -1,0 +1,186 @@
+{
+  "pageTitle": "Learning reports",
+  "detailPageTitle": "Student report",
+  "tabs": {
+    "overview": "Overview",
+    "students": "Students",
+    "chat": "AI tutor chats",
+    "arena": "Arena",
+    "quiz": "Practice"
+  },
+  "scope": {
+    "label": "Report scope",
+    "allGrades": "All grades",
+    "allClasses": "All classes",
+    "searchClass": "Search classes…",
+    "reset": "Reset scope",
+    "defaultRange": "Last 30 days"
+  },
+  "overview": {
+    "loadError": "Could not load the overview",
+    "kpis": {
+      "totalStudents": "Students",
+      "activeStudents": "Active",
+      "chatQuestions": "Tutor questions",
+      "quizAttempts": "Practice quizzes",
+      "arenaMatches": "Arena matches",
+      "quizAccuracy": "Practice accuracy"
+    },
+    "hints": {
+      "inScope": "In the selected scope",
+      "activeRate": "{percent}% of students",
+      "inRange": "In the selected period",
+      "views": "{flashcards} flashcard views · {mindmaps} mind maps",
+      "accuracy": "Share of correct answers",
+      "noAttempts": "No practice yet"
+    },
+    "panels": {
+      "daily": "Daily activity",
+      "heatmap": "Study hours by weekday",
+      "leaderboard": "Top XP earners"
+    },
+    "series": {
+      "activeStudents": "Active students",
+      "events": "Activities"
+    },
+    "noActivity": "No activity in this period"
+  },
+  "heatmap": {
+    "weekdays": {
+      "1": "Mon",
+      "2": "Tue",
+      "3": "Wed",
+      "4": "Thu",
+      "5": "Fri",
+      "6": "Sat",
+      "7": "Sun"
+    },
+    "cell": "{day}, {hour}h: {count, plural, one {# activity} other {# activities}}",
+    "less": "Less",
+    "more": "More",
+    "legend": "Activity level"
+  },
+  "leaderboard": {
+    "empty": "No student earned XP in this period",
+    "xp": "{xp} XP"
+  },
+  "fields": {
+    "studentCode": "Student ID",
+    "fullName": "Full name",
+    "student": "Student",
+    "class": "Class",
+    "chatCount": "Questions",
+    "quizCount": "Practice",
+    "arenaCount": "Matches",
+    "flashcardCount": "Flashcards",
+    "mindmapCount": "Mind maps",
+    "totalXp": "Total XP",
+    "currentStreak": "Streak",
+    "lastActiveAt": "Last active",
+    "levelTitle": "Level",
+    "question": "Question",
+    "answer": "Answer",
+    "blocked": "Moderation",
+    "time": "Time",
+    "mode": "Mode",
+    "topic": "Topic",
+    "players": "Players",
+    "quizType": "Quiz type",
+    "result": "Result",
+    "accuracy": "Accuracy",
+    "xp": "XP",
+    "correctAnswer": "Correct answer",
+    "endedAt": "Ended"
+  },
+  "students": {
+    "entity": "students",
+    "searchPlaceholder": "Search ID, name, username…",
+    "exportLabel": "Student report",
+    "streakDays": "{count, plural, one {# day} other {# days}}"
+  },
+  "chat": {
+    "entity": "chats",
+    "searchPlaceholder": "Search questions…",
+    "status": {
+      "blocked": "Blocked",
+      "normal": "Normal"
+    },
+    "noAnswer": "No answer yet",
+    "detailTitle": "Chat details",
+    "blockReason": "Block reason",
+    "loadError": "Could not load this chat"
+  },
+  "arena": {
+    "entity": "matches",
+    "modes": {
+      "PVP": "Player vs player",
+      "AI": "Versus AI"
+    },
+    "statuses": {
+      "IN_PROGRESS": "In progress",
+      "FINISHED": "Finished",
+      "ABANDONED": "Abandoned"
+    },
+    "winner": "Winner",
+    "playerScore": "{name}: {score} points",
+    "detailTitle": "Match details",
+    "questions": "Questions",
+    "questionNo": "Question {index}",
+    "noAnswer": "No answer",
+    "correct": "Correct",
+    "wrong": "Wrong",
+    "points": "{points} points",
+    "summary": "{correct} correct · {score} points",
+    "noQuestions": "This match has no questions",
+    "aiAnalysis": "AI feedback",
+    "aiScore": "Rating: {score}",
+    "advice": "Advice",
+    "loadError": "Could not load this match"
+  },
+  "quiz": {
+    "entity": "practice attempts",
+    "types": {
+      "CHINH_PHUC": "Knowledge challenge",
+      "FLASHCARD_QUIZ": "Flashcard quiz"
+    },
+    "result": "{correct}/{total}"
+  },
+  "detail": {
+    "entity": "student",
+    "tabs": {
+      "activity": "Activity",
+      "chat": "AI tutor chats",
+      "arena": "Arena",
+      "quiz": "Practice"
+    },
+    "summary": {
+      "totalXp": "Total XP",
+      "weeklyXp": "XP this week",
+      "points": "Reward points",
+      "streak": "Current streak",
+      "longestStreak": "Longest streak",
+      "quizAccuracy": "Practice accuracy",
+      "arenaWins": "Arena wins"
+    },
+    "streakValue": "{count, plural, one {# day} other {# days}}",
+    "winsValue": "{wins}/{total}",
+    "username": "Username",
+    "dateHint": "Shows the last 30 days by default — filter the Time column to see another period."
+  },
+  "timeline": {
+    "events": {
+      "LOGIN": "Signed in",
+      "CHAT": "Asked the AI tutor",
+      "QUIZ": "Took a practice quiz",
+      "FLASHCARD_VIEW": "Viewed flashcards",
+      "MINDMAP_VIEW": "Viewed a mind map",
+      "ARENA": "Played an arena match"
+    },
+    "allTypes": "All activities",
+    "filterLabel": "Activity type",
+    "empty": "No activity yet",
+    "won": "Won",
+    "lost": "Lost",
+    "loadError": "Could not load the timeline"
+  }
+}

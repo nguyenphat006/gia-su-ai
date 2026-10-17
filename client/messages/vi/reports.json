@@ -1,0 +1,186 @@
+{
+  "pageTitle": "Báo cáo học tập",
+  "detailPageTitle": "Báo cáo học sinh",
+  "tabs": {
+    "overview": "Tổng quan",
+    "students": "Học sinh",
+    "chat": "Hỏi đáp AI",
+    "arena": "Đấu trường",
+    "quiz": "Ôn tập"
+  },
+  "scope": {
+    "label": "Phạm vi báo cáo",
+    "allGrades": "Tất cả khối",
+    "allClasses": "Tất cả lớp",
+    "searchClass": "Tìm lớp…",
+    "reset": "Đặt lại phạm vi",
+    "defaultRange": "30 ngày gần nhất"
+  },
+  "overview": {
+    "loadError": "Không tải được số liệu tổng quan",
+    "kpis": {
+      "totalStudents": "Học sinh",
+      "activeStudents": "Đang hoạt động",
+      "chatQuestions": "Câu hỏi gia sư",
+      "quizAttempts": "Bài ôn tập",
+      "arenaMatches": "Trận đấu",
+      "quizAccuracy": "Độ chính xác ôn tập"
+    },
+    "hints": {
+      "inScope": "Trong phạm vi lọc",
+      "activeRate": "{percent}% số học sinh",
+      "inRange": "Trong khoảng thời gian",
+      "views": "{flashcards} lượt xem flashcard · {mindmaps} sơ đồ",
+      "accuracy": "Tỉ lệ câu trả lời đúng",
+      "noAttempts": "Chưa có bài ôn tập"
+    },
+    "panels": {
+      "daily": "Hoạt động theo ngày",
+      "heatmap": "Giờ học trong tuần",
+      "leaderboard": "Nhận nhiều XP nhất"
+    },
+    "series": {
+      "activeStudents": "Học sinh hoạt động",
+      "events": "Lượt hoạt động"
+    },
+    "noActivity": "Chưa có hoạt động trong khoảng thời gian này"
+  },
+  "heatmap": {
+    "weekdays": {
+      "1": "Thứ 2",
+      "2": "Thứ 3",
+      "3": "Thứ 4",
+      "4": "Thứ 5",
+      "5": "Thứ 6",
+      "6": "Thứ 7",
+      "7": "CN"
+    },
+    "cell": "{day}, {hour}h: {count, plural, other {# hoạt động}}",
+    "less": "Ít",
+    "more": "Nhiều",
+    "legend": "Mức độ hoạt động"
+  },
+  "leaderboard": {
+    "empty": "Chưa có học sinh nhận XP trong khoảng này",
+    "xp": "{xp} XP"
+  },
+  "fields": {
+    "studentCode": "Mã HS",
+    "fullName": "Họ và tên",
+    "student": "Học sinh",
+    "class": "Lớp",
+    "chatCount": "Câu hỏi",
+    "quizCount": "Ôn tập",
+    "arenaCount": "Trận đấu",
+    "flashcardCount": "Flashcard",
+    "mindmapCount": "Sơ đồ",
+    "totalXp": "Tổng XP",
+    "currentStreak": "Chuỗi ngày",
+    "lastActiveAt": "Hoạt động gần nhất",
+    "levelTitle": "Danh hiệu",
+    "question": "Câu hỏi",
+    "answer": "Câu trả lời",
+    "blocked": "Kiểm duyệt",
+    "time": "Thời gian",
+    "mode": "Chế độ",
+    "topic": "Chủ đề",
+    "players": "Người chơi",
+    "quizType": "Loại bài",
+    "result": "Kết quả",
+    "accuracy": "Chính xác",
+    "xp": "XP",
+    "correctAnswer": "Đáp án đúng",
+    "endedAt": "Kết thúc"
+  },
+  "students": {
+    "entity": "học sinh",
+    "searchPlaceholder": "Tìm mã, họ tên, tài khoản…",
+    "exportLabel": "Báo cáo học sinh",
+    "streakDays": "{count} ngày"
+  },
+  "chat": {
+    "entity": "lượt hỏi đáp",
+    "searchPlaceholder": "Tìm trong câu hỏi…",
+    "status": {
+      "blocked": "Bị chặn",
+      "normal": "Bình thường"
+    },
+    "noAnswer": "Chưa có câu trả lời",
+    "detailTitle": "Chi tiết hỏi đáp",
+    "blockReason": "Lý do chặn",
+    "loadError": "Không tải được lượt hỏi đáp"
+  },
+  "arena": {
+    "entity": "trận đấu",
+    "modes": {
+      "PVP": "Đấu người",
+      "AI": "Đấu AI"
+    },
+    "statuses": {
+      "IN_PROGRESS": "Đang đấu",
+      "FINISHED": "Đã kết thúc",
+      "ABANDONED": "Bỏ dở"
+    },
+    "winner": "Thắng",
+    "playerScore": "{name}: {score} điểm",
+    "detailTitle": "Chi tiết trận đấu",
+    "questions": "Từng câu",
+    "questionNo": "Câu {index}",
+    "noAnswer": "Không trả lời",
+    "correct": "Đúng",
+    "wrong": "Sai",
+    "points": "{points} điểm",
+    "summary": "{correct} câu đúng · {score} điểm",
+    "noQuestions": "Trận đấu chưa có câu hỏi",
+    "aiAnalysis": "Nhận xét AI",
+    "aiScore": "Điểm đánh giá: {score}",
+    "advice": "Lời khuyên",
+    "loadError": "Không tải được trận đấu"
+  },
+  "quiz": {
+    "entity": "lượt ôn tập",
+    "types": {
+      "CHINH_PHUC": "Chinh phục kiến thức",
+      "FLASHCARD_QUIZ": "Kiểm tra flashcard"
+    },
+    "result": "{correct}/{total}"
+  },
+  "detail": {
+    "entity": "học sinh",
+    "tabs": {
+      "activity": "Hoạt động",
+      "chat": "Hỏi đáp AI",
+      "arena": "Đấu trường",
+      "quiz": "Ôn tập"
+    },
+    "summary": {
+      "totalXp": "Tổng XP",
+      "weeklyXp": "XP tuần này",
+      "points": "Điểm thưởng",
+      "streak": "Chuỗi hiện tại",
+      "longestStreak": "Chuỗi dài nhất",
+      "quizAccuracy": "Chính xác ôn tập",
+      "arenaWins": "Thắng đấu trường"
+    },
+    "streakValue": "{count} ngày",
+    "winsValue": "{wins}/{total}",
+    "username": "Tài khoản",
+    "dateHint": "Mặc định hiển thị 30 ngày gần nhất — lọc cột Thời gian để xem khoảng khác."
+  },
+  "timeline": {
+    "events": {
+      "LOGIN": "Vào học",
+      "CHAT": "Hỏi gia sư AI",
+      "QUIZ": "Làm bài ôn tập",
+      "FLASHCARD_VIEW": "Xem flashcard",
+      "MINDMAP_VIEW": "Xem sơ đồ tư duy",
+      "ARENA": "Thi đấu đấu trường"
+    },
+    "allTypes": "Tất cả hoạt động",
+    "filterLabel": "Loại hoạt động",
+    "empty": "Chưa có hoạt động",
+    "won": "Thắng",
+    "lost": "Thua",
+    "loadError": "Không tải được dòng thời gian"
+  }
+}
