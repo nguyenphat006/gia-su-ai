@@ -4056,6 +4056,7 @@ export interface components {
             readonly roles: components["schemas"]["UserRoleSimple"][];
             readonly role_codes: string[];
             readonly permissions: string[];
+            readonly student_profile: components["schemas"]["StudentProfileBrief"] | null;
             /**
              * Bắt đổi mật khẩu
              * @description Bắt đổi mật khẩu ở lần đăng nhập tới (tài khoản mới tạo / import / đặt lại mật khẩu)
@@ -5993,6 +5994,13 @@ export interface components {
             count: number;
             errors: string[];
             credentials: components["schemas"]["ImportCredential"][];
+        };
+        /** @description Hồ sơ học sinh rút gọn trong /auth/me/ và đăng nhập (giao diện học sinh dùng khối / lớp mặc định). */
+        StudentProfileBrief: {
+            student_code: string;
+            grade: number;
+            school_class_id: number | null;
+            school_class_name: string | null;
         };
         StudentReport: {
             readonly id: number;
@@ -8004,12 +8012,6 @@ export interface operations {
                 search?: string;
                 source_document?: number;
                 source_document__isnull?: boolean;
-                /**
-                 * @description * `PROCESSING` - Đang xử lý
-                 *     * `COMPLETED` - Hoàn tất
-                 *     * `FAILED` - Lỗi
-                 */
-                source_document__status?: "COMPLETED" | "FAILED" | "PROCESSING";
                 title__icontains?: string;
                 topic__icontains?: string;
                 updated_at__date__gte?: string;

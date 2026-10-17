@@ -1988,19 +1988,6 @@ paths:
         schema:
           type: boolean
       - in: query
-        name: source_document__status
-        schema:
-          type: string
-          title: Trạng thái xử lý
-          enum:
-          - COMPLETED
-          - FAILED
-          - PROCESSING
-        description: |-
-          * `PROCESSING` - Đang xử lý
-          * `COMPLETED` - Hoàn tất
-          * `FAILED` - Lỗi
-      - in: query
         name: title__icontains
         schema:
           type: string
@@ -8560,6 +8547,11 @@ components:
           items:
             type: string
           readOnly: true
+        student_profile:
+          allOf:
+          - $ref: '#/components/schemas/StudentProfileBrief'
+          nullable: true
+          readOnly: true
         must_change_password:
           type: boolean
           title: Bắt đổi mật khẩu
@@ -8589,6 +8581,7 @@ components:
       - permissions
       - role_codes
       - roles
+      - student_profile
       - updated_at
       - username
     CustomTokenObtainPairRequest:
@@ -13049,6 +13042,26 @@ components:
       - count
       - credentials
       - errors
+    StudentProfileBrief:
+      type: object
+      description: Hồ sơ học sinh rút gọn trong /auth/me/ và đăng nhập (giao diện
+        học sinh dùng khối / lớp mặc định).
+      properties:
+        student_code:
+          type: string
+        grade:
+          type: integer
+        school_class_id:
+          type: integer
+          nullable: true
+        school_class_name:
+          type: string
+          nullable: true
+      required:
+      - grade
+      - school_class_id
+      - school_class_name
+      - student_code
     StudentReport:
       type: object
       properties:

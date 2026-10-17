@@ -180,6 +180,24 @@ class UserSerializer(serializers.ModelSerializer):
         return ", ".join([r.role_name for r in obj.roles.all()])
 
 
+class StudentProfileBriefSerializer(serializers.Serializer):
+    """Hồ sơ học sinh rút gọn trong /auth/me/ và đăng nhập (giao diện học sinh dùng khối / lớp mặc định)."""
+    student_code = serializers.CharField()
+    grade = serializers.IntegerField()
+    school_class_id = serializers.IntegerField(allow_null=True)
+    school_class_name = serializers.CharField(allow_null=True)
+
+
+def student_profile_brief(user) -> dict | None:
+    profile = getattr(user, 'student_profile', None)
+    if profile is None or profile.deleted_at is not None:
+        return None
+    return {
+        'student_code': profile.student_code, 'grade': profile.grade, 'school_class_id': profile.school_class_id,
+        'school_class_name': profile.school_class.name if profile.school_class_id else None,
+    }
+
+
 class CurrentUserProfileSerializer(serializers.ModelSerializer):
     """
     Serializer hiển thị hồ sơ cá nhân và quyền hạn của chính người dùng đang đăng nhập (/auth/me/).
@@ -189,6 +207,7 @@ class CurrentUserProfileSerializer(serializers.ModelSerializer):
     roles = UserRoleSimpleSerializer(many=True, read_only=True)
     role_codes = serializers.SerializerMethodField()
     permissions = serializers.SerializerMethodField()
+    student_profile = serializers.SerializerMethodField()
     created_at = serializers.DateTimeField(format="%d/%m/%Y %H:%M", read_only=True)
     updated_at = serializers.DateTimeField(format="%d/%m/%Y %H:%M", read_only=True)
     last_login = serializers.DateTimeField(format="%d/%m/%Y %H:%M", read_only=True)
@@ -208,6 +227,7 @@ class CurrentUserProfileSerializer(serializers.ModelSerializer):
             'roles',
             'role_codes',
             'permissions',
+            'student_profile',
             'must_change_password',
             'last_login',
             'description',
@@ -218,6 +238,10 @@ class CurrentUserProfileSerializer(serializers.ModelSerializer):
 
     def get_role_codes(self, obj) -> list[str]:
         return [r.role_code for r in obj.roles.all()]
+
+    @extend_schema_field(StudentProfileBriefSerializer(allow_null=True))
+    def get_student_profile(self, obj):
+        return student_profile_brief(obj)
 
     def get_permissions(self, obj) -> list[str]:
         from .models import RolePermission, Permission
@@ -430,6 +454,7 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
                 'permissions': permissions,
                 'avatar': self.user.avatar.url if self.user.avatar else None,
                 'must_change_password': self.user.must_change_password,
+                'student_profile': student_profile_brief(self.user),
             }
         }
 
