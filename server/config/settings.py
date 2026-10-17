@@ -240,7 +240,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Có REDIS_CACHE_URL -> dùng Redis (bắt buộc khi chạy nhiều process: gunicorn workers + Celery,
 # vì cache quyền RBAC phải được invalidate đồng bộ giữa các process).
 # Không có -> LocMemCache (chỉ phù hợp dev 1 process / unit test).
-REDIS_CACHE_URL = os.getenv('REDIS_CACHE_URL')
+# Render Key Value chỉ cấp 1 REDIS_URL -> tự chia DB: 0 = Celery, 1 = cache, 2 = channel layer.
+# Biến riêng (REDIS_CACHE_URL, CELERY_BROKER_URL, CHANNELS_REDIS_URL) vẫn được ưu tiên nếu có.
+REDIS_URL = os.getenv('REDIS_URL', '').rstrip('/')
+
+
+def _redis_db(index: int) -> str | None:
+    return f'{REDIS_URL}/{index}' if REDIS_URL else None
+
+
+REDIS_CACHE_URL = os.getenv('REDIS_CACHE_URL') or _redis_db(1)
 if REDIS_CACHE_URL and not RUNNING_TESTS:
     CACHES = {
         'default': {
@@ -336,8 +345,8 @@ SPECTACULAR_SETTINGS = {
 # ==============================================================================
 # Celery & Redis Task Queue Configuration
 # ==============================================================================
-CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL', 'redis://127.0.0.1:6379/0')
-CELERY_RESULT_BACKEND = os.getenv('CELERY_RESULT_BACKEND', 'redis://127.0.0.1:6379/0')
+CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL') or _redis_db(0) or 'redis://127.0.0.1:6379/0'
+CELERY_RESULT_BACKEND = os.getenv('CELERY_RESULT_BACKEND') or _redis_db(0) or 'redis://127.0.0.1:6379/0'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
@@ -356,7 +365,7 @@ if RUNNING_TESTS:
 # Django Channels (WebSocket — Đấu trường realtime)
 # ==============================================================================
 # Nhiều process (gunicorn + UvicornWorker) phải dùng chung Redis channel layer; dev 1 process / test dùng bộ nhớ.
-CHANNELS_REDIS_URL = os.getenv('CHANNELS_REDIS_URL')
+CHANNELS_REDIS_URL = os.getenv('CHANNELS_REDIS_URL') or _redis_db(2)
 if CHANNELS_REDIS_URL and not RUNNING_TESTS:
     CHANNEL_LAYERS = {
         'default': {

@@ -1,0 +1,50 @@
+# Render Blueprint — Gia Sư AI KHTN (API Django ASGI + Redis). Frontend Next.js deploy trên Vercel (client/).
+# Hướng dẫn: docs/DEPLOY.md
+services:
+  - type: web
+    name: giasu-ai-api
+    runtime: python
+    plan: free
+    region: singapore
+    rootDir: server
+    buildCommand: pip install -r requirements.txt && SECRET_KEY=collectstatic-only python manage.py collectstatic --noinput
+    startCommand: bash start.sh
+    healthCheckPath: /api/v1/health/
+    autoDeploy: true
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.10
+      - key: DEBUG
+        value: "False"
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ALLOWED_HOSTS
+        value: .onrender.com
+      - key: CORS_ALLOWED_ORIGINS
+        sync: false   # vd. https://gia-su-ai.vercel.app
+      - key: CSRF_TRUSTED_ORIGINS
+        sync: false   # cùng giá trị CORS_ALLOWED_ORIGINS
+      - key: DATABASE_URL
+        sync: false   # Neon: dùng chuỗi kết nối direct (không -pooler) cho Django
+      - key: ADMIN_USERNAME
+        value: admin
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GEMINI_MODEL
+        value: gemini-3.1-flash-lite-preview
+      - key: CACHE_KEY_PREFIX
+        value: giasu
+      - key: REDIS_URL
+        fromService:
+          type: keyvalue
+          name: giasu-ai-redis
+          property: connectionString
+
+  - type: keyvalue
+    name: giasu-ai-redis
+    plan: free
+    region: singapore
+    maxmemoryPolicy: noeviction   # Celery broker không được tự xóa khóa
+    ipAllowList: []               # chỉ truy cập nội bộ từ các service Render
