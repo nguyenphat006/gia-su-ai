@@ -1,6 +1,6 @@
-# 🤖 AGENTS & CODING STANDARDS (Admin Template)
+# 🤖 AGENTS & CODING STANDARDS (Gia Sư AI KHTN)
 
-Tài liệu này là **Cẩm nang Quy chuẩn Cốt lõi** mà mọi AI Agent (và lập trình viên) **BẮT BUỘC PHẢI ĐỌC VÀ TUÂN THỦ NGHIÊM NGẶT 100%** trong suốt quá trình phát triển dự án **Admin Template (Django + Next.js)** của **ERICSS**.
+Tài liệu này là **Cẩm nang Quy chuẩn Cốt lõi** mà mọi AI Agent (và lập trình viên) **BẮT BUỘC PHẢI ĐỌC VÀ TUÂN THỦ NGHIÊM NGẶT 100%** trong suốt quá trình phát triển dự án **Gia Sư AI KHTN (Django + Next.js)**, dựng trên template của **ERICSS**. Phạm vi nghiệp vụ: xem `CLAUDE.md`.
 
 ---
 

@@ -1,5 +1,5 @@
 """
-URL configuration for Admin Template project.
+URL configuration — Gia Sư AI KHTN.
 """
 
 from django.contrib import admin
@@ -16,11 +16,12 @@ from drf_spectacular.views import (
 api_v1_patterns = [
     path('', include('apps.core.urls')),
     path('', include('apps.authentication.urls')),
-    path('', include('apps.master_data.urls')),
     path('', include('apps.audit.urls')),
     path('', include('apps.dashboard.urls')),
-    path('', include('apps.customers.urls')),
-    path('', include('apps.suppliers.urls')),
+    path('', include('apps.academics.urls')),
+    path('', include('apps.ai_settings.urls')),
+    path('', include('apps.knowledge.urls')),
+    path('', include('apps.revision.urls')),
     # [startmodule] app mới được chèn phía trên dòng này
 ]
 

@@ -335,10 +335,10 @@ class SystemSettings(AuditModel):
     number_format = models.CharField(max_length=10, choices=NUMBER_FORMAT_CHOICES, default='INTL', verbose_name=_("Định dạng số mặc định"))
 
     DEFAULTS = {
-        'app_name': 'Admin Template',
-        'app_badge': 'v1.0',
-        'tagline': 'Django · Next.js',
-        'company_name': 'ERICSS',
+        'app_name': 'Gia Sư AI KHTN',
+        'app_badge': 'THCS',
+        'tagline': 'Học KHTN cùng trợ lý AI',
+        'company_name': 'Trường THCS Phước Tân 3',
     }
 
     class Meta:

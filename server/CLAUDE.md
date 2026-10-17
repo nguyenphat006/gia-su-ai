@@ -25,5 +25,6 @@ Env: `.env` (mẫu `.env.example`); có `DATABASE_URL` → dùng Neon/Postgres �
 - `apps/authentication/` — CustomUser, Role, Permission, ModuleRegistry, JWT, seed commands.
 - `apps/audit/` — API đọc lịch sử `django-pghistory`.
 - `apps/dashboard/` — API trang Tổng quan (KPI theo quyền).
-- `apps/master_data/` — module MẪU: UnitsOfMeasure, MaterialCategories, Materials, MetalMaterialSpecs. Mẫu tham chiếu khi viết app mới.
-- `apps/customers/`, `apps/suppliers/` — module MẪU sinh bằng `startmodule` (xóa được).
+- Module mẫu ERP của template (master_data, customers, suppliers) đã bỏ. Khuôn app mới: `apps/core/module_template/` (lệnh `startmodule`).
+- `config/asgi.py` + `config/routing.py` — ASGI (HTTP + WebSocket Channels), xác thực WS bằng JWT `?token=` (`apps/core/ws_auth.py`).
+- `apps/authentication/hashers.py` — `legacy_scrypt`: kiểm tra mật khẩu chuyển từ bản cũ, tự nâng cấp sang PBKDF2 khi đăng nhập.

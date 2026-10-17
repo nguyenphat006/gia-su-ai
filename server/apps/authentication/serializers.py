@@ -164,6 +164,7 @@ class UserSerializer(serializers.ModelSerializer):
             'roles',
             'role_codes',
             'role_names',
+            'must_change_password',
             'last_login',
             'description',
             'created_at',
@@ -207,6 +208,7 @@ class CurrentUserProfileSerializer(serializers.ModelSerializer):
             'roles',
             'role_codes',
             'permissions',
+            'must_change_password',
             'last_login',
             'description',
             'created_at',
@@ -265,7 +267,7 @@ class UserCreateUpdateSerializer(serializers.ModelSerializer):
         ]
         extra_kwargs = {
             'username': {'required': True},
-            'email': {'required': True},
+            'email': {'required': False, 'allow_blank': True},
         }
 
     def validate(self, attrs):
@@ -337,6 +339,7 @@ class UserCreateUpdateSerializer(serializers.ModelSerializer):
         with transaction.atomic():
             user = User(**validated_data)
             user.set_password(password)  # validate() đã bắt buộc có mật khẩu khi tạo
+            user.must_change_password = True  # mật khẩu do người khác đặt -> chủ tài khoản phải đổi
             user.save()
 
             if role_ids:
@@ -357,6 +360,8 @@ class UserCreateUpdateSerializer(serializers.ModelSerializer):
                 setattr(instance, attr, value)
             if password:
                 instance.set_password(password)
+                # Người khác đặt lại mật khẩu -> chủ tài khoản phải đổi ở lần đăng nhập tới
+                instance.must_change_password = bool(actor and actor.pk != instance.pk)
             instance.save()
 
             if role_ids is not None:
@@ -424,6 +429,7 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
                 'role_codes': role_codes,
                 'permissions': permissions,
                 'avatar': self.user.avatar.url if self.user.avatar else None,
+                'must_change_password': self.user.must_change_password,
             }
         }
 

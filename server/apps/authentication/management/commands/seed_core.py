@@ -18,7 +18,7 @@ from django.db import transaction
 
 from apps.authentication.models import ModuleRegistry, Permission, Role, RolePermission
 from apps.core.permissions import invalidate_user_permissions
-from apps.core.rbac_registry import collect_app_rbac, crud_permissions  # noqa: F401 (crud_permissions: tương thích ngược)
+from apps.core.rbac_registry import collect_app_rbac, crud_permissions, run_app_seeds  # noqa: F401 (crud_permissions: tương thích ngược)
 
 User = get_user_model()
 
@@ -89,39 +89,14 @@ DEFAULT_ROLES = [
         'description': 'Toàn quyền cấu hình hệ thống, quản lý tài khoản và phân quyền người dùng.',
     },
     {
-        'role_code': 'MANAGER',
-        'role_name': 'Trưởng bộ phận / Quản lý (Manager)',
-        'description': 'Xem danh sách, xem số liệu thống kê, cập nhật thông tin và xuất báo cáo.',
+        'role_code': 'TEACHER',
+        'role_name': 'Giáo viên (Teacher)',
+        'description': 'Quản lý học sinh, lớp học, ngân hàng câu hỏi, tài liệu tri thức và xem báo cáo học tập.',
     },
     {
-        'role_code': 'STAFF',
-        'role_name': 'Nhân viên / Chuyên viên (Staff)',
-        'description': 'Xem danh sách dữ liệu và xem số liệu KPI cơ bản.',
-    },
-    {
-        'role_code': 'CHIEF_ENGINEER',
-        'role_name': 'Kỹ Sư Trưởng (Chief Engineer)',
-        'description': 'Phê duyệt cấu trúc BOM, công thức sơn hoàn thiện và quy trình kỹ thuật.',
-    },
-    {
-        'role_code': 'BOM_DESIGNER',
-        'role_name': 'Kỹ Sư Thiết Kế Định Mức (BOM Designer)',
-        'description': 'Thiết kế cấu trúc BOM 4 tầng, bóc tách linh kiện và định mức kỹ thuật.',
-    },
-    {
-        'role_code': 'PRODUCTION_PLANNER',
-        'role_name': 'Quản Lý Kế Hoạch Sản Xuất (Production Planner)',
-        'description': 'Lập kế hoạch sản xuất, điều độ lệnh và điều phối vật tư nguồn lực.',
-    },
-    {
-        'role_code': 'WORKSHOP_SUPERVISOR',
-        'role_name': 'Quản Đốc Phân Xưởng (Workshop Supervisor)',
-        'description': 'Tiếp nhận lệnh sản xuất, phân bổ công việc tại xưởng và theo dõi tiến độ.',
-    },
-    {
-        'role_code': 'WAREHOUSE_KEEPER',
-        'role_name': 'Thủ Kho (Warehouse Keeper)',
-        'description': 'Quản lý xuất nhập tồn kho nguyên vật liệu, phụ kiện và thành phẩm.',
+        'role_code': 'STUDENT',
+        'role_name': 'Học sinh (Student)',
+        'description': 'Học với gia sư AI, ôn tập, thi đấu đấu trường. Không truy cập trang quản trị.',
     },
 ]
 
@@ -225,30 +200,12 @@ DEFAULT_PERMISSIONS = [
 
 # Quyền lõi mặc định theo vai trò (ADMIN = toàn bộ quyền, không liệt kê)
 ROLE_PERMISSION_MAP = {
-    'MANAGER': [
-        'USER_VIEW', 'USER_READ', 'USER_CREATE', 'USER_UPDATE', 'USER_EXPORT',
-        'AUDIT_LOGS_VIEW', 'AUDIT_LOGS_READ',
-        'SETTINGS_VIEW', 'SETTINGS_READ'
-    ],
-    'CHIEF_ENGINEER': [
-        'USER_VIEW', 'USER_READ',
+    'TEACHER': [
+        'USER_VIEW', 'USER_READ', 'USER_CREATE', 'USER_UPDATE', 'USER_EXPORT', 'USER_IMPORT',
         'AUDIT_LOGS_VIEW', 'AUDIT_LOGS_READ',
     ],
-    'BOM_DESIGNER': [
-        'USER_VIEW', 'USER_READ',
-    ],
-    'PRODUCTION_PLANNER': [
-        'USER_VIEW', 'USER_READ',
-    ],
-    'WORKSHOP_SUPERVISOR': [
-        'USER_VIEW', 'USER_READ',
-    ],
-    'WAREHOUSE_KEEPER': [
-        'USER_VIEW', 'USER_READ',
-    ],
-    'STAFF': [
-        'USER_VIEW', 'USER_READ'
-    ],
+    # Quyền học tập của STUDENT do các app nghiệp vụ khai báo trong rbac.py
+    'STUDENT': [],
 }
 
 
@@ -346,6 +303,10 @@ class Command(BaseCommand):
         if admin_role:
             for su in User.objects.filter(is_superuser=True):
                 su.roles.add(admin_role)
+
+        # Dữ liệu mặc định của từng app (apps/<app>/seeds.py) — chỉ tạo khi chưa có, không ghi đè chỉnh sửa trên UI
+        for app_label, summary in run_app_seeds():
+            self.stdout.write(f"  - Seed {app_label}: {summary}")
 
         invalidate_user_permissions()
         self.stdout.write(self.style.SUCCESS("\n[SUCCESS] Hoan tat khoi tao du lieu loi (Modules, Permissions, Roles, Admin)."))

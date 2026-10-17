@@ -20,7 +20,7 @@ class UserPrivilegeEscalationTests(TestCase):
         call_command('seed_core', stdout=StringIO())
         invalidate_user_permissions()
         self.admin_role = Role.objects.get(role_code='ADMIN')
-        self.manager_role = Role.objects.get(role_code='MANAGER')  # có USER_CREATE + USER_UPDATE
+        self.manager_role = Role.objects.get(role_code='TEACHER')  # có USER_CREATE + USER_UPDATE
         self.admin = User.objects.get(username='admin')
         self.manager = User.objects.create_user(username='mgr', email='mgr@x.vn', password='Password123!')
         self.manager.roles.add(self.manager_role)

@@ -73,6 +73,7 @@ class ChangePasswordView(APIView):
         user = request.user
         new_password = serializer.validated_data['new_password']
         user.set_password(new_password)
+        user.must_change_password = False
         user.save()
 
         # Invalidate permissions cache

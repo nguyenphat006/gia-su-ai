@@ -15,7 +15,6 @@ MODEL_LABEL_MAP = {
     'authentication.customuser': _('Người dùng (Users)'),
     'authentication.role': _('Vai trò (Roles)'),
     'authentication.moduleregistry': _('Phân hệ & Điều hướng (ModuleRegistries)'),
-    'master_data.unitofmeasure': _('Đơn vị tính (UnitsOfMeasure)'),
 }
 
 def action_label(code: str) -> str:

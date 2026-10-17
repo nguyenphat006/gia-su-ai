@@ -19,7 +19,7 @@ class UserService(BaseService):
         stats = User.objects.aggregate(
             total=Count('id', filter=Q(deleted_at__isnull=True)),
             active=Count('id', filter=Q(is_active=True, deleted_at__isnull=True)),
-            management=Count('id', filter=Q(roles__role_code__in=['ADMIN', 'CHIEF_ENGINEER'], deleted_at__isnull=True), distinct=True),
+            management=Count('id', filter=Q(roles__role_code__in=['ADMIN', 'TEACHER'], deleted_at__isnull=True), distinct=True),
             inactive=Count('id', filter=Q(is_active=False, deleted_at__isnull=True)),
             new_this_month=Count('id', filter=Q(created_at__gte=first_day_of_month, deleted_at__isnull=True)),
         )

@@ -3,8 +3,8 @@ Gom khai báo phân hệ / quyền / quyền mặc định theo vai trò từ t�
 
 Mỗi app nghiệp vụ tự khai báo trong `apps/<app>/rbac.py` (tùy chọn):
     MODULES = [{'module_code': ..., 'module_name': ..., 'route_path': ..., ...}]
-    PERMISSIONS = [*crud_permissions('SUPPLIER', 'nhà cung cấp')]
-    ROLE_PERMISSIONS = {'MANAGER': perm_codes('SUPPLIER', 'VIEW', 'READ'), ...}
+    PERMISSIONS = [*crud_permissions('CLASS', 'lớp học')]
+    ROLE_PERMISSIONS = {'TEACHER': perm_codes('CLASS', 'VIEW', 'READ'), ...}
 
 `seed_core` gộp phần lõi của nó với khai báo của mọi app đang có trong INSTALLED_APPS
 -> thêm / bỏ một phân hệ chỉ cần thêm / xóa thư mục app, không sửa seed_core.
@@ -60,3 +60,22 @@ def collect_app_rbac():
         for role, codes in getattr(module, 'ROLE_PERMISSIONS', {}).items():
             role_permissions.setdefault(role, []).extend(codes)
     return modules, permissions, role_permissions
+
+
+def run_app_seeds():
+    """
+    Chạy `seed()` trong `apps/<app>/seeds.py` của mọi app đang cài (dữ liệu mặc định: cấu hình AI, thử thách...).
+    `seed()` phải idempotent: chỉ tạo bản ghi chưa có, không ghi đè dữ liệu đã chỉnh trên UI. Trả về chuỗi tóm tắt.
+    """
+    results = []
+    for config in apps.get_app_configs():
+        if not config.name.startswith('apps.'):
+            continue
+        try:
+            module = importlib.import_module(f'{config.name}.seeds')
+        except ModuleNotFoundError as exc:
+            if exc.name == f'{config.name}.seeds':
+                continue
+            raise
+        results.append((config.label, module.seed()))
+    return results

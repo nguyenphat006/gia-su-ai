@@ -23,6 +23,5 @@ MODULES = [
 PERMISSIONS = crud_permissions('__MODULE_CODE__', '__label__')
 
 ROLE_PERMISSIONS = {
-    'MANAGER': perm_codes('__MODULE_CODE__', 'VIEW', 'READ', 'CREATE', 'UPDATE', 'EXPORT'),
-    'STAFF': perm_codes('__MODULE_CODE__', 'VIEW', 'READ'),
+    'TEACHER': perm_codes('__MODULE_CODE__', 'VIEW', 'READ', 'CREATE', 'UPDATE', 'EXPORT'),
 }

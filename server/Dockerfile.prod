@@ -43,5 +43,6 @@ EXPOSE 8000
 HEALTHCHECK --interval=30s --timeout=5s --start-period=40s --retries=3 \
     CMD python -c "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8000/api/v1/health/', timeout=4).status == 200 else 1)"
 
-# bootstrap = migrate + seed_core (idempotent, không ghi đè dữ liệu người dùng) rồi chạy gunicorn
-CMD ["sh", "-c", "python manage.py bootstrap && exec gunicorn config.wsgi:application --bind 0.0.0.0:8000 --workers ${GUNICORN_WORKERS:-3} --timeout 120 --access-logfile - --error-logfile -"]
+# bootstrap = migrate + seed_core (idempotent, không ghi đè dữ liệu người dùng) rồi chạy gunicorn với worker ASGI
+# (UvicornWorker phục vụ cả HTTP lẫn WebSocket của Đấu trường)
+CMD ["sh", "-c", "python manage.py bootstrap && exec gunicorn config.asgi:application -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:8000 --workers ${GUNICORN_WORKERS:-3} --timeout 120 --access-logfile - --error-logfile -"]

@@ -30,7 +30,7 @@ class SeedCommandTests(TestCase):
 
     def test_seed_core_keeps_role_permissions_edited_on_ui(self):
         run('seed_core')
-        role = Role.objects.exclude(role_code='ADMIN').first()
+        role = Role.objects.get(role_code='TEACHER')
         RolePermission.objects.filter(role=role).delete()
 
         run('seed_core')
@@ -44,7 +44,7 @@ class SeedCommandTests(TestCase):
         from apps.authentication.models import Permission
         run('seed_core')
         Permission.objects.filter(permission_code='USER_EXPORT').delete()  # giả lập quyền chưa từng có
-        manager = Role.objects.get(role_code='MANAGER')
+        manager = Role.objects.get(role_code='TEACHER')
         self.assertFalse(RolePermission.objects.filter(role=manager, permission__permission_code='USER_EXPORT').exists())
 
         run('seed_core')
@@ -54,6 +54,7 @@ class SeedCommandTests(TestCase):
 
     @override_settings(DEBUG=False)
     def test_seed_core_requires_admin_password_in_production(self):
+        from unittest import mock
         from django.core.management.base import CommandError
-        with self.assertRaises(CommandError):
+        with mock.patch.dict('os.environ', {'ADMIN_PASSWORD': ''}), self.assertRaises(CommandError):
             run('seed_core')

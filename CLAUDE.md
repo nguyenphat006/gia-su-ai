@@ -1,7 +1,15 @@
-# Admin Template — Django + Next.js
+# Gia Sư AI KHTN — Django + Next.js
 
-Template quản trị full-stack của **ERICSS**, dùng làm nền cho các dự án quản lý. Có sẵn lõi hệ thống (đăng nhập, RBAC, người dùng, nhật ký, đính kèm, xuất Excel, tìm kiếm, i18n) và các phân hệ mẫu xóa được (`master_data`, `customers`, `suppliers`) — danh sách đầy đủ ở `README.md`.
-Khi clone sang dự án mới: thay đoạn mô tả này bằng phạm vi nghiệp vụ của dự án (làm gì / không làm gì).
+Nền tảng học **Khoa học Tự nhiên THCS (khối 6–9)** cho Trường THCS Phước Tân 3, dựng trên template quản trị của **ERICSS**.
+
+**Làm gì:**
+- Học sinh: chat với gia sư AI (Gemini, RAG trên tài liệu giáo viên), ôn tập (quiz trắc nghiệm / tự luận, flashcard, sơ đồ tư duy), đấu trường realtime (PvP + đấu AI), XP / chuỗi ngày học / thử thách / bảng xếp hạng.
+- Giáo viên / admin: quản lý học sinh, lớp; ngân hàng câu hỏi, flashcard, mindmap; nạp tài liệu tri thức; cấu hình AI; báo cáo học tập.
+- Vai trò: `ADMIN`, `TEACHER`, `STUDENT`. Học sinh dùng giao diện riêng `(student)` (`/learn/...`), không vào trang quản trị.
+
+**Không làm:** thanh toán, nhắn tin giữa người dùng, chấm điểm chính thức / học bạ.
+
+Kế hoạch chuyển đổi từ bản cũ (`gia-su-ai-khtn`, Express + React): `docs/plan/migration-from-khtn.md`.
 
 Ngôn ngữ giao tiếp, UI text, docstring, commit message body: **tiếng Việt**. Tên biến/hàm/file: tiếng Anh.
 
@@ -30,8 +38,8 @@ npm test                            # unit / component test (Vitest)
 E2E_BASE_URL=http://localhost:3000 E2E_PASSWORD=... npm run test:e2e   # smoke test Playwright
 
 # Sinh phân hệ CRUD mới (backend rồi frontend) — chi tiết: docs/TEMPLATE.md
-python manage.py startmodule suppliers Supplier --label "nhà cung cấp" --route master-data/suppliers --parent MASTER_DATA
-npm run gen:api && npm run gen:module -- --entity Supplier --label "nhà cung cấp" --route master-data/suppliers
+python manage.py startmodule academics Class --label "lớp học" --label-en "Classes" --route academics/classes
+npm run gen:api && npm run gen:module -- --entity Class --label "lớp học" --route academics/classes
 
 # Production
 docker compose -f docker-compose.prod.yml --env-file .env.prod up -d --build

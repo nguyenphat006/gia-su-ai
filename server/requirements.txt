@@ -15,3 +15,12 @@ django-pgtrigger>=4.17.0
 openpyxl>=3.1.5
 celery>=5.4.0
 redis>=5.0.8
+# --- Gia Sư AI ---
+channels>=4.2,<5           # WebSocket (Đấu trường realtime)
+channels-redis>=4.2        # channel layer dùng chung giữa các process
+daphne>=4.1                # runserver chạy ASGI khi dev
+uvicorn[standard]>=0.30    # worker ASGI cho gunicorn khi production
+google-genai>=1.30         # Gemini: gia sư, sinh câu hỏi, embedding
+pgvector>=0.3.6            # cột vector cho RAG (KnowledgeChunks.Embedding)
+pypdf>=5.0                 # trích văn bản PDF khi nạp tài liệu
+python-docx>=1.1           # trích văn bản DOCX khi nạp tài liệu

@@ -1,15 +1,17 @@
+name: giasu-ai
+
 services:
   # 1. Django REST Framework Backend Service
   api:
     build:
       context: ./server
       dockerfile: Dockerfile
-    container_name: app_backend
+    container_name: giasu_backend
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - ./server:/app
     ports:
-      - "8000:8000"
+      - "${API_HOST_PORT:-8000}:8000"
     env_file:
       - ./server/.env
     environment:
@@ -25,14 +27,15 @@ services:
 
   # 2. Local PostgreSQL Database (Dự phòng khi không dùng Cloud Neon DB)
   db:
-    image: postgres:16-alpine
-    container_name: app_postgres
+    # pgvector: lưu embedding cho RAG (KnowledgeChunks.Embedding)
+    image: pgvector/pgvector:pg16
+    container_name: giasu_postgres
     environment:
-      POSTGRES_DB: app_db
+      POSTGRES_DB: giasu_db
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
-      - "5432:5432"
+      - "${DB_HOST_PORT:-5432}:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:
@@ -45,9 +48,9 @@ services:
   # 3. Redis Message Broker & Cache (Siêu nhẹ ~15MB RAM)
   redis:
     image: redis:7-alpine
-    container_name: app_redis
+    container_name: giasu_redis
     ports:
-      - "6379:6379"
+      - "${REDIS_HOST_PORT:-6379}:6379"
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 5s
@@ -60,7 +63,7 @@ services:
     build:
       context: ./server
       dockerfile: Dockerfile
-    container_name: app_celery_worker
+    container_name: giasu_celery_worker
     command: celery -A config worker --loglevel=info --concurrency=2
     volumes:
       - ./server:/app

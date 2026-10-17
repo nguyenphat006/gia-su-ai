@@ -4,6 +4,165 @@
  */
 
 export interface paths {
+    "/api/v1/ai-settings/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Danh sách cấu hình AI
+         * @description Cấu hình AI (prompt, model, bộ lọc...). Khóa hệ thống không xóa được; sửa xong có hiệu lực ngay (xóa cache).
+         */
+        get: operations["ai_settings_list"];
+        put?: never;
+        /**
+         * Thêm cấu hình AI
+         * @description Cấu hình AI (prompt, model, bộ lọc...). Khóa hệ thống không xóa được; sửa xong có hiệu lực ngay (xóa cache).
+         */
+        post: operations["ai_settings_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/ai-settings/{id}/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Chi tiết cấu hình AI
+         * @description Cấu hình AI (prompt, model, bộ lọc...). Khóa hệ thống không xóa được; sửa xong có hiệu lực ngay (xóa cache).
+         */
+        get: operations["ai_settings_retrieve"];
+        /**
+         * Cập nhật cấu hình AI
+         * @description Cấu hình AI (prompt, model, bộ lọc...). Khóa hệ thống không xóa được; sửa xong có hiệu lực ngay (xóa cache).
+         */
+        put: operations["ai_settings_update"];
+        post?: never;
+        /**
+         * Xóa mềm cấu hình AI
+         * @description Cấu hình AI (prompt, model, bộ lọc...). Khóa hệ thống không xóa được; sửa xong có hiệu lực ngay (xóa cache).
+         */
+        delete: operations["ai_settings_destroy"];
+        options?: never;
+        head?: never;
+        /**
+         * Cập nhật một phần cấu hình AI
+         * @description Cấu hình AI (prompt, model, bộ lọc...). Khóa hệ thống không xóa được; sửa xong có hiệu lực ngay (xóa cache).
+         */
+        patch: operations["ai_settings_partial_update"];
+        trace?: never;
+    };
+    "/api/v1/ai-settings/batch-delete/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Xóa mềm hàng loạt. Body: {"ids": [...]}. Bản ghi bị `check_can_destroy` chặn sẽ được bỏ qua. */
+        post: operations["ai_settings_batch_delete_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/ai-settings/batch-status/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Bật/tắt trạng thái hàng loạt. Body: {"ids": [...], "is_active": true | false}. */
+        post: operations["ai_settings_batch_status_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/ai-settings/excel-template/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description API Tải file mẫu Excel (.xlsx) dùng cho chức năng Nhập dữ liệu (Import). */
+        get: operations["ai_settings_excel_template_retrieve"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/ai-settings/export-columns/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description API trả về danh sách các trường dữ liệu (fields) của Model phục vụ cấu hình xuất file. */
+        get: operations["ai_settings_export_columns_retrieve"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/ai-settings/export-excel/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description API Xuất danh sách dữ liệu ra file Excel (.xlsx) hoặc CSV chuẩn Enterprise (Hỗ trợ Sync & Async Queue). */
+        get: operations["ai_settings_export_excel_retrieve"];
+        put?: never;
+        /** @description API Xuất danh sách dữ liệu ra file Excel (.xlsx) hoặc CSV chuẩn Enterprise (Hỗ trợ Sync & Async Queue). */
+        post: operations["ai_settings_export_excel_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/ai-settings/statistics/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Số liệu tổng quan: tổng / đang hoạt động / ngưng / mới trong tháng. */
+        get: operations["ai_settings_statistics_retrieve"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/attachments/": {
         parameters: {
             query?: never;
@@ -359,7 +518,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/customers/": {
+    "/api/v1/classes/": {
         parameters: {
             query?: never;
             header?: never;
@@ -367,25 +526,23 @@ export interface paths {
             cookie?: never;
         };
         /**
-         * Danh sách khách hàng
-         * @description Khách hàng: CRUD, statistics, batch-delete/status, export-excel có sẵn từ BaseERPViewSet.
-         *     Quy tắc nghiệp vụ: override check_can_destroy / check_can_change_status / after_write.
+         * Danh sách lớp học
+         * @description Lớp học: CRUD + đếm sĩ số. Không xóa được lớp còn học sinh.
          */
-        get: operations["customers_list"];
+        get: operations["classes_list"];
         put?: never;
         /**
-         * Tạo mới khách hàng
-         * @description Khách hàng: CRUD, statistics, batch-delete/status, export-excel có sẵn từ BaseERPViewSet.
-         *     Quy tắc nghiệp vụ: override check_can_destroy / check_can_change_status / after_write.
+         * Tạo mới lớp học
+         * @description Lớp học: CRUD + đếm sĩ số. Không xóa được lớp còn học sinh.
          */
-        post: operations["customers_create"];
+        post: operations["classes_create"];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/api/v1/customers/{id}/": {
+    "/api/v1/classes/{id}/": {
         parameters: {
             query?: never;
             header?: never;
@@ -393,35 +550,31 @@ export interface paths {
             cookie?: never;
         };
         /**
-         * Chi tiết khách hàng
-         * @description Khách hàng: CRUD, statistics, batch-delete/status, export-excel có sẵn từ BaseERPViewSet.
-         *     Quy tắc nghiệp vụ: override check_can_destroy / check_can_change_status / after_write.
+         * Chi tiết lớp học
+         * @description Lớp học: CRUD + đếm sĩ số. Không xóa được lớp còn học sinh.
          */
-        get: operations["customers_retrieve"];
+        get: operations["classes_retrieve"];
         /**
-         * Cập nhật khách hàng
-         * @description Khách hàng: CRUD, statistics, batch-delete/status, export-excel có sẵn từ BaseERPViewSet.
-         *     Quy tắc nghiệp vụ: override check_can_destroy / check_can_change_status / after_write.
+         * Cập nhật lớp học
+         * @description Lớp học: CRUD + đếm sĩ số. Không xóa được lớp còn học sinh.
          */
-        put: operations["customers_update"];
+        put: operations["classes_update"];
         post?: never;
         /**
-         * Xóa mềm khách hàng
-         * @description Khách hàng: CRUD, statistics, batch-delete/status, export-excel có sẵn từ BaseERPViewSet.
-         *     Quy tắc nghiệp vụ: override check_can_destroy / check_can_change_status / after_write.
+         * Xóa mềm lớp học
+         * @description Lớp học: CRUD + đếm sĩ số. Không xóa được lớp còn học sinh.
          */
-        delete: operations["customers_destroy"];
+        delete: operations["classes_destroy"];
         options?: never;
         head?: never;
         /**
-         * Cập nhật một phần khách hàng
-         * @description Khách hàng: CRUD, statistics, batch-delete/status, export-excel có sẵn từ BaseERPViewSet.
-         *     Quy tắc nghiệp vụ: override check_can_destroy / check_can_change_status / after_write.
+         * Cập nhật một phần lớp học
+         * @description Lớp học: CRUD + đếm sĩ số. Không xóa được lớp còn học sinh.
          */
-        patch: operations["customers_partial_update"];
+        patch: operations["classes_partial_update"];
         trace?: never;
     };
-    "/api/v1/customers/batch-delete/": {
+    "/api/v1/classes/batch-delete/": {
         parameters: {
             query?: never;
             header?: never;
@@ -431,14 +584,14 @@ export interface paths {
         get?: never;
         put?: never;
         /** @description Xóa mềm hàng loạt. Body: {"ids": [...]}. Bản ghi bị `check_can_destroy` chặn sẽ được bỏ qua. */
-        post: operations["customers_batch_delete_create"];
+        post: operations["classes_batch_delete_create"];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/api/v1/customers/batch-status/": {
+    "/api/v1/classes/batch-status/": {
         parameters: {
             query?: never;
             header?: never;
@@ -448,14 +601,14 @@ export interface paths {
         get?: never;
         put?: never;
         /** @description Bật/tắt trạng thái hàng loạt. Body: {"ids": [...], "is_active": true | false}. */
-        post: operations["customers_batch_status_create"];
+        post: operations["classes_batch_status_create"];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/api/v1/customers/excel-template/": {
+    "/api/v1/classes/excel-template/": {
         parameters: {
             query?: never;
             header?: never;
@@ -463,7 +616,7 @@ export interface paths {
             cookie?: never;
         };
         /** @description API Tải file mẫu Excel (.xlsx) dùng cho chức năng Nhập dữ liệu (Import). */
-        get: operations["customers_excel_template_retrieve"];
+        get: operations["classes_excel_template_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -472,7 +625,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/customers/export-columns/": {
+    "/api/v1/classes/export-columns/": {
         parameters: {
             query?: never;
             header?: never;
@@ -480,7 +633,7 @@ export interface paths {
             cookie?: never;
         };
         /** @description API trả về danh sách các trường dữ liệu (fields) của Model phục vụ cấu hình xuất file. */
-        get: operations["customers_export_columns_retrieve"];
+        get: operations["classes_export_columns_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -489,7 +642,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/customers/export-excel/": {
+    "/api/v1/classes/export-excel/": {
         parameters: {
             query?: never;
             header?: never;
@@ -497,17 +650,17 @@ export interface paths {
             cookie?: never;
         };
         /** @description API Xuất danh sách dữ liệu ra file Excel (.xlsx) hoặc CSV chuẩn Enterprise (Hỗ trợ Sync & Async Queue). */
-        get: operations["customers_export_excel_retrieve"];
+        get: operations["classes_export_excel_retrieve"];
         put?: never;
         /** @description API Xuất danh sách dữ liệu ra file Excel (.xlsx) hoặc CSV chuẩn Enterprise (Hỗ trợ Sync & Async Queue). */
-        post: operations["customers_export_excel_create"];
+        post: operations["classes_export_excel_create"];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/api/v1/customers/statistics/": {
+    "/api/v1/classes/statistics/": {
         parameters: {
             query?: never;
             header?: never;
@@ -515,30 +668,9 @@ export interface paths {
             cookie?: never;
         };
         /** @description Số liệu tổng quan: tổng / đang hoạt động / ngưng / mới trong tháng. */
-        get: operations["customers_statistics_retrieve"];
+        get: operations["classes_statistics_retrieve"];
         put?: never;
         post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/customers/upload-logo/": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Tải lên logo khách hàng (trả URL để gửi kèm form)
-         * @description Khách hàng: CRUD, statistics, batch-delete/status, export-excel có sẵn từ BaseERPViewSet.
-         *     Quy tắc nghiệp vụ: override check_can_destroy / check_can_change_status / after_write.
-         */
-        post: operations["customers_upload_logo_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -557,6 +689,185 @@ export interface paths {
          * @description Số liệu trang Tổng quan (chỉ cần đăng nhập; từng khối tự lọc theo quyền của user).
          */
         get: operations["dashboard_overview_retrieve"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/flashcard-decks/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Danh sách bộ flashcard
+         * @description Action `ai-draft`: AI soạn nháp (không lưu) để giáo viên sửa rồi mới lưu. Cần quyền CREATE.
+         */
+        get: operations["flashcard_decks_list"];
+        put?: never;
+        /**
+         * Tạo mới bộ flashcard
+         * @description Action `ai-draft`: AI soạn nháp (không lưu) để giáo viên sửa rồi mới lưu. Cần quyền CREATE.
+         */
+        post: operations["flashcard_decks_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/flashcard-decks/{id}/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Chi tiết bộ flashcard
+         * @description Action `ai-draft`: AI soạn nháp (không lưu) để giáo viên sửa rồi mới lưu. Cần quyền CREATE.
+         */
+        get: operations["flashcard_decks_retrieve"];
+        /**
+         * Cập nhật bộ flashcard
+         * @description Action `ai-draft`: AI soạn nháp (không lưu) để giáo viên sửa rồi mới lưu. Cần quyền CREATE.
+         */
+        put: operations["flashcard_decks_update"];
+        post?: never;
+        /**
+         * Xóa mềm bộ flashcard
+         * @description Action `ai-draft`: AI soạn nháp (không lưu) để giáo viên sửa rồi mới lưu. Cần quyền CREATE.
+         */
+        delete: operations["flashcard_decks_destroy"];
+        options?: never;
+        head?: never;
+        /**
+         * Cập nhật một phần bộ flashcard
+         * @description Action `ai-draft`: AI soạn nháp (không lưu) để giáo viên sửa rồi mới lưu. Cần quyền CREATE.
+         */
+        patch: operations["flashcard_decks_partial_update"];
+        trace?: never;
+    };
+    "/api/v1/flashcard-decks/ai-draft/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * AI soạn nháp bộ flashcard (không lưu)
+         * @description Action `ai-draft`: AI soạn nháp (không lưu) để giáo viên sửa rồi mới lưu. Cần quyền CREATE.
+         */
+        post: operations["flashcard_decks_ai_draft_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/flashcard-decks/batch-delete/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Xóa mềm hàng loạt. Body: {"ids": [...]}. Bản ghi bị `check_can_destroy` chặn sẽ được bỏ qua. */
+        post: operations["flashcard_decks_batch_delete_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/flashcard-decks/batch-status/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Bật/tắt trạng thái hàng loạt. Body: {"ids": [...], "is_active": true | false}. */
+        post: operations["flashcard_decks_batch_status_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/flashcard-decks/excel-template/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description API Tải file mẫu Excel (.xlsx) dùng cho chức năng Nhập dữ liệu (Import). */
+        get: operations["flashcard_decks_excel_template_retrieve"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/flashcard-decks/export-columns/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description API trả về danh sách các trường dữ liệu (fields) của Model phục vụ cấu hình xuất file. */
+        get: operations["flashcard_decks_export_columns_retrieve"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/flashcard-decks/export-excel/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description API Xuất danh sách dữ liệu ra file Excel (.xlsx) hoặc CSV chuẩn Enterprise (Hỗ trợ Sync & Async Queue). */
+        get: operations["flashcard_decks_export_excel_retrieve"];
+        put?: never;
+        /** @description API Xuất danh sách dữ liệu ra file Excel (.xlsx) hoặc CSV chuẩn Enterprise (Hỗ trợ Sync & Async Queue). */
+        post: operations["flashcard_decks_export_excel_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/flashcard-decks/statistics/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Số liệu tổng quan: tổng / đang hoạt động / ngưng / mới trong tháng. */
+        get: operations["flashcard_decks_statistics_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -661,7 +972,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/material-categories/": {
+    "/api/v1/knowledge-chunks/": {
         parameters: {
             query?: never;
             header?: never;
@@ -669,23 +980,23 @@ export interface paths {
             cookie?: never;
         };
         /**
-         * Danh sách nhóm nguyên vật liệu
-         * @description Nhóm Nguyên Vật Liệu dạng cây cha - con, sắp xếp theo `sort_order`.
+         * Danh sách đoạn tri thức
+         * @description Đoạn tri thức RAG: giáo viên nhập tay hoặc sinh từ tài liệu tải lên.
          */
-        get: operations["material_categories_list"];
+        get: operations["knowledge_chunks_list"];
         put?: never;
         /**
-         * Tạo mới nhóm nguyên vật liệu
-         * @description Nhóm Nguyên Vật Liệu dạng cây cha - con, sắp xếp theo `sort_order`.
+         * Tạo mới đoạn tri thức
+         * @description Đoạn tri thức RAG: giáo viên nhập tay hoặc sinh từ tài liệu tải lên.
          */
-        post: operations["material_categories_create"];
+        post: operations["knowledge_chunks_create"];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/api/v1/material-categories/{id}/": {
+    "/api/v1/knowledge-chunks/{id}/": {
         parameters: {
             query?: never;
             header?: never;
@@ -693,51 +1004,31 @@ export interface paths {
             cookie?: never;
         };
         /**
-         * Chi tiết nhóm nguyên vật liệu
-         * @description Nhóm Nguyên Vật Liệu dạng cây cha - con, sắp xếp theo `sort_order`.
+         * Chi tiết đoạn tri thức
+         * @description Đoạn tri thức RAG: giáo viên nhập tay hoặc sinh từ tài liệu tải lên.
          */
-        get: operations["material_categories_retrieve"];
+        get: operations["knowledge_chunks_retrieve"];
         /**
-         * Cập nhật nhóm nguyên vật liệu
-         * @description Nhóm Nguyên Vật Liệu dạng cây cha - con, sắp xếp theo `sort_order`.
+         * Cập nhật đoạn tri thức
+         * @description Đoạn tri thức RAG: giáo viên nhập tay hoặc sinh từ tài liệu tải lên.
          */
-        put: operations["material_categories_update"];
+        put: operations["knowledge_chunks_update"];
         post?: never;
         /**
-         * Xóa mềm nhóm nguyên vật liệu
-         * @description Nhóm Nguyên Vật Liệu dạng cây cha - con, sắp xếp theo `sort_order`.
+         * Xóa mềm đoạn tri thức
+         * @description Đoạn tri thức RAG: giáo viên nhập tay hoặc sinh từ tài liệu tải lên.
          */
-        delete: operations["material_categories_destroy"];
+        delete: operations["knowledge_chunks_destroy"];
         options?: never;
         head?: never;
         /**
-         * Cập nhật một phần nhóm nguyên vật liệu
-         * @description Nhóm Nguyên Vật Liệu dạng cây cha - con, sắp xếp theo `sort_order`.
+         * Cập nhật một phần đoạn tri thức
+         * @description Đoạn tri thức RAG: giáo viên nhập tay hoặc sinh từ tài liệu tải lên.
          */
-        patch: operations["material_categories_partial_update"];
+        patch: operations["knowledge_chunks_partial_update"];
         trace?: never;
     };
-    "/api/v1/material-categories/{id}/move-order/": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Di chuyển thứ tự hiển thị lên / xuống trong cùng nhóm cha
-         * @description Body: {"direction": "up" | "down"}
-         */
-        post: operations["material_categories_move_order_create"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/material-categories/batch-delete/": {
+    "/api/v1/knowledge-chunks/batch-delete/": {
         parameters: {
             query?: never;
             header?: never;
@@ -747,14 +1038,14 @@ export interface paths {
         get?: never;
         put?: never;
         /** @description Xóa mềm hàng loạt. Body: {"ids": [...]}. Bản ghi bị `check_can_destroy` chặn sẽ được bỏ qua. */
-        post: operations["material_categories_batch_delete_create"];
+        post: operations["knowledge_chunks_batch_delete_create"];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/api/v1/material-categories/batch-status/": {
+    "/api/v1/knowledge-chunks/batch-status/": {
         parameters: {
             query?: never;
             header?: never;
@@ -764,14 +1055,14 @@ export interface paths {
         get?: never;
         put?: never;
         /** @description Bật/tắt trạng thái hàng loạt. Body: {"ids": [...], "is_active": true | false}. */
-        post: operations["material_categories_batch_status_create"];
+        post: operations["knowledge_chunks_batch_status_create"];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/api/v1/material-categories/excel-template/": {
+    "/api/v1/knowledge-chunks/excel-template/": {
         parameters: {
             query?: never;
             header?: never;
@@ -779,7 +1070,7 @@ export interface paths {
             cookie?: never;
         };
         /** @description API Tải file mẫu Excel (.xlsx) dùng cho chức năng Nhập dữ liệu (Import). */
-        get: operations["material_categories_excel_template_retrieve"];
+        get: operations["knowledge_chunks_excel_template_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -788,7 +1079,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/material-categories/export-columns/": {
+    "/api/v1/knowledge-chunks/export-columns/": {
         parameters: {
             query?: never;
             header?: never;
@@ -796,7 +1087,7 @@ export interface paths {
             cookie?: never;
         };
         /** @description API trả về danh sách các trường dữ liệu (fields) của Model phục vụ cấu hình xuất file. */
-        get: operations["material_categories_export_columns_retrieve"];
+        get: operations["knowledge_chunks_export_columns_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -805,7 +1096,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/material-categories/export-excel/": {
+    "/api/v1/knowledge-chunks/export-excel/": {
         parameters: {
             query?: never;
             header?: never;
@@ -813,17 +1104,17 @@ export interface paths {
             cookie?: never;
         };
         /** @description API Xuất danh sách dữ liệu ra file Excel (.xlsx) hoặc CSV chuẩn Enterprise (Hỗ trợ Sync & Async Queue). */
-        get: operations["material_categories_export_excel_retrieve"];
+        get: operations["knowledge_chunks_export_excel_retrieve"];
         put?: never;
         /** @description API Xuất danh sách dữ liệu ra file Excel (.xlsx) hoặc CSV chuẩn Enterprise (Hỗ trợ Sync & Async Queue). */
-        post: operations["material_categories_export_excel_create"];
+        post: operations["knowledge_chunks_export_excel_create"];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/api/v1/material-categories/statistics/": {
+    "/api/v1/knowledge-chunks/statistics/": {
         parameters: {
             query?: never;
             header?: never;
@@ -831,7 +1122,7 @@ export interface paths {
             cookie?: never;
         };
         /** @description Số liệu tổng quan: tổng / đang hoạt động / ngưng / mới trong tháng. */
-        get: operations["material_categories_statistics_retrieve"];
+        get: operations["knowledge_chunks_statistics_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -840,7 +1131,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/material-categories/tree/": {
+    "/api/v1/mindmaps/": {
         parameters: {
             query?: never;
             header?: never;
@@ -848,19 +1139,23 @@ export interface paths {
             cookie?: never;
         };
         /**
-         * Cây phân cấp Nhóm NVL (cho TreeSelect / Tree Table)
-         * @description Nhóm Nguyên Vật Liệu dạng cây cha - con, sắp xếp theo `sort_order`.
+         * Danh sách sơ đồ tư duy
+         * @description Action `ai-draft`: AI soạn nháp (không lưu) để giáo viên sửa rồi mới lưu. Cần quyền CREATE.
          */
-        get: operations["material_categories_tree_retrieve"];
+        get: operations["mindmaps_list"];
         put?: never;
-        post?: never;
+        /**
+         * Tạo mới sơ đồ tư duy
+         * @description Action `ai-draft`: AI soạn nháp (không lưu) để giáo viên sửa rồi mới lưu. Cần quyền CREATE.
+         */
+        post: operations["mindmaps_create"];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/api/v1/materials/": {
+    "/api/v1/mindmaps/{id}/": {
         parameters: {
             query?: never;
             header?: never;
@@ -868,55 +1163,51 @@ export interface paths {
             cookie?: never;
         };
         /**
-         * Danh sách nguyên vật liệu
-         * @description Nguyên Vật Liệu & quy cách phôi kim loại (MetalMaterialSpecs). Mã NVL do hệ thống cấp.
+         * Chi tiết sơ đồ tư duy
+         * @description Action `ai-draft`: AI soạn nháp (không lưu) để giáo viên sửa rồi mới lưu. Cần quyền CREATE.
          */
-        get: operations["materials_list"];
+        get: operations["mindmaps_retrieve"];
+        /**
+         * Cập nhật sơ đồ tư duy
+         * @description Action `ai-draft`: AI soạn nháp (không lưu) để giáo viên sửa rồi mới lưu. Cần quyền CREATE.
+         */
+        put: operations["mindmaps_update"];
+        post?: never;
+        /**
+         * Xóa mềm sơ đồ tư duy
+         * @description Action `ai-draft`: AI soạn nháp (không lưu) để giáo viên sửa rồi mới lưu. Cần quyền CREATE.
+         */
+        delete: operations["mindmaps_destroy"];
+        options?: never;
+        head?: never;
+        /**
+         * Cập nhật một phần sơ đồ tư duy
+         * @description Action `ai-draft`: AI soạn nháp (không lưu) để giáo viên sửa rồi mới lưu. Cần quyền CREATE.
+         */
+        patch: operations["mindmaps_partial_update"];
+        trace?: never;
+    };
+    "/api/v1/mindmaps/ai-draft/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
         put?: never;
         /**
-         * Tạo mới nguyên vật liệu
-         * @description Nguyên Vật Liệu & quy cách phôi kim loại (MetalMaterialSpecs). Mã NVL do hệ thống cấp.
+         * AI soạn nháp sơ đồ tư duy (không lưu)
+         * @description Action `ai-draft`: AI soạn nháp (không lưu) để giáo viên sửa rồi mới lưu. Cần quyền CREATE.
          */
-        post: operations["materials_create"];
+        post: operations["mindmaps_ai_draft_create"];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/api/v1/materials/{id}/": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * Chi tiết nguyên vật liệu
-         * @description Nguyên Vật Liệu & quy cách phôi kim loại (MetalMaterialSpecs). Mã NVL do hệ thống cấp.
-         */
-        get: operations["materials_retrieve"];
-        /**
-         * Cập nhật nguyên vật liệu
-         * @description Nguyên Vật Liệu & quy cách phôi kim loại (MetalMaterialSpecs). Mã NVL do hệ thống cấp.
-         */
-        put: operations["materials_update"];
-        post?: never;
-        /**
-         * Xóa mềm nguyên vật liệu
-         * @description Nguyên Vật Liệu & quy cách phôi kim loại (MetalMaterialSpecs). Mã NVL do hệ thống cấp.
-         */
-        delete: operations["materials_destroy"];
-        options?: never;
-        head?: never;
-        /**
-         * Cập nhật một phần nguyên vật liệu
-         * @description Nguyên Vật Liệu & quy cách phôi kim loại (MetalMaterialSpecs). Mã NVL do hệ thống cấp.
-         */
-        patch: operations["materials_partial_update"];
-        trace?: never;
-    };
-    "/api/v1/materials/batch-delete/": {
+    "/api/v1/mindmaps/batch-delete/": {
         parameters: {
             query?: never;
             header?: never;
@@ -926,14 +1217,14 @@ export interface paths {
         get?: never;
         put?: never;
         /** @description Xóa mềm hàng loạt. Body: {"ids": [...]}. Bản ghi bị `check_can_destroy` chặn sẽ được bỏ qua. */
-        post: operations["materials_batch_delete_create"];
+        post: operations["mindmaps_batch_delete_create"];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/api/v1/materials/batch-status/": {
+    "/api/v1/mindmaps/batch-status/": {
         parameters: {
             query?: never;
             header?: never;
@@ -943,14 +1234,14 @@ export interface paths {
         get?: never;
         put?: never;
         /** @description Bật/tắt trạng thái hàng loạt. Body: {"ids": [...], "is_active": true | false}. */
-        post: operations["materials_batch_status_create"];
+        post: operations["mindmaps_batch_status_create"];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/api/v1/materials/excel-template/": {
+    "/api/v1/mindmaps/excel-template/": {
         parameters: {
             query?: never;
             header?: never;
@@ -958,7 +1249,7 @@ export interface paths {
             cookie?: never;
         };
         /** @description API Tải file mẫu Excel (.xlsx) dùng cho chức năng Nhập dữ liệu (Import). */
-        get: operations["materials_excel_template_retrieve"];
+        get: operations["mindmaps_excel_template_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -967,7 +1258,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/materials/export-columns/": {
+    "/api/v1/mindmaps/export-columns/": {
         parameters: {
             query?: never;
             header?: never;
@@ -975,7 +1266,7 @@ export interface paths {
             cookie?: never;
         };
         /** @description API trả về danh sách các trường dữ liệu (fields) của Model phục vụ cấu hình xuất file. */
-        get: operations["materials_export_columns_retrieve"];
+        get: operations["mindmaps_export_columns_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -984,7 +1275,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/materials/export-excel/": {
+    "/api/v1/mindmaps/export-excel/": {
         parameters: {
             query?: never;
             header?: never;
@@ -992,37 +1283,17 @@ export interface paths {
             cookie?: never;
         };
         /** @description API Xuất danh sách dữ liệu ra file Excel (.xlsx) hoặc CSV chuẩn Enterprise (Hỗ trợ Sync & Async Queue). */
-        get: operations["materials_export_excel_retrieve"];
+        get: operations["mindmaps_export_excel_retrieve"];
         put?: never;
         /** @description API Xuất danh sách dữ liệu ra file Excel (.xlsx) hoặc CSV chuẩn Enterprise (Hỗ trợ Sync & Async Queue). */
-        post: operations["materials_export_excel_create"];
+        post: operations["mindmaps_export_excel_create"];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/api/v1/materials/next-code/": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * Mã NVL gợi ý tiếp theo của một nhóm
-         * @description Nguyên Vật Liệu & quy cách phôi kim loại (MetalMaterialSpecs). Mã NVL do hệ thống cấp.
-         */
-        get: operations["materials_next_code_retrieve"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/materials/statistics/": {
+    "/api/v1/mindmaps/statistics/": {
         parameters: {
             query?: never;
             header?: never;
@@ -1030,29 +1301,9 @@ export interface paths {
             cookie?: never;
         };
         /** @description Số liệu tổng quan: tổng / đang hoạt động / ngưng / mới trong tháng. */
-        get: operations["materials_statistics_retrieve"];
+        get: operations["mindmaps_statistics_retrieve"];
         put?: never;
         post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/materials/upload-image/": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Tải lên ảnh đại diện / mặt cắt cho NVL
-         * @description Nguyên Vật Liệu & quy cách phôi kim loại (MetalMaterialSpecs). Mã NVL do hệ thống cấp.
-         */
-        post: operations["materials_upload_image_create"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1437,6 +1688,185 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/questions/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Danh sách câu hỏi
+         * @description Ngân hàng câu hỏi trắc nghiệm / tự luận; câu sinh từ tài liệu ở trạng thái Chờ duyệt.
+         */
+        get: operations["questions_list"];
+        put?: never;
+        /**
+         * Tạo mới câu hỏi
+         * @description Ngân hàng câu hỏi trắc nghiệm / tự luận; câu sinh từ tài liệu ở trạng thái Chờ duyệt.
+         */
+        post: operations["questions_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/questions/{id}/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Chi tiết câu hỏi
+         * @description Ngân hàng câu hỏi trắc nghiệm / tự luận; câu sinh từ tài liệu ở trạng thái Chờ duyệt.
+         */
+        get: operations["questions_retrieve"];
+        /**
+         * Cập nhật câu hỏi
+         * @description Ngân hàng câu hỏi trắc nghiệm / tự luận; câu sinh từ tài liệu ở trạng thái Chờ duyệt.
+         */
+        put: operations["questions_update"];
+        post?: never;
+        /**
+         * Xóa mềm câu hỏi
+         * @description Ngân hàng câu hỏi trắc nghiệm / tự luận; câu sinh từ tài liệu ở trạng thái Chờ duyệt.
+         */
+        delete: operations["questions_destroy"];
+        options?: never;
+        head?: never;
+        /**
+         * Cập nhật một phần câu hỏi
+         * @description Ngân hàng câu hỏi trắc nghiệm / tự luận; câu sinh từ tài liệu ở trạng thái Chờ duyệt.
+         */
+        patch: operations["questions_partial_update"];
+        trace?: never;
+    };
+    "/api/v1/questions/ai-draft/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * AI soạn nháp câu hỏi (không lưu)
+         * @description Ngân hàng câu hỏi trắc nghiệm / tự luận; câu sinh từ tài liệu ở trạng thái Chờ duyệt.
+         */
+        post: operations["questions_ai_draft_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/questions/batch-delete/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Xóa mềm hàng loạt. Body: {"ids": [...]}. Bản ghi bị `check_can_destroy` chặn sẽ được bỏ qua. */
+        post: operations["questions_batch_delete_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/questions/batch-status/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Bật/tắt trạng thái hàng loạt. Body: {"ids": [...], "is_active": true | false}. */
+        post: operations["questions_batch_status_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/questions/excel-template/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description API Tải file mẫu Excel (.xlsx) dùng cho chức năng Nhập dữ liệu (Import). */
+        get: operations["questions_excel_template_retrieve"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/questions/export-columns/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description API trả về danh sách các trường dữ liệu (fields) của Model phục vụ cấu hình xuất file. */
+        get: operations["questions_export_columns_retrieve"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/questions/export-excel/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description API Xuất danh sách dữ liệu ra file Excel (.xlsx) hoặc CSV chuẩn Enterprise (Hỗ trợ Sync & Async Queue). */
+        get: operations["questions_export_excel_retrieve"];
+        put?: never;
+        /** @description API Xuất danh sách dữ liệu ra file Excel (.xlsx) hoặc CSV chuẩn Enterprise (Hỗ trợ Sync & Async Queue). */
+        post: operations["questions_export_excel_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/questions/statistics/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Số liệu tổng quan: tổng / đang hoạt động / ngưng / mới trong tháng. */
+        get: operations["questions_statistics_retrieve"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/roles/": {
         parameters: {
             query?: never;
@@ -1638,7 +2068,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/suppliers/": {
+    "/api/v1/source-documents/": {
         parameters: {
             query?: never;
             header?: never;
@@ -1646,25 +2076,20 @@ export interface paths {
             cookie?: never;
         };
         /**
-         * Danh sách nhà cung cấp
-         * @description Nhà cung cấp: CRUD, statistics, batch-delete/status, export-excel có sẵn từ BaseERPViewSet.
-         *     Quy tắc nghiệp vụ: override check_can_destroy / check_can_change_status / after_write.
+         * Danh sách tài liệu nguồn
+         * @description Tài liệu nguồn giáo viên tải lên. Tạo mới qua action `upload` (multipart) — không qua POST thường.
          */
-        get: operations["suppliers_list"];
+        get: operations["source_documents_list"];
         put?: never;
-        /**
-         * Tạo mới nhà cung cấp
-         * @description Nhà cung cấp: CRUD, statistics, batch-delete/status, export-excel có sẵn từ BaseERPViewSet.
-         *     Quy tắc nghiệp vụ: override check_can_destroy / check_can_change_status / after_write.
-         */
-        post: operations["suppliers_create"];
+        /** @description Tài liệu nguồn giáo viên tải lên. Tạo mới qua action `upload` (multipart) — không qua POST thường. */
+        post: operations["source_documents_create"];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/api/v1/suppliers/{id}/": {
+    "/api/v1/source-documents/{id}/": {
         parameters: {
             query?: never;
             header?: never;
@@ -1672,35 +2097,51 @@ export interface paths {
             cookie?: never;
         };
         /**
-         * Chi tiết nhà cung cấp
-         * @description Nhà cung cấp: CRUD, statistics, batch-delete/status, export-excel có sẵn từ BaseERPViewSet.
-         *     Quy tắc nghiệp vụ: override check_can_destroy / check_can_change_status / after_write.
+         * Chi tiết tài liệu nguồn (kèm văn bản trích xuất)
+         * @description Tài liệu nguồn giáo viên tải lên. Tạo mới qua action `upload` (multipart) — không qua POST thường.
          */
-        get: operations["suppliers_retrieve"];
+        get: operations["source_documents_retrieve"];
         /**
-         * Cập nhật nhà cung cấp
-         * @description Nhà cung cấp: CRUD, statistics, batch-delete/status, export-excel có sẵn từ BaseERPViewSet.
-         *     Quy tắc nghiệp vụ: override check_can_destroy / check_can_change_status / after_write.
+         * Cập nhật thông tin tài liệu
+         * @description Tài liệu nguồn giáo viên tải lên. Tạo mới qua action `upload` (multipart) — không qua POST thường.
          */
-        put: operations["suppliers_update"];
+        put: operations["source_documents_update"];
         post?: never;
         /**
-         * Xóa mềm nhà cung cấp
-         * @description Nhà cung cấp: CRUD, statistics, batch-delete/status, export-excel có sẵn từ BaseERPViewSet.
-         *     Quy tắc nghiệp vụ: override check_can_destroy / check_can_change_status / after_write.
+         * Xóa mềm tài liệu (kèm các đoạn tri thức)
+         * @description Tài liệu nguồn giáo viên tải lên. Tạo mới qua action `upload` (multipart) — không qua POST thường.
          */
-        delete: operations["suppliers_destroy"];
+        delete: operations["source_documents_destroy"];
         options?: never;
         head?: never;
         /**
-         * Cập nhật một phần nhà cung cấp
-         * @description Nhà cung cấp: CRUD, statistics, batch-delete/status, export-excel có sẵn từ BaseERPViewSet.
-         *     Quy tắc nghiệp vụ: override check_can_destroy / check_can_change_status / after_write.
+         * Cập nhật một phần thông tin tài liệu
+         * @description Tài liệu nguồn giáo viên tải lên. Tạo mới qua action `upload` (multipart) — không qua POST thường.
          */
-        patch: operations["suppliers_partial_update"];
+        patch: operations["source_documents_partial_update"];
         trace?: never;
     };
-    "/api/v1/suppliers/batch-delete/": {
+    "/api/v1/source-documents/{id}/review-questions/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Duyệt / loại các câu hỏi AI sinh từ tài liệu
+         * @description `APPROVE_ALL`: đưa mọi câu chờ duyệt vào ngân hàng; `REJECT_ALL`: loại hết.
+         */
+        post: operations["source_documents_review_questions_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/source-documents/batch-delete/": {
         parameters: {
             query?: never;
             header?: never;
@@ -1710,14 +2151,14 @@ export interface paths {
         get?: never;
         put?: never;
         /** @description Xóa mềm hàng loạt. Body: {"ids": [...]}. Bản ghi bị `check_can_destroy` chặn sẽ được bỏ qua. */
-        post: operations["suppliers_batch_delete_create"];
+        post: operations["source_documents_batch_delete_create"];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/api/v1/suppliers/batch-status/": {
+    "/api/v1/source-documents/batch-status/": {
         parameters: {
             query?: never;
             header?: never;
@@ -1727,14 +2168,14 @@ export interface paths {
         get?: never;
         put?: never;
         /** @description Bật/tắt trạng thái hàng loạt. Body: {"ids": [...], "is_active": true | false}. */
-        post: operations["suppliers_batch_status_create"];
+        post: operations["source_documents_batch_status_create"];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/api/v1/suppliers/excel-template/": {
+    "/api/v1/source-documents/excel-template/": {
         parameters: {
             query?: never;
             header?: never;
@@ -1742,7 +2183,7 @@ export interface paths {
             cookie?: never;
         };
         /** @description API Tải file mẫu Excel (.xlsx) dùng cho chức năng Nhập dữ liệu (Import). */
-        get: operations["suppliers_excel_template_retrieve"];
+        get: operations["source_documents_excel_template_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1751,7 +2192,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/suppliers/export-columns/": {
+    "/api/v1/source-documents/export-columns/": {
         parameters: {
             query?: never;
             header?: never;
@@ -1759,7 +2200,7 @@ export interface paths {
             cookie?: never;
         };
         /** @description API trả về danh sách các trường dữ liệu (fields) của Model phục vụ cấu hình xuất file. */
-        get: operations["suppliers_export_columns_retrieve"];
+        get: operations["source_documents_export_columns_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1768,7 +2209,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/suppliers/export-excel/": {
+    "/api/v1/source-documents/export-excel/": {
         parameters: {
             query?: never;
             header?: never;
@@ -1776,17 +2217,17 @@ export interface paths {
             cookie?: never;
         };
         /** @description API Xuất danh sách dữ liệu ra file Excel (.xlsx) hoặc CSV chuẩn Enterprise (Hỗ trợ Sync & Async Queue). */
-        get: operations["suppliers_export_excel_retrieve"];
+        get: operations["source_documents_export_excel_retrieve"];
         put?: never;
         /** @description API Xuất danh sách dữ liệu ra file Excel (.xlsx) hoặc CSV chuẩn Enterprise (Hỗ trợ Sync & Async Queue). */
-        post: operations["suppliers_export_excel_create"];
+        post: operations["source_documents_export_excel_create"];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/api/v1/suppliers/statistics/": {
+    "/api/v1/source-documents/statistics/": {
         parameters: {
             query?: never;
             header?: never;
@@ -1794,7 +2235,207 @@ export interface paths {
             cookie?: never;
         };
         /** @description Số liệu tổng quan: tổng / đang hoạt động / ngưng / mới trong tháng. */
-        get: operations["suppliers_statistics_retrieve"];
+        get: operations["source_documents_statistics_retrieve"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/source-documents/upload/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Tải tài liệu lên và nạp vào ngân hàng tri thức (chạy nền)
+         * @description PDF / DOCX / TXT tối đa 50MB. Trả ngay bản ghi PROCESSING; theo dõi `status` / `progress` để biết khi xong.
+         */
+        post: operations["source_documents_upload_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/students/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Danh sách học sinh
+         * @description Học sinh: tạo tài khoản + hồ sơ + vai trò STUDENT trong 1 lần; nhập hàng loạt từ Excel.
+         */
+        get: operations["students_list"];
+        put?: never;
+        /**
+         * Tạo mới học sinh
+         * @description Học sinh: tạo tài khoản + hồ sơ + vai trò STUDENT trong 1 lần; nhập hàng loạt từ Excel.
+         */
+        post: operations["students_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/students/{id}/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Chi tiết học sinh
+         * @description Học sinh: tạo tài khoản + hồ sơ + vai trò STUDENT trong 1 lần; nhập hàng loạt từ Excel.
+         */
+        get: operations["students_retrieve"];
+        /**
+         * Cập nhật học sinh
+         * @description Học sinh: tạo tài khoản + hồ sơ + vai trò STUDENT trong 1 lần; nhập hàng loạt từ Excel.
+         */
+        put: operations["students_update"];
+        post?: never;
+        /**
+         * Xóa mềm học sinh
+         * @description Học sinh: tạo tài khoản + hồ sơ + vai trò STUDENT trong 1 lần; nhập hàng loạt từ Excel.
+         */
+        delete: operations["students_destroy"];
+        options?: never;
+        head?: never;
+        /**
+         * Cập nhật một phần học sinh
+         * @description Học sinh: tạo tài khoản + hồ sơ + vai trò STUDENT trong 1 lần; nhập hàng loạt từ Excel.
+         */
+        patch: operations["students_partial_update"];
+        trace?: never;
+    };
+    "/api/v1/students/batch-delete/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Xóa mềm hàng loạt. Body: {"ids": [...]}. Bản ghi bị `check_can_destroy` chặn sẽ được bỏ qua. */
+        post: operations["students_batch_delete_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/students/batch-status/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Bật/tắt trạng thái hàng loạt. Body: {"ids": [...], "is_active": true | false}. */
+        post: operations["students_batch_status_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/students/excel-template/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description API Tải file mẫu Excel (.xlsx) dùng cho chức năng Nhập dữ liệu (Import). */
+        get: operations["students_excel_template_retrieve"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/students/export-columns/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description API trả về danh sách các trường dữ liệu (fields) của Model phục vụ cấu hình xuất file. */
+        get: operations["students_export_columns_retrieve"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/students/export-excel/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description API Xuất danh sách dữ liệu ra file Excel (.xlsx) hoặc CSV chuẩn Enterprise (Hỗ trợ Sync & Async Queue). */
+        get: operations["students_export_excel_retrieve"];
+        put?: never;
+        /** @description API Xuất danh sách dữ liệu ra file Excel (.xlsx) hoặc CSV chuẩn Enterprise (Hỗ trợ Sync & Async Queue). */
+        post: operations["students_export_excel_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/students/import-excel/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Nhập danh sách học sinh từ Excel
+         * @description Nhập học sinh từ file .xlsx (cột: Họ và tên, Mã học sinh, Khối, Mã lớp, Tên đăng nhập, Email, Mật khẩu —
+         *     chỉ bắt buộc Họ và tên). Trả kèm danh sách mật khẩu ban đầu đã sinh (chỉ hiện 1 lần).
+         */
+        post: operations["students_import_excel_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/students/statistics/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Số liệu tổng quan: tổng / đang hoạt động / ngưng / mới trong tháng. */
+        get: operations["students_statistics_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1865,7 +2506,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/units/": {
+    "/api/v1/teachers/": {
         parameters: {
             query?: never;
             header?: never;
@@ -1873,23 +2514,23 @@ export interface paths {
             cookie?: never;
         };
         /**
-         * Danh sách đơn vị tính
-         * @description Danh mục Đơn vị tính (UOM) dùng trong BOM, sản xuất và vật tư.
+         * Danh sách giáo viên
+         * @description Giáo viên: tạo tài khoản + hồ sơ + vai trò TEACHER.
          */
-        get: operations["units_list"];
+        get: operations["teachers_list"];
         put?: never;
         /**
-         * Tạo mới đơn vị tính
-         * @description Danh mục Đơn vị tính (UOM) dùng trong BOM, sản xuất và vật tư.
+         * Tạo mới giáo viên
+         * @description Giáo viên: tạo tài khoản + hồ sơ + vai trò TEACHER.
          */
-        post: operations["units_create"];
+        post: operations["teachers_create"];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/api/v1/units/{id}/": {
+    "/api/v1/teachers/{id}/": {
         parameters: {
             query?: never;
             header?: never;
@@ -1897,31 +2538,31 @@ export interface paths {
             cookie?: never;
         };
         /**
-         * Chi tiết đơn vị tính
-         * @description Danh mục Đơn vị tính (UOM) dùng trong BOM, sản xuất và vật tư.
+         * Chi tiết giáo viên
+         * @description Giáo viên: tạo tài khoản + hồ sơ + vai trò TEACHER.
          */
-        get: operations["units_retrieve"];
+        get: operations["teachers_retrieve"];
         /**
-         * Cập nhật đơn vị tính
-         * @description Danh mục Đơn vị tính (UOM) dùng trong BOM, sản xuất và vật tư.
+         * Cập nhật giáo viên
+         * @description Giáo viên: tạo tài khoản + hồ sơ + vai trò TEACHER.
          */
-        put: operations["units_update"];
+        put: operations["teachers_update"];
         post?: never;
         /**
-         * Xóa mềm đơn vị tính
-         * @description Danh mục Đơn vị tính (UOM) dùng trong BOM, sản xuất và vật tư.
+         * Xóa mềm giáo viên
+         * @description Giáo viên: tạo tài khoản + hồ sơ + vai trò TEACHER.
          */
-        delete: operations["units_destroy"];
+        delete: operations["teachers_destroy"];
         options?: never;
         head?: never;
         /**
-         * Cập nhật một phần đơn vị tính
-         * @description Danh mục Đơn vị tính (UOM) dùng trong BOM, sản xuất và vật tư.
+         * Cập nhật một phần giáo viên
+         * @description Giáo viên: tạo tài khoản + hồ sơ + vai trò TEACHER.
          */
-        patch: operations["units_partial_update"];
+        patch: operations["teachers_partial_update"];
         trace?: never;
     };
-    "/api/v1/units/batch-delete/": {
+    "/api/v1/teachers/batch-delete/": {
         parameters: {
             query?: never;
             header?: never;
@@ -1931,14 +2572,14 @@ export interface paths {
         get?: never;
         put?: never;
         /** @description Xóa mềm hàng loạt. Body: {"ids": [...]}. Bản ghi bị `check_can_destroy` chặn sẽ được bỏ qua. */
-        post: operations["units_batch_delete_create"];
+        post: operations["teachers_batch_delete_create"];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/api/v1/units/batch-status/": {
+    "/api/v1/teachers/batch-status/": {
         parameters: {
             query?: never;
             header?: never;
@@ -1948,14 +2589,14 @@ export interface paths {
         get?: never;
         put?: never;
         /** @description Bật/tắt trạng thái hàng loạt. Body: {"ids": [...], "is_active": true | false}. */
-        post: operations["units_batch_status_create"];
+        post: operations["teachers_batch_status_create"];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/api/v1/units/excel-template/": {
+    "/api/v1/teachers/excel-template/": {
         parameters: {
             query?: never;
             header?: never;
@@ -1963,7 +2604,7 @@ export interface paths {
             cookie?: never;
         };
         /** @description API Tải file mẫu Excel (.xlsx) dùng cho chức năng Nhập dữ liệu (Import). */
-        get: operations["units_excel_template_retrieve"];
+        get: operations["teachers_excel_template_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1972,7 +2613,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/units/export-columns/": {
+    "/api/v1/teachers/export-columns/": {
         parameters: {
             query?: never;
             header?: never;
@@ -1980,7 +2621,7 @@ export interface paths {
             cookie?: never;
         };
         /** @description API trả về danh sách các trường dữ liệu (fields) của Model phục vụ cấu hình xuất file. */
-        get: operations["units_export_columns_retrieve"];
+        get: operations["teachers_export_columns_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1989,7 +2630,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/units/export-excel/": {
+    "/api/v1/teachers/export-excel/": {
         parameters: {
             query?: never;
             header?: never;
@@ -1997,17 +2638,17 @@ export interface paths {
             cookie?: never;
         };
         /** @description API Xuất danh sách dữ liệu ra file Excel (.xlsx) hoặc CSV chuẩn Enterprise (Hỗ trợ Sync & Async Queue). */
-        get: operations["units_export_excel_retrieve"];
+        get: operations["teachers_export_excel_retrieve"];
         put?: never;
         /** @description API Xuất danh sách dữ liệu ra file Excel (.xlsx) hoặc CSV chuẩn Enterprise (Hỗ trợ Sync & Async Queue). */
-        post: operations["units_export_excel_create"];
+        post: operations["teachers_export_excel_create"];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/api/v1/units/statistics/": {
+    "/api/v1/teachers/statistics/": {
         parameters: {
             query?: never;
             header?: never;
@@ -2015,7 +2656,7 @@ export interface paths {
             cookie?: never;
         };
         /** @description Số liệu tổng quan: tổng / đang hoạt động / ngưng / mới trong tháng. */
-        get: operations["units_statistics_retrieve"];
+        get: operations["teachers_statistics_retrieve"];
         put?: never;
         post?: never;
         delete?: never;
@@ -2189,10 +2830,80 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        /**
+         * @description * `APPROVE_ALL` - APPROVE_ALL
+         *     * `REJECT_ALL` - REJECT_ALL
+         * @enum {string}
+         */
+        ActionEnum: "APPROVE_ALL" | "REJECT_ALL";
         ActivityPoint: {
             /** Format: date */
             date: string;
             count: number;
+        };
+        AiDraftRequestRequest: {
+            grade?: (components["schemas"]["GradeEnum"] | components["schemas"]["NullEnum"]) | null;
+            topic: string;
+            /** @default 5 */
+            count: number;
+            /** @default MULTIPLE_CHOICE */
+            question_type: components["schemas"]["QuestionTypeEnum"];
+            difficulties?: components["schemas"]["DifficultyEnum"][];
+        };
+        /** @description Serializer ĐỌC cấu hình AI. */
+        AiSetting: {
+            readonly id: number;
+            /** Khóa */
+            readonly key: string;
+            /** Tên hiển thị */
+            readonly label: string;
+            /** Giá trị */
+            readonly value: string;
+            /** Kiểu giá trị */
+            readonly value_type: components["schemas"]["ValueTypeEnum"];
+            /** @description Khóa hệ thống: code đang dùng -> không xóa / đổi khóa được. */
+            readonly is_system: boolean;
+            /** Mô tả / Ghi chú kỹ thuật */
+            readonly description: string | null;
+            /** Trạng thái hoạt động */
+            readonly is_active: boolean;
+            /** @default  */
+            readonly updated_by_name: string;
+            /** Format: date-time */
+            readonly created_at: string;
+            /** Format: date-time */
+            readonly updated_at: string;
+        };
+        /** @description Serializer GHI: kiểm tra giá trị đúng kiểu (số / bật-tắt). */
+        AiSettingCreateUpdate: {
+            readonly id: number;
+            /** Khóa */
+            key: string;
+            /** Tên hiển thị */
+            label: string;
+            /** Giá trị */
+            value: string;
+            /** Kiểu giá trị */
+            value_type?: components["schemas"]["ValueTypeEnum"];
+            /** Mô tả / Ghi chú kỹ thuật */
+            description?: string | null;
+            /** Trạng thái hoạt động */
+            is_active?: boolean;
+        };
+        /** @description Serializer GHI: kiểm tra giá trị đúng kiểu (số / bật-tắt). */
+        AiSettingCreateUpdateRequest: {
+            /** Khóa */
+            key: string;
+            /** Tên hiển thị */
+            label: string;
+            /** Giá trị */
+            value: string;
+            /** Kiểu giá trị */
+            value_type?: components["schemas"]["ValueTypeEnum"];
+            /** Mô tả / Ghi chú kỹ thuật */
+            description?: string | null;
+            /** Trạng thái hoạt động */
+            is_active?: boolean;
         };
         /** @description Serializer cho tệp đính kèm đa hình (Attachments). */
         Attachment: {
@@ -2347,6 +3058,11 @@ export interface components {
             readonly roles: components["schemas"]["UserRoleSimple"][];
             readonly role_codes: string[];
             readonly permissions: string[];
+            /**
+             * Bắt đổi mật khẩu
+             * @description Bắt đổi mật khẩu ở lần đăng nhập tới (tài khoản mới tạo / import / đặt lại mật khẩu)
+             */
+            must_change_password?: boolean;
             /** Format: date-time */
             readonly last_login: string;
             /** Ghi chú tài khoản */
@@ -2360,61 +3076,6 @@ export interface components {
         CustomTokenObtainPairRequest: {
             username: string;
             password: string;
-        };
-        /** @description Serializer ĐỌC — dùng cho mọi response (list, detail, sau create/update). */
-        Customer: {
-            readonly id: number;
-            /** Mã khách hàng */
-            readonly customer_code: string;
-            /** Tên khách hàng */
-            readonly customer_name: string;
-            /** Quốc gia / Thị trường */
-            readonly country: string | null;
-            /** Logo */
-            readonly logo_url: string | null;
-            /** Mô tả / Ghi chú kỹ thuật */
-            readonly description: string | null;
-            /** Trạng thái hoạt động */
-            readonly is_active: boolean;
-            /** @default  */
-            readonly created_by_name: string;
-            /** @default  */
-            readonly updated_by_name: string;
-            /** Format: date-time */
-            readonly created_at: string;
-            /** Format: date-time */
-            readonly updated_at: string;
-        };
-        /** @description Serializer GHI — mã tự viết hoa, kiểm tra trùng trên cả bản ghi đã xóa mềm (cột unique ở DB). */
-        CustomerCreateUpdate: {
-            readonly id: number;
-            /** Mã khách hàng */
-            customer_code: string;
-            /** Tên khách hàng */
-            customer_name: string;
-            /** Quốc gia / Thị trường */
-            country?: string | null;
-            /** Logo */
-            logo_url?: string | null;
-            /** Mô tả / Ghi chú kỹ thuật */
-            description?: string | null;
-            /** Trạng thái hoạt động */
-            is_active?: boolean;
-        };
-        /** @description Serializer GHI — mã tự viết hoa, kiểm tra trùng trên cả bản ghi đã xóa mềm (cột unique ở DB). */
-        CustomerCreateUpdateRequest: {
-            /** Mã khách hàng */
-            customer_code: string;
-            /** Tên khách hàng */
-            customer_name: string;
-            /** Quốc gia / Thị trường */
-            country?: string | null;
-            /** Logo */
-            logo_url?: string | null;
-            /** Mô tả / Ghi chú kỹ thuật */
-            description?: string | null;
-            /** Trạng thái hoạt động */
-            is_active?: boolean;
         };
         DashboardOverview: {
             kpis: components["schemas"]["Kpi"][];
@@ -2479,6 +3140,20 @@ export interface components {
          */
         DateFormatEnum: "DD/MM/YYYY" | "YYYY-MM-DD" | "MM/DD/YYYY";
         /**
+         * @description * `NHAN_BIET` - Nhận biết
+         *     * `THONG_HIEU` - Thông hiểu
+         *     * `VAN_DUNG` - Vận dụng
+         * @enum {string}
+         */
+        DifficultyEnum: "NHAN_BIET" | "THONG_HIEU" | "VAN_DUNG";
+        /**
+         * @description * `PROCESSING` - Đang xử lý
+         *     * `COMPLETED` - Hoàn tất
+         *     * `FAILED` - Lỗi
+         * @enum {string}
+         */
+        DocumentStatusEnum: "PROCESSING" | "COMPLETED" | "FAILED";
+        /**
          * @description * `DOCUMENT` - Tài liệu chung
          *     * `IMAGE` - Hình ảnh / Bản chụp
          *     * `CAD_DRAWING` - Bản vẽ kỹ thuật CAD / DWG
@@ -2488,6 +3163,83 @@ export interface components {
          * @enum {string}
          */
         FileCategoryEnum: "DOCUMENT" | "IMAGE" | "CAD_DRAWING" | "SPEC_SHEET" | "CONTRACT" | "OTHER";
+        FlashcardDeck: {
+            readonly id: number;
+            /** Khối */
+            readonly grade: (components["schemas"]["GradeEnum"] | components["schemas"]["NullEnum"]) | null;
+            /** Lớp (riêng) */
+            readonly school_class: number | null;
+            /** @default  */
+            readonly school_class_name: string;
+            /** Chủ đề */
+            readonly topic: string;
+            /** Tên bộ thẻ */
+            readonly title: string;
+            /** Danh sách thẻ */
+            readonly cards: unknown;
+            readonly card_count: number;
+            /** Nguồn */
+            readonly origin: components["schemas"]["OriginEnum"];
+            /** Mô tả / Ghi chú kỹ thuật */
+            readonly description: string | null;
+            /** Trạng thái hoạt động */
+            readonly is_active: boolean;
+            /** @default  */
+            readonly created_by_name: string;
+            /** @default  */
+            readonly updated_by_name: string;
+            /** Format: date-time */
+            readonly created_at: string;
+            /** Format: date-time */
+            readonly updated_at: string;
+        };
+        FlashcardDeckCreateUpdate: {
+            readonly id: number;
+            /** Khối */
+            grade?: (components["schemas"]["GradeEnum"] | components["schemas"]["NullEnum"]) | null;
+            /** Lớp (riêng) */
+            school_class?: number | null;
+            /** Chủ đề */
+            topic: string;
+            /** Tên bộ thẻ */
+            title: string;
+            /** Danh sách thẻ */
+            cards?: unknown;
+            /** Mô tả / Ghi chú kỹ thuật */
+            description?: string | null;
+            /** Trạng thái hoạt động */
+            is_active?: boolean;
+        };
+        FlashcardDeckCreateUpdateRequest: {
+            /** Khối */
+            grade?: (components["schemas"]["GradeEnum"] | components["schemas"]["NullEnum"]) | null;
+            /** Lớp (riêng) */
+            school_class?: number | null;
+            /** Chủ đề */
+            topic: string;
+            /** Tên bộ thẻ */
+            title: string;
+            /** Danh sách thẻ */
+            cards?: unknown;
+            /** Mô tả / Ghi chú kỹ thuật */
+            description?: string | null;
+            /** Trạng thái hoạt động */
+            is_active?: boolean;
+        };
+        FlashcardDraft: {
+            title: string;
+            cards: {
+                [key: string]: unknown;
+            }[];
+        };
+        /**
+         * @description * `6` - Khối 6
+         *     * `7` - Khối 7
+         *     * `8` - Khối 8
+         *     * `9` - Khối 9
+         * @enum {integer}
+         */
+        GradeEnum: 6 | 7 | 8 | 9;
         HealthComponent: {
             status: components["schemas"]["HealthComponentStatusEnum"];
             /** Format: double */
@@ -2513,6 +3265,12 @@ export interface components {
          * @enum {string}
          */
         HealthStatusStatusEnum: "ok" | "degraded" | "error";
+        ImportCredential: {
+            student_code: string;
+            full_name: string;
+            username: string;
+            initial_password: string | null;
+        };
         /**
          * @description * `EXPORT_EXCEL` - Xuất Excel (.xlsx)
          *     * `EXPORT_CSV` - Xuất CSV (.csv)
@@ -2520,6 +3278,68 @@ export interface components {
          * @enum {string}
          */
         JobTypeEnum: "EXPORT_EXCEL" | "EXPORT_CSV" | "IMPORT_EXCEL";
+        /** @description Serializer ĐỌC đoạn tri thức. */
+        KnowledgeChunk: {
+            readonly id: number;
+            /** Tiêu đề */
+            readonly title: string;
+            /** Nội dung */
+            readonly content: string;
+            /** Khối */
+            readonly grade: (components["schemas"]["GradeEnum"] | components["schemas"]["NullEnum"]) | null;
+            /** Chủ đề */
+            readonly topic: string | null;
+            /** Tài liệu nguồn */
+            readonly source_document: number | null;
+            /** @default  */
+            readonly source_document_title: string;
+            /** Thứ tự đoạn */
+            readonly chunk_index: number | null;
+            readonly is_embedded: boolean;
+            /** Mô tả / Ghi chú kỹ thuật */
+            readonly description: string | null;
+            /** Trạng thái hoạt động */
+            readonly is_active: boolean;
+            /** @default  */
+            readonly created_by_name: string;
+            /** @default  */
+            readonly updated_by_name: string;
+            /** Format: date-time */
+            readonly created_at: string;
+            /** Format: date-time */
+            readonly updated_at: string;
+        };
+        /** @description Serializer GHI đoạn tri thức nhập tay. Sửa nội dung -> phải nhúng lại vector. */
+        KnowledgeChunkCreateUpdate: {
+            readonly id: number;
+            /** Tiêu đề */
+            title: string;
+            /** Nội dung */
+            content: string;
+            /** Khối */
+            grade?: (components["schemas"]["GradeEnum"] | components["schemas"]["NullEnum"]) | null;
+            /** Chủ đề */
+            topic?: string | null;
+            /** Mô tả / Ghi chú kỹ thuật */
+            description?: string | null;
+            /** Trạng thái hoạt động */
+            is_active?: boolean;
+        };
+        /** @description Serializer GHI đoạn tri thức nhập tay. Sửa nội dung -> phải nhúng lại vector. */
+        KnowledgeChunkCreateUpdateRequest: {
+            /** Tiêu đề */
+            title: string;
+            /** Nội dung */
+            content: string;
+            /** Khối */
+            grade?: (components["schemas"]["GradeEnum"] | components["schemas"]["NullEnum"]) | null;
+            /** Chủ đề */
+            topic?: string | null;
+            /** Mô tả / Ghi chú kỹ thuật */
+            description?: string | null;
+            /** Trạng thái hoạt động */
+            is_active?: boolean;
+        };
         Kpi: {
             key: string;
             label: string;
@@ -2544,27 +3364,27 @@ export interface components {
         LogoutRequestRequest: {
             refresh: string;
         };
-        /** @description Serializer hiển thị chi tiết Nguyên vật liệu (kèm nested Metal Spec nếu có). */
-        Material: {
+        Mindmap: {
             readonly id: number;
-            /** Mã NVL */
-            material_code: string;
-            /** Tên NVL */
-            material_name: string;
-            readonly category_id: number;
-            readonly category_code: string;
-            readonly category_name: string;
-            readonly category_parent_id: number | null;
-            readonly base_uom_id: number;
-            readonly base_uom_code: string;
-            readonly base_uom_name: string;
-            /** Đường dẫn ảnh đại diện / bản vẽ mặt cắt */
-            image_url?: string;
-            readonly metal_spec: components["schemas"]["MetalMaterialSpec"];
+            /** Khối */
+            readonly grade: (components["schemas"]["GradeEnum"] | components["schemas"]["NullEnum"]) | null;
+            /** Lớp (riêng) */
+            readonly school_class: number | null;
+            /** @default  */
+            readonly school_class_name: string;
+            /** Chủ đề */
+            readonly topic: string;
+            /** Tên sơ đồ */
+            readonly title: string;
+            /** Các nút */
+            readonly nodes: unknown;
+            readonly node_count: number;
+            /** Nguồn */
+            readonly origin: components["schemas"]["OriginEnum"];
             /** Mô tả / Ghi chú kỹ thuật */
-            description?: string | null;
+            readonly description: string | null;
             /** Trạng thái hoạt động */
-            is_active?: boolean;
+            readonly is_active: boolean;
             /** @default  */
             readonly created_by_name: string;
             /** @default  */
@@ -2574,219 +3394,44 @@ export interface components {
             /** Format: date-time */
             readonly updated_at: string;
         };
-        /** @description Serializer hiển thị danh sách và chi tiết Nhóm Nguyên Vật Liệu. */
-        MaterialCategory: {
+        MindmapCreateUpdate: {
             readonly id: number;
-            /** Mã nhóm NVL */
-            code: string;
-            /** Tên nhóm NVL */
-            name: string;
-            /** Nhóm cha */
-            parent?: number | null;
-            readonly parent_code: string;
-            readonly parent_name: string;
-            readonly children_count: number;
-            /** Thứ tự hiển thị */
-            sort_order?: number;
-            /** Mô tả / Ghi chú kỹ thuật */
-            description?: string | null;
-            /** Trạng thái hoạt động */
-            is_active?: boolean;
-            /** @default  */
-            readonly created_by_name: string;
-            /** @default  */
-            readonly updated_by_name: string;
-            /** Format: date-time */
-            readonly created_at: string;
-            /** Format: date-time */
-            readonly updated_at: string;
-        };
-        /** @description Serializer tạo mới hoặc cập nhật Nhóm Nguyên Vật Liệu từ Form. */
-        MaterialCategoryCreateUpdate: {
-            readonly id: number;
-            /** Mã nhóm NVL */
-            code: string;
-            /** Tên nhóm NVL */
-            name: string;
-            /** Nhóm cha */
-            parent?: number | null;
-            /** Thứ tự hiển thị */
-            readonly sort_order: number;
+            /** Khối */
+            grade?: (components["schemas"]["GradeEnum"] | components["schemas"]["NullEnum"]) | null;
+            /** Lớp (riêng) */
+            school_class?: number | null;
+            /** Chủ đề */
+            topic: string;
+            /** Tên sơ đồ */
+            title: string;
+            /** Các nút */
+            nodes?: unknown;
             /** Mô tả / Ghi chú kỹ thuật */
             description?: string | null;
             /** Trạng thái hoạt động */
             is_active?: boolean;
         };
-        /** @description Serializer tạo mới hoặc cập nhật Nhóm Nguyên Vật Liệu từ Form. */
-        MaterialCategoryCreateUpdateRequest: {
-            /** Mã nhóm NVL */
-            code: string;
-            /** Tên nhóm NVL */
-            name: string;
-            /** Nhóm cha */
-            parent?: number | null;
+        MindmapCreateUpdateRequest: {
+            /** Khối */
+            grade?: (components["schemas"]["GradeEnum"] | components["schemas"]["NullEnum"]) | null;
+            /** Lớp (riêng) */
+            school_class?: number | null;
+            /** Chủ đề */
+            topic: string;
+            /** Tên sơ đồ */
+            title: string;
+            /** Các nút */
+            nodes?: unknown;
             /** Mô tả / Ghi chú kỹ thuật */
             description?: string | null;
             /** Trạng thái hoạt động */
             is_active?: boolean;
         };
-        /** @description Serializer hiển thị danh sách và chi tiết Nhóm Nguyên Vật Liệu. */
-        MaterialCategoryRequest: {
-            /** Mã nhóm NVL */
-            code: string;
-            /** Tên nhóm NVL */
-            name: string;
-            /** Nhóm cha */
-            parent?: number | null;
-            /** Thứ tự hiển thị */
-            sort_order?: number;
-            /** Mô tả / Ghi chú kỹ thuật */
-            description?: string | null;
-            /** Trạng thái hoạt động */
-            is_active?: boolean;
-        };
-        /** @description Serializer tạo mới hoặc cập nhật Nguyên vật liệu (kèm lồng metal_spec atomic). */
-        MaterialCreateUpdate: {
-            readonly id: number;
-            /** Mã NVL */
-            material_code?: string;
-            /** Tên NVL */
-            material_name: string;
-            /** Nhóm NVL */
-            category: number;
-            /** ĐVT lưu kho */
-            base_uom: number;
-            /** Đường dẫn ảnh đại diện / bản vẽ mặt cắt */
-            image_url?: string;
-            metal_spec?: components["schemas"]["MetalMaterialSpec"] | null;
-            /** Mô tả / Ghi chú kỹ thuật */
-            description?: string | null;
-            /** Trạng thái hoạt động */
-            is_active?: boolean;
-        };
-        /** @description Serializer tạo mới hoặc cập nhật Nguyên vật liệu (kèm lồng metal_spec atomic). */
-        MaterialCreateUpdateRequest: {
-            /** Mã NVL */
-            material_code?: string;
-            /** Tên NVL */
-            material_name: string;
-            /** Nhóm NVL */
-            category: number;
-            /** ĐVT lưu kho */
-            base_uom: number;
-            /** Đường dẫn ảnh đại diện / bản vẽ mặt cắt */
-            image_url?: string;
-            metal_spec?: components["schemas"]["MetalMaterialSpecRequest"] | null;
-            /** Mô tả / Ghi chú kỹ thuật */
-            description?: string | null;
-            /** Trạng thái hoạt động */
-            is_active?: boolean;
-        };
-        /** @description Serializer hiển thị chi tiết Nguyên vật liệu (kèm nested Metal Spec nếu có). */
-        MaterialRequest: {
-            /** Mã NVL */
-            material_code: string;
-            /** Tên NVL */
-            material_name: string;
-            /** Đường dẫn ảnh đại diện / bản vẽ mặt cắt */
-            image_url?: string;
-            /** Mô tả / Ghi chú kỹ thuật */
-            description?: string | null;
-            /** Trạng thái hoạt động */
-            is_active?: boolean;
-        };
-        /** @description Serializer hiển thị và cập nhật thông số phôi kim loại. */
-        MetalMaterialSpec: {
-            /** Hình dạng mặt cắt */
-            profile_shape?: components["schemas"]["ProfileShapeEnum"];
-            readonly profile_shape_display: string;
-            /**
-             * Kích thước 1 (Ø/a/w) mm
-             * Format: decimal
-             */
-            outer_dimension_1?: string | null;
-            /**
-             * Kích thước 2 (b/h) mm
-             * Format: decimal
-             */
-            outer_dimension_2?: string | null;
-            /**
-             * Độ dày thành t mm
-             * Format: decimal
-             */
-            thickness?: string | null;
-            /**
-             * Chiều dài thanh tiêu chuẩn mm
-             * Format: decimal
-             */
-            standard_bar_length?: string;
-            /**
-             * Hao hụt đầu mẩu bavia mm
-             * Format: decimal
-             */
-            end_trim_loss?: string;
-            /**
-             * Bề dày mạch cưa mm
-             * Format: decimal
-             */
-            saw_kerf_loss?: string;
-            /**
-             * Định lượng kg/m thực tế
-             * Format: decimal
-             */
-            weight_per_meter_kg?: string | null;
-            /** Mã khuôn ép NCC */
-            mold_code?: string;
-            /** Ký hiệu phụ (Gân/Gờ...) */
-            features?: string;
-            /** Mô tả / Ghi chú kỹ thuật */
-            description?: string | null;
-        };
-        /** @description Serializer hiển thị và cập nhật thông số phôi kim loại. */
-        MetalMaterialSpecRequest: {
-            /** Hình dạng mặt cắt */
-            profile_shape?: components["schemas"]["ProfileShapeEnum"];
-            /**
-             * Kích thước 1 (Ø/a/w) mm
-             * Format: decimal
-             */
-            outer_dimension_1?: string | null;
-            /**
-             * Kích thước 2 (b/h) mm
-             * Format: decimal
-             */
-            outer_dimension_2?: string | null;
-            /**
-             * Độ dày thành t mm
-             * Format: decimal
-             */
-            thickness?: string | null;
-            /**
-             * Chiều dài thanh tiêu chuẩn mm
-             * Format: decimal
-             */
-            standard_bar_length?: string;
-            /**
-             * Hao hụt đầu mẩu bavia mm
-             * Format: decimal
-             */
-            end_trim_loss?: string;
-            /**
-             * Bề dày mạch cưa mm
-             * Format: decimal
-             */
-            saw_kerf_loss?: string;
-            /**
-             * Định lượng kg/m thực tế
-             * Format: decimal
-             */
-            weight_per_meter_kg?: string | null;
-            /** Mã khuôn ép NCC */
-            mold_code?: string;
-            /** Ký hiệu phụ (Gân/Gờ...) */
-            features?: string;
-            /** Mô tả / Ghi chú kỹ thuật */
-            description?: string | null;
+        MindmapDraft: {
+            title: string;
+            nodes: {
+                [key: string]: unknown;
+            }[];
         };
         /** @description Serializer thêm Action đơn lẻ vào module có sẵn. */
         ModuleAddActionRequest: {
@@ -2938,12 +3583,36 @@ export interface components {
             /** Format: date-time */
             readonly created_at: string;
         };
+        /** @enum {unknown} */
+        NullEnum: null;
         /**
          * @description * `INTL` - Quốc tế (1,250.50)
          *     * `VN` - Việt Nam (1.250,50)
          * @enum {string}
          */
         NumberFormatEnum: "INTL" | "VN";
+        /**
+         * @description * `MANUAL` - Nhập tay
+         *     * `AI` - AI sinh
+         *     * `DOCUMENT` - Từ tài liệu
+         * @enum {string}
+         */
+        OriginEnum: "MANUAL" | "AI" | "DOCUMENT";
+        PaginatedAiSettingList: {
+            /** @example 123 */
+            count: number;
+            /** @example 13 */
+            total_pages: number;
+            /** @example 1 */
+            current_page: number;
+            /** @example 10 */
+            page_size: number;
+            /** Format: uri */
+            next?: string | null;
+            /** Format: uri */
+            previous?: string | null;
+            results: components["schemas"]["AiSetting"][];
+        };
         PaginatedAttachmentList: {
             /** @example 123 */
             count: number;
@@ -2974,21 +3643,6 @@ export interface components {
             previous?: string | null;
             results: components["schemas"]["AuditLogEvent"][];
         };
-        PaginatedCustomerList: {
-            /** @example 123 */
-            count: number;
-            /** @example 13 */
-            total_pages: number;
-            /** @example 1 */
-            current_page: number;
-            /** @example 10 */
-            page_size: number;
-            /** Format: uri */
-            next?: string | null;
-            /** Format: uri */
-            previous?: string | null;
-            results: components["schemas"]["Customer"][];
-        };
         PaginatedDataTransferJobList: {
             /** @example 123 */
             count: number;
@@ -3004,7 +3658,7 @@ export interface components {
             previous?: string | null;
             results: components["schemas"]["DataTransferJob"][];
         };
-        PaginatedMaterialCategoryList: {
+        PaginatedFlashcardDeckList: {
             /** @example 123 */
             count: number;
             /** @example 13 */
@@ -3017,9 +3671,9 @@ export interface components {
             next?: string | null;
             /** Format: uri */
             previous?: string | null;
-            results: components["schemas"]["MaterialCategory"][];
+            results: components["schemas"]["FlashcardDeck"][];
         };
-        PaginatedMaterialList: {
+        PaginatedKnowledgeChunkList: {
             /** @example 123 */
             count: number;
             /** @example 13 */
@@ -3032,7 +3686,22 @@ export interface components {
             next?: string | null;
             /** Format: uri */
             previous?: string | null;
-            results: components["schemas"]["Material"][];
+            results: components["schemas"]["KnowledgeChunk"][];
+        };
+        PaginatedMindmapList: {
+            /** @example 123 */
+            count: number;
+            /** @example 13 */
+            total_pages: number;
+            /** @example 1 */
+            current_page: number;
+            /** @example 10 */
+            page_size: number;
+            /** Format: uri */
+            next?: string | null;
+            /** Format: uri */
+            previous?: string | null;
+            results: components["schemas"]["Mindmap"][];
         };
         PaginatedModuleRegistryList: {
             /** @example 123 */
@@ -3079,6 +3748,36 @@ export interface components {
             previous?: string | null;
             results: components["schemas"]["Permission"][];
         };
+        PaginatedQuestionDraftList: {
+            /** @example 123 */
+            count: number;
+            /** @example 13 */
+            total_pages: number;
+            /** @example 1 */
+            current_page: number;
+            /** @example 10 */
+            page_size: number;
+            /** Format: uri */
+            next?: string | null;
+            /** Format: uri */
+            previous?: string | null;
+            results: components["schemas"]["QuestionDraft"][];
+        };
+        PaginatedQuestionList: {
+            /** @example 123 */
+            count: number;
+            /** @example 13 */
+            total_pages: number;
+            /** @example 1 */
+            current_page: number;
+            /** @example 10 */
+            page_size: number;
+            /** Format: uri */
+            next?: string | null;
+            /** Format: uri */
+            previous?: string | null;
+            results: components["schemas"]["Question"][];
+        };
         PaginatedRoleList: {
             /** @example 123 */
             count: number;
@@ -3094,7 +3793,7 @@ export interface components {
             previous?: string | null;
             results: components["schemas"]["Role"][];
         };
-        PaginatedSupplierList: {
+        PaginatedSchoolClassList: {
             /** @example 123 */
             count: number;
             /** @example 13 */
@@ -3107,9 +3806,9 @@ export interface components {
             next?: string | null;
             /** Format: uri */
             previous?: string | null;
-            results: components["schemas"]["Supplier"][];
+            results: components["schemas"]["SchoolClass"][];
         };
-        PaginatedUnitOfMeasureList: {
+        PaginatedSourceDocumentList: {
             /** @example 123 */
             count: number;
             /** @example 13 */
@@ -3122,7 +3821,37 @@ export interface components {
             next?: string | null;
             /** Format: uri */
             previous?: string | null;
-            results: components["schemas"]["UnitOfMeasure"][];
+            results: components["schemas"]["SourceDocument"][];
+        };
+        PaginatedStudentList: {
+            /** @example 123 */
+            count: number;
+            /** @example 13 */
+            total_pages: number;
+            /** @example 1 */
+            current_page: number;
+            /** @example 10 */
+            page_size: number;
+            /** Format: uri */
+            next?: string | null;
+            /** Format: uri */
+            previous?: string | null;
+            results: components["schemas"]["Student"][];
+        };
+        PaginatedTeacherList: {
+            /** @example 123 */
+            count: number;
+            /** @example 13 */
+            total_pages: number;
+            /** @example 1 */
+            current_page: number;
+            /** @example 10 */
+            page_size: number;
+            /** Format: uri */
+            next?: string | null;
+            /** Format: uri */
+            previous?: string | null;
+            results: components["schemas"]["Teacher"][];
         };
         PaginatedUserList: {
             /** @example 123 */
@@ -3138,6 +3867,21 @@ export interface components {
             /** Format: uri */
             previous?: string | null;
             results: components["schemas"]["User"][];
+        };
+        /** @description Serializer GHI: kiểm tra giá trị đúng kiểu (số / bật-tắt). */
+        PatchedAiSettingCreateUpdateRequest: {
+            /** Khóa */
+            key?: string;
+            /** Tên hiển thị */
+            label?: string;
+            /** Giá trị */
+            value?: string;
+            /** Kiểu giá trị */
+            value_type?: components["schemas"]["ValueTypeEnum"];
+            /** Mô tả / Ghi chú kỹ thuật */
+            description?: string | null;
+            /** Trạng thái hoạt động */
+            is_active?: boolean;
         };
         /** @description Serializer cho tệp đính kèm đa hình (Attachments). */
         PatchedAttachmentRequest: {
@@ -3169,47 +3913,48 @@ export interface components {
             /** Trạng thái hoạt động */
             is_active?: boolean;
         };
-        /** @description Serializer GHI — mã tự viết hoa, kiểm tra trùng trên cả bản ghi đã xóa mềm (cột unique ở DB). */
-        PatchedCustomerCreateUpdateRequest: {
-            /** Mã khách hàng */
-            customer_code?: string;
-            /** Tên khách hàng */
-            customer_name?: string;
-            /** Quốc gia / Thị trường */
-            country?: string | null;
-            /** Logo */
-            logo_url?: string | null;
+        PatchedFlashcardDeckCreateUpdateRequest: {
+            /** Khối */
+            grade?: (components["schemas"]["GradeEnum"] | components["schemas"]["NullEnum"]) | null;
+            /** Lớp (riêng) */
+            school_class?: number | null;
+            /** Chủ đề */
+            topic?: string;
+            /** Tên bộ thẻ */
+            title?: string;
+            /** Danh sách thẻ */
+            cards?: unknown;
             /** Mô tả / Ghi chú kỹ thuật */
             description?: string | null;
             /** Trạng thái hoạt động */
             is_active?: boolean;
         };
-        /** @description Serializer tạo mới hoặc cập nhật Nhóm Nguyên Vật Liệu từ Form. */
-        PatchedMaterialCategoryCreateUpdateRequest: {
-            /** Mã nhóm NVL */
-            code?: string;
-            /** Tên nhóm NVL */
-            name?: string;
-            /** Nhóm cha */
-            parent?: number | null;
+        /** @description Serializer GHI đoạn tri thức nhập tay. Sửa nội dung -> phải nhúng lại vector. */
+        PatchedKnowledgeChunkCreateUpdateRequest: {
+            /** Tiêu đề */
+            title?: string;
+            /** Nội dung */
+            content?: string;
+            /** Khối */
+            grade?: (components["schemas"]["GradeEnum"] | components["schemas"]["NullEnum"]) | null;
+            /** Chủ đề */
+            topic?: string | null;
             /** Mô tả / Ghi chú kỹ thuật */
             description?: string | null;
             /** Trạng thái hoạt động */
             is_active?: boolean;
         };
-        /** @description Serializer tạo mới hoặc cập nhật Nguyên vật liệu (kèm lồng metal_spec atomic). */
-        PatchedMaterialCreateUpdateRequest: {
-            /** Mã NVL */
-            material_code?: string;
-            /** Tên NVL */
-            material_name?: string;
-            /** Nhóm NVL */
-            category?: number;
-            /** ĐVT lưu kho */
-            base_uom?: number;
-            /** Đường dẫn ảnh đại diện / bản vẽ mặt cắt */
-            image_url?: string;
-            metal_spec?: components["schemas"]["MetalMaterialSpecRequest"] | null;
+        PatchedMindmapCreateUpdateRequest: {
+            /** Khối */
+            grade?: (components["schemas"]["GradeEnum"] | components["schemas"]["NullEnum"]) | null;
+            /** Lớp (riêng) */
+            school_class?: number | null;
+            /** Chủ đề */
+            topic?: string;
+            /** Tên sơ đồ */
+            title?: string;
+            /** Các nút */
+            nodes?: unknown;
             /** Mô tả / Ghi chú kỹ thuật */
             description?: string | null;
             /** Trạng thái hoạt động */
@@ -3238,6 +3983,34 @@ export interface components {
             /** Mô tả tiếng Anh */
             description_en?: string | null;
         };
+        PatchedQuestionCreateUpdateRequest: {
+            /** Khối */
+            grade?: (components["schemas"]["GradeEnum"] | components["schemas"]["NullEnum"]) | null;
+            /** Lớp (riêng) */
+            school_class?: number | null;
+            /** Chủ đề */
+            topic?: string;
+            /** Loại câu hỏi */
+            question_type?: components["schemas"]["QuestionTypeEnum"];
+            /** Mức độ */
+            difficulty?: components["schemas"]["DifficultyEnum"];
+            /** Nội dung câu hỏi */
+            content?: string;
+            /** Phương án */
+            options?: unknown;
+            /** Đáp án */
+            correct_answer?: string;
+            /** Giải thích */
+            explanation?: string | null;
+            /** Gợi ý */
+            hint?: string | null;
+            /** Trạng thái duyệt */
+            status?: components["schemas"]["QuestionStatusEnum"];
+            /** Mô tả / Ghi chú kỹ thuật */
+            description?: string | null;
+            /** Trạng thái hoạt động */
+            is_active?: boolean;
+        };
         /** @description Serializer quản lý và hiển thị thông tin Vai trò (Role). */
         PatchedRoleRequest: {
             /** Mã vai trò */
@@ -3249,19 +4022,50 @@ export interface components {
             /** Trạng thái hoạt động */
             is_active?: boolean;
         };
-        /** @description Serializer GHI — validate dữ liệu đầu vào, thông điệp tiếng Việt. */
-        PatchedSupplierCreateUpdateRequest: {
-            /** Mã nhà cung cấp */
-            supplier_code?: string;
-            /** Tên nhà cung cấp */
-            supplier_name?: string;
-            /** Mã số thuế */
-            tax_code?: string | null;
-            /** Số điện thoại */
-            phone?: string | null;
-            email?: (string) | null;
-            /** Địa chỉ */
-            address?: string | null;
+        /** @description Serializer GHI lớp học. */
+        PatchedSchoolClassCreateUpdateRequest: {
+            /** Mã lớp */
+            code?: string;
+            /** Tên lớp */
+            name?: string;
+            /** Khối */
+            grade?: components["schemas"]["GradeEnum"];
+            /** Năm học */
+            academic_year?: string;
+            /** Giáo viên chủ nhiệm */
+            homeroom_teacher?: number | null;
+            /** Mô tả / Ghi chú kỹ thuật */
+            description?: string | null;
+            /** Trạng thái hoạt động */
+            is_active?: boolean;
+        };
+        /** @description Chỉ sửa thông tin mô tả; nội dung đi theo tệp đã tải lên. */
+        PatchedSourceDocumentUpdateRequest: {
+            /** Tên tài liệu */
+            title?: string;
+            /** Khối */
+            grade?: (components["schemas"]["GradeEnum"] | components["schemas"]["NullEnum"]) | null;
+            /** Chủ đề */
+            topic?: string | null;
+            /** Mô tả / Ghi chú kỹ thuật */
+            description?: string | null;
+            /** Trạng thái hoạt động */
+            is_active?: boolean;
+        };
+        /** @description Serializer GHI học sinh: tạo / sửa tài khoản + hồ sơ trong 1 lần. */
+        PatchedStudentCreateUpdateRequest: {
+            /** @description Bỏ trống -> dùng mã học sinh (chữ thường) */
+            username?: string;
+            full_name?: string;
+            email?: string;
+            /** @description Bỏ trống khi tạo -> sinh ngẫu nhiên; khi sửa -> giữ nguyên */
+            password?: string;
+            /** Mã học sinh */
+            student_code?: string;
+            /** Khối */
+            grade?: components["schemas"]["GradeEnum"];
+            /** Lớp */
+            school_class?: number | null;
             /** Mô tả / Ghi chú kỹ thuật */
             description?: string | null;
             /** Trạng thái hoạt động */
@@ -3283,12 +4087,17 @@ export interface components {
             /** Định dạng số mặc định */
             number_format?: components["schemas"]["NumberFormatEnum"];
         };
-        /** @description Serializer tiếp nhận tạo mới hoặc cập nhật Đơn vị tính từ Form. */
-        PatchedUnitOfMeasureCreateUpdateRequest: {
-            /** Mã ĐVT */
-            code?: string;
-            /** Tên ĐVT */
-            name?: string;
+        /** @description Serializer GHI giáo viên. */
+        PatchedTeacherCreateUpdateRequest: {
+            username?: string;
+            full_name?: string;
+            email?: string;
+            /** @description Bỏ trống khi tạo -> sinh ngẫu nhiên; khi sửa -> giữ nguyên */
+            password?: string;
+            /** Mã giáo viên */
+            employee_code?: string | null;
+            /** Bộ môn */
+            subject?: string | null;
             /** Mô tả / Ghi chú kỹ thuật */
             description?: string | null;
             /** Trạng thái hoạt động */
@@ -3357,20 +4166,130 @@ export interface components {
              */
             readonly created_at: string;
         };
+        Question: {
+            readonly id: number;
+            /** Khối */
+            readonly grade: (components["schemas"]["GradeEnum"] | components["schemas"]["NullEnum"]) | null;
+            /** Lớp (riêng) */
+            readonly school_class: number | null;
+            /** @default  */
+            readonly school_class_name: string;
+            /** Chủ đề */
+            readonly topic: string;
+            /** Loại câu hỏi */
+            readonly question_type: components["schemas"]["QuestionTypeEnum"];
+            /** Mức độ */
+            readonly difficulty: components["schemas"]["DifficultyEnum"];
+            /** Nội dung câu hỏi */
+            readonly content: string;
+            /** Phương án */
+            readonly options: unknown;
+            /** Đáp án */
+            readonly correct_answer: string;
+            /** Giải thích */
+            readonly explanation: string | null;
+            /** Gợi ý */
+            readonly hint: string | null;
+            /** Trạng thái duyệt */
+            readonly status: components["schemas"]["QuestionStatusEnum"];
+            /** Nguồn */
+            readonly origin: components["schemas"]["OriginEnum"];
+            /** Tài liệu nguồn */
+            readonly source_document: number | null;
+            /** @default  */
+            readonly source_document_title: string;
+            /** Mô tả / Ghi chú kỹ thuật */
+            readonly description: string | null;
+            /** Trạng thái hoạt động */
+            readonly is_active: boolean;
+            /** @default  */
+            readonly created_by_name: string;
+            /** @default  */
+            readonly updated_by_name: string;
+            /** Format: date-time */
+            readonly created_at: string;
+            /** Format: date-time */
+            readonly updated_at: string;
+        };
+        QuestionCreateUpdate: {
+            readonly id: number;
+            /** Khối */
+            grade?: (components["schemas"]["GradeEnum"] | components["schemas"]["NullEnum"]) | null;
+            /** Lớp (riêng) */
+            school_class?: number | null;
+            /** Chủ đề */
+            topic: string;
+            /** Loại câu hỏi */
+            question_type?: components["schemas"]["QuestionTypeEnum"];
+            /** Mức độ */
+            difficulty?: components["schemas"]["DifficultyEnum"];
+            /** Nội dung câu hỏi */
+            content: string;
+            /** Phương án */
+            options?: unknown;
+            /** Đáp án */
+            correct_answer: string;
+            /** Giải thích */
+            explanation?: string | null;
+            /** Gợi ý */
+            hint?: string | null;
+            /** Trạng thái duyệt */
+            status?: components["schemas"]["QuestionStatusEnum"];
+            /** Mô tả / Ghi chú kỹ thuật */
+            description?: string | null;
+            /** Trạng thái hoạt động */
+            is_active?: boolean;
+        };
+        QuestionCreateUpdateRequest: {
+            /** Khối */
+            grade?: (components["schemas"]["GradeEnum"] | components["schemas"]["NullEnum"]) | null;
+            /** Lớp (riêng) */
+            school_class?: number | null;
+            /** Chủ đề */
+            topic: string;
+            /** Loại câu hỏi */
+            question_type?: components["schemas"]["QuestionTypeEnum"];
+            /** Mức độ */
+            difficulty?: components["schemas"]["DifficultyEnum"];
+            /** Nội dung câu hỏi */
+            content: string;
+            /** Phương án */
+            options?: unknown;
+            /** Đáp án */
+            correct_answer: string;
+            /** Giải thích */
+            explanation?: string | null;
+            /** Gợi ý */
+            hint?: string | null;
+            /** Trạng thái duyệt */
+            status?: components["schemas"]["QuestionStatusEnum"];
+            /** Mô tả / Ghi chú kỹ thuật */
+            description?: string | null;
+            /** Trạng thái hoạt động */
+            is_active?: boolean;
+        };
+        QuestionDraft: {
+            content: string;
+            options: string[] | null;
+            correct_answer: string;
+            explanation: string | null;
+            hint: string | null;
+            difficulty: string;
+            question_type: string;
+        };
         /**
-         * @description * `ROUND_PIPE` - Ống tròn rỗng (P)
-         *     * `SOLID_ROUND` - Tròn đặc (D)
-         *     * `SQUARE_TUBE` - Hộp vuông rỗng (V)
-         *     * `SOLID_SQUARE` - Vuông đặc (V...D)
-         *     * `RECT_TUBE` - Hộp chữ nhật rỗng (CN)
-         *     * `OVAL_PIPE` - Oval / Elip rỗng (ELIP)
-         *     * `FLAT_BAR` - La / Dẹt đặc (L)
-         *     * `ANGLE_V` - Thép V / Nhôm V
-         *     * `SHEET` - Nhôm / Sắt tấm (T)
-         *     * `SPECIAL_MOLD` - Khuôn định hình đặc biệt (SP)
+         * @description * `PENDING` - Chờ duyệt
+         *     * `APPROVED` - Đã duyệt
+         *     * `REJECTED` - Từ chối
          * @enum {string}
          */
-        ProfileShapeEnum: "ROUND_PIPE" | "SOLID_ROUND" | "SQUARE_TUBE" | "SOLID_SQUARE" | "RECT_TUBE" | "OVAL_PIPE" | "FLAT_BAR" | "ANGLE_V" | "SHEET" | "SPECIAL_MOLD";
+        QuestionStatusEnum: "PENDING" | "APPROVED" | "REJECTED";
+        /**
+         * @description * `MULTIPLE_CHOICE` - Trắc nghiệm
+         *     * `ESSAY` - Tự luận
+         * @enum {string}
+         */
+        QuestionTypeEnum: "MULTIPLE_CHOICE" | "ESSAY";
         RecentActivity: {
             id: string;
             created_at: string;
@@ -3378,6 +4297,9 @@ export interface components {
             action_code: string;
             model_name: string;
             object_id: number | null;
+        };
+        ReviewQuestionsRequest: {
+            action: components["schemas"]["ActionEnum"];
         };
         /** @description Serializer quản lý và hiển thị thông tin Vai trò (Role). */
         Role: {
@@ -3422,6 +4344,71 @@ export interface components {
             /** Trạng thái hoạt động */
             is_active?: boolean;
         };
+        /** @description Serializer ĐỌC lớp học. */
+        SchoolClass: {
+            readonly id: number;
+            /** Mã lớp */
+            readonly code: string;
+            /** Tên lớp */
+            readonly name: string;
+            /** Khối */
+            readonly grade: components["schemas"]["GradeEnum"];
+            /** Năm học */
+            readonly academic_year: string;
+            /** Giáo viên chủ nhiệm */
+            readonly homeroom_teacher: number | null;
+            /** @default  */
+            readonly homeroom_teacher_name: string;
+            /** @default 0 */
+            readonly student_count: number;
+            /** Mô tả / Ghi chú kỹ thuật */
+            readonly description: string | null;
+            /** Trạng thái hoạt động */
+            readonly is_active: boolean;
+            /** @default  */
+            readonly created_by_name: string;
+            /** @default  */
+            readonly updated_by_name: string;
+            /** Format: date-time */
+            readonly created_at: string;
+            /** Format: date-time */
+            readonly updated_at: string;
+        };
+        /** @description Serializer GHI lớp học. */
+        SchoolClassCreateUpdate: {
+            readonly id: number;
+            /** Mã lớp */
+            code: string;
+            /** Tên lớp */
+            name: string;
+            /** Khối */
+            grade: components["schemas"]["GradeEnum"];
+            /** Năm học */
+            academic_year: string;
+            /** Giáo viên chủ nhiệm */
+            homeroom_teacher?: number | null;
+            /** Mô tả / Ghi chú kỹ thuật */
+            description?: string | null;
+            /** Trạng thái hoạt động */
+            is_active?: boolean;
+        };
+        /** @description Serializer GHI lớp học. */
+        SchoolClassCreateUpdateRequest: {
+            /** Mã lớp */
+            code: string;
+            /** Tên lớp */
+            name: string;
+            /** Khối */
+            grade: components["schemas"]["GradeEnum"];
+            /** Năm học */
+            academic_year: string;
+            /** Giáo viên chủ nhiệm */
+            homeroom_teacher?: number | null;
+            /** Mô tả / Ghi chú kỹ thuật */
+            description?: string | null;
+            /** Trạng thái hoạt động */
+            is_active?: boolean;
+        };
         SearchGroup: {
             module_code: string;
             module_name: string;
@@ -3437,21 +4424,134 @@ export interface components {
             image: string | null;
             url: string;
         };
-        /** @description Serializer ĐỌC — dùng cho mọi response (list, detail, sau create/update). */
-        Supplier: {
+        /** @description Serializer ĐỌC tài liệu nguồn (không kèm raw_text — xem ở trang chi tiết). */
+        SourceDocument: {
             readonly id: number;
-            /** Mã nhà cung cấp */
-            readonly supplier_code: string;
-            /** Tên nhà cung cấp */
-            readonly supplier_name: string;
-            /** Mã số thuế */
-            readonly tax_code: string | null;
-            /** Số điện thoại */
-            readonly phone: string | null;
-            /** Format: email */
-            readonly email: string | null;
-            /** Địa chỉ */
-            readonly address: string | null;
+            /** Tên tài liệu */
+            readonly title: string;
+            /** Khối */
+            readonly grade: (components["schemas"]["GradeEnum"] | components["schemas"]["NullEnum"]) | null;
+            /** Chủ đề */
+            readonly topic: string | null;
+            /** Trạng thái xử lý */
+            readonly status: components["schemas"]["DocumentStatusEnum"];
+            /** Tổng số đoạn */
+            readonly total_chunks: number;
+            /** Số đoạn đã xử lý */
+            readonly processed_chunks: number;
+            readonly progress: number;
+            /** @default 0 */
+            readonly chunk_count: number;
+            /** @default 0 */
+            readonly question_count: number;
+            /** Sinh câu hỏi từ tài liệu */
+            readonly generate_questions: boolean;
+            /** Lỗi xử lý */
+            readonly error_message: string | null;
+            /** Mô tả / Ghi chú kỹ thuật */
+            readonly description: string | null;
+            /** Trạng thái hoạt động */
+            readonly is_active: boolean;
+            /** @default  */
+            readonly created_by_name: string;
+            /** Format: date-time */
+            readonly created_at: string;
+            /** Format: date-time */
+            readonly updated_at: string;
+        };
+        /** @description Serializer ĐỌC tài liệu nguồn (không kèm raw_text — xem ở trang chi tiết). */
+        SourceDocumentDetail: {
+            readonly id: number;
+            /** Tên tài liệu */
+            readonly title: string;
+            /** Khối */
+            readonly grade: (components["schemas"]["GradeEnum"] | components["schemas"]["NullEnum"]) | null;
+            /** Chủ đề */
+            readonly topic: string | null;
+            /** Trạng thái xử lý */
+            readonly status: components["schemas"]["DocumentStatusEnum"];
+            /** Tổng số đoạn */
+            readonly total_chunks: number;
+            /** Số đoạn đã xử lý */
+            readonly processed_chunks: number;
+            readonly progress: number;
+            /** @default 0 */
+            readonly chunk_count: number;
+            /** @default 0 */
+            readonly question_count: number;
+            /** Sinh câu hỏi từ tài liệu */
+            readonly generate_questions: boolean;
+            /** Lỗi xử lý */
+            readonly error_message: string | null;
+            /** Mô tả / Ghi chú kỹ thuật */
+            readonly description: string | null;
+            /** Trạng thái hoạt động */
+            readonly is_active: boolean;
+            /** @default  */
+            readonly created_by_name: string;
+            /** Format: date-time */
+            readonly created_at: string;
+            /** Format: date-time */
+            readonly updated_at: string;
+            /** Văn bản trích xuất */
+            readonly raw_text: string | null;
+        };
+        /** @description Chỉ sửa thông tin mô tả; nội dung đi theo tệp đã tải lên. */
+        SourceDocumentUpdate: {
+            readonly id: number;
+            /** Tên tài liệu */
+            title: string;
+            /** Khối */
+            grade?: (components["schemas"]["GradeEnum"] | components["schemas"]["NullEnum"]) | null;
+            /** Chủ đề */
+            topic?: string | null;
+            /** Mô tả / Ghi chú kỹ thuật */
+            description?: string | null;
+            /** Trạng thái hoạt động */
+            is_active?: boolean;
+        };
+        /** @description Chỉ sửa thông tin mô tả; nội dung đi theo tệp đã tải lên. */
+        SourceDocumentUpdateRequest: {
+            /** Tên tài liệu */
+            title: string;
+            /** Khối */
+            grade?: (components["schemas"]["GradeEnum"] | components["schemas"]["NullEnum"]) | null;
+            /** Chủ đề */
+            topic?: string | null;
+            /** Mô tả / Ghi chú kỹ thuật */
+            description?: string | null;
+            /** Trạng thái hoạt động */
+            is_active?: boolean;
+        };
+        SourceDocumentUploadRequest: {
+            /** Format: binary */
+            file: string;
+            title?: string;
+            grade?: (components["schemas"]["GradeEnum"] | components["schemas"]["NullEnum"]) | null;
+            topic?: string;
+            /** @default true */
+            generate_questions: boolean;
+        };
+        /** @description Serializer ĐỌC học sinh (hồ sơ + tài khoản). */
+        Student: {
+            readonly id: number;
+            readonly user_id: number;
+            readonly username: string;
+            readonly full_name: string;
+            readonly email: string;
+            /** Mã học sinh */
+            readonly student_code: string;
+            /** Khối */
+            readonly grade: components["schemas"]["GradeEnum"];
+            /** Lớp */
+            readonly school_class: number | null;
+            /** @default  */
+            readonly school_class_name: string;
+            readonly must_change_password: boolean;
+            /** Format: date-time */
+            readonly last_login: string;
+            /** @description Chỉ có ngay sau khi tạo với mật khẩu tự sinh; mọi lần đọc sau là null. */
+            readonly initial_password: string | null;
             /** Mô tả / Ghi chú kỹ thuật */
             readonly description: string | null;
             /** Trạng thái hoạt động */
@@ -3465,42 +4565,65 @@ export interface components {
             /** Format: date-time */
             readonly updated_at: string;
         };
-        /** @description Serializer GHI — validate dữ liệu đầu vào, thông điệp tiếng Việt. */
-        SupplierCreateUpdate: {
+        /** @description Serializer GHI học sinh: tạo / sửa tài khoản + hồ sơ trong 1 lần. */
+        StudentCreateUpdate: {
             readonly id: number;
-            /** Mã nhà cung cấp */
-            supplier_code: string;
-            /** Tên nhà cung cấp */
-            supplier_name: string;
-            /** Mã số thuế */
-            tax_code?: string | null;
-            /** Số điện thoại */
-            phone?: string | null;
-            email?: (string) | null;
-            /** Địa chỉ */
-            address?: string | null;
+            /** @description Bỏ trống -> dùng mã học sinh (chữ thường) */
+            username?: string;
+            full_name: string;
+            email?: string;
+            /** Mã học sinh */
+            student_code: string;
+            /** Khối */
+            grade: components["schemas"]["GradeEnum"];
+            /** Lớp */
+            school_class?: number | null;
             /** Mô tả / Ghi chú kỹ thuật */
             description?: string | null;
             /** Trạng thái hoạt động */
             is_active?: boolean;
         };
-        /** @description Serializer GHI — validate dữ liệu đầu vào, thông điệp tiếng Việt. */
-        SupplierCreateUpdateRequest: {
-            /** Mã nhà cung cấp */
-            supplier_code: string;
-            /** Tên nhà cung cấp */
-            supplier_name: string;
-            /** Mã số thuế */
-            tax_code?: string | null;
-            /** Số điện thoại */
-            phone?: string | null;
-            email?: (string) | null;
-            /** Địa chỉ */
-            address?: string | null;
+        /** @description Serializer GHI học sinh: tạo / sửa tài khoản + hồ sơ trong 1 lần. */
+        StudentCreateUpdateRequest: {
+            /** @description Bỏ trống -> dùng mã học sinh (chữ thường) */
+            username?: string;
+            full_name: string;
+            email?: string;
+            /** @description Bỏ trống khi tạo -> sinh ngẫu nhiên; khi sửa -> giữ nguyên */
+            password?: string;
+            /** Mã học sinh */
+            student_code: string;
+            /** Khối */
+            grade: components["schemas"]["GradeEnum"];
+            /** Lớp */
+            school_class?: number | null;
             /** Mô tả / Ghi chú kỹ thuật */
             description?: string | null;
             /** Trạng thái hoạt động */
             is_active?: boolean;
+        };
+        /** @description Nhập học sinh: file Excel (`file`) hoặc mảng dòng đã đọc (`rows`). */
+        StudentImportRequest: {
+            /** Format: binary */
+            file?: string;
+            rows?: {
+                [key: string]: unknown;
+            }[];
+            /**
+             * @description Khối mặc định khi file không có cột khối
+             *
+             *     * `6` - Khối 6
+             *     * `7` - Khối 7
+             *     * `8` - Khối 8
+             *     * `9` - Khối 9
+             */
+            grade?: components["schemas"]["GradeEnum"];
+            school_class?: number | null;
+        };
+        StudentImportResult: {
+            count: number;
+            errors: string[];
+            credentials: components["schemas"]["ImportCredential"][];
         };
         SystemSettings: {
             /** Tên ứng dụng */
@@ -3542,24 +4665,24 @@ export interface components {
             /** Định dạng số mặc định */
             number_format?: components["schemas"]["NumberFormatEnum"];
         };
-        TokenRefresh: {
-            readonly access: string;
-            refresh: string;
-        };
-        TokenRefreshRequest: {
-            refresh: string;
-        };
-        /** @description Serializer hiển thị thông tin chi tiết Đơn vị tính (UOM). */
-        UnitOfMeasure: {
+        /** @description Serializer ĐỌC giáo viên. */
+        Teacher: {
             readonly id: number;
-            /** Mã ĐVT */
-            code: string;
-            /** Tên ĐVT */
-            name: string;
+            readonly user_id: number;
+            readonly username: string;
+            readonly full_name: string;
+            readonly email: string;
+            /** Mã giáo viên */
+            readonly employee_code: string | null;
+            /** Bộ môn */
+            readonly subject: string | null;
+            /** Format: date-time */
+            readonly last_login: string;
+            readonly initial_password: string | null;
             /** Mô tả / Ghi chú kỹ thuật */
-            description?: string | null;
+            readonly description: string | null;
             /** Trạng thái hoạt động */
-            is_active?: boolean;
+            readonly is_active: boolean;
             /** @default  */
             readonly created_by_name: string;
             /** @default  */
@@ -3569,39 +4692,43 @@ export interface components {
             /** Format: date-time */
             readonly updated_at: string;
         };
-        /** @description Serializer tiếp nhận tạo mới hoặc cập nhật Đơn vị tính từ Form. */
-        UnitOfMeasureCreateUpdate: {
+        /** @description Serializer GHI giáo viên. */
+        TeacherCreateUpdate: {
             readonly id: number;
-            /** Mã ĐVT */
-            code: string;
-            /** Tên ĐVT */
-            name: string;
+            username?: string;
+            full_name: string;
+            email?: string;
+            /** Mã giáo viên */
+            employee_code?: string | null;
+            /** Bộ môn */
+            subject?: string | null;
             /** Mô tả / Ghi chú kỹ thuật */
             description?: string | null;
             /** Trạng thái hoạt động */
             is_active?: boolean;
         };
-        /** @description Serializer tiếp nhận tạo mới hoặc cập nhật Đơn vị tính từ Form. */
-        UnitOfMeasureCreateUpdateRequest: {
-            /** Mã ĐVT */
-            code: string;
-            /** Tên ĐVT */
-            name: string;
+        /** @description Serializer GHI giáo viên. */
+        TeacherCreateUpdateRequest: {
+            username?: string;
+            full_name: string;
+            email?: string;
+            /** @description Bỏ trống khi tạo -> sinh ngẫu nhiên; khi sửa -> giữ nguyên */
+            password?: string;
+            /** Mã giáo viên */
+            employee_code?: string | null;
+            /** Bộ môn */
+            subject?: string | null;
             /** Mô tả / Ghi chú kỹ thuật */
             description?: string | null;
             /** Trạng thái hoạt động */
             is_active?: boolean;
         };
-        /** @description Serializer hiển thị thông tin chi tiết Đơn vị tính (UOM). */
-        UnitOfMeasureRequest: {
-            /** Mã ĐVT */
-            code: string;
-            /** Tên ĐVT */
-            name: string;
-            /** Mô tả / Ghi chú kỹ thuật */
-            description?: string | null;
-            /** Trạng thái hoạt động */
-            is_active?: boolean;
+        TokenRefresh: {
+            readonly access: string;
+            refresh: string;
+        };
+        TokenRefreshRequest: {
+            refresh: string;
         };
         UnreadCount: {
             count: number;
@@ -3643,6 +4770,11 @@ export interface components {
             readonly roles: components["schemas"]["UserRoleSimple"][];
             readonly role_codes: string[];
             readonly role_names: string;
+            /**
+             * Bắt đổi mật khẩu
+             * @description Bắt đổi mật khẩu ở lần đăng nhập tới (tài khoản mới tạo / import / đặt lại mật khẩu)
+             */
+            must_change_password?: boolean;
             /** Format: date-time */
             readonly last_login: string;
             /** Ghi chú tài khoản */
@@ -3661,7 +4793,7 @@ export interface components {
              */
             username: string;
             /** Địa chỉ email */
-            email: string;
+            email?: string;
             /** Họ và tên hiển thị */
             full_name?: string;
             /** Số điện thoại liên hệ */
@@ -3687,7 +4819,7 @@ export interface components {
              */
             username: string;
             /** Địa chỉ email */
-            email: string;
+            email?: string;
             /** Họ và tên hiển thị */
             full_name?: string;
             /** Số điện thoại liên hệ */
@@ -3740,6 +4872,11 @@ export interface components {
              * @description Định rằng người dùng này có tất cả các quyền mà không gán cho họ một cách cụ thể.
              */
             is_superuser?: boolean;
+            /**
+             * Bắt đổi mật khẩu
+             * @description Bắt đổi mật khẩu ở lần đăng nhập tới (tài khoản mới tạo / import / đặt lại mật khẩu)
+             */
+            must_change_password?: boolean;
             /** Ghi chú tài khoản */
             description?: string | null;
         };
@@ -3764,6 +4901,14 @@ export interface components {
             /** Tên hiển thị vai trò */
             role_name: string;
         };
+        /**
+         * @description * `TEXT` - Văn bản ngắn
+         *     * `PROMPT` - Prompt (văn bản dài)
+         *     * `NUMBER` - Số
+         *     * `BOOLEAN` - Bật / tắt
+         * @enum {string}
+         */
+        ValueTypeEnum: "TEXT" | "PROMPT" | "NUMBER" | "BOOLEAN";
     };
     responses: never;
     parameters: never;
@@ -3773,6 +4918,303 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 export interface operations {
+    ai_settings_list: {
+        parameters: {
+            query?: {
+                is_active?: boolean;
+                key__icontains?: string;
+                label__icontains?: string;
+                /** @description Which field to use when ordering the results. */
+                ordering?: string;
+                /** @description A page number within the paginated result set. */
+                page?: number;
+                /** @description Number of results to return per page. */
+                page_size?: number;
+                /** @description A search term. */
+                search?: string;
+                /**
+                 * @description * `TEXT` - Văn bản ngắn
+                 *     * `PROMPT` - Prompt (văn bản dài)
+                 *     * `NUMBER` - Số
+                 *     * `BOOLEAN` - Bật / tắt
+                 */
+                value_type?: "BOOLEAN" | "NUMBER" | "PROMPT" | "TEXT";
+                /** @description Multiple values may be separated by commas. */
+                value_type__in?: string[];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PaginatedAiSettingList"];
+                };
+            };
+        };
+    };
+    ai_settings_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AiSettingCreateUpdateRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["AiSettingCreateUpdateRequest"];
+                "multipart/form-data": components["schemas"]["AiSettingCreateUpdateRequest"];
+            };
+        };
+        responses: {
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AiSettingCreateUpdate"];
+                };
+            };
+        };
+    };
+    ai_settings_retrieve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description A unique integer value identifying this cấu hình AI. */
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AiSetting"];
+                };
+            };
+        };
+    };
+    ai_settings_update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description A unique integer value identifying this cấu hình AI. */
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AiSettingCreateUpdateRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["AiSettingCreateUpdateRequest"];
+                "multipart/form-data": components["schemas"]["AiSettingCreateUpdateRequest"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AiSettingCreateUpdate"];
+                };
+            };
+        };
+    };
+    ai_settings_destroy: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description A unique integer value identifying this cấu hình AI. */
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description No response body */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    ai_settings_partial_update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description A unique integer value identifying this cấu hình AI. */
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["PatchedAiSettingCreateUpdateRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["PatchedAiSettingCreateUpdateRequest"];
+                "multipart/form-data": components["schemas"]["PatchedAiSettingCreateUpdateRequest"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AiSettingCreateUpdate"];
+                };
+            };
+        };
+    };
+    ai_settings_batch_delete_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AiSetting"];
+                };
+            };
+        };
+    };
+    ai_settings_batch_status_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AiSetting"];
+                };
+            };
+        };
+    };
+    ai_settings_excel_template_retrieve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AiSetting"];
+                };
+            };
+        };
+    };
+    ai_settings_export_columns_retrieve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AiSetting"];
+                };
+            };
+        };
+    };
+    ai_settings_export_excel_retrieve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AiSetting"];
+                };
+            };
+        };
+    };
+    ai_settings_export_excel_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AiSetting"];
+                };
+            };
+        };
+    };
+    ai_settings_statistics_retrieve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AiSetting"];
+                };
+            };
+        };
+    };
     attachments_list: {
         parameters: {
             query?: {
@@ -4335,15 +5777,23 @@ export interface operations {
             };
         };
     };
-    customers_list: {
+    classes_list: {
         parameters: {
             query?: {
-                country?: string;
+                academic_year?: string;
+                code__icontains?: string;
+                /**
+                 * @description * `6` - Khối 6
+                 *     * `7` - Khối 7
+                 *     * `8` - Khối 8
+                 *     * `9` - Khối 9
+                 */
+                grade?: 6 | 7 | 8 | 9;
                 /** @description Multiple values may be separated by commas. */
-                country__in?: string[];
-                customer_code__icontains?: string;
-                customer_name__icontains?: string;
+                grade__in?: number[];
+                homeroom_teacher?: number;
                 is_active?: boolean;
+                name__icontains?: string;
                 /** @description Which field to use when ordering the results. */
                 ordering?: string;
                 /** @description A page number within the paginated result set. */
@@ -4366,12 +5816,12 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["PaginatedCustomerList"];
+                    "application/json": components["schemas"]["PaginatedSchoolClassList"];
                 };
             };
         };
     };
-    customers_create: {
+    classes_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -4380,9 +5830,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["CustomerCreateUpdateRequest"];
-                "application/x-www-form-urlencoded": components["schemas"]["CustomerCreateUpdateRequest"];
-                "multipart/form-data": components["schemas"]["CustomerCreateUpdateRequest"];
+                "application/json": components["schemas"]["SchoolClassCreateUpdateRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["SchoolClassCreateUpdateRequest"];
+                "multipart/form-data": components["schemas"]["SchoolClassCreateUpdateRequest"];
             };
         };
         responses: {
@@ -4391,17 +5841,17 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["CustomerCreateUpdate"];
+                    "application/json": components["schemas"]["SchoolClassCreateUpdate"];
                 };
             };
         };
     };
-    customers_retrieve: {
+    classes_retrieve: {
         parameters: {
             query?: never;
             header?: never;
             path: {
-                /** @description A unique integer value identifying this khách hàng. */
+                /** @description A unique integer value identifying this lớp học. */
                 id: number;
             };
             cookie?: never;
@@ -4413,26 +5863,26 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Customer"];
+                    "application/json": components["schemas"]["SchoolClass"];
                 };
             };
         };
     };
-    customers_update: {
+    classes_update: {
         parameters: {
             query?: never;
             header?: never;
             path: {
-                /** @description A unique integer value identifying this khách hàng. */
+                /** @description A unique integer value identifying this lớp học. */
                 id: number;
             };
             cookie?: never;
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["CustomerCreateUpdateRequest"];
-                "application/x-www-form-urlencoded": components["schemas"]["CustomerCreateUpdateRequest"];
-                "multipart/form-data": components["schemas"]["CustomerCreateUpdateRequest"];
+                "application/json": components["schemas"]["SchoolClassCreateUpdateRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["SchoolClassCreateUpdateRequest"];
+                "multipart/form-data": components["schemas"]["SchoolClassCreateUpdateRequest"];
             };
         };
         responses: {
@@ -4441,17 +5891,17 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["CustomerCreateUpdate"];
+                    "application/json": components["schemas"]["SchoolClassCreateUpdate"];
                 };
             };
         };
     };
-    customers_destroy: {
+    classes_destroy: {
         parameters: {
             query?: never;
             header?: never;
             path: {
-                /** @description A unique integer value identifying this khách hàng. */
+                /** @description A unique integer value identifying this lớp học. */
                 id: number;
             };
             cookie?: never;
@@ -4467,21 +5917,21 @@ export interface operations {
             };
         };
     };
-    customers_partial_update: {
+    classes_partial_update: {
         parameters: {
             query?: never;
             header?: never;
             path: {
-                /** @description A unique integer value identifying this khách hàng. */
+                /** @description A unique integer value identifying this lớp học. */
                 id: number;
             };
             cookie?: never;
         };
         requestBody?: {
             content: {
-                "application/json": components["schemas"]["PatchedCustomerCreateUpdateRequest"];
-                "application/x-www-form-urlencoded": components["schemas"]["PatchedCustomerCreateUpdateRequest"];
-                "multipart/form-data": components["schemas"]["PatchedCustomerCreateUpdateRequest"];
+                "application/json": components["schemas"]["PatchedSchoolClassCreateUpdateRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["PatchedSchoolClassCreateUpdateRequest"];
+                "multipart/form-data": components["schemas"]["PatchedSchoolClassCreateUpdateRequest"];
             };
         };
         responses: {
@@ -4490,12 +5940,12 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["CustomerCreateUpdate"];
+                    "application/json": components["schemas"]["SchoolClassCreateUpdate"];
                 };
             };
         };
     };
-    customers_batch_delete_create: {
+    classes_batch_delete_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -4509,12 +5959,12 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Customer"];
+                    "application/json": components["schemas"]["SchoolClass"];
                 };
             };
         };
     };
-    customers_batch_status_create: {
+    classes_batch_status_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -4528,12 +5978,12 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Customer"];
+                    "application/json": components["schemas"]["SchoolClass"];
                 };
             };
         };
     };
-    customers_excel_template_retrieve: {
+    classes_excel_template_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -4547,12 +5997,12 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Customer"];
+                    "application/json": components["schemas"]["SchoolClass"];
                 };
             };
         };
     };
-    customers_export_columns_retrieve: {
+    classes_export_columns_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -4566,12 +6016,12 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Customer"];
+                    "application/json": components["schemas"]["SchoolClass"];
                 };
             };
         };
     };
-    customers_export_excel_retrieve: {
+    classes_export_excel_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -4585,12 +6035,12 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Customer"];
+                    "application/json": components["schemas"]["SchoolClass"];
                 };
             };
         };
     };
-    customers_export_excel_create: {
+    classes_export_excel_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -4604,12 +6054,12 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Customer"];
+                    "application/json": components["schemas"]["SchoolClass"];
                 };
             };
         };
     };
-    customers_statistics_retrieve: {
+    classes_statistics_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -4623,26 +6073,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Customer"];
-                };
-            };
-        };
-    };
-    customers_upload_logo_create: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Customer"];
+                    "application/json": components["schemas"]["SchoolClass"];
                 };
             };
         };
@@ -4662,6 +6093,341 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["DashboardOverview"];
+                };
+            };
+        };
+    };
+    flashcard_decks_list: {
+        parameters: {
+            query?: {
+                /**
+                 * @description * `6` - Khối 6
+                 *     * `7` - Khối 7
+                 *     * `8` - Khối 8
+                 *     * `9` - Khối 9
+                 */
+                grade?: 6 | 7 | 8 | 9 | null;
+                /** @description Multiple values may be separated by commas. */
+                grade__in?: number[];
+                grade__isnull?: boolean;
+                is_active?: boolean;
+                /** @description Which field to use when ordering the results. */
+                ordering?: string;
+                /**
+                 * @description * `MANUAL` - Nhập tay
+                 *     * `AI` - AI sinh
+                 *     * `DOCUMENT` - Từ tài liệu
+                 */
+                origin?: "AI" | "DOCUMENT" | "MANUAL";
+                /** @description Multiple values may be separated by commas. */
+                origin__in?: string[];
+                /** @description A page number within the paginated result set. */
+                page?: number;
+                /** @description Number of results to return per page. */
+                page_size?: number;
+                school_class?: number;
+                school_class__isnull?: boolean;
+                /** @description A search term. */
+                search?: string;
+                title__icontains?: string;
+                topic__icontains?: string;
+                updated_at__date__gte?: string;
+                updated_at__date__lte?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PaginatedFlashcardDeckList"];
+                };
+            };
+        };
+    };
+    flashcard_decks_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["FlashcardDeckCreateUpdateRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["FlashcardDeckCreateUpdateRequest"];
+                "multipart/form-data": components["schemas"]["FlashcardDeckCreateUpdateRequest"];
+            };
+        };
+        responses: {
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FlashcardDeckCreateUpdate"];
+                };
+            };
+        };
+    };
+    flashcard_decks_retrieve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description A unique integer value identifying this bộ flashcard. */
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FlashcardDeck"];
+                };
+            };
+        };
+    };
+    flashcard_decks_update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description A unique integer value identifying this bộ flashcard. */
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["FlashcardDeckCreateUpdateRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["FlashcardDeckCreateUpdateRequest"];
+                "multipart/form-data": components["schemas"]["FlashcardDeckCreateUpdateRequest"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FlashcardDeckCreateUpdate"];
+                };
+            };
+        };
+    };
+    flashcard_decks_destroy: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description A unique integer value identifying this bộ flashcard. */
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description No response body */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    flashcard_decks_partial_update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description A unique integer value identifying this bộ flashcard. */
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["PatchedFlashcardDeckCreateUpdateRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["PatchedFlashcardDeckCreateUpdateRequest"];
+                "multipart/form-data": components["schemas"]["PatchedFlashcardDeckCreateUpdateRequest"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FlashcardDeckCreateUpdate"];
+                };
+            };
+        };
+    };
+    flashcard_decks_ai_draft_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AiDraftRequestRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["AiDraftRequestRequest"];
+                "multipart/form-data": components["schemas"]["AiDraftRequestRequest"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FlashcardDraft"];
+                };
+            };
+        };
+    };
+    flashcard_decks_batch_delete_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FlashcardDeck"];
+                };
+            };
+        };
+    };
+    flashcard_decks_batch_status_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FlashcardDeck"];
+                };
+            };
+        };
+    };
+    flashcard_decks_excel_template_retrieve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FlashcardDeck"];
+                };
+            };
+        };
+    };
+    flashcard_decks_export_columns_retrieve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FlashcardDeck"];
+                };
+            };
+        };
+    };
+    flashcard_decks_export_excel_retrieve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FlashcardDeck"];
+                };
+            };
+        };
+    };
+    flashcard_decks_export_excel_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FlashcardDeck"];
+                };
+            };
+        };
+    };
+    flashcard_decks_statistics_retrieve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FlashcardDeck"];
                 };
             };
         };
@@ -4787,389 +6553,21 @@ export interface operations {
             };
         };
     };
-    material_categories_list: {
+    knowledge_chunks_list: {
         parameters: {
             query?: {
-                code__icontains?: string;
-                is_active?: boolean;
-                name__icontains?: string;
-                /** @description Which field to use when ordering the results. */
-                ordering?: string;
-                /** @description A page number within the paginated result set. */
-                page?: number;
-                /** @description Number of results to return per page. */
-                page_size?: number;
-                parent?: number;
-                /** @description Multiple values may be separated by commas. */
-                parent__in?: number[];
-                parent__isnull?: boolean;
-                /** @description A search term. */
-                search?: string;
-                updated_at__date__gte?: string;
-                updated_at__date__lte?: string;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["PaginatedMaterialCategoryList"];
-                };
-            };
-        };
-    };
-    material_categories_create: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["MaterialCategoryCreateUpdateRequest"];
-                "application/x-www-form-urlencoded": components["schemas"]["MaterialCategoryCreateUpdateRequest"];
-                "multipart/form-data": components["schemas"]["MaterialCategoryCreateUpdateRequest"];
-            };
-        };
-        responses: {
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["MaterialCategoryCreateUpdate"];
-                };
-            };
-        };
-    };
-    material_categories_retrieve: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description A unique integer value identifying this Nhóm nguyên vật liệu. */
-                id: number;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["MaterialCategory"];
-                };
-            };
-        };
-    };
-    material_categories_update: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description A unique integer value identifying this Nhóm nguyên vật liệu. */
-                id: number;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["MaterialCategoryCreateUpdateRequest"];
-                "application/x-www-form-urlencoded": components["schemas"]["MaterialCategoryCreateUpdateRequest"];
-                "multipart/form-data": components["schemas"]["MaterialCategoryCreateUpdateRequest"];
-            };
-        };
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["MaterialCategoryCreateUpdate"];
-                };
-            };
-        };
-    };
-    material_categories_destroy: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description A unique integer value identifying this Nhóm nguyên vật liệu. */
-                id: number;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description No response body */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    material_categories_partial_update: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description A unique integer value identifying this Nhóm nguyên vật liệu. */
-                id: number;
-            };
-            cookie?: never;
-        };
-        requestBody?: {
-            content: {
-                "application/json": components["schemas"]["PatchedMaterialCategoryCreateUpdateRequest"];
-                "application/x-www-form-urlencoded": components["schemas"]["PatchedMaterialCategoryCreateUpdateRequest"];
-                "multipart/form-data": components["schemas"]["PatchedMaterialCategoryCreateUpdateRequest"];
-            };
-        };
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["MaterialCategoryCreateUpdate"];
-                };
-            };
-        };
-    };
-    material_categories_move_order_create: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description A unique integer value identifying this Nhóm nguyên vật liệu. */
-                id: number;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["MaterialCategoryRequest"];
-                "application/x-www-form-urlencoded": components["schemas"]["MaterialCategoryRequest"];
-                "multipart/form-data": components["schemas"]["MaterialCategoryRequest"];
-            };
-        };
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["MaterialCategory"];
-                };
-            };
-        };
-    };
-    material_categories_batch_delete_create: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["MaterialCategoryRequest"];
-                "application/x-www-form-urlencoded": components["schemas"]["MaterialCategoryRequest"];
-                "multipart/form-data": components["schemas"]["MaterialCategoryRequest"];
-            };
-        };
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["MaterialCategory"];
-                };
-            };
-        };
-    };
-    material_categories_batch_status_create: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["MaterialCategoryRequest"];
-                "application/x-www-form-urlencoded": components["schemas"]["MaterialCategoryRequest"];
-                "multipart/form-data": components["schemas"]["MaterialCategoryRequest"];
-            };
-        };
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["MaterialCategory"];
-                };
-            };
-        };
-    };
-    material_categories_excel_template_retrieve: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["MaterialCategory"];
-                };
-            };
-        };
-    };
-    material_categories_export_columns_retrieve: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["MaterialCategory"];
-                };
-            };
-        };
-    };
-    material_categories_export_excel_retrieve: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["MaterialCategory"];
-                };
-            };
-        };
-    };
-    material_categories_export_excel_create: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["MaterialCategoryRequest"];
-                "application/x-www-form-urlencoded": components["schemas"]["MaterialCategoryRequest"];
-                "multipart/form-data": components["schemas"]["MaterialCategoryRequest"];
-            };
-        };
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["MaterialCategory"];
-                };
-            };
-        };
-    };
-    material_categories_statistics_retrieve: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["MaterialCategory"];
-                };
-            };
-        };
-    };
-    material_categories_tree_retrieve: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["MaterialCategory"];
-                };
-            };
-        };
-    };
-    materials_list: {
-        parameters: {
-            query?: {
-                base_uom?: number;
-                /** @description Multiple values may be separated by commas. */
-                base_uom__in?: number[];
-                /** @description Multiple values may be separated by commas. */
-                category__in?: number[];
-                is_active?: boolean;
-                material_code__icontains?: string;
-                material_name__icontains?: string;
+                embedded_at__isnull?: boolean;
                 /**
-                 * @description * `ROUND_PIPE` - Ống tròn rỗng (P)
-                 *     * `SOLID_ROUND` - Tròn đặc (D)
-                 *     * `SQUARE_TUBE` - Hộp vuông rỗng (V)
-                 *     * `SOLID_SQUARE` - Vuông đặc (V...D)
-                 *     * `RECT_TUBE` - Hộp chữ nhật rỗng (CN)
-                 *     * `OVAL_PIPE` - Oval / Elip rỗng (ELIP)
-                 *     * `FLAT_BAR` - La / Dẹt đặc (L)
-                 *     * `ANGLE_V` - Thép V / Nhôm V
-                 *     * `SHEET` - Nhôm / Sắt tấm (T)
-                 *     * `SPECIAL_MOLD` - Khuôn định hình đặc biệt (SP)
+                 * @description * `6` - Khối 6
+                 *     * `7` - Khối 7
+                 *     * `8` - Khối 8
+                 *     * `9` - Khối 9
                  */
-                metal_spec__profile_shape?: "ANGLE_V" | "FLAT_BAR" | "OVAL_PIPE" | "RECT_TUBE" | "ROUND_PIPE" | "SHEET" | "SOLID_ROUND" | "SOLID_SQUARE" | "SPECIAL_MOLD" | "SQUARE_TUBE";
+                grade?: 6 | 7 | 8 | 9 | null;
+                /** @description Multiple values may be separated by commas. */
+                grade__in?: number[];
+                grade__isnull?: boolean;
+                is_active?: boolean;
                 /** @description Which field to use when ordering the results. */
                 ordering?: string;
                 /** @description A page number within the paginated result set. */
@@ -5178,6 +6576,10 @@ export interface operations {
                 page_size?: number;
                 /** @description A search term. */
                 search?: string;
+                source_document?: number;
+                source_document__isnull?: boolean;
+                title__icontains?: string;
+                topic__icontains?: string;
                 updated_at__date__gte?: string;
                 updated_at__date__lte?: string;
             };
@@ -5192,12 +6594,12 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["PaginatedMaterialList"];
+                    "application/json": components["schemas"]["PaginatedKnowledgeChunkList"];
                 };
             };
         };
     };
-    materials_create: {
+    knowledge_chunks_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -5206,9 +6608,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["MaterialCreateUpdateRequest"];
-                "application/x-www-form-urlencoded": components["schemas"]["MaterialCreateUpdateRequest"];
-                "multipart/form-data": components["schemas"]["MaterialCreateUpdateRequest"];
+                "application/json": components["schemas"]["KnowledgeChunkCreateUpdateRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["KnowledgeChunkCreateUpdateRequest"];
+                "multipart/form-data": components["schemas"]["KnowledgeChunkCreateUpdateRequest"];
             };
         };
         responses: {
@@ -5217,17 +6619,17 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["MaterialCreateUpdate"];
+                    "application/json": components["schemas"]["KnowledgeChunkCreateUpdate"];
                 };
             };
         };
     };
-    materials_retrieve: {
+    knowledge_chunks_retrieve: {
         parameters: {
             query?: never;
             header?: never;
             path: {
-                /** @description A unique integer value identifying this Nguyên vật liệu. */
+                /** @description A unique integer value identifying this đoạn tri thức. */
                 id: number;
             };
             cookie?: never;
@@ -5239,26 +6641,26 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Material"];
+                    "application/json": components["schemas"]["KnowledgeChunk"];
                 };
             };
         };
     };
-    materials_update: {
+    knowledge_chunks_update: {
         parameters: {
             query?: never;
             header?: never;
             path: {
-                /** @description A unique integer value identifying this Nguyên vật liệu. */
+                /** @description A unique integer value identifying this đoạn tri thức. */
                 id: number;
             };
             cookie?: never;
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["MaterialCreateUpdateRequest"];
-                "application/x-www-form-urlencoded": components["schemas"]["MaterialCreateUpdateRequest"];
-                "multipart/form-data": components["schemas"]["MaterialCreateUpdateRequest"];
+                "application/json": components["schemas"]["KnowledgeChunkCreateUpdateRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["KnowledgeChunkCreateUpdateRequest"];
+                "multipart/form-data": components["schemas"]["KnowledgeChunkCreateUpdateRequest"];
             };
         };
         responses: {
@@ -5267,17 +6669,17 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["MaterialCreateUpdate"];
+                    "application/json": components["schemas"]["KnowledgeChunkCreateUpdate"];
                 };
             };
         };
     };
-    materials_destroy: {
+    knowledge_chunks_destroy: {
         parameters: {
             query?: never;
             header?: never;
             path: {
-                /** @description A unique integer value identifying this Nguyên vật liệu. */
+                /** @description A unique integer value identifying this đoạn tri thức. */
                 id: number;
             };
             cookie?: never;
@@ -5293,21 +6695,21 @@ export interface operations {
             };
         };
     };
-    materials_partial_update: {
+    knowledge_chunks_partial_update: {
         parameters: {
             query?: never;
             header?: never;
             path: {
-                /** @description A unique integer value identifying this Nguyên vật liệu. */
+                /** @description A unique integer value identifying this đoạn tri thức. */
                 id: number;
             };
             cookie?: never;
         };
         requestBody?: {
             content: {
-                "application/json": components["schemas"]["PatchedMaterialCreateUpdateRequest"];
-                "application/x-www-form-urlencoded": components["schemas"]["PatchedMaterialCreateUpdateRequest"];
-                "multipart/form-data": components["schemas"]["PatchedMaterialCreateUpdateRequest"];
+                "application/json": components["schemas"]["PatchedKnowledgeChunkCreateUpdateRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["PatchedKnowledgeChunkCreateUpdateRequest"];
+                "multipart/form-data": components["schemas"]["PatchedKnowledgeChunkCreateUpdateRequest"];
             };
         };
         responses: {
@@ -5316,12 +6718,198 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["MaterialCreateUpdate"];
+                    "application/json": components["schemas"]["KnowledgeChunkCreateUpdate"];
                 };
             };
         };
     };
-    materials_batch_delete_create: {
+    knowledge_chunks_batch_delete_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["KnowledgeChunk"];
+                };
+            };
+        };
+    };
+    knowledge_chunks_batch_status_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["KnowledgeChunk"];
+                };
+            };
+        };
+    };
+    knowledge_chunks_excel_template_retrieve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["KnowledgeChunk"];
+                };
+            };
+        };
+    };
+    knowledge_chunks_export_columns_retrieve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["KnowledgeChunk"];
+                };
+            };
+        };
+    };
+    knowledge_chunks_export_excel_retrieve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["KnowledgeChunk"];
+                };
+            };
+        };
+    };
+    knowledge_chunks_export_excel_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["KnowledgeChunk"];
+                };
+            };
+        };
+    };
+    knowledge_chunks_statistics_retrieve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["KnowledgeChunk"];
+                };
+            };
+        };
+    };
+    mindmaps_list: {
+        parameters: {
+            query?: {
+                /**
+                 * @description * `6` - Khối 6
+                 *     * `7` - Khối 7
+                 *     * `8` - Khối 8
+                 *     * `9` - Khối 9
+                 */
+                grade?: 6 | 7 | 8 | 9 | null;
+                /** @description Multiple values may be separated by commas. */
+                grade__in?: number[];
+                grade__isnull?: boolean;
+                is_active?: boolean;
+                /** @description Which field to use when ordering the results. */
+                ordering?: string;
+                /**
+                 * @description * `MANUAL` - Nhập tay
+                 *     * `AI` - AI sinh
+                 *     * `DOCUMENT` - Từ tài liệu
+                 */
+                origin?: "AI" | "DOCUMENT" | "MANUAL";
+                /** @description Multiple values may be separated by commas. */
+                origin__in?: string[];
+                /** @description A page number within the paginated result set. */
+                page?: number;
+                /** @description Number of results to return per page. */
+                page_size?: number;
+                school_class?: number;
+                school_class__isnull?: boolean;
+                /** @description A search term. */
+                search?: string;
+                title__icontains?: string;
+                topic__icontains?: string;
+                updated_at__date__gte?: string;
+                updated_at__date__lte?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PaginatedMindmapList"];
+                };
+            };
+        };
+    };
+    mindmaps_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -5330,9 +6918,59 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["MaterialRequest"];
-                "application/x-www-form-urlencoded": components["schemas"]["MaterialRequest"];
-                "multipart/form-data": components["schemas"]["MaterialRequest"];
+                "application/json": components["schemas"]["MindmapCreateUpdateRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["MindmapCreateUpdateRequest"];
+                "multipart/form-data": components["schemas"]["MindmapCreateUpdateRequest"];
+            };
+        };
+        responses: {
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MindmapCreateUpdate"];
+                };
+            };
+        };
+    };
+    mindmaps_retrieve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description A unique integer value identifying this sơ đồ tư duy. */
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Mindmap"];
+                };
+            };
+        };
+    };
+    mindmaps_update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description A unique integer value identifying this sơ đồ tư duy. */
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["MindmapCreateUpdateRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["MindmapCreateUpdateRequest"];
+                "multipart/form-data": components["schemas"]["MindmapCreateUpdateRequest"];
             };
         };
         responses: {
@@ -5341,12 +6979,61 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Material"];
+                    "application/json": components["schemas"]["MindmapCreateUpdate"];
                 };
             };
         };
     };
-    materials_batch_status_create: {
+    mindmaps_destroy: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description A unique integer value identifying this sơ đồ tư duy. */
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description No response body */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    mindmaps_partial_update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description A unique integer value identifying this sơ đồ tư duy. */
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["PatchedMindmapCreateUpdateRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["PatchedMindmapCreateUpdateRequest"];
+                "multipart/form-data": components["schemas"]["PatchedMindmapCreateUpdateRequest"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MindmapCreateUpdate"];
+                };
+            };
+        };
+    };
+    mindmaps_ai_draft_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -5355,9 +7042,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["MaterialRequest"];
-                "application/x-www-form-urlencoded": components["schemas"]["MaterialRequest"];
-                "multipart/form-data": components["schemas"]["MaterialRequest"];
+                "application/json": components["schemas"]["AiDraftRequestRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["AiDraftRequestRequest"];
+                "multipart/form-data": components["schemas"]["AiDraftRequestRequest"];
             };
         };
         responses: {
@@ -5366,12 +7053,12 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Material"];
+                    "application/json": components["schemas"]["MindmapDraft"];
                 };
             };
         };
     };
-    materials_excel_template_retrieve: {
+    mindmaps_batch_delete_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -5385,12 +7072,12 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Material"];
+                    "application/json": components["schemas"]["Mindmap"];
                 };
             };
         };
     };
-    materials_export_columns_retrieve: {
+    mindmaps_batch_status_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -5404,12 +7091,12 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Material"];
+                    "application/json": components["schemas"]["Mindmap"];
                 };
             };
         };
     };
-    materials_export_excel_retrieve: {
+    mindmaps_excel_template_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -5423,37 +7110,12 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Material"];
+                    "application/json": components["schemas"]["Mindmap"];
                 };
             };
         };
     };
-    materials_export_excel_create: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["MaterialRequest"];
-                "application/x-www-form-urlencoded": components["schemas"]["MaterialRequest"];
-                "multipart/form-data": components["schemas"]["MaterialRequest"];
-            };
-        };
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Material"];
-                };
-            };
-        };
-    };
-    materials_next_code_retrieve: {
+    mindmaps_export_columns_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -5467,12 +7129,12 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Material"];
+                    "application/json": components["schemas"]["Mindmap"];
                 };
             };
         };
     };
-    materials_statistics_retrieve: {
+    mindmaps_export_excel_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -5486,32 +7148,45 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Material"];
+                    "application/json": components["schemas"]["Mindmap"];
                 };
             };
         };
     };
-    materials_upload_image_create: {
+    mindmaps_export_excel_create: {
         parameters: {
             query?: never;
             header?: never;
             path?: never;
             cookie?: never;
         };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["MaterialRequest"];
-                "application/x-www-form-urlencoded": components["schemas"]["MaterialRequest"];
-                "multipart/form-data": components["schemas"]["MaterialRequest"];
-            };
-        };
+        requestBody?: never;
         responses: {
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Material"];
+                    "application/json": components["schemas"]["Mindmap"];
+                };
+            };
+        };
+    };
+    mindmaps_statistics_retrieve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Mindmap"];
                 };
             };
         };
@@ -6072,6 +7747,425 @@ export interface operations {
             };
         };
     };
+    questions_list: {
+        parameters: {
+            query?: {
+                content__icontains?: string;
+                /**
+                 * @description * `NHAN_BIET` - Nhận biết
+                 *     * `THONG_HIEU` - Thông hiểu
+                 *     * `VAN_DUNG` - Vận dụng
+                 */
+                difficulty?: "NHAN_BIET" | "THONG_HIEU" | "VAN_DUNG";
+                /** @description Multiple values may be separated by commas. */
+                difficulty__in?: string[];
+                /**
+                 * @description * `6` - Khối 6
+                 *     * `7` - Khối 7
+                 *     * `8` - Khối 8
+                 *     * `9` - Khối 9
+                 */
+                grade?: 6 | 7 | 8 | 9 | null;
+                /** @description Multiple values may be separated by commas. */
+                grade__in?: number[];
+                grade__isnull?: boolean;
+                is_active?: boolean;
+                /** @description Which field to use when ordering the results. */
+                ordering?: string;
+                /**
+                 * @description * `MANUAL` - Nhập tay
+                 *     * `AI` - AI sinh
+                 *     * `DOCUMENT` - Từ tài liệu
+                 */
+                origin?: "AI" | "DOCUMENT" | "MANUAL";
+                /** @description Multiple values may be separated by commas. */
+                origin__in?: string[];
+                /** @description A page number within the paginated result set. */
+                page?: number;
+                /** @description Number of results to return per page. */
+                page_size?: number;
+                /**
+                 * @description * `MULTIPLE_CHOICE` - Trắc nghiệm
+                 *     * `ESSAY` - Tự luận
+                 */
+                question_type?: "ESSAY" | "MULTIPLE_CHOICE";
+                /** @description Multiple values may be separated by commas. */
+                question_type__in?: string[];
+                school_class?: number;
+                school_class__isnull?: boolean;
+                /** @description A search term. */
+                search?: string;
+                source_document?: number;
+                source_document__isnull?: boolean;
+                /**
+                 * @description * `PENDING` - Chờ duyệt
+                 *     * `APPROVED` - Đã duyệt
+                 *     * `REJECTED` - Từ chối
+                 */
+                status?: "APPROVED" | "PENDING" | "REJECTED";
+                /** @description Multiple values may be separated by commas. */
+                status__in?: string[];
+                topic__icontains?: string;
+                updated_at__date__gte?: string;
+                updated_at__date__lte?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PaginatedQuestionList"];
+                };
+            };
+        };
+    };
+    questions_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["QuestionCreateUpdateRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["QuestionCreateUpdateRequest"];
+                "multipart/form-data": components["schemas"]["QuestionCreateUpdateRequest"];
+            };
+        };
+        responses: {
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["QuestionCreateUpdate"];
+                };
+            };
+        };
+    };
+    questions_retrieve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description A unique integer value identifying this câu hỏi. */
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Question"];
+                };
+            };
+        };
+    };
+    questions_update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description A unique integer value identifying this câu hỏi. */
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["QuestionCreateUpdateRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["QuestionCreateUpdateRequest"];
+                "multipart/form-data": components["schemas"]["QuestionCreateUpdateRequest"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["QuestionCreateUpdate"];
+                };
+            };
+        };
+    };
+    questions_destroy: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description A unique integer value identifying this câu hỏi. */
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description No response body */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    questions_partial_update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description A unique integer value identifying this câu hỏi. */
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["PatchedQuestionCreateUpdateRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["PatchedQuestionCreateUpdateRequest"];
+                "multipart/form-data": components["schemas"]["PatchedQuestionCreateUpdateRequest"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["QuestionCreateUpdate"];
+                };
+            };
+        };
+    };
+    questions_ai_draft_create: {
+        parameters: {
+            query?: {
+                content__icontains?: string;
+                /**
+                 * @description * `NHAN_BIET` - Nhận biết
+                 *     * `THONG_HIEU` - Thông hiểu
+                 *     * `VAN_DUNG` - Vận dụng
+                 */
+                difficulty?: "NHAN_BIET" | "THONG_HIEU" | "VAN_DUNG";
+                /** @description Multiple values may be separated by commas. */
+                difficulty__in?: string[];
+                /**
+                 * @description * `6` - Khối 6
+                 *     * `7` - Khối 7
+                 *     * `8` - Khối 8
+                 *     * `9` - Khối 9
+                 */
+                grade?: 6 | 7 | 8 | 9 | null;
+                /** @description Multiple values may be separated by commas. */
+                grade__in?: number[];
+                grade__isnull?: boolean;
+                is_active?: boolean;
+                /** @description Which field to use when ordering the results. */
+                ordering?: string;
+                /**
+                 * @description * `MANUAL` - Nhập tay
+                 *     * `AI` - AI sinh
+                 *     * `DOCUMENT` - Từ tài liệu
+                 */
+                origin?: "AI" | "DOCUMENT" | "MANUAL";
+                /** @description Multiple values may be separated by commas. */
+                origin__in?: string[];
+                /** @description A page number within the paginated result set. */
+                page?: number;
+                /** @description Number of results to return per page. */
+                page_size?: number;
+                /**
+                 * @description * `MULTIPLE_CHOICE` - Trắc nghiệm
+                 *     * `ESSAY` - Tự luận
+                 */
+                question_type?: "ESSAY" | "MULTIPLE_CHOICE";
+                /** @description Multiple values may be separated by commas. */
+                question_type__in?: string[];
+                school_class?: number;
+                school_class__isnull?: boolean;
+                /** @description A search term. */
+                search?: string;
+                source_document?: number;
+                source_document__isnull?: boolean;
+                /**
+                 * @description * `PENDING` - Chờ duyệt
+                 *     * `APPROVED` - Đã duyệt
+                 *     * `REJECTED` - Từ chối
+                 */
+                status?: "APPROVED" | "PENDING" | "REJECTED";
+                /** @description Multiple values may be separated by commas. */
+                status__in?: string[];
+                topic__icontains?: string;
+                updated_at__date__gte?: string;
+                updated_at__date__lte?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AiDraftRequestRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["AiDraftRequestRequest"];
+                "multipart/form-data": components["schemas"]["AiDraftRequestRequest"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PaginatedQuestionDraftList"];
+                };
+            };
+        };
+    };
+    questions_batch_delete_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Question"];
+                };
+            };
+        };
+    };
+    questions_batch_status_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Question"];
+                };
+            };
+        };
+    };
+    questions_excel_template_retrieve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Question"];
+                };
+            };
+        };
+    };
+    questions_export_columns_retrieve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Question"];
+                };
+            };
+        };
+    };
+    questions_export_excel_retrieve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Question"];
+                };
+            };
+        };
+    };
+    questions_export_excel_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Question"];
+                };
+            };
+        };
+    };
+    questions_statistics_retrieve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Question"];
+                };
+            };
+        };
+    };
     roles_list: {
         parameters: {
             query?: {
@@ -6453,10 +8547,21 @@ export interface operations {
             };
         };
     };
-    suppliers_list: {
+    source_documents_list: {
         parameters: {
             query?: {
-                email__icontains?: string;
+                created_at__date__gte?: string;
+                created_at__date__lte?: string;
+                /**
+                 * @description * `6` - Khối 6
+                 *     * `7` - Khối 7
+                 *     * `8` - Khối 8
+                 *     * `9` - Khối 9
+                 */
+                grade?: 6 | 7 | 8 | 9 | null;
+                /** @description Multiple values may be separated by commas. */
+                grade__in?: number[];
+                grade__isnull?: boolean;
                 is_active?: boolean;
                 /** @description Which field to use when ordering the results. */
                 ordering?: string;
@@ -6464,14 +8569,18 @@ export interface operations {
                 page?: number;
                 /** @description Number of results to return per page. */
                 page_size?: number;
-                phone__icontains?: string;
                 /** @description A search term. */
                 search?: string;
-                supplier_code__icontains?: string;
-                supplier_name__icontains?: string;
-                tax_code__icontains?: string;
-                updated_at__date__gte?: string;
-                updated_at__date__lte?: string;
+                /**
+                 * @description * `PROCESSING` - Đang xử lý
+                 *     * `COMPLETED` - Hoàn tất
+                 *     * `FAILED` - Lỗi
+                 */
+                status?: "COMPLETED" | "FAILED" | "PROCESSING";
+                /** @description Multiple values may be separated by commas. */
+                status__in?: string[];
+                title__icontains?: string;
+                topic__icontains?: string;
             };
             header?: never;
             path?: never;
@@ -6484,12 +8593,12 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["PaginatedSupplierList"];
+                    "application/json": components["schemas"]["PaginatedSourceDocumentList"];
                 };
             };
         };
     };
-    suppliers_create: {
+    source_documents_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -6498,9 +8607,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["SupplierCreateUpdateRequest"];
-                "application/x-www-form-urlencoded": components["schemas"]["SupplierCreateUpdateRequest"];
-                "multipart/form-data": components["schemas"]["SupplierCreateUpdateRequest"];
+                "application/json": components["schemas"]["SourceDocumentUpdateRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["SourceDocumentUpdateRequest"];
+                "multipart/form-data": components["schemas"]["SourceDocumentUpdateRequest"];
             };
         };
         responses: {
@@ -6509,17 +8618,17 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["SupplierCreateUpdate"];
+                    "application/json": components["schemas"]["SourceDocumentUpdate"];
                 };
             };
         };
     };
-    suppliers_retrieve: {
+    source_documents_retrieve: {
         parameters: {
             query?: never;
             header?: never;
             path: {
-                /** @description A unique integer value identifying this nhà cung cấp. */
+                /** @description A unique integer value identifying this tài liệu nguồn. */
                 id: number;
             };
             cookie?: never;
@@ -6531,26 +8640,26 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Supplier"];
+                    "application/json": components["schemas"]["SourceDocumentDetail"];
                 };
             };
         };
     };
-    suppliers_update: {
+    source_documents_update: {
         parameters: {
             query?: never;
             header?: never;
             path: {
-                /** @description A unique integer value identifying this nhà cung cấp. */
+                /** @description A unique integer value identifying this tài liệu nguồn. */
                 id: number;
             };
             cookie?: never;
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["SupplierCreateUpdateRequest"];
-                "application/x-www-form-urlencoded": components["schemas"]["SupplierCreateUpdateRequest"];
-                "multipart/form-data": components["schemas"]["SupplierCreateUpdateRequest"];
+                "application/json": components["schemas"]["SourceDocumentUpdateRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["SourceDocumentUpdateRequest"];
+                "multipart/form-data": components["schemas"]["SourceDocumentUpdateRequest"];
             };
         };
         responses: {
@@ -6559,17 +8668,17 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["SupplierCreateUpdate"];
+                    "application/json": components["schemas"]["SourceDocumentUpdate"];
                 };
             };
         };
     };
-    suppliers_destroy: {
+    source_documents_destroy: {
         parameters: {
             query?: never;
             header?: never;
             path: {
-                /** @description A unique integer value identifying this nhà cung cấp. */
+                /** @description A unique integer value identifying this tài liệu nguồn. */
                 id: number;
             };
             cookie?: never;
@@ -6585,21 +8694,21 @@ export interface operations {
             };
         };
     };
-    suppliers_partial_update: {
+    source_documents_partial_update: {
         parameters: {
             query?: never;
             header?: never;
             path: {
-                /** @description A unique integer value identifying this nhà cung cấp. */
+                /** @description A unique integer value identifying this tài liệu nguồn. */
                 id: number;
             };
             cookie?: never;
         };
         requestBody?: {
             content: {
-                "application/json": components["schemas"]["PatchedSupplierCreateUpdateRequest"];
-                "application/x-www-form-urlencoded": components["schemas"]["PatchedSupplierCreateUpdateRequest"];
-                "multipart/form-data": components["schemas"]["PatchedSupplierCreateUpdateRequest"];
+                "application/json": components["schemas"]["PatchedSourceDocumentUpdateRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["PatchedSourceDocumentUpdateRequest"];
+                "multipart/form-data": components["schemas"]["PatchedSourceDocumentUpdateRequest"];
             };
         };
         responses: {
@@ -6608,12 +8717,40 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["SupplierCreateUpdate"];
+                    "application/json": components["schemas"]["SourceDocumentUpdate"];
                 };
             };
         };
     };
-    suppliers_batch_delete_create: {
+    source_documents_review_questions_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description A unique integer value identifying this tài liệu nguồn. */
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ReviewQuestionsRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["ReviewQuestionsRequest"];
+                "multipart/form-data": components["schemas"]["ReviewQuestionsRequest"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SourceDocument"];
+                };
+            };
+        };
+    };
+    source_documents_batch_delete_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -6627,12 +8764,12 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Supplier"];
+                    "application/json": components["schemas"]["SourceDocument"];
                 };
             };
         };
     };
-    suppliers_batch_status_create: {
+    source_documents_batch_status_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -6646,12 +8783,12 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Supplier"];
+                    "application/json": components["schemas"]["SourceDocument"];
                 };
             };
         };
     };
-    suppliers_excel_template_retrieve: {
+    source_documents_excel_template_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -6665,12 +8802,12 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Supplier"];
+                    "application/json": components["schemas"]["SourceDocument"];
                 };
             };
         };
     };
-    suppliers_export_columns_retrieve: {
+    source_documents_export_columns_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -6684,12 +8821,12 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Supplier"];
+                    "application/json": components["schemas"]["SourceDocument"];
                 };
             };
         };
     };
-    suppliers_export_excel_retrieve: {
+    source_documents_export_excel_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -6703,12 +8840,12 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Supplier"];
+                    "application/json": components["schemas"]["SourceDocument"];
                 };
             };
         };
     };
-    suppliers_export_excel_create: {
+    source_documents_export_excel_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -6722,12 +8859,12 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Supplier"];
+                    "application/json": components["schemas"]["SourceDocument"];
                 };
             };
         };
     };
-    suppliers_statistics_retrieve: {
+    source_documents_statistics_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -6741,7 +8878,358 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Supplier"];
+                    "application/json": components["schemas"]["SourceDocument"];
+                };
+            };
+        };
+    };
+    source_documents_upload_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "multipart/form-data": components["schemas"]["SourceDocumentUploadRequest"];
+            };
+        };
+        responses: {
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SourceDocument"];
+                };
+            };
+        };
+    };
+    students_list: {
+        parameters: {
+            query?: {
+                /**
+                 * @description * `6` - Khối 6
+                 *     * `7` - Khối 7
+                 *     * `8` - Khối 8
+                 *     * `9` - Khối 9
+                 */
+                grade?: 6 | 7 | 8 | 9;
+                /** @description Multiple values may be separated by commas. */
+                grade__in?: number[];
+                is_active?: boolean;
+                /** @description Which field to use when ordering the results. */
+                ordering?: string;
+                /** @description A page number within the paginated result set. */
+                page?: number;
+                /** @description Number of results to return per page. */
+                page_size?: number;
+                school_class?: number;
+                /** @description Multiple values may be separated by commas. */
+                school_class__in?: number[];
+                /** @description A search term. */
+                search?: string;
+                student_code__icontains?: string;
+                updated_at__date__gte?: string;
+                updated_at__date__lte?: string;
+                user__full_name__icontains?: string;
+                user__username__icontains?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PaginatedStudentList"];
+                };
+            };
+        };
+    };
+    students_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["StudentCreateUpdateRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["StudentCreateUpdateRequest"];
+                "multipart/form-data": components["schemas"]["StudentCreateUpdateRequest"];
+            };
+        };
+        responses: {
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudentCreateUpdate"];
+                };
+            };
+        };
+    };
+    students_retrieve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description A unique integer value identifying this học sinh. */
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Student"];
+                };
+            };
+        };
+    };
+    students_update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description A unique integer value identifying this học sinh. */
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["StudentCreateUpdateRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["StudentCreateUpdateRequest"];
+                "multipart/form-data": components["schemas"]["StudentCreateUpdateRequest"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudentCreateUpdate"];
+                };
+            };
+        };
+    };
+    students_destroy: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description A unique integer value identifying this học sinh. */
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description No response body */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    students_partial_update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description A unique integer value identifying this học sinh. */
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["PatchedStudentCreateUpdateRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["PatchedStudentCreateUpdateRequest"];
+                "multipart/form-data": components["schemas"]["PatchedStudentCreateUpdateRequest"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudentCreateUpdate"];
+                };
+            };
+        };
+    };
+    students_batch_delete_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Student"];
+                };
+            };
+        };
+    };
+    students_batch_status_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Student"];
+                };
+            };
+        };
+    };
+    students_excel_template_retrieve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Student"];
+                };
+            };
+        };
+    };
+    students_export_columns_retrieve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Student"];
+                };
+            };
+        };
+    };
+    students_export_excel_retrieve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Student"];
+                };
+            };
+        };
+    };
+    students_export_excel_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Student"];
+                };
+            };
+        };
+    };
+    students_import_excel_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["StudentImportRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["StudentImportRequest"];
+                "multipart/form-data": components["schemas"]["StudentImportRequest"];
+            };
+        };
+        responses: {
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudentImportResult"];
+                };
+            };
+        };
+    };
+    students_statistics_retrieve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Student"];
                 };
             };
         };
@@ -6850,12 +9338,11 @@ export interface operations {
             };
         };
     };
-    units_list: {
+    teachers_list: {
         parameters: {
             query?: {
-                code__icontains?: string;
+                employee_code__icontains?: string;
                 is_active?: boolean;
-                name__icontains?: string;
                 /** @description Which field to use when ordering the results. */
                 ordering?: string;
                 /** @description A page number within the paginated result set. */
@@ -6864,8 +9351,10 @@ export interface operations {
                 page_size?: number;
                 /** @description A search term. */
                 search?: string;
+                subject__icontains?: string;
                 updated_at__date__gte?: string;
                 updated_at__date__lte?: string;
+                user__full_name__icontains?: string;
             };
             header?: never;
             path?: never;
@@ -6878,12 +9367,12 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["PaginatedUnitOfMeasureList"];
+                    "application/json": components["schemas"]["PaginatedTeacherList"];
                 };
             };
         };
     };
-    units_create: {
+    teachers_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -6892,9 +9381,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["UnitOfMeasureCreateUpdateRequest"];
-                "application/x-www-form-urlencoded": components["schemas"]["UnitOfMeasureCreateUpdateRequest"];
-                "multipart/form-data": components["schemas"]["UnitOfMeasureCreateUpdateRequest"];
+                "application/json": components["schemas"]["TeacherCreateUpdateRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["TeacherCreateUpdateRequest"];
+                "multipart/form-data": components["schemas"]["TeacherCreateUpdateRequest"];
             };
         };
         responses: {
@@ -6903,17 +9392,17 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["UnitOfMeasureCreateUpdate"];
+                    "application/json": components["schemas"]["TeacherCreateUpdate"];
                 };
             };
         };
     };
-    units_retrieve: {
+    teachers_retrieve: {
         parameters: {
             query?: never;
             header?: never;
             path: {
-                /** @description A unique integer value identifying this Đơn vị tính. */
+                /** @description A unique integer value identifying this giáo viên. */
                 id: number;
             };
             cookie?: never;
@@ -6925,26 +9414,26 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["UnitOfMeasure"];
+                    "application/json": components["schemas"]["Teacher"];
                 };
             };
         };
     };
-    units_update: {
+    teachers_update: {
         parameters: {
             query?: never;
             header?: never;
             path: {
-                /** @description A unique integer value identifying this Đơn vị tính. */
+                /** @description A unique integer value identifying this giáo viên. */
                 id: number;
             };
             cookie?: never;
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["UnitOfMeasureCreateUpdateRequest"];
-                "application/x-www-form-urlencoded": components["schemas"]["UnitOfMeasureCreateUpdateRequest"];
-                "multipart/form-data": components["schemas"]["UnitOfMeasureCreateUpdateRequest"];
+                "application/json": components["schemas"]["TeacherCreateUpdateRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["TeacherCreateUpdateRequest"];
+                "multipart/form-data": components["schemas"]["TeacherCreateUpdateRequest"];
             };
         };
         responses: {
@@ -6953,17 +9442,17 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["UnitOfMeasureCreateUpdate"];
+                    "application/json": components["schemas"]["TeacherCreateUpdate"];
                 };
             };
         };
     };
-    units_destroy: {
+    teachers_destroy: {
         parameters: {
             query?: never;
             header?: never;
             path: {
-                /** @description A unique integer value identifying this Đơn vị tính. */
+                /** @description A unique integer value identifying this giáo viên. */
                 id: number;
             };
             cookie?: never;
@@ -6979,21 +9468,21 @@ export interface operations {
             };
         };
     };
-    units_partial_update: {
+    teachers_partial_update: {
         parameters: {
             query?: never;
             header?: never;
             path: {
-                /** @description A unique integer value identifying this Đơn vị tính. */
+                /** @description A unique integer value identifying this giáo viên. */
                 id: number;
             };
             cookie?: never;
         };
         requestBody?: {
             content: {
-                "application/json": components["schemas"]["PatchedUnitOfMeasureCreateUpdateRequest"];
-                "application/x-www-form-urlencoded": components["schemas"]["PatchedUnitOfMeasureCreateUpdateRequest"];
-                "multipart/form-data": components["schemas"]["PatchedUnitOfMeasureCreateUpdateRequest"];
+                "application/json": components["schemas"]["PatchedTeacherCreateUpdateRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["PatchedTeacherCreateUpdateRequest"];
+                "multipart/form-data": components["schemas"]["PatchedTeacherCreateUpdateRequest"];
             };
         };
         responses: {
@@ -7002,62 +9491,12 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["UnitOfMeasureCreateUpdate"];
+                    "application/json": components["schemas"]["TeacherCreateUpdate"];
                 };
             };
         };
     };
-    units_batch_delete_create: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["UnitOfMeasureRequest"];
-                "application/x-www-form-urlencoded": components["schemas"]["UnitOfMeasureRequest"];
-                "multipart/form-data": components["schemas"]["UnitOfMeasureRequest"];
-            };
-        };
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["UnitOfMeasure"];
-                };
-            };
-        };
-    };
-    units_batch_status_create: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["UnitOfMeasureRequest"];
-                "application/x-www-form-urlencoded": components["schemas"]["UnitOfMeasureRequest"];
-                "multipart/form-data": components["schemas"]["UnitOfMeasureRequest"];
-            };
-        };
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["UnitOfMeasure"];
-                };
-            };
-        };
-    };
-    units_excel_template_retrieve: {
+    teachers_batch_delete_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -7071,12 +9510,12 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["UnitOfMeasure"];
+                    "application/json": components["schemas"]["Teacher"];
                 };
             };
         };
     };
-    units_export_columns_retrieve: {
+    teachers_batch_status_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -7090,12 +9529,12 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["UnitOfMeasure"];
+                    "application/json": components["schemas"]["Teacher"];
                 };
             };
         };
     };
-    units_export_excel_retrieve: {
+    teachers_excel_template_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -7109,37 +9548,12 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["UnitOfMeasure"];
+                    "application/json": components["schemas"]["Teacher"];
                 };
             };
         };
     };
-    units_export_excel_create: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["UnitOfMeasureRequest"];
-                "application/x-www-form-urlencoded": components["schemas"]["UnitOfMeasureRequest"];
-                "multipart/form-data": components["schemas"]["UnitOfMeasureRequest"];
-            };
-        };
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["UnitOfMeasure"];
-                };
-            };
-        };
-    };
-    units_statistics_retrieve: {
+    teachers_export_columns_retrieve: {
         parameters: {
             query?: never;
             header?: never;
@@ -7153,7 +9567,64 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["UnitOfMeasure"];
+                    "application/json": components["schemas"]["Teacher"];
+                };
+            };
+        };
+    };
+    teachers_export_excel_retrieve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Teacher"];
+                };
+            };
+        };
+    };
+    teachers_export_excel_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Teacher"];
+                };
+            };
+        };
+    };
+    teachers_statistics_retrieve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Teacher"];
                 };
             };
         };

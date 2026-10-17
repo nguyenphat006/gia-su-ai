@@ -1,5 +1,5 @@
 /**
- * Cấu hình quy chuẩn định dạng số học toàn hệ thống Admin Template
+ * Cấu hình quy chuẩn định dạng số học toàn hệ thống
  */
 
 export type NumberFormatStyle = "international" | "vietnam";

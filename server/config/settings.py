@@ -1,5 +1,5 @@
 """
-Django settings for Admin Template project.
+Django settings — Gia Sư AI KHTN.
 """
 
 import os
@@ -57,6 +57,7 @@ if not DEBUG:
 
 # Application definition
 DJANGO_APPS = [
+    'daphne',  # phải đứng đầu: `runserver` chạy ASGI (HTTP + WebSocket) khi dev
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -66,6 +67,7 @@ DJANGO_APPS = [
 ]
 
 THIRD_PARTY_APPS = [
+    'channels',  # WebSocket (Đấu trường realtime) — chạy qua ASGI
     'pgtrigger',
     'pghistory',
     'rest_framework',
@@ -79,11 +81,13 @@ THIRD_PARTY_APPS = [
 LOCAL_APPS = [
     'apps.core',
     'apps.authentication',
-    'apps.master_data',
     'apps.audit',
     'apps.dashboard',
-    'apps.customers',
-    'apps.suppliers',
+    'apps.academics',
+    'apps.ai_settings',
+    'apps.ai',
+    'apps.knowledge',
+    'apps.revision',
     # [startmodule] app mới được chèn phía trên dòng này
 ]
 
@@ -91,6 +95,12 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 # Custom User Model
 AUTH_USER_MODEL = 'authentication.CustomUser'
+
+# Đăng nhập bằng tên đăng nhập (ModelBackend), hoặc mã học sinh / email (StudentCodeOrEmailBackend)
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'apps.academics.backends.StudentCodeOrEmailBackend',
+]
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',  # Phải đứng đầu tiên
@@ -168,6 +178,14 @@ if RUNNING_TESTS:
             os.getenv('TEST_DATABASE_URL', 'postgres://postgres:postgres@localhost:5432/app_db')
         )
     }
+
+# Băm mật khẩu: PBKDF2 (mặc định Django) cho mọi mật khẩu mới. `legacy_scrypt` chỉ để kiểm tra mật khẩu
+# chuyển từ hệ thống cũ (Node.js) — đăng nhập thành công là tự băm lại bằng PBKDF2.
+PASSWORD_HASHERS = [
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+    'apps.authentication.hashers.LegacyScryptPasswordHasher',
+]
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -295,12 +313,19 @@ SIMPLE_JWT = {
 
 # drf-spectacular (OpenAPI 3.0 / Swagger UI)
 SPECTACULAR_SETTINGS = {
-    'TITLE': 'Admin Template API Documentation',
-    'DESCRIPTION': 'API của template quản trị Django + Next.js (tác giả: ERICSS)',
+    'TITLE': 'Gia Sư AI KHTN API',
+    'DESCRIPTION': 'API nền tảng học Khoa học Tự nhiên THCS với gia sư AI (xây dựng trên template ERICSS)',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
     'COMPONENT_SPLIT_REQUEST': True,
     'SCHEMA_PATH_PREFIX': '/api/v1',
+    # Tên enum cố định khi nhiều bảng dùng chung tên trường (grade, status...) -> types frontend ổn định
+    'ENUM_NAME_OVERRIDES': {
+        'GradeEnum': 'apps.academics.models.Grade',
+        'DocumentStatusEnum': 'apps.knowledge.models.DocumentStatus',
+        'QuestionStatusEnum': 'apps.revision.models.QuestionStatus',
+        'DifficultyEnum': 'apps.revision.models.Difficulty',
+    },
 }
 
 # ==============================================================================
@@ -321,3 +346,27 @@ CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
 if RUNNING_TESTS:
     CELERY_TASK_ALWAYS_EAGER = True
     CELERY_TASK_EAGER_PROPAGATES = True
+
+# ==============================================================================
+# Django Channels (WebSocket — Đấu trường realtime)
+# ==============================================================================
+# Nhiều process (gunicorn + UvicornWorker) phải dùng chung Redis channel layer; dev 1 process / test dùng bộ nhớ.
+CHANNELS_REDIS_URL = os.getenv('CHANNELS_REDIS_URL')
+if CHANNELS_REDIS_URL and not RUNNING_TESTS:
+    CHANNEL_LAYERS = {
+        'default': {
+            'BACKEND': 'channels_redis.core.RedisChannelLayer',
+            'CONFIG': {'hosts': [CHANNELS_REDIS_URL]},
+        }
+    }
+else:
+    CHANNEL_LAYERS = {'default': {'BACKEND': 'channels.layers.InMemoryChannelLayer'}}
+
+# ==============================================================================
+# Google Gemini (gia sư AI, sinh câu hỏi, RAG embedding)
+# ==============================================================================
+# Model / nhiệt độ / prompt dùng hằng ngày chỉnh trên màn Cấu hình AI (bảng AiSettings); đây chỉ là giá trị dự phòng.
+GEMINI_API_KEY = os.getenv('GEMINI_API_KEY', '')
+GEMINI_MODEL = os.getenv('GEMINI_MODEL', 'gemini-3.1-flash-lite-preview')
+GEMINI_EMBEDDING_MODEL = os.getenv('GEMINI_EMBEDDING_MODEL', 'gemini-embedding-001')
+GEMINI_EMBEDDING_DIMENSIONS = 768  # khớp cột KnowledgeChunks.Embedding vector(768) trong database.dbml

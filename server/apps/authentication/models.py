@@ -13,7 +13,7 @@ from apps.core.models import AuditModel, TimeStampedModel, SoftDeleteModel
 class Role(AuditModel):
     """
     0.2 Danh mục Vai trò / Chức danh Hệ thống (Bảng Roles theo database.dbml).
-    Ví dụ: ADMIN, CHIEF_ENGINEER, BOM_DESIGNER, PRODUCTION_PLANNER, WORKSHOP_SUPERVISOR, WAREHOUSE_KEEPER.
+    Vai trò mặc định: ADMIN, TEACHER, STUDENT.
     """
     role_code = models.CharField(
         max_length=50,
@@ -205,7 +205,14 @@ class CustomUser(AbstractUser, SoftDeleteModel):
         blank=True,
         verbose_name=_("Ghi chú tài khoản")
     )
-    
+    # DBML: PasswordHash varchar(255) — hash scrypt chuyển từ bản cũ dài ~175 ký tự (mặc định Django chỉ 128)
+    password = models.CharField(_("password"), max_length=255)
+    must_change_password = models.BooleanField(
+        default=False,
+        verbose_name=_("Bắt đổi mật khẩu"),
+        help_text=_("Bắt đổi mật khẩu ở lần đăng nhập tới (tài khoản mới tạo / import / đặt lại mật khẩu)")
+    )
+
     # Quan hệ N-N với Roles qua bảng trung gian UserRoles
     roles = models.ManyToManyField(
         Role,

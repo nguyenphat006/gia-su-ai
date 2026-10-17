@@ -1,8 +1,8 @@
 """
-Lưu ảnh tải lên (ảnh đại diện NVL, logo khách hàng…) vào `MEDIA_ROOT/<folder>/` và trả URL.
+Lưu ảnh tải lên (ảnh đại diện, ảnh minh họa…) vào `MEDIA_ROOT/<folder>/` và trả URL.
 
 Dùng trong action `upload-image` / `upload-logo` của ViewSet:
-    return success_response(data=save_uploaded_image(request, 'customers', prefix='cus'),
+    return success_response(data=save_uploaded_image(request, 'avatars', prefix='avt'),
                             message=IMAGE_UPLOADED, status_code=status.HTTP_201_CREATED)
 """
 import os

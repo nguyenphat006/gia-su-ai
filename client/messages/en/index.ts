@@ -13,15 +13,10 @@ import users from "./users.json";
 import settings from "./settings.json";
 import auditLogs from "./auditLogs.json";
 import profile from "./profile.json";
-import units from "./units.json";
-import materialCategories from "./materialCategories.json";
-import materials from "./materials.json";
 import attachments from "./attachments.json";
 import dataTransfer from "./dataTransfer.json";
 import numberFormat from "./numberFormat.json";
 import notifications from "./notifications.json";
-import customers from "./customers.json";
-import suppliers from "./suppliers.json";
 
-const messages = { common, validation, meta, layout, list, detail, form, auth, errors, dashboard, users, settings, auditLogs, profile, units, materialCategories, materials, attachments, dataTransfer, numberFormat, notifications, customers, suppliers };
+const messages = { common, validation, meta, layout, list, detail, form, auth, errors, dashboard, users, settings, auditLogs, profile, attachments, dataTransfer, numberFormat, notifications };
 export default messages;

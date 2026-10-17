@@ -5,20 +5,20 @@
  */
 export const APP_CONFIG = {
   /** Tên hiển thị trên sidebar, trang đăng nhập, tiêu đề tab trình duyệt */
-  name: "Admin Template",
+  name: "Gia Sư AI KHTN",
   /** Nhãn phụ cạnh tên trên sidebar (để trống nếu không cần) */
-  badge: "v1.0",
+  badge: "THCS",
   /** Dòng mô tả ngắn dưới tên trên sidebar */
-  tagline: "Django · Next.js",
+  tagline: "Học KHTN cùng trợ lý AI",
   /** Mô tả dùng cho thẻ meta / trang đăng nhập */
-  description: "Template quản trị full-stack Django + Next.js",
+  description: "Nền tảng học Khoa học Tự nhiên THCS với gia sư AI, ôn tập thông minh và đấu trường trí tuệ",
   /** Chủ sở hữu hiển thị ở footer */
   owner: "ERICSS",
 } as const;
 
 /** Khóa localStorage dùng chung (đổi tiền tố khi clone để tránh đụng dữ liệu giữa các dự án chạy cùng domain) */
 export const STORAGE_KEYS = {
-  themeMode: "app_theme_mode",
+  themeMode: "giasu_theme_mode",
   /** Lịch sử tìm kiếm toàn cục (mục mở gần đây + từ khóa), thêm hậu tố _<userId> */
-  recentSearch: "app_recent_search",
+  recentSearch: "giasu_recent_search",
 } as const;
