@@ -31,7 +31,7 @@ api_v1_patterns = [
 
 urlpatterns = [
     # Django Admin
-    path('admin/', admin.site.urls),
+    path('django-admin/', admin.site.urls),  # /admin là trang quản trị của frontend
 
     # Master API v1
     path('api/v1/', include(api_v1_patterns)),

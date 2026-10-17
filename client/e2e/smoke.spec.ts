@@ -4,7 +4,7 @@ const USERNAME = process.env.E2E_USERNAME || "admin";
 const PASSWORD = process.env.E2E_PASSWORD || "";
 
 /** Các màn hình lõi của template (module mẫu master-data được kiểm tra nếu có trong menu) */
-const CORE_PAGES = ["/", "/users", "/audit-logs", "/settings/modules", "/profile"];
+const CORE_PAGES = ["/admin", "/users", "/audit-logs", "/settings/modules", "/profile"];
 
 function trackErrors(page: Page) {
   const errors: string[] = [];

@@ -33,7 +33,7 @@ DEFAULT_MODULES = [
         'module_name': 'Tổng quan (Dashboard)',
         'module_name_en': 'Dashboard',
         'icon': 'DashboardOutlined',
-        'route_path': '/',
+        'route_path': '/admin',
         'parent_code': None,
         'sort_order': 10,
         'is_navigation': True,

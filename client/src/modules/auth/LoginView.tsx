@@ -42,8 +42,8 @@ export function LoginView() {
   });
 
   return (
-    // Nền thương hiệu cố định (không đổi theo sáng / tối)
-    <div className="relative flex min-h-screen items-center justify-center p-4" style={{ background: "linear-gradient(135deg, #0F172A 0%, #1E3A8A 55%, #1E40AF 100%)" }}>
+    // Nền màu xanh phẳng (giống dải đầu trang chủ) — chữ trắng ở cả sáng / tối
+    <div className="theme-learn relative flex min-h-screen items-center justify-center p-4" style={{ background: "var(--c-learn-band)" }}>
       {/* Đổi ngôn ngữ trước khi đăng nhập (nền tối cố định -> chữ trắng) */}
       <Button
         type="button"

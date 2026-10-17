@@ -1,0 +1,81 @@
+{
+  "pageTitle": "Trang chủ",
+  "nav": {
+    "features": "Tính năng",
+    "teachers": "Dành cho giáo viên",
+    "language": "Đổi ngôn ngữ"
+  },
+  "cta": {
+    "login": "Đăng nhập",
+    "goLearn": "Vào học",
+    "goAdmin": "Trang quản trị"
+  },
+  "hero": {
+    "eyebrow": "Khoa học Tự nhiên THCS · khối 6–9",
+    "title": "Học Khoa học Tự nhiên cùng gia sư AI",
+    "subtitle": "Hỏi gia sư AI bám sát tài liệu của thầy cô, ôn tập bằng quiz, flashcard, sơ đồ tư duy và thi đấu cùng bạn bè trên đấu trường trí tuệ.",
+    "secondary": "Xem tính năng",
+    "school": "Dành cho học sinh và giáo viên {school}"
+  },
+  "preview": {
+    "question": "Vận tốc là gì ạ? Cho em công thức với.",
+    "answer": "Vận tốc cho biết vật chuyển động nhanh hay chậm, bằng quãng đường đi được trong một đơn vị thời gian:",
+    "title": "Gia sư AI",
+    "units": "Trong đó v là vận tốc (m/s), s là quãng đường (m), t là thời gian (s)."
+  },
+  "features": {
+    "title": "Mọi thứ để học tốt môn KHTN",
+    "subtitle": "Một nơi để hỏi bài, ôn tập và rèn luyện mỗi ngày.",
+    "tutor": {
+      "title": "Gia sư AI",
+      "description": "Hỏi bài bằng chữ, giọng nói hoặc ảnh chụp bài tập. Gia sư trả lời theo sách Chân trời sáng tạo và tài liệu của thầy cô."
+    },
+    "practice": {
+      "title": "Ôn tập thông minh",
+      "description": "Quiz trắc nghiệm, tự luận có AI chấm, flashcard và sơ đồ tư duy theo từng chủ đề."
+    },
+    "arena": {
+      "title": "Đấu trường trí tuệ",
+      "description": "Thách đấu bạn cùng khối hoặc đấu với AI theo thời gian thực, nhận nhận xét sau mỗi trận."
+    },
+    "achievements": {
+      "title": "Thành tích",
+      "description": "Tích XP, giữ chuỗi ngày học, hoàn thành thử thách và leo bảng xếp hạng tuần."
+    }
+  },
+  "teachers": {
+    "title": "Công cụ cho giáo viên",
+    "subtitle": "Thầy cô quản lý lớp học, nội dung ôn tập và theo dõi việc học của từng học sinh.",
+    "knowledge": {
+      "title": "Nạp tài liệu cho gia sư AI",
+      "description": "Tải lên PDF, Word: hệ thống đọc tài liệu, gia sư trả lời dựa trên đó và gợi ý câu hỏi để thầy cô duyệt."
+    },
+    "classes": {
+      "title": "Quản lý học sinh và lớp học",
+      "description": "Nhập danh sách học sinh từ Excel, cấp tài khoản, xếp lớp và quản lý ngân hàng câu hỏi."
+    },
+    "reports": {
+      "title": "Báo cáo học tập",
+      "description": "Xem giờ học, câu hỏi gửi gia sư, kết quả ôn tập và đấu trường của từng học sinh."
+    }
+  },
+  "steps": {
+    "title": "Bắt đầu thật đơn giản",
+    "subtitle": "Tài khoản do nhà trường cấp — không cần đăng ký.",
+    "account": {
+      "title": "Nhận tài khoản",
+      "description": "Thầy cô cấp tên đăng nhập (hoặc mã học sinh) và mật khẩu ban đầu."
+    },
+    "learn": {
+      "title": "Đăng nhập và học",
+      "description": "Đổi mật khẩu ở lần đầu, rồi hỏi gia sư AI, ôn tập hoặc vào đấu trường."
+    },
+    "grow": {
+      "title": "Tiến bộ mỗi ngày",
+      "description": "Học đều đặn để giữ chuỗi ngày học, lên danh hiệu và đứng đầu bảng xếp hạng."
+    }
+  },
+  "footer": {
+    "poweredBy": "Gia Sư AI KHTN · trợ lý học tập dùng Google Gemini"
+  }
+}

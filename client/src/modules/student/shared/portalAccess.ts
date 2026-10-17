@@ -2,7 +2,7 @@
 import type { UserProfile } from "@/modules/auth/types";
 
 export const STUDENT_HOME = "/learn";
-export const ADMIN_HOME = "/";
+export const ADMIN_HOME = "/admin";
 const LEARN_PREFIX = "LEARN_";
 
 type UserLike = Pick<UserProfile, "is_superuser" | "role_codes" | "permissions" | "roles"> | null | undefined;

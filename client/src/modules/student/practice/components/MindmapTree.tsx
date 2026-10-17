@@ -82,7 +82,7 @@ export function MindmapTree({ tree }: { tree: MindmapTreeNode }) {
       </div>
       <div className="overflow-x-auto pb-2">
         <div className="mx-auto flex w-max min-w-full flex-col items-center">
-          <div className="max-w-md rounded-2xl px-5 py-3 text-center text-base font-semibold text-white shadow-sm" style={{ background: "var(--c-brand-gradient)" }}>
+          <div className="max-w-md rounded-lg px-5 py-3 text-center text-base font-semibold text-white shadow-sm" style={{ background: "var(--c-brand-gradient)" }}>
             <FormattedContent inline content={tree.label} />
           </div>
           {tree.children.length > 0 && (

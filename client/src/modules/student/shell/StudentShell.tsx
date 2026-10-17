@@ -18,7 +18,7 @@ import { authService } from "@/modules/auth/services/auth.service";
 import { useNumberFormat } from "@/providers/NumberFormatProvider";
 import { useAuthStore } from "@/stores/useAuthStore";
 import { useGuardedLeave } from "../shared/leaveGuard";
-import { hasAdminAccess } from "../shared/portalAccess";
+import { ADMIN_HOME, hasAdminAccess } from "../shared/portalAccess";
 import { useMyStats } from "../shared/useLearnQueries";
 import { StudentBottomNav, StudentSidebar } from "./StudentNav";
 import { StudentUserMenu } from "./StudentUserMenu";
@@ -95,7 +95,7 @@ export default function StudentShell({ children }: { children: React.ReactNode }
         extra={
           canAdmin ? (
             <Button asChild>
-              <Link href="/">{t("shell.adminPortal")}</Link>
+              <Link href={ADMIN_HOME}>{t("shell.adminPortal")}</Link>
             </Button>
           ) : (
             <Button variant="outline" onClick={handleLogout}>
@@ -120,7 +120,7 @@ export default function StudentShell({ children }: { children: React.ReactNode }
             canAdmin={canAdmin}
             onProfile={() => navigate("/learn/profile")}
             onChangePassword={() => setPasswordOpen(true)}
-            onAdmin={() => navigate("/")}
+            onAdmin={() => navigate(ADMIN_HOME)}
             onLogout={handleLogout}
           />
         </div>
@@ -131,7 +131,7 @@ export default function StudentShell({ children }: { children: React.ReactNode }
           <StudentSidebar
             footer={
               canAdmin ? (
-                <Button variant="ghost" className="w-full justify-start text-muted-foreground" onClick={() => navigate("/")}>
+                <Button variant="ghost" className="w-full justify-start text-muted-foreground" onClick={() => navigate(ADMIN_HOME)}>
                   <LayoutDashboard />
                   {t("shell.adminPortal")}
                 </Button>

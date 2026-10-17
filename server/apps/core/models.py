@@ -339,6 +339,7 @@ class SystemSettings(AuditModel):
         'app_badge': 'THCS',
         'tagline': 'Học KHTN cùng trợ lý AI',
         'company_name': 'Trường THCS Phước Tân 3',
+        'logo_url': 'https://thcsphuoctan3.edu.vn/wp-content/uploads/2024/03/LOGO-THCS-PHUOC-TAN-3-326x245.jpg',
     }
 
     class Meta:

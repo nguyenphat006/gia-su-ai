@@ -78,12 +78,12 @@ export function DynamicBreadcrumb() {
           <span>{t("home")}</span>
         </span>
       ),
-      href: "/",
+      href: "/admin",
     },
   ];
 
   if (segments.length === 0) {
-    items.push({ title: routeMap.get("/")?.label ?? t("overview"), href: null, current: true });
+    items.push({ title: routeMap.get("/admin")?.label ?? t("overview"), href: null, current: true });
   }
 
   let path = "";

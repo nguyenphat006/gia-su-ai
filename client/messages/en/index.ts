@@ -1,5 +1,6 @@
 // Sinh bởi khung i18n: mỗi namespace một tệp (làm song song không đụng nhau). Thêm namespace -> thêm dòng import.
 import common from "./common.json";
+import landing from "./landing.json";
 import validation from "./validation.json";
 import meta from "./meta.json";
 import layout from "./layout.json";
@@ -36,5 +37,5 @@ import learnPractice from "./learnPractice.json";
 import learnArena from "./learnArena.json";
 import learnAchievements from "./learnAchievements.json";
 
-const messages = { common, validation, meta, layout, list, detail, form, auth, errors, dashboard, users, settings, auditLogs, profile, attachments, dataTransfer, numberFormat, notifications, schoolClasses, students, teachers, aiSettings, academics, questions, flashcardDecks, mindmaps, knowledgeChunks, revision, sourceDocuments, knowledge, reports, learn, learnChat, learnPractice, learnArena, learnAchievements };
+const messages = { common, landing, validation, meta, layout, list, detail, form, auth, errors, dashboard, users, settings, auditLogs, profile, attachments, dataTransfer, numberFormat, notifications, schoolClasses, students, teachers, aiSettings, academics, questions, flashcardDecks, mindmaps, knowledgeChunks, revision, sourceDocuments, knowledge, reports, learn, learnChat, learnPractice, learnArena, learnAchievements };
 export default messages;

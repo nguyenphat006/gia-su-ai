@@ -89,10 +89,10 @@
 :root {
   color-scheme: light;
 
-  --c-primary: #1E40AF;
-  --c-primary-hover: #2563EB;
-  --c-primary-bg: #EFF6FF;
-  --c-primary-border: #BFDBFE;
+  --c-primary: #0284C7;      /* xanh da trời (màu bản cũ Gia Sư AI KHTN) */
+  --c-primary-hover: #0369A1;
+  --c-primary-bg: #F0F9FF;
+  --c-primary-border: #BAE6FD;
   --c-info: #0284C7;
   --c-info-bg: #F0F9FF;
   --c-success: #059669;
@@ -124,20 +124,20 @@
   --c-sider-bg: #1E293B;     /* sidebar tối dịu (slate-navy), nhẹ hơn đen để nội dung vẫn là trọng tâm */
   --c-sider-text: #CBD5E1;
   --c-sider-hover-bg: rgba(255, 255, 255, 0.08);
-  --c-sider-active-bg: #2563EB;  /* xanh sáng hơn primary #1E40AF — primary chìm trên nền slate #1E293B */
+  --c-sider-active-bg: #0284C7;
   --c-scroll-track: #F1F5F9;
   --c-scroll-thumb: #CBD5E1;
   --c-scroll-thumb-hover: #94A3B8;
-  --c-brand-gradient: linear-gradient(135deg, #1E40AF 0%, #0284C7 100%);
+  --c-brand-gradient: #0284C7;  /* màu phẳng (tên biến giữ để tương thích template) */
 }
 
 [data-theme="dark"] {
   color-scheme: dark;
 
-  --c-primary: #3B82F6;
-  --c-primary-hover: #60A5FA;
-  --c-primary-bg: rgba(59, 130, 246, 0.14);
-  --c-primary-border: rgba(59, 130, 246, 0.4);
+  --c-primary: #38BDF8;
+  --c-primary-hover: #7DD3FC;
+  --c-primary-bg: rgba(56, 189, 248, 0.12);
+  --c-primary-border: rgba(56, 189, 248, 0.35);
   --c-info: #38BDF8;
   --c-info-bg: rgba(56, 189, 248, 0.12);
   --c-success: #10B981;
@@ -169,11 +169,11 @@
   --c-sider-bg: #0F1625;
   --c-sider-text: #CBD5E1;
   --c-sider-hover-bg: rgba(255, 255, 255, 0.08);
-  --c-sider-active-bg: #3B82F6;
+  --c-sider-active-bg: #0284C7;
   --c-scroll-track: #111827;
   --c-scroll-thumb: #334155;
   --c-scroll-thumb-hover: #475569;
-  --c-brand-gradient: linear-gradient(135deg, #2563EB 0%, #0EA5E9 100%);
+  --c-brand-gradient: #0369A1;
 }
 
 html,
@@ -762,3 +762,16 @@ body.is-resizing-column, body.is-resizing-column * { cursor: col-resize !importa
 .audit-value--new { background: var(--c-success-bg); border-color: var(--c-success-border); color: var(--c-success); }
 }
 
+
+/* ==========================================================================
+   Trang chủ, đăng nhập, cổng học sinh (/learn): dải màu đầu trang (màu phẳng, chữ trắng).
+   Màu chủ đạo dùng chung với trang quản trị (xanh da trời ở :root).
+   ========================================================================== */
+.theme-learn {
+  --c-learn-band: #0369A1;
+}
+
+[data-theme="dark"] .theme-learn,
+.theme-learn[data-theme="dark"] {
+  --c-learn-band: #0C4A6E;
+}

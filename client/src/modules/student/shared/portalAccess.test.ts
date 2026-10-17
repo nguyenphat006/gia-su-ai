@@ -14,8 +14,8 @@ describe("portalAccess", () => {
   it("giáo viên / quản trị -> trang quản trị", () => {
     expect(isStudentOnly(teacher)).toBe(false);
     expect(hasAdminAccess(teacher)).toBe(true);
-    expect(homePathFor(teacher)).toBe("/");
-    expect(homePathFor({ role_codes: ["ADMIN"], permissions: [] })).toBe("/");
+    expect(homePathFor(teacher)).toBe("/admin");
+    expect(homePathFor({ role_codes: ["ADMIN"], permissions: [] })).toBe("/admin");
     expect(hasAdminAccess({ is_superuser: true, role_codes: [], permissions: [] })).toBe(true);
   });
 
@@ -26,7 +26,7 @@ describe("portalAccess", () => {
   it("vai trò STUDENT + vai trò khác, hoặc chưa có user", () => {
     expect(isStudentOnly({ role_codes: ["STUDENT", "TEACHER"], permissions: ["LEARN_VIEW"] })).toBe(false);
     expect(isStudentOnly(null)).toBe(false);
-    expect(homePathFor(undefined)).toBe("/");
+    expect(homePathFor(undefined)).toBe("/admin");
   });
 
   it("đọc vai trò từ `roles` khi thiếu role_codes", () => {

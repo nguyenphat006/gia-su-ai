@@ -1,0 +1,81 @@
+{
+  "pageTitle": "Home",
+  "nav": {
+    "features": "Features",
+    "teachers": "For teachers",
+    "language": "Change language"
+  },
+  "cta": {
+    "login": "Sign in",
+    "goLearn": "Start learning",
+    "goAdmin": "Admin portal"
+  },
+  "hero": {
+    "eyebrow": "Lower-secondary Natural Science · grades 6–9",
+    "title": "Learn Natural Science with an AI tutor",
+    "subtitle": "Ask an AI tutor grounded in your teachers' materials, practise with quizzes, flashcards and mind maps, and compete with classmates in the knowledge arena.",
+    "secondary": "See features",
+    "school": "For students and teachers of {school}"
+  },
+  "preview": {
+    "question": "What is velocity? Can you give me the formula?",
+    "answer": "Velocity tells how fast an object moves — the distance travelled per unit of time:",
+    "title": "AI tutor",
+    "units": "Here v is velocity (m/s), s is distance (m) and t is time (s)."
+  },
+  "features": {
+    "title": "Everything you need for Natural Science",
+    "subtitle": "One place to ask questions, revise and practise every day.",
+    "tutor": {
+      "title": "AI tutor",
+      "description": "Ask by typing, speaking or sending a photo of an exercise. Answers follow the official textbook and your teachers' materials."
+    },
+    "practice": {
+      "title": "Smart practice",
+      "description": "Multiple-choice quizzes, AI-graded essays, flashcards and mind maps for every topic."
+    },
+    "arena": {
+      "title": "Knowledge arena",
+      "description": "Challenge classmates or play against the AI in real time, with feedback after every match."
+    },
+    "achievements": {
+      "title": "Achievements",
+      "description": "Earn XP, keep your study streak, complete challenges and climb the weekly leaderboard."
+    }
+  },
+  "teachers": {
+    "title": "Tools for teachers",
+    "subtitle": "Manage classes and practice content, and follow each student's learning.",
+    "knowledge": {
+      "title": "Feed the AI tutor your materials",
+      "description": "Upload PDF or Word files: the tutor answers from them and suggests questions for you to review."
+    },
+    "classes": {
+      "title": "Students and classes",
+      "description": "Import student lists from Excel, issue accounts, assign classes and manage the question bank."
+    },
+    "reports": {
+      "title": "Learning reports",
+      "description": "See study hours, questions asked, practice and arena results for every student."
+    }
+  },
+  "steps": {
+    "title": "Getting started is easy",
+    "subtitle": "Accounts are issued by the school — no sign-up needed.",
+    "account": {
+      "title": "Get your account",
+      "description": "Your teacher gives you a username (or student code) and an initial password."
+    },
+    "learn": {
+      "title": "Sign in and learn",
+      "description": "Change your password the first time, then ask the AI tutor, practise or enter the arena."
+    },
+    "grow": {
+      "title": "Improve every day",
+      "description": "Study regularly to keep your streak, level up and top the leaderboard."
+    }
+  },
+  "footer": {
+    "poweredBy": "Gia Sư AI KHTN · learning assistant powered by Google Gemini"
+  }
+}

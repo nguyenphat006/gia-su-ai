@@ -10,7 +10,7 @@ import { usePermission } from "@/hooks/usePermission";
 import type { NavigationItem } from "@/services/navigation.service";
 
 /** Trang mọi người dùng đã đăng nhập đều vào được */
-const ALWAYS_ALLOWED = ["/", "/profile", "/403"];
+const ALWAYS_ALLOWED = ["/admin", "/profile", "/403"];
 
 function collectRoutes(items: NavigationItem[] | undefined, acc: string[] = []): string[] {
   for (const item of items ?? []) {

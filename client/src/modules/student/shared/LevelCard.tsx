@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useTranslations } from "next-intl";
-import { Flame, Medal, Sparkles, Trophy } from "lucide-react";
+import { Flame, Medal, Trophy } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useNumberFormat } from "@/providers/NumberFormatProvider";
@@ -29,7 +29,6 @@ export function LevelCard({ stats, loading, error, onRetry }: { stats?: MyStats;
 
   return (
     <section className="relative overflow-hidden rounded-xl p-4 text-white sm:p-6" style={{ background: "var(--c-brand-gradient)" }}>
-      <Sparkles className="pointer-events-none absolute -top-2 -right-2 size-24 text-white/10" aria-hidden />
       <div className="relative flex flex-wrap items-start justify-between gap-4">
         <div className="min-w-0">
           <p className="text-xs text-white/80">{t("level.current")}</p>
