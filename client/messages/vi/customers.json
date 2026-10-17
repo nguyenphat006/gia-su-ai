@@ -1,0 +1,21 @@
+{
+  "pageTitle": "Khách hàng",
+  "title": "Khách hàng",
+  "entity": "khách hàng",
+  "searchPlaceholder": "Tìm theo mã, tên, quốc gia…",
+  "fields": {
+    "code": "Mã khách hàng",
+    "name": "Tên khách hàng",
+    "country": "Quốc gia / Thị trường",
+    "logo": "Logo"
+  },
+  "form": {
+    "createTitle": "Thêm khách hàng",
+    "editTitle": "Sửa khách hàng {code}",
+    "codeFormat": "Chỉ gồm chữ IN HOA không dấu, số và gạch dưới (không dùng gạch ngang)",
+    "codeHint": "Dùng trong SKU biến thể, vd. 1-IKEA-0001-A. Không đổi được sau khi tạo.",
+    "countryPlaceholder": "Chọn quốc gia / thị trường",
+    "logoFormats": "JPG, PNG, WEBP — tối đa 2MB",
+    "logoAlt": "Logo khách hàng"
+  }
+}

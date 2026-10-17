@@ -1,0 +1,685 @@
+// ==============================================================================
+// ERP SẢN XUẤT NỘI THẤT - PHÂN HỆ ĐỊNH MỨC KỸ THUẬT & QUẢN TRỊ SẢN XUẤT (BOM & MES)
+// ==============================================================================
+// Quy chuẩn đặt tên (Naming Conventions):
+// - Tên Bảng: PascalCase (Số nhiều)
+// - Tên Cột: PascalCase
+// - Khóa chính (PK): Id (int auto-increment)
+// - Khóa ngoại (FK): <TargetEntitySingular>Id
+// - Chuẩn Audit Fields: Description, IsActive, CreatedById, UpdatedById, CreatedAt, UpdatedAt, DeletedAt
+// ==============================================================================
+
+// ==============================================================================
+// MODULE 0: HỆ THỐNG & PHÂN QUYỀN NGƯỜI DÙNG (SYSTEM & RBAC)
+// ==============================================================================
+
+// 0.1 Tài khoản Đăng nhập Hệ thống (Users)
+Table Users {
+  Id int [primary key, increment]
+  Username varchar(100) [not null, unique, note: 'Tên đăng nhập hệ thống']
+  PasswordHash varchar(255) [not null, note: 'Mật khẩu đã mã hóa băm bcrypt / PBKDF2']
+  Email varchar(255) [not null, unique, note: 'Email tài khoản']
+  FullName varchar(255) [not null, note: 'Họ và tên hiển thị của người dùng']
+  PhoneNumber varchar(30) [null, note: 'Số điện thoại liên hệ / 2FA']
+  Avatar varchar(500) [null, note: 'Đường dẫn ảnh đại diện']
+  IsSuperuser boolean [default: false, note: 'Quyền quản trị tối cao hệ thống']
+  LastLoginAt timestamp [null, note: 'Thời điểm đăng nhập gần nhất']
+  
+  // Standard Audit Fields
+  Description text [null, note: 'Ghi chú tài khoản']
+  IsActive boolean [default: true, note: 'Trạng thái hoạt động: True = Hoạt động, False = Khóa/Ngưng']
+  CreatedAt timestamp [default: `now()`]
+  UpdatedAt timestamp
+  DeletedAt timestamp [null, note: 'Soft delete cho user: null là đang dùng, có ngày giờ là đã xóa mềm']
+}
+
+// 0.2 Danh mục Vai trò / Chức danh (Roles)
+Table Roles {
+  Id int [primary key, increment]
+  RoleCode varchar(50) [not null, unique, note: 'Mã vai trò: ADMIN, CHIEF_ENGINEER, BOM_DESIGNER, PRODUCTION_PLANNER, WORKSHOP_SUPERVISOR, WAREHOUSE_KEEPER']
+  RoleName varchar(255) [not null, note: 'Tên hiển thị: Quản trị viên, Kỹ sư trưởng, Kỹ thuật vẽ BOM, Kế hoạch sản xuất, Quản đốc xưởng, Thủ kho...']
+  
+  // Standard Audit Fields
+  Description text [null, note: 'Mô tả quyền hạn và trách nhiệm của vai trò']
+  IsActive boolean [default: true]
+  CreatedById int [null, ref: > Users.Id]
+  UpdatedById int [null, ref: > Users.Id]
+  CreatedAt timestamp [default: `now()`]
+  UpdatedAt timestamp
+  DeletedAt timestamp [null, note: 'Soft delete']
+}
+
+// 0.3 Danh mục Quyền hạn chi tiết (Permissions)
+Table Permissions {
+  Id int [primary key, increment]
+  PermissionCode varchar(100) [not null, unique, note: 'Mã quyền: BOM_CREATE, BOM_APPROVE, FINISH_APPROVE, WO_RELEASE, MATERIAL_EXPORT, VIEW_COST_PRICE']
+  PermissionName varchar(255) [not null, note: 'Tên quyền: Tạo cây BOM, Phê duyệt BOM, Duyệt công thức sơn, Lập lệnh SX, Cấp phát xuất kho, Xem giá vốn...']
+  Module varchar(50) [not null, note: 'Thuộc phân hệ: SYSTEM, PRODUCT, BOM, FINISH, PLANNING, INVENTORY']
+  
+  Description text [null, note: 'Mô tả chi tiết tác vụ của quyền']
+  CreatedAt timestamp [default: `now()`]
+}
+
+// 0.4 Bảng trung gian gán Vai trò cho Người dùng (UserRoles: N-N)
+Table UserRoles {
+  UserId int [not null, ref: > Users.Id, note: 'Người dùng nào']
+  RoleId int [not null, ref: > Roles.Id, note: 'Được gán vai trò nào']
+  
+  CreatedById int [null, ref: > Users.Id]
+  CreatedAt timestamp [default: `now()`]
+
+  indexes {
+    (UserId, RoleId) [pk, note: 'Khóa chính kết hợp chống gán trùng vai trò']
+  }
+}
+
+// 0.5 Bảng trung gian gán Quyền cho Vai trò (RolePermissions: N-N)
+Table RolePermissions {
+  RoleId int [not null, ref: > Roles.Id, note: 'Vai trò nào']
+  PermissionId int [not null, ref: > Permissions.Id, note: 'Có quyền hạn gì']
+  
+  CreatedAt timestamp [default: `now()`]
+
+  indexes {
+    (RoleId, PermissionId) [pk, note: 'Khóa chính kết hợp chống gán trùng quyền']
+  }
+}
+
+// 0.6 Danh mục Phân hệ & Cấu hình Điều hướng (ModuleRegistries)
+Table ModuleRegistries {
+  Id int [primary key, increment]
+  ModuleCode varchar(50) [not null, unique, note: 'Mã phân hệ: USER, SYSTEM, PRODUCT, BOM, FINISH, PLANNING, MANUFACTURING, INVENTORY, FINANCE']
+  ModuleName varchar(255) [not null, note: 'Tên hiển thị tiếng Việt (ngôn ngữ mặc định): Quản lý Người dùng, Cây định mức BOM...']
+  ModuleNameEn varchar(255) [null, note: 'Tên hiển thị tiếng Anh; trống -> dùng ModuleName']
+  Icon varchar(100) [null, note: 'Khóa icon trong client/src/constants/iconMap.tsx (lucide): UserOutlined, AppstoreOutlined...']
+  RoutePath varchar(255) [null, note: 'Đường dẫn URL trên Frontend: /users, /products (null nếu là group header hoặc không có trang)']
+  ParentCode varchar(50) [null, note: 'Mã phân hệ cha (null nếu là top-level menu)']
+  SortOrder int [default: 0, note: 'Thứ tự hiển thị trên Sidebar menu']
+  IsNavigation boolean [default: true, note: 'True = hiển thị trên Sidebar, False = ẩn khỏi menu (nhưng vẫn có quyền)']
+  IsActive boolean [default: true, note: 'Trạng thái kích hoạt phân hệ']
+  
+  // Standard Audit Fields
+  Description text [null, note: 'Mô tả phạm vi phân hệ (tiếng Việt)']
+  DescriptionEn text [null, note: 'Mô tả tiếng Anh; trống -> dùng Description']
+  CreatedAt timestamp [default: `now()`]
+  UpdatedAt timestamp
+}
+
+// 0.7 Nhật ký thao tác & Lịch sử thay đổi mô hình (AuditEvents - django-pghistory)
+Table AuditEvents {
+  Id bigint [primary key, increment]
+  PghSlug varchar(64) [not null, unique, note: 'Khóa slug duy nhất của sự kiện']
+  PghModel varchar(100) [not null, note: 'Tên model bảng lịch sử: e.g. authentication.UserEvent']
+  PghLabel varchar(50) [not null, note: 'Loại sự kiện: snapshot, insert, update, delete']
+  PghObjModel varchar(100) [not null, note: 'Tên model gốc bị tác động: e.g. authentication.CustomUser']
+  PghObjId int [not null, note: 'Khóa chính của bản ghi bị tác động']
+  PghData jsonb [not null, note: 'Dữ liệu toàn bộ bản ghi tại thời điểm ghi vết']
+  PghDiff jsonb [null, note: 'Sai khác so với bản ghi trước (trường thay đổi: giá trị cũ -> mới)']
+  PghContext jsonb [null, note: 'Ngữ cảnh HTTP: User ID, URL request, IP, Request ID']
+  PghCreatedAt timestamp [default: `now()`, note: 'Thời điểm trigger PostgreSQL ghi vết']
+
+  indexes {
+    (PghObjModel, PghObjId) [note: 'Tìm kiếm lịch sử theo đối tượng']
+    PghCreatedAt [note: 'Sắp xếp theo thời gian sự kiện']
+  }
+}
+
+// 0.8 Quản lý Tệp Đính Kèm Đa Hình (Attachments - Polymorphic File Storage)
+Table Attachments {
+  Id int [primary key, increment]
+  EntityType varchar(50) [not null, note: 'Tên loại thực thể: USER, PRODUCT_BASE, PRODUCT_VARIANT, MATERIAL, FINISH, WORK_ORDER...']
+  EntityId int [not null, note: 'Khóa chính Id của thực thể được đính kèm tệp']
+  
+  FileName varchar(255) [not null, note: 'Tên gốc của tệp khi tải lên']
+  FileUrl varchar(500) [not null, note: 'Đường dẫn tệp lưu trữ trong hệ thống / storage']
+  FileSize bigint [not null, default: 0, note: 'Dung lượng tệp tính theo bytes']
+  MimeType varchar(100) [null, note: 'Định dạng MIME (image/png, application/pdf, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet...)']
+  FileCategory varchar(50) [default: 'DOCUMENT', note: 'Phân loại tệp: IMAGE, CAD_DRAWING, SPEC_SHEET, CONTRACT, DOCUMENT, OTHER']
+  
+  // Standard Audit Fields
+  Description text [null, note: 'Ghi chú / Diễn giải tệp']
+  IsActive boolean [default: true]
+  CreatedById int [ref: > Users.Id]
+  UpdatedById int [ref: > Users.Id]
+  CreatedAt timestamp [default: `now()`]
+  UpdatedAt timestamp
+  DeletedAt timestamp [null, note: 'Soft delete']
+
+  indexes {
+    (EntityType, EntityId) [note: 'Index tối ưu truy vấn danh sách tệp của một thực thể cụ thể']
+  }
+}
+
+// 0.9 Quản lý Tiến trình Xuất / Nhập Dữ liệu Tác vụ Ngầm (DataTransferJobs - Celery Async Tasks)
+Table DataTransferJobs {
+  Id bigint [primary key, increment]
+  JobType varchar(30) [not null, note: 'EXPORT_EXCEL, EXPORT_CSV, IMPORT_EXCEL']
+  EntityType varchar(50) [not null, note: 'Tên loại thực thể: USER, PRODUCT_BASE, MATERIAL, CUSTOMER...']
+  Status varchar(20) [not null, default: 'PENDING', note: 'Trạng thái: PENDING, PROCESSING, COMPLETED, FAILED, CANCELLED']
+  Progress int [default: 0, note: 'Tiến độ hoàn thành từ 0 đến 100%']
+  TotalRows int [default: 0, note: 'Tổng số dòng cần xử lý']
+  ProcessedRows int [default: 0, note: 'Số dòng đã xử lý xong']
+  
+  FileUrl varchar(500) [null, note: 'Đường dẫn tải file kết quả sau khi render xong']
+  ErrorFileUrl varchar(500) [null, note: 'Đường dẫn file tổng hợp các dòng lỗi nếu import thất bại']
+  ErrorMessage text [null, note: 'Chi tiết lỗi nếu tác vụ thất bại']
+  QueryParams jsonb [null, note: 'Lưu các tham số bộ lọc, tìm kiếm, cột đã chọn để tái hiện']
+  
+  StartedAt timestamp [null, note: 'Thời điểm worker bắt đầu thực thi']
+  CompletedAt timestamp [null, note: 'Thời điểm hoàn tất tác vụ']
+
+  // Standard Audit Fields
+  Description text [null, note: 'Ghi chú / Mô tả tác vụ']
+  IsActive boolean [default: true]
+  CreatedById int [ref: > Users.Id]
+  UpdatedById int [ref: > Users.Id]
+  CreatedAt timestamp [default: `now()`]
+  UpdatedAt timestamp
+  DeletedAt timestamp [null, note: 'Soft delete']
+
+  indexes {
+    (CreatedById, Status) [note: 'Tìm nhanh danh sách tác vụ của người dùng']
+    CreatedAt [note: 'Sắp xếp theo thời gian tạo']
+  }
+}
+
+// 0.10 Thông báo trong ứng dụng (chuông trên topbar)
+Table Notifications {
+  Id bigint [primary key, increment]
+  RecipientId int [not null, ref: > Users.Id, note: 'Người nhận']
+  Level varchar(20) [not null, default: 'INFO', note: 'INFO, SUCCESS, WARNING, ERROR']
+  Title varchar(255) [not null]
+  Message text [null]
+  Link varchar(500) [null, note: 'Đường dẫn frontend khi bấm vào (vd. /users/5) hoặc link tải file']
+  SourceType varchar(50) [null, note: 'Nguồn phát sinh: DATA_TRANSFER_JOB, USER...']
+  SourceId bigint [null]
+  ReadAt timestamp [null, note: 'NULL = chưa đọc']
+
+  // Standard Audit Fields
+  Description text [null]
+  IsActive boolean [default: true]
+  CreatedById int [ref: > Users.Id]
+  UpdatedById int [ref: > Users.Id]
+  CreatedAt timestamp [default: `now()`]
+  UpdatedAt timestamp
+  DeletedAt timestamp [null, note: 'Soft delete']
+
+  indexes {
+    (RecipientId, ReadAt) [note: 'Đếm / lọc chưa đọc của người dùng']
+    CreatedAt
+  }
+}
+
+// 0.11 Cấu hình hệ thống (1 dòng duy nhất)
+Table SystemSettings {
+  Id int [primary key, increment]
+  AppName varchar(100) [not null, note: 'Tên ứng dụng: sidebar, trang đăng nhập, tiêu đề tab']
+  AppBadge varchar(30) [null, note: 'Nhãn phụ cạnh tên (vd. MES 2.0)']
+  Tagline varchar(150) [null]
+  CompanyName varchar(255) [null, note: 'Tên đơn vị sở hữu, hiện ở footer']
+  LogoUrl varchar(500) [null, note: 'Logo tải lên; NULL = dùng logo mặc định']
+  Timezone varchar(50) [not null, default: 'Asia/Ho_Chi_Minh']
+  DateFormat varchar(20) [not null, default: 'DD/MM/YYYY']
+  NumberFormat varchar(10) [not null, default: 'INTL', note: 'INTL = 1,250.50; VN = 1.250,50 (mặc định cho user chưa tự chọn)']
+
+  // Standard Audit Fields
+  Description text [null]
+  IsActive boolean [default: true]
+  CreatedById int [ref: > Users.Id]
+  UpdatedById int [ref: > Users.Id]
+  CreatedAt timestamp [default: `now()`]
+  UpdatedAt timestamp
+  DeletedAt timestamp [null, note: 'Soft delete']
+}
+
+// ==============================================================================
+// MODULE 1: DANH MỤC DỮ LIỆU GỐC & SẢN PHẨM (MASTER DATA & PRODUCTS)
+// ==============================================================================
+
+// 1.1 Đơn vị tính (ĐVT)
+Table UnitsOfMeasure {
+  Id int [primary key, increment]
+  Code varchar(20) [not null, unique, note: 'Mã ĐVT: CAI, TAM, M3, KG, LIT, MET']
+  Name varchar(100) [not null, note: 'Tên ĐVT: Cái, Tấm, Mét khối, Kilogram, Lít']
+  
+  // Standard Audit Fields
+  Description text [null, note: 'Mô tả / Ghi chú']
+  IsActive boolean [default: true]
+  CreatedById int [ref: > Users.Id]
+  UpdatedById int [ref: > Users.Id]
+  CreatedAt timestamp [default: `now()`]
+  UpdatedAt timestamp
+  DeletedAt timestamp [null, note: 'Soft delete: null nếu còn dùng, có ngày giờ là đã xóa mềm']
+}
+
+// 1.2 Khách hàng / Đối tác đặt hàng (Customers)
+Table Customers {
+  Id int [primary key, increment]
+  CustomerCode varchar(50) [not null, unique, note: 'Mã khách hàng dùng trong SKU (MAKH): IKEA, ASHLEY, TARGET, KHACH_01']
+  CustomerName varchar(255) [not null, note: 'Tên đầy đủ của khách hàng/đối tác']
+  Country varchar(100) [note: 'Quốc gia / thị trường xuất khẩu — mã ISO 3166-1 alpha-2 (US, SE, JP, VN = nội địa); tên hiển thị dịch theo ngôn ngữ ở frontend']
+  LogoUrl varchar(500) [note: 'Đường dẫn ảnh/logo khách hàng']
+  
+  // Standard Audit Fields
+  Description text [null, note: 'Mô tả / Ghi chú']
+  IsActive boolean [default: true]
+  CreatedById int [ref: > Users.Id]
+  UpdatedById int [ref: > Users.Id]
+  CreatedAt timestamp [default: `now()`]
+  UpdatedAt timestamp
+  DeletedAt timestamp [null, note: 'Soft delete']
+}
+
+// 1.2b Nhà cung cấp (danh mục tham chiếu NVL / hóa chất — không quản lý mua hàng, công nợ)
+Table Suppliers {
+  Id int [primary key, increment]
+  SupplierCode varchar(50) [not null, unique, note: 'Mã nhà cung cấp: NCC_NHOM_01, AKZO...']
+  SupplierName varchar(255) [not null, note: 'Tên nhà cung cấp']
+  TaxCode varchar(50) [null, note: 'Mã số thuế']
+  Phone varchar(50) [null, note: 'Số điện thoại liên hệ']
+  Email varchar(255) [null, note: 'Email liên hệ']
+  Address varchar(500) [null, note: 'Địa chỉ']
+
+  // Standard Audit Fields
+  Description text [null, note: 'Mô tả / Ghi chú']
+  IsActive boolean [default: true]
+  CreatedById int [ref: > Users.Id]
+  UpdatedById int [ref: > Users.Id]
+  CreatedAt timestamp [default: `now()`]
+  UpdatedAt timestamp
+  DeletedAt timestamp [null, note: 'Soft delete']
+}
+
+// 1.3 Nhóm / Loại sản phẩm cơ sở (Product Categories / MALOAI)
+Table ProductCategories {
+  Id int [primary key, increment]
+  TypeCode varchar(20) [not null, unique, note: 'Mã loại dùng trong mã sản phẩm (MALOAI): 1 (Bàn), 2 (Ghế), 3 (Tủ), 4 (Sofa)...']
+  CategoryName varchar(255) [not null, note: 'Tên loại sản phẩm: Bàn (Table), Ghế (Chair), Tủ (Cabinet)...']
+  ParentId int [ref: > ProductCategories.Id, note: 'Hỗ trợ cây phân cấp nhóm cha - con nếu cần']
+  
+  // Standard Audit Fields
+  Description text [null, note: 'Mô tả / Ghi chú']
+  IsActive boolean [default: true]
+  CreatedById int [ref: > Users.Id]
+  UpdatedById int [ref: > Users.Id]
+  CreatedAt timestamp [default: `now()`]
+  UpdatedAt timestamp
+  DeletedAt timestamp [null, note: 'Soft delete']
+}
+
+// 1.4 Mẫu thiết kế sản phẩm gốc (Product Bases / Cấu trúc: MALOAI-XXXX)
+Table ProductBases {
+  Id int [primary key, increment]
+  
+  ProductCategoryId int [not null, ref: > ProductCategories.Id, note: 'Loại sản phẩm (MALOAI: 1, 2...)']
+  SequenceNumber varchar(10) [not null, note: 'Số thứ tự mẫu tự tăng theo Loại (XXXX: 0001, 0002...)']
+  
+  BaseCode varchar(50) [not null, unique, note: 'Mã mẫu gốc nội bộ: MALOAI-XXXX (VD: 1-0001, 2-0005)']
+  BaseName varchar(255) [not null, note: 'Tên mẫu thiết kế gốc: Bàn ăn Scandinavian, Ghế bành Mona...']
+  Designer varchar(100) [note: 'Người thiết kế / Kỹ sư phụ trách bản vẽ']
+  
+  // Standard Audit Fields
+  Description text [null, note: 'Mô tả / Ghi chú kỹ thuật gốc']
+  IsActive boolean [default: true]
+  CreatedById int [ref: > Users.Id]
+  UpdatedById int [ref: > Users.Id]
+  CreatedAt timestamp [default: `now()`]
+  UpdatedAt timestamp
+  DeletedAt timestamp [null, note: 'Soft delete']
+
+  indexes {
+    (ProductCategoryId, SequenceNumber) [unique, note: 'Đảm bảo không trùng số thứ tự trong cùng 1 loại sản phẩm']
+  }
+}
+
+// 1.5 Biến thể sản phẩm chi tiết theo Khách hàng (Product Variants / Cấu trúc: MALOAI-MAKH-XXXX-A)
+Table ProductVariants {
+  Id int [primary key, increment]
+  ProductBaseId int [not null, ref: > ProductBases.Id, note: 'Thuộc mẫu thiết kế gốc nào (MALOAI-XXXX)']
+  CustomerId int [not null, ref: > Customers.Id, note: 'Khách hàng đặt sản xuất biến thể này (MAKH: IKEA, ASHLEY...)']
+  
+  VersionSuffix varchar(10) [not null, default: 'A', note: 'Hậu tố phiên bản màu sắc/hoàn thiện (A, B, C, D...)']
+  Sku varchar(120) [not null, unique, note: 'Mã SKU hoàn chỉnh: MALOAI-MAKH-XXXX-A (VD: 1-IKEA-0001-A, 1-ASHLEY-0001-A)']
+  VariantName varchar(255) [not null, note: 'Tên biến thể: Bàn ăn Scandinavian 1m8 Màu Tự Nhiên - Khách IKEA (Bản A)']
+  
+  // Phân loại công năng chi tiết của sản phẩm
+  ProductType varchar(50) [not null, note: 'Loại chi tiết: DINING_TABLE (Bàn ăn), COFFEE_TABLE (Bàn sofa), DESK (Bàn làm việc), BAR_CHAIR (Ghế quầy bar)...']
+  
+  // Kích thước phủ bì đóng gói hoàn chỉnh (mm)
+  OverallLength decimal(10,2) [null, note: 'Chiều dài tổng thể (mm)']
+  OverallWidth decimal(10,2) [null, note: 'Chiều rộng tổng thể (mm)']
+  OverallHeight decimal(10,2) [not null, note: 'Chiều cao tổng thể (mm)']
+  OverallDiameter decimal(10,2) [null, note: 'Đường kính tổng thể (mm) - Dành cho bàn tròn, ghế đôn tròn...']
+  
+  BaseUomId int [not null, ref: > UnitsOfMeasure.Id, note: 'Đơn vị tính xuất bán đóng gói (Cái, Bộ, Kiện)']
+
+  // Duyệt biến thể (xem docs/PROJECT_CONTEXT_MEMORY.md mục 10.2)
+  Status varchar(30) [not null, default: 'DRAFT', note: 'DRAFT (Nháp) -> PENDING_APPROVAL (Chờ duyệt) -> APPROVED (Đã duyệt); từ chối trả về DRAFT. Duyệt là chốt: chỉ admin được đưa APPROVED về DRAFT. Khi APPROVED hệ thống tự sinh khung vào ProductSubcomponents (theo ProductVariantMaterials) + tạo BomMetals v1 nếu có khung kim loại và chưa có BOM kim loại']
+  StatusNote text [null, note: 'Lý do duyệt / từ chối']
+  ApprovedById int [null, ref: > Users.Id, note: 'Người duyệt biến thể']
+  ApprovedAt timestamp [null, note: 'Thời điểm duyệt']
+  
+  // Standard Audit Fields
+  Description text [null, note: 'Mô tả / Ghi chú biến thể']
+  IsActive boolean [default: true]
+  CreatedById int [ref: > Users.Id]
+  UpdatedById int [ref: > Users.Id]
+  CreatedAt timestamp [default: `now()`]
+  UpdatedAt timestamp
+  DeletedAt timestamp [null, note: 'Soft delete']
+
+  indexes {
+    (ProductBaseId, CustomerId, VersionSuffix) [unique, note: 'Đảm bảo mỗi Base + Khách hàng chỉ có 1 hậu tố A, B, C duy nhất']
+  }
+}
+
+// ==============================================================================
+// MODULE 2: NGUYÊN VẬT LIỆU & HOÀN THIỆN (MATERIALS & FINISHING RECIPES)
+// ==============================================================================
+
+// 2.1 Nhóm phân loại Nguyên Vật Liệu (Material Categories)
+Table MaterialCategories {
+  Id int [primary key, increment]
+  Code varchar(50) [not null, unique, note: 'Mã nhóm: WOOD, METAL, CHEMICAL_PAINT, WEAVING, FABRIC_FOAM, HARDWARE, PACKAGING']
+  Name varchar(255) [not null, note: 'Tên nhóm: Gỗ xẻ sấy, Kim loại hộp/ống, Hóa chất sơn, Dây đan, Vải nệm, Phụ kiện, Bao bì']
+  ParentId int [ref: > MaterialCategories.Id, note: 'Phân cấp danh mục cha - con']
+  SortOrder int [default: 0, note: 'Thứ tự sắp xếp hiển thị danh mục']
+  
+  // Standard Audit Fields
+  Description text [null, note: 'Mô tả / Ghi chú']
+  IsActive boolean [default: true]
+  CreatedById int [ref: > Users.Id]
+  UpdatedById int [ref: > Users.Id]
+  CreatedAt timestamp [default: `now()`]
+  UpdatedAt timestamp
+  DeletedAt timestamp [null, note: 'Soft delete']
+}
+
+
+// 2.2 Danh mục Nguyên Vật Liệu & Phụ kiện mua ngoài (Materials)
+Table Materials {
+  Id int [primary key, increment]
+  MaterialCode varchar(50) [not null, unique, note: 'Mã NVL: NVL-GO-TEAK-25, NVL-ALU-PIPE-25, NVL-SON-PU-BONG, PK-OC-M6X30']
+  MaterialName varchar(255) [not null, note: 'Tên NVL: Gỗ Teak sấy 25mm, Ống nhôm tròn Phi 25x1.5, Sơn bóng PU Oseven, Ốc lục giác M6x30']
+  
+  CategoryId int [not null, ref: > MaterialCategories.Id, note: 'Thuộc nhóm nguyên vật liệu nào: KIM LOẠI, GỖ, SƠN, PHỤ KIỆN...']
+  BaseUomId int [not null, ref: > UnitsOfMeasure.Id, note: 'Đơn vị tính lưu kho: M3, TAM, KG, LIT, CAI, MET...']
+  ImageUrl varchar(500) [null, note: 'Đường dẫn ảnh đại diện hoặc bản vẽ mặt cắt NVL']
+  
+  // Standard Audit Fields
+  Description text [null, note: 'Mô tả / Ghi chú']
+  IsActive boolean [default: true]
+  CreatedById int [ref: > Users.Id]
+  UpdatedById int [ref: > Users.Id]
+  CreatedAt timestamp [default: `now()`]
+  UpdatedAt timestamp
+  DeletedAt timestamp [null, note: 'Soft delete']
+
+  indexes {
+    (CategoryId, MaterialCode) [note: 'Hỗ trợ lọc nhanh danh mục vật tư theo nhóm']
+  }
+}
+
+// 2.2.1 Bảng Quy Cách Kỹ Thuật Tiết Diện Kim Loại (MetalMaterialSpecs - Quan hệ 1-1 với Materials)
+Table MetalMaterialSpecs {
+  MaterialId int [primary key, ref: - Materials.Id, note: 'Khóa chính và Khóa ngoại 1-1 trỏ về Materials.Id']
+  
+  ProfileShape varchar(50) [not null, note: 'Hình dạng mặt cắt (chốt 2026-10-02, 6 loại): ROUND_PIPE (ống tròn), SQUARE_TUBE (hộp vuông), RECT_TUBE (hộp chữ nhật), SHEET (tấm - đơn vị tấm), FLAT_BAR (la dẹt), OTHER (khác: đặc, oval, khuôn riêng, căng vải, ống chân... - không có công thức, kg/m theo khuôn, không tự tính diện tích bề mặt). Code hiện có 10 loại -> khi code gộp các loại còn lại vào OTHER (migration dữ liệu)']
+  
+  // Kích thước hình học mặt cắt (mm)
+  OuterDimension1 decimal(10,2) [not null, note: 'Đường kính ngoài Phi (với ống tròn) hoặc Chiều rộng mặt cắt (mm)']
+  OuterDimension2 decimal(10,2) [null, note: 'Chiều cao mặt cắt (mm) - dành cho hộp chữ nhật, oval, thép V']
+  Thickness decimal(10,2) [not null, note: 'Độ dày thành ống/hộp hoặc độ dày la (mm)']
+  
+  // Quy cách thanh xuất xưởng tiêu chuẩn
+  StandardBarLength decimal(10,2) [not null, default: 6000.00, note: 'Chiều dài thanh phôi tiêu chuẩn xuất xưởng (mm) - Mặc định thanh 6m = 6000mm']
+  EndTrimLoss decimal(10,2) [not null, default: 50.00, note: 'Chiều dài hao hụt cắt đầu mẩu bavia mỗi thanh 6m (mm)']
+  SawKerfLoss decimal(10,2) [not null, default: 3.00, note: 'Bề dày mạch cưa mỗi nhát cắt phôi (mm)']
+  
+  // Thông tin định lượng & khuôn từ Sổ tay Profile công ty
+  WeightPerMeterKg decimal(10,4) [null, note: 'Định lượng kg/m thực tế (theo khuôn NCC / danh mục VT)']
+  MoldCode varchar(50) [null, note: 'Mã số khuôn ép NCC (AM-1203, 1250A, PM029-T15...)']
+  Features varchar(50) [null, note: 'Ký hiệu phụ: G (Gân gia cường), GG (Gân + Gờ), GO (Gờ khóa mép), MEM (Nhôm mềm)...']
+  
+  // Standard Audit Fields
+  Description text [null, note: 'Ghi chú kỹ thuật phôi kim loại']
+  IsActive boolean [default: true]
+  CreatedById int [ref: > Users.Id]
+  UpdatedById int [ref: > Users.Id]
+  CreatedAt timestamp [default: `now()`]
+  UpdatedAt timestamp
+  DeletedAt timestamp [null, note: 'Soft delete']
+}
+
+// 2.3 Danh mục Mã màu Hoàn thiện (Finishes Master)
+Table Finishes {
+  Id int [primary key, increment]
+  FinishCode varchar(50) [not null, unique, note: 'Mã màu hoàn thiện: FIN-PU-TEAK-NAT, FIN-POWDER-BLACK-SAND, FIN-OIL-TEAK']
+  FinishName varchar(255) [not null, note: 'Tên màu: Sơn PU Teak Tự Nhiên mờ 30%, Sơn tĩnh điện Đen nhám cát...']
+  MaterialCategoryId int [not null, ref: > MaterialCategories.Id, note: 'Màu này áp dụng cho nhóm vật liệu nào: Gỗ, Kim loại...']
+  
+  // Standard Audit Fields
+  Description text [null, note: 'Ghi chú kỹ thuật pha màu']
+  IsActive boolean [default: true]
+  CreatedById int [ref: > Users.Id]
+  UpdatedById int [ref: > Users.Id]
+  CreatedAt timestamp [default: `now()`]
+  UpdatedAt timestamp
+  DeletedAt timestamp [null, note: 'Soft delete']
+}
+
+// 2.4 Chi tiết Công thức Định mức Sơn theo m2 (Finishing Formulas)
+Table FinishingFormulaItems {
+  Id int [primary key, increment]
+  FinishId int [not null, ref: > Finishes.Id, note: 'Thuộc mã màu hoàn thiện nào']
+  MaterialId int [not null, ref: > Materials.Id, note: 'Vật tư hóa chất trong kho: Sơn lót, Tinh màu, Xăng, Bột sơn, Cứng...']
+  
+  ConsumptionPerM2 decimal(10,4) [not null, note: 'Định mức tiêu hao chuẩn trên 1 m2 bề mặt (kg/m2 hoặc lít/m2)']
+  ScrapPercentage decimal(5,2) [default: 0, note: 'Tỷ lệ hao hụt dự tính khi phun sơn (% bay bụi sơn)']
+  
+  // Standard Audit Fields
+  Description text [null, note: 'Ghi chú lớp sơn (Lót, Màu, Bóng, Dung môi...)']
+  IsActive boolean [default: true]
+  CreatedById int [ref: > Users.Id]
+  UpdatedById int [ref: > Users.Id]
+  CreatedAt timestamp [default: `now()`]
+  UpdatedAt timestamp
+  DeletedAt timestamp [null, note: 'Soft delete']
+
+  indexes {
+    (FinishId, MaterialId) [unique, note: 'Mỗi mã màu chỉ khai báo 1 hóa chất 1 lần']
+  }
+}
+
+// 2.5 Vật liệu & Mã màu Hoàn thiện của Biến thể (ProductVariantMaterials)
+// Group / type lấy từ cây MaterialCategories: nhóm gốc = group, nhóm con = type. Nguồn sinh khung khi duyệt biến thể.
+// Ký hiệu khung KHÔNG lưu ở MaterialCategories: code có enum cố định ánh xạ theo mã nhóm con
+//   WOOD_TEAK, WOOD_ACACIA -> WO · WOOD_PLYWOOD -> PL · METAL_ALUMINUM -> AL · METAL_STEEL -> FE · METAL_STAINLESS -> SL
+//   -> mã các nhóm con này là hằng số hệ thống (seed sẵn, khóa không cho sửa mã trên UI); thêm loại gỗ mới cần thêm vào enum.
+Table ProductVariantMaterials {
+  Id int [primary key, increment]
+  ProductVariantId int [not null, ref: > ProductVariants.Id, note: 'Thuộc biến thể sản phẩm nào']
+
+  MaterialGroupId int [not null, ref: > MaterialCategories.Id, note: 'Nhóm vật liệu cha (nhóm gốc, ParentId NULL): Gỗ, Kim loại, Dây đan, Vải nệm...']
+  MaterialTypeId int [null, ref: > MaterialCategories.Id, note: 'Loại trong nhóm (nhóm con của MaterialGroupId): Teak, Acacia, Plywood, Nhôm, Sắt, Inox. Bắt buộc với nhóm có loại (Gỗ, Kim loại); loại có ký hiệu khung -> sinh khung khi duyệt biến thể (Teak + Acacia chung 1 khung WO)']
+  MaterialId int [null, ref: > Materials.Id, note: 'NVL cụ thể - dùng cho nhóm không có loại (đan, bọc nệm...)']
+
+  FinishId int [null, ref: > Finishes.Id, note: 'Mã màu hoàn thiện của vật liệu này (nếu cần sơn / xử lý bề mặt)']
+  FinishNote varchar(255) [null, note: 'Ghi chú thêm về hoàn thiện nếu không dùng mã màu (VD: Màu vải Sunproof 102, Đá mài bóng...)']
+
+  // Standard Audit Fields
+  Description text [null, note: 'Ghi chú']
+  IsActive boolean [default: true]
+  CreatedById int [ref: > Users.Id]
+  UpdatedById int [ref: > Users.Id]
+  CreatedAt timestamp [default: `now()`]
+  UpdatedAt timestamp
+  DeletedAt timestamp [null, note: 'Soft delete']
+
+  indexes {
+    (ProductVariantId, MaterialTypeId) [unique, note: 'Partial: WHERE MaterialTypeId IS NOT NULL - mỗi loại 1 dòng / biến thể (cho phép cả Gỗ Teak + Plywood, Nhôm + Sắt)']
+    (ProductVariantId, MaterialId) [unique, note: 'Partial: WHERE MaterialId IS NOT NULL']
+  }
+}
+// ==============================================================================
+// MODULE 3: CÂY CẤU TRÚC LINH KIỆN & ĐỊNH MỨC SẢN XUẤT (SUBCOMPONENTS & BOMS)
+// ==============================================================================
+//
+// [GHI CHÚ THIẾT KẾ - thảo luận 2026-09-30, ĐÃ ÁP DỤNG vào các bảng bên dưới, chưa code. Nghiệp vụ đầy đủ: docs/PROJECT_CONTEXT_MEMORY.md mục 10]
+//
+// A. BIẾN THỂ & CÂY LINH KIỆN (ĐÃ CHỐT)
+//  1. Biến thể = thành phẩm = nút gốc hiển thị; không lưu dòng thành phẩm trong ProductSubcomponents.
+//  2. Ký hiệu vật liệu khung: AL nhôm, FE sắt, SL inox (METAL); WO gỗ tự nhiên - chung Teak/Acacia, PL plywood - khung riêng (WOOD).
+//     Mỗi vật liệu tối đa 1 khung / biến thể. Nhóm con Gỗ trong MaterialCategories: WOOD_TEAK, WOOD_ACACIA, WOOD_PLYWOOD (bỏ 3 nhóm cũ - sửa seed_demo khi code).
+//  3. Mã: khung [Sku]-[MaterialCode]; cụm -A{n}, chi tiết khung -C{n} đếm trong khung; chi tiết cụm -S{nnn} đếm độc lập trong từng cụm.
+//  4. Mã / cha / loại của nút KHÔNG sửa được - muốn đổi (kể cả đổi vật liệu khung, chuyển cụm) thì xóa + thêm mới. Tên / mô tả sửa được, dùng chung cho mọi version.
+//  5. ProductVariants cần thêm trạng thái duyệt: DRAFT -> PENDING_APPROVAL -> APPROVED (+ StatusNote, ApprovedById, ApprovedAt).
+//     Duyệt là chốt; chỉ admin được đưa APPROVED về DRAFT.
+//  6. Khi biến thể được duyệt, hệ thống TỰ ĐỘNG: sinh các khung (theo ProductVariantMaterials) vào ProductSubcomponents
+//     + tạo BomMetals v1 (DRAFT, hiện hành, chưa có hạng mục) nếu biến thể có khung kim loại và chưa có BOM kim loại nào.
+//     BOM vẫn tạo tay được bình thường; UI hiện trạng thái biến thể khi chọn.
+//
+// B. BOM KIM LOẠI (ĐÃ CHỐT)
+//  1. Mỗi nhóm vật liệu 1 phiếu BOM riêng (BomMetals, sau này BOM gỗ...), người phụ trách riêng, version + duyệt riêng.
+//  2. Vòng đời: DRAFT -> PENDING_BOM (cây đã chốt, đang nhập định mức) -> PENDING_APPROVAL -> APPROVED; từ chối trả về DRAFT.
+//     APPROVED = đóng băng: không sửa, không tính lại định mức (kể cả khi quy cách phôi trong Materials đổi); muốn sửa -> nhân bản version mới.
+//  3. Hiện hành (IsCurrent): v1 tự là hiện hành; từ v2 người có quyền TỰ đặt (không tự động khi duyệt); bản cũ tự bỏ cờ trong cùng giao dịch;
+//     luôn đúng 1 bản / biến thể; không xóa bản hiện hành. Cho đặt cả bản chưa APPROVED nhưng bắt buộc ghi lý do + UI hiện nhãn "Hiện hành - chưa duyệt".
+//     -> thêm cột BomMetals.CurrentNote (lý do đặt hiện hành), tách khỏi StatusNote (lý do duyệt / từ chối) để không ghi đè nhau.
+//  4. "Hạng mục" = nút cây (cụm / chi tiết) + dòng BomMetalItems. Cây ProductSubcomponents là KHO CHUNG mọi nút của biến thể;
+//     mỗi version chọn một phần kho đó. 1 nút có thể thuộc nhiều version (1 subcomponent - n BomMetalItems).
+//  5. Bảng BomMetalItems (mục 3.3): BomMetalId, SubcomponentId (not null, chỉ cụm / chi tiết của khung AL/FE/SL, không trỏ FRAME),
+//     Quantity (theo cụm cha - nhân qua các cấp), IsWovenOn (cụm có đan), MaterialId, CutLength, CuttingGap - mộng, frontend mặc định 50 mm (chi tiết),
+//     NetWeight / GrossWeight / FilingLength / SurfaceArea (tính, lưu cứng). Unique (BomMetalId, SubcomponentId). KHÔNG chép mã / tên / loại / cha của nút.
+//     Chi tiết có trong version thì cụm cha cũng phải có.
+//  6. Thêm hạng mục (UI chỉ có "Thêm", 1 dialog tạo nút + dòng BOM): số tiếp theo tính theo các hạng mục ĐANG HIỆN trong version đó, cùng cha;
+//     mã đã tồn tại trong cây biến thể -> dùng lại nút đó; chưa có -> tạo nút mới. Dùng lại mà nhập tên khác -> hỏi lại trước khi đổi tên chung.
+//  7. Xóa hạng mục ở 1 version -> XÓA CỨNG dòng BomMetalItems; nút không còn dòng nào trỏ tới -> XÓA CỨNG nút
+//     (ProductSubcomponents, BomMetalItems bỏ DeletedAt - ngoại lệ có chủ đích; lịch sử vẫn ở pghistory).
+//  8. Diện tích đan TẠM TÍNH: TotalWeavingArea = tổng SurfaceArea các chi tiết thuộc cụm IsWovenOn = true (công ty đang làm vậy, có thể đổi sau).
+//  9. Cây biến thể thay đổi không tự sửa BOM; hệ thống chỉ cảnh báo lệch, người dùng tự đồng bộ trên bản DRAFT.
+//
+// C. CHƯA CHỐT
+//  - Mã nhóm vật liệu không có loại (đan, bọc nệm...): giữ mã hiện tại hay đặt mã ngắn.
+//  - Lệnh sản xuất: để sau, hiện chỉ tập trung BOM.
+//
+
+// 3.1 Cây Cấu Trúc Linh Kiện Hình Học của Biến thể (ProductSubcomponents / EBOM)
+// Biến thể (ProductVariants) chính là thành phẩm = nút gốc hiển thị của cây; không lưu dòng thành phẩm riêng.
+// Các khung FRAME (ParentId = NULL) nằm trực tiếp dưới biến thể; khung do hệ thống sinh khi duyệt biến thể.
+// Cây là KHO CHUNG mọi nút của biến thể; mỗi version BOM chọn một phần qua BomMetalItems (1 nút - n dòng BOM).
+// Mã / ParentId / SubcomponentType / MaterialCode KHÔNG sửa sau khi tạo (đổi = xóa + thêm mới); tên / mô tả sửa được, dùng chung mọi version.
+// XÓA CỨNG (không có DeletedAt): cụm / chi tiết tự xóa khi không còn dòng BomMetalItems nào trỏ tới; khung xóa khi không còn nút con.
+Table ProductSubcomponents {
+  Id int [primary key, increment]
+  ProductVariantId int [not null, ref: > ProductVariants.Id, note: 'Thuộc biến thể sản phẩm nào']
+  ParentId int [null, ref: > ProductSubcomponents.Id, note: 'Cụm cha trực tiếp: Chi tiết S001 trỏ về Cụm A1, Cụm A1 trỏ về Khung, Khung thì NULL']
+  
+  SubcomponentCode varchar(100) [not null, note: 'Mã sinh tự động: khung [Sku]-[MaterialCode] (VD 1-IKEA-0001-A-AL); cụm +-A{n} (đếm trong khung); chi tiết khung +-C{n} (đếm trong khung); chi tiết cụm +-S{nnn} (đếm độc lập từ 001 trong mỗi cụm). Thêm từ màn hình BOM: số tiếp theo tính theo các hạng mục đang hiện trong version, cùng cha; mã đã có trong cây -> dùng lại nút']
+  SubcomponentName varchar(255) [not null, note: 'Tên gọi linh kiện: Khung nhôm chính, Cụm chân trước, Thanh giằng ngang, Tấm pát liên kết...']
+  
+  SubcomponentType varchar(50) [not null, note: 'Phân loại cấp bậc: FRAME (Khung gốc Level 0), ASSEMBLY (Cụm Level 1), PART_ASSEMBLY (Chi tiết cụm Level 2), PART_FRAME (Chi tiết gắn khung Level 1)']
+  MaterialCode varchar(10) [not null, note: 'Ký hiệu vật liệu khung: AL (nhôm), FE (sắt), SL (inox), WO (gỗ tự nhiên, dùng chung mọi loại gỗ), PL (plywood - khung riêng). Nút con kế thừa của khung. Nhóm lớn METAL (AL/FE/SL) / WOOD (WO/PL) suy ra từ ký hiệu để lọc form kỹ thuật và BOM']
+  
+  Level int [default: 0, note: 'Cấp độ phân tầng cây: 0 (Khung), 1 (Cụm hoặc Chi tiết khung), 2 (Chi tiết thuộc cụm) - phục vụ hiển thị Treeview UI']
+  SortOrder int [default: 0, note: 'Thứ tự sắp xếp hiển thị trên cây linh kiện']
+  
+  // Standard Audit Fields
+  Description text [null, note: 'Ghi chú kỹ thuật, vị trí lắp ráp trên sản phẩm']
+  IsActive boolean [default: true]
+  CreatedById int [ref: > Users.Id]
+  UpdatedById int [ref: > Users.Id]
+  CreatedAt timestamp [default: `now()`]
+  UpdatedAt timestamp
+  // Không có DeletedAt: xóa cứng (lịch sử ở pghistory)
+
+  indexes {
+    (ProductVariantId, SubcomponentCode) [unique, note: 'Tuyệt đối không bao giờ trùng lặp mã linh kiện trong cùng 1 biến thể']
+    (ProductVariantId, ParentId) [note: 'Hỗ trợ truy vấn đệ quy cây phả hệ cực nhanh']
+    (ProductVariantId, MaterialCode) [unique, note: 'Partial: chỉ áp dụng cho SubcomponentType = FRAME - mỗi vật liệu chỉ 1 khung duy nhất trong biến thể']
+  }
+}
+
+
+// 3.2 Header BOM Định Mức Kim Loại (BomMetals)
+Table BomMetals {
+  Id int [primary key, increment]
+  ProductVariantId int [not null, ref: > ProductVariants.Id, note: 'Thuộc biến thể sản phẩm nào']
+  
+  Version int [not null, default: 1, note: 'Phiên bản định mức cơ khí dạng số nguyên: 1, 2, 3...']
+  Status varchar(30) [not null, default: 'DRAFT', note: 'DRAFT (Nháp) -> PENDING_BOM (Cây đã chốt, đang nhập định mức) -> PENDING_APPROVAL (Chờ duyệt) -> APPROVED (Đã duyệt); từ chối trả về DRAFT. APPROVED = đóng băng: không sửa, không tính lại định mức (kể cả khi quy cách phôi đổi); muốn sửa -> nhân bản version mới']
+  IsCurrent boolean [not null, default: false, note: 'Bản hiện hành: v1 tự là hiện hành; từ v2 người có quyền tự đặt (duyệt không tự đổi), bản cũ tự bỏ cờ trong cùng giao dịch. Luôn đúng 1 bản true / biến thể; không xóa được bản hiện hành. Đặt bản chưa APPROVED -> bắt buộc CurrentNote + UI hiện nhãn "Hiện hành - chưa duyệt"']
+  CurrentNote text [null, note: 'Lý do đặt làm bản hiện hành (bắt buộc khi bản chưa APPROVED); tách khỏi StatusNote để không ghi đè nhau']
+  
+  // Tổng hợp Khối lượng (kg) cuộn từ BomMetalItems lên
+  TotalNetWeight decimal(10,4) [default: 0, note: 'Tổng khối lượng kim loại tinh trên 1 sản phẩm (kg)']
+  TotalGrossWeight decimal(10,4) [default: 0, note: 'Tổng khối lượng tiêu hao đã cộng mộng (kg / 1 SP) = tổng GrossWeight các dòng; KHÔNG gồm đầu mẩu (đầu mẩu chỉ tính khi xếp cắt ở lệnh cấp). Không có tổng chiều dài trên phiếu (cộng mét khác loại phôi vô nghĩa) - tổng mét theo từng vật tư nằm ở phần định mức theo vật tư']
+  
+  // Tổng hợp Diện tích (m2) cuộn từ BomMetalItems lên
+  TotalSurfaceArea decimal(10,4) [default: 0, note: 'Tổng diện tích bề mặt khung kim loại (m2) - dùng tính định mức sơn tĩnh điện']
+  TotalWeavingArea decimal(10,4) [default: 0, note: 'Tổng diện tích đan (m2) - TẠM TÍNH: tổng SurfaceArea các chi tiết thuộc cụm IsWovenOn = true (cách công ty đang làm, có thể đổi sau)']
+  
+  // Ghi chú phiên bản & Phê duyệt trạng thái
+  RevisionNote text [null, note: 'Ghi chú nội dung thay đổi khi nhân bản version mới']
+  StatusNote text [null, note: 'Lý do duyệt / từ chối trả về nháp']
+  ApprovedById int [null, ref: > Users.Id, note: 'Người thực hiện phê duyệt (Quản đốc / Giám đốc Kỹ thuật)']
+  ApprovedAt timestamp [null, note: 'Thời điểm duyệt']
+  
+  // Standard Audit Fields
+  Description text [null, note: 'Mô tả / Ghi chú chung']
+  IsActive boolean [default: true]
+  CreatedById int [ref: > Users.Id]
+  UpdatedById int [ref: > Users.Id]
+  CreatedAt timestamp [default: `now()`]
+  UpdatedAt timestamp
+  DeletedAt timestamp [null, note: 'Soft delete']
+
+  indexes {
+    (ProductVariantId, Version) [unique, note: 'Mỗi biến thể chỉ có 1 phiên bản số nguyên duy nhất']
+    (ProductVariantId) [unique, note: 'Partial: WHERE IsCurrent = true AND DeletedAt IS NULL - duy nhất 1 bản hiện hành mỗi biến thể']
+  }
+}
+
+
+// 3.3 Hạng mục BOM Kim loại (BomMetalItems) - dữ liệu định mức riêng của từng version
+// "Hạng mục" = nút cây (cụm / chi tiết) trong ProductSubcomponents + dòng này. Mã / tên / loại / cha lấy từ nút, không chép lại.
+// UI: 1 dialog "Thêm" tạo nút (nếu mã chưa có) + dòng BOM; xóa hạng mục = xóa cứng dòng này (nút tự xóa khi không còn dòng nào trỏ tới).
+// Chi tiết có trong version thì cụm cha cũng phải có (số lượng nhân qua cụm cha).
+Table BomMetalItems {
+  Id int [primary key, increment]
+  BomMetalId int [not null, ref: > BomMetals.Id, note: 'Thuộc version BOM kim loại nào']
+  SubcomponentId int [not null, ref: > ProductSubcomponents.Id, note: 'Cụm (ASSEMBLY) hoặc chi tiết (PART_*) của cùng biến thể, thuộc khung AL / FE / SL; không trỏ tới FRAME']
+
+  Quantity int [not null, default: 1, note: 'Số lượng theo cụm cha (VD cụm A1 x2, thanh S001 x3 -> 6 thanh / SP)']
+  IsWovenOn boolean [not null, default: false, note: 'Chỉ dùng cho ASSEMBLY: cụm có đan trên -> SurfaceArea các chi tiết của cụm cộng vào TotalWeavingArea']
+
+  // Chỉ dùng cho chi tiết (PART_*) - MẶT CẮT THIẾT KẾ (kỹ sư vẽ), khác quy cách vật tư; dùng tính diện tích bề mặt. Chốt 2026-10-02
+  ProfileType varchar(30) [null, note: 'Kiểu mặt cắt thiết kế, cùng enum với MetalMaterialSpecs.ProfileShape: ROUND_PIPE, SQUARE_TUBE, RECT_TUBE, SHEET, FLAT_BAR, OTHER. Khác kiểu của vật tư đã chọn -> chỉ cảnh báo, không chặn']
+  Width1 decimal(10,2) [null, note: 'mm: Ø (ống tròn) · cạnh a (vuông) · cạnh nhỏ a (chữ nhật) · bề rộng w (la) · rộng W (tấm); OTHER để trống']
+  Width2 decimal(10,2) [null, note: 'mm: cạnh lớn b (chữ nhật); kiểu khác để trống']
+  Thickness decimal(10,2) [null, note: 'Độ dày t (mm)']
+  CutLength decimal(10,2) [null, note: 'Chiều dài cắt 1 chi tiết L (mm); ống uốn = chiều dài trải phẳng; tấm = chiều dài miếng H']
+
+  // Chỉ dùng cho chi tiết (PART_*) - VẬT TƯ thực tế lấy từ kho; dùng tính khối lượng
+  MaterialId int [null, ref: > Materials.Id, note: 'Phôi kim loại thực tế (có MetalMaterialSpecs, thuộc nhóm đúng vật liệu khung). Được để trống (chọn sau) -> khối lượng chưa tính được']
+  CuttingGap decimal(10,2) [null, note: 'Mộng - hao hụt mỗi nhát cắt (mm), cộng vào chiều dài khi tính định mức: (CutLength + CuttingGap) x SL. Chốt 2026-10-02: đặt ở từng dòng BOM; frontend tự điền mặc định 50 mm (5 cm), người lập sửa được']
+
+  // Tính tự động, tổng cho 1 sản phẩm (đã nhân số lượng qua các cấp cha); lưu cứng, bản APPROVED không tính lại
+  NetWeight decimal(10,4) [null, note: 'Khối lượng tinh (kg) = CutLength / 1000 x kg/m của vật tư x SL; tấm = W x H x t x khối lượng riêng theo khung (AL 2720 / FE 7850 / SL 7930). Thiếu vật tư / kg/m -> NULL']
+  GrossWeight decimal(10,4) [null, note: 'Khối lượng tiêu hao đã cộng mộng (kg) = FilingLength / 1000 x kg/m của vật tư; tấm = NetWeight. Thiếu vật tư / kg/m -> NULL (không tính, không chặn). Chốt 2026-10-02 (phương án C)']
+  FilingLength decimal(10,2) [null, note: 'Tổng chiều dài cắt đã cộng mộng (mm) = (CutLength + CuttingGap) x SL; luôn tính được. Cơ sở định mức số cây / SP = tổng FilingLength cùng vật tư / chiều dài cây (số lẻ). Tấm: NULL']
+  SurfaceArea decimal(10,4) [default: 0, note: 'Diện tích bề mặt ngoài (m2) theo MẶT CẮT THIẾT KẾ = chu vi x CutLength x SL / 10^6; chu vi: ống tròn π·Ø, vuông 4a, chữ nhật 2(a+b), la 2(w+t); tấm 2 mặt = 2·W·H·SL; OTHER = 0 (không tính)']
+
+  // Standard Audit Fields (không có DeletedAt: xóa cứng, lịch sử ở pghistory)
+  Description text [null, note: 'Ghi chú']
+  IsActive boolean [default: true]
+  CreatedById int [ref: > Users.Id]
+  UpdatedById int [ref: > Users.Id]
+  CreatedAt timestamp [default: `now()`]
+  UpdatedAt timestamp
+
+  indexes {
+    (BomMetalId, SubcomponentId) [unique, note: 'Mỗi nút xuất hiện 1 lần trong 1 version']
+    (SubcomponentId) [note: 'Kiểm tra nhanh nút còn được version nào dùng không (tự xóa nút)']
+  }
+}

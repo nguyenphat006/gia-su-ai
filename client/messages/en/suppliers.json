@@ -1,0 +1,20 @@
+{
+  "pageTitle": "Suppliers",
+  "title": "Suppliers",
+  "entity": "supplier",
+  "searchPlaceholder": "Search by code, name, tax code, phone, email…",
+  "fields": {
+    "code": "Supplier code",
+    "name": "Supplier name",
+    "taxCode": "Tax code",
+    "phone": "Phone",
+    "email": "Email",
+    "address": "Address"
+  },
+  "form": {
+    "createTitle": "Add supplier",
+    "editTitle": "Edit supplier {code}",
+    "codeFormat": "Uppercase letters without accents, digits, underscores and hyphens only",
+    "emailInvalid": "Invalid email address"
+  }
+}

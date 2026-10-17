@@ -1,0 +1,20 @@
+{
+  "pageTitle": "Nhà cung cấp",
+  "title": "Nhà cung cấp",
+  "entity": "nhà cung cấp",
+  "searchPlaceholder": "Tìm theo mã, tên, mã số thuế, điện thoại, email…",
+  "fields": {
+    "code": "Mã nhà cung cấp",
+    "name": "Tên nhà cung cấp",
+    "taxCode": "Mã số thuế",
+    "phone": "Điện thoại",
+    "email": "Email",
+    "address": "Địa chỉ"
+  },
+  "form": {
+    "createTitle": "Thêm nhà cung cấp",
+    "editTitle": "Sửa nhà cung cấp {code}",
+    "codeFormat": "Chỉ gồm chữ IN HOA không dấu, số, gạch dưới, gạch ngang",
+    "emailInvalid": "Email không hợp lệ"
+  }
+}

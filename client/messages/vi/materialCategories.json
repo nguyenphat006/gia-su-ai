@@ -1,0 +1,29 @@
+{
+  "pageTitle": "Nhóm nguyên vật liệu",
+  "title": "Nhóm nguyên vật liệu",
+  "entity": "nhóm vật tư",
+  "searchPlaceholder": "Tìm theo mã, tên, mô tả…",
+  "bulkDeleteHint": "Nhóm còn nhóm con hoặc còn nguyên vật liệu sẽ được bỏ qua.",
+  "moveUp": "Chuyển lên",
+  "moveDown": "Chuyển xuống",
+  "movedUp": "Đã chuyển \"{name}\" lên",
+  "movedDown": "Đã chuyển \"{name}\" xuống",
+  "fields": {
+    "code": "Mã nhóm",
+    "name": "Tên nhóm",
+    "parent": "Nhóm cha",
+    "children": "Nhóm con"
+  },
+  "form": {
+    "createTitle": "Thêm nhóm vật tư",
+    "editTitle": "Sửa nhóm vật tư {code}",
+    "submitCreate": "Thêm nhóm",
+    "createDescription": "Phân loại nguyên vật liệu: gỗ, kim loại, sơn, phụ kiện…",
+    "codePlaceholder": "VD: WOOD, METAL, PAINT",
+    "codeHint": "Chữ in hoa, số và dấu gạch dưới",
+    "namePlaceholder": "VD: Gỗ tự nhiên, Thép hộp, Sơn hoàn thiện",
+    "parentPlaceholder": "Để trống nếu là nhóm gốc",
+    "descriptionPlaceholder": "Phạm vi áp dụng, tiêu chuẩn kỹ thuật…",
+    "statusHint": "Tạm ngưng thì không chọn được khi tạo nguyên vật liệu mới"
+  }
+}

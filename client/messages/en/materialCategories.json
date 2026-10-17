@@ -1,0 +1,29 @@
+{
+  "pageTitle": "Material categories",
+  "title": "Material categories",
+  "entity": "material category",
+  "searchPlaceholder": "Search by code, name, description…",
+  "bulkDeleteHint": "Categories that still have subcategories or materials will be skipped.",
+  "moveUp": "Move up",
+  "moveDown": "Move down",
+  "movedUp": "Moved \"{name}\" up",
+  "movedDown": "Moved \"{name}\" down",
+  "fields": {
+    "code": "Category code",
+    "name": "Category name",
+    "parent": "Parent category",
+    "children": "Subcategories"
+  },
+  "form": {
+    "createTitle": "Add material category",
+    "editTitle": "Edit material category {code}",
+    "submitCreate": "Add category",
+    "createDescription": "Group materials: wood, metal, paint, hardware…",
+    "codePlaceholder": "e.g. WOOD, METAL, PAINT",
+    "codeHint": "Uppercase letters, digits and underscores",
+    "namePlaceholder": "e.g. Solid wood, Steel tube, Finishing paint",
+    "parentPlaceholder": "Leave empty for a top-level category",
+    "descriptionPlaceholder": "Scope, technical standards…",
+    "statusHint": "Inactive categories cannot be chosen for new materials"
+  }
+}

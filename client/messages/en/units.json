@@ -1,0 +1,20 @@
+{
+  "pageTitle": "Units of measure",
+  "title": "Units of measure",
+  "entity": "unit of measure",
+  "searchPlaceholder": "Search by code, name, description…",
+  "bulkDeleteHint": "Units used by materials will be skipped.",
+  "fields": {
+    "name": "Unit name"
+  },
+  "form": {
+    "createTitle": "Add unit of measure",
+    "editTitle": "Edit unit {code}",
+    "createDescription": "Used in material consumption and production",
+    "codePlaceholder": "e.g. PCS, M3, M2, KG",
+    "codeHint": "Uppercase letters, digits and underscores",
+    "namePlaceholder": "e.g. Piece, Cubic meter, Kilogram",
+    "descriptionPlaceholder": "Where this unit applies",
+    "statusHint": "Inactive units are hidden when choosing a unit for materials"
+  }
+}

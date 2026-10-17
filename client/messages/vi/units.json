@@ -1,0 +1,20 @@
+{
+  "pageTitle": "Đơn vị tính",
+  "title": "Đơn vị tính",
+  "entity": "đơn vị tính",
+  "searchPlaceholder": "Tìm theo mã, tên, mô tả…",
+  "bulkDeleteHint": "Đơn vị tính đang được nguyên vật liệu sử dụng sẽ được bỏ qua.",
+  "fields": {
+    "name": "Tên đơn vị tính"
+  },
+  "form": {
+    "createTitle": "Thêm đơn vị tính",
+    "editTitle": "Sửa đơn vị tính {code}",
+    "createDescription": "Dùng trong định mức vật tư và sản xuất",
+    "codePlaceholder": "VD: PCS, M3, M2, KG",
+    "codeHint": "Chữ in hoa, số và dấu gạch dưới",
+    "namePlaceholder": "VD: Cái, Mét khối, Kilogram",
+    "descriptionPlaceholder": "Phạm vi áp dụng của đơn vị tính",
+    "statusHint": "Tạm ngưng thì không xuất hiện khi chọn đơn vị tính cho vật tư"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "pageTitle": "Customers",
+  "title": "Customers",
+  "entity": "customer",
+  "searchPlaceholder": "Search by code, name, country…",
+  "fields": {
+    "code": "Customer code",
+    "name": "Customer name",
+    "country": "Country / Market",
+    "logo": "Logo"
+  },
+  "form": {
+    "createTitle": "Add customer",
+    "editTitle": "Edit customer {code}",
+    "codeFormat": "Uppercase letters without accents, digits and underscores only (no hyphens)",
+    "codeHint": "Used in variant SKUs, e.g. 1-IKEA-0001-A. Cannot be changed after creation.",
+    "countryPlaceholder": "Select country / market",
+    "logoFormats": "JPG, PNG, WEBP — up to 2MB",
+    "logoAlt": "Customer logo"
+  }
+}
