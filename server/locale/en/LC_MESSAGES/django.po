@@ -1043,3 +1043,774 @@ msgstr "supplier"
 
 msgid "Danh mục nhà cung cấp"
 msgstr "Suppliers"
+
+msgid "Khối 6"
+msgstr "Grade 6"
+
+msgid "Khối 7"
+msgstr "Grade 7"
+
+msgid "Khối 8"
+msgstr "Grade 8"
+
+msgid "Khối 9"
+msgstr "Grade 9"
+
+msgid "lớp học"
+msgstr "class"
+
+msgid "Danh sách lớp học"
+msgstr "Classes"
+
+msgid "học sinh"
+msgstr "student"
+
+msgid "Danh sách học sinh"
+msgstr "Students"
+
+msgid "giáo viên"
+msgstr "teacher"
+
+msgid "Danh sách giáo viên"
+msgstr "Teachers"
+
+msgid "Mã lớp"
+msgstr "Class code"
+
+msgid "Tên lớp"
+msgstr "Class name"
+
+msgid "Khối"
+msgstr "Grade"
+
+msgid "Năm học"
+msgstr "School year"
+
+msgid "Giáo viên chủ nhiệm"
+msgstr "Homeroom teacher"
+
+msgid "Tài khoản"
+msgstr "Account"
+
+msgid "Mã học sinh"
+msgstr "Student code"
+
+msgid "Lớp"
+msgstr "Class"
+
+msgid "Mã giáo viên"
+msgstr "Teacher code"
+
+msgid "Bộ môn"
+msgstr "Subject"
+
+msgid "Bỏ trống khi tạo -> sinh ngẫu nhiên; khi sửa -> giữ nguyên"
+msgstr "Leave blank when creating -> generated randomly; when editing -> unchanged"
+
+msgid "Bỏ trống -> dùng mã học sinh (chữ thường)"
+msgstr "Leave blank -> use the student code (lowercase)"
+
+msgid "Khối mặc định khi file không có cột khối"
+msgstr "Default grade when the file has no grade column"
+
+msgid "Giáo viên chủ nhiệm phải là tài khoản giáo viên."
+msgstr "The homeroom teacher must be a teacher account."
+
+msgid "Năm học %(year)s đã có lớp %(name)s."
+msgstr "School year %(year)s already has class %(name)s."
+
+msgid "Vui lòng nhập tên đăng nhập."
+msgstr "Please enter a username."
+
+msgid "Tên đăng nhập '%(username)s' đã tồn tại."
+msgstr "Username '%(username)s' already exists."
+
+msgid "Dòng %(row)s: Thiếu 'Họ và tên'"
+msgstr "Row %(row)s: missing 'Full name'"
+
+msgid "Dòng %(row)s: Khối phải là 6, 7, 8 hoặc 9"
+msgstr "Row %(row)s: grade must be 6, 7, 8 or 9"
+
+msgid "Dòng %(row)s: Mã học sinh '%(code)s' bị trùng trong file"
+msgstr "Row %(row)s: student code '%(code)s' is duplicated in the file"
+
+msgid "Dòng %(row)s: Mã học sinh '%(code)s' đã tồn tại"
+msgstr "Row %(row)s: student code '%(code)s' already exists"
+
+msgid "Dòng %(row)s: Tên đăng nhập '%(username)s' đã tồn tại"
+msgstr "Row %(row)s: username '%(username)s' already exists"
+
+msgid "Dòng %(row)s: Email '%(email)s' đã được dùng"
+msgstr "Row %(row)s: email '%(email)s' is already in use"
+
+msgid "Dòng %(row)s: Mật khẩu tối thiểu 6 ký tự"
+msgstr "Row %(row)s: password must be at least 6 characters"
+
+msgid "Chưa có vai trò %(role)s. Chạy `python manage.py seed_core`."
+msgstr "Role %(role)s does not exist yet. Run `python manage.py seed_core`."
+
+msgid "Tối đa %(max)s dòng mỗi lần nhập."
+msgstr "At most %(max)s rows per import."
+
+msgid "Dòng %(row)s: Không có lớp mã '%(code)s'"
+msgstr "Row %(row)s: no class with code '%(code)s'"
+
+msgid "Đã nhập %(count)s học sinh"
+msgstr "Imported %(count)s students"
+
+msgid " (%(count)s dòng lỗi bị bỏ qua)"
+msgstr " (%(count)s invalid rows skipped)"
+
+msgid "Lớp %(name)s còn học sinh — chuyển học sinh sang lớp khác trước khi xóa."
+msgstr "Class %(name)s still has students — move them to another class before deleting."
+
+msgid "Gia sư AI đang bận, em thử lại sau ít phút nhé."
+msgstr "The AI tutor is busy, please try again in a few minutes."
+
+msgid "Hệ thống AI đang quá tải (hết lượt gọi), em thử lại sau ít phút nhé."
+msgstr "The AI service is overloaded (quota exceeded), please try again in a few minutes."
+
+msgid "Chưa cấu hình GEMINI_API_KEY trên máy chủ."
+msgstr "GEMINI_API_KEY is not configured on the server."
+
+msgid "AI trả về dữ liệu không hợp lệ, em thử lại nhé."
+msgstr "The AI returned invalid data, please try again."
+
+msgid "Văn bản ngắn"
+msgstr "Short text"
+
+msgid "Prompt (văn bản dài)"
+msgstr "Prompt (long text)"
+
+msgid "Số"
+msgstr "Number"
+
+msgid "Bật / tắt"
+msgstr "On / off"
+
+msgid "cấu hình AI"
+msgstr "AI setting"
+
+msgid "Danh sách cấu hình AI"
+msgstr "AI settings"
+
+msgid "Khóa"
+msgstr "Key"
+
+msgid "Tên hiển thị"
+msgstr "Display name"
+
+msgid "Giá trị"
+msgstr "Value"
+
+msgid "Kiểu giá trị"
+msgstr "Value type"
+
+msgid "Không đổi được khóa của cấu hình hệ thống."
+msgstr "The key of a system setting cannot be changed."
+
+msgid "Giá trị phải là số."
+msgstr "Value must be a number."
+
+msgid "Giá trị phải là true hoặc false."
+msgstr "Value must be true or false."
+
+msgid "Giá trị không được để trống."
+msgstr "Value must not be empty."
+
+msgid "Không xóa được cấu hình hệ thống %(key)s."
+msgstr "System setting %(key)s cannot be deleted."
+
+msgid "Không tắt được cấu hình hệ thống %(key)s — hãy sửa giá trị."
+msgstr "System setting %(key)s cannot be disabled — edit its value instead."
+
+msgid "Vào học"
+msgstr "Study session"
+
+msgid "Hỏi gia sư AI"
+msgstr "Asked the AI tutor"
+
+msgid "Làm bài ôn tập"
+msgstr "Practice quiz"
+
+msgid "Xem flashcard"
+msgstr "Viewed flashcards"
+
+msgid "Xem sơ đồ tư duy"
+msgstr "Viewed mind map"
+
+msgid "Thi đấu đấu trường"
+msgstr "Arena match"
+
+msgid "sự kiện học tập"
+msgstr "learning event"
+
+msgid "Sự kiện học tập"
+msgstr "Learning events"
+
+msgid "Học sinh"
+msgstr "Student"
+
+msgid "Loại sự kiện"
+msgstr "Event type"
+
+msgid "Loại nguồn"
+msgstr "Source type"
+
+msgid "Id nguồn"
+msgstr "Source id"
+
+msgid "Thông tin phụ"
+msgstr "Metadata"
+
+msgid "Thời điểm"
+msgstr "Time"
+
+msgid "Gia sư AI"
+msgstr "AI tutor"
+
+msgid "Yêu cầu không hợp lệ."
+msgstr "Invalid request."
+
+msgid "Đối thủ không hợp lệ."
+msgstr "Invalid opponent."
+
+msgid "Bạn này đang bận hoặc đã rời sảnh."
+msgstr "This player is busy or has left the lobby."
+
+msgid "Lời thách đấu đã hết hạn."
+msgstr "The challenge has expired."
+
+msgid "Bạn không ở trong trận này."
+msgstr "You are not in this match."
+
+msgid "Đấu với bạn"
+msgstr "Versus a friend"
+
+msgid "Đấu với AI"
+msgstr "Versus AI"
+
+msgid "Đang đấu"
+msgstr "In progress"
+
+msgid "Đã kết thúc"
+msgstr "Finished"
+
+msgid "Bỏ dở"
+msgstr "Abandoned"
+
+msgid "trận đấu"
+msgstr "match"
+
+msgid "Lịch sử trận đấu"
+msgstr "Match history"
+
+msgid "người chơi"
+msgstr "player"
+
+msgid "Người chơi"
+msgstr "Players"
+
+msgid "Chế độ"
+msgstr "Mode"
+
+msgid "Chủ đề"
+msgstr "Topic"
+
+msgid "Loại câu hỏi"
+msgstr "Question type"
+
+msgid "Đề thi"
+msgstr "Questions"
+
+msgid "Trạng thái"
+msgstr "Status"
+
+msgid "Bắt đầu"
+msgstr "Started"
+
+msgid "Kết thúc"
+msgstr "Ended"
+
+msgid "Nhận xét AI"
+msgstr "AI feedback"
+
+msgid "Trận đấu"
+msgstr "Match"
+
+msgid "Điểm"
+msgstr "Score"
+
+msgid "Số câu đúng"
+msgstr "Correct answers"
+
+msgid "Thắng"
+msgstr "Won"
+
+msgid "XP nhận được"
+msgstr "XP earned"
+
+msgid "Bài làm"
+msgstr "Answers"
+
+msgid "Không tìm thấy trận đấu."
+msgstr "Match not found."
+
+msgid "Chưa có câu hỏi cho chủ đề này, em chọn chủ đề khác nhé."
+msgstr "There are no questions for this topic yet, please choose another topic."
+
+msgid "Trận đấu đã kết thúc."
+msgstr "The match has ended."
+
+msgid "Câu hỏi không hợp lệ."
+msgstr "Invalid question."
+
+msgid "Trận đấu chưa trả lời hết câu hỏi."
+msgstr "Not all questions in this match have been answered."
+
+msgid "Bỏ trống khi hết giờ"
+msgstr "Leave blank when time runs out"
+
+msgid "Trận PvP trả lời qua kết nối đấu trường."
+msgstr "PvP matches are answered through the arena connection."
+
+msgid "Trận đấu chưa kết thúc."
+msgstr "The match has not finished yet."
+
+msgid "algorithm"
+msgstr "algorithm"
+
+msgid "salt"
+msgstr "salt"
+
+msgid "hash"
+msgstr "hash"
+
+msgid "password"
+msgstr "password"
+
+msgid "Bắt đổi mật khẩu"
+msgstr "Must change password"
+
+msgid "Bắt đổi mật khẩu ở lần đăng nhập tới (tài khoản mới tạo / import / đặt lại mật khẩu)"
+msgstr "Require a password change at next sign-in (new / imported / reset accounts)"
+
+msgid "Học sinh hoạt động"
+msgstr "Active students"
+
+msgid "trong 7 ngày, so với 7 ngày trước"
+msgstr "last 7 days, vs the previous 7 days"
+
+msgid "Câu hỏi gia sư AI"
+msgstr "AI tutor questions"
+
+msgid "Trận đấu trường"
+msgstr "Arena matches"
+
+msgid "Hoàn thành bài ôn tập"
+msgstr "Completed a practice quiz"
+
+msgid "Điểm danh hằng ngày"
+msgstr "Daily check-in"
+
+msgid "Giáo viên thưởng"
+msgstr "Teacher bonus"
+
+msgid "Hoàn thành thử thách"
+msgstr "Completed a challenge"
+
+msgid "Vi phạm nội dung"
+msgstr "Content violation"
+
+msgid "Kiểm tra flashcard"
+msgstr "Flashcard quiz"
+
+msgid "Hằng ngày"
+msgstr "Daily"
+
+msgid "Hằng tuần"
+msgstr "Weekly"
+
+msgid "Một lần"
+msgstr "Once"
+
+msgid "thống kê học tập"
+msgstr "learning stats"
+
+msgid "Thống kê học tập"
+msgstr "Learning stats"
+
+msgid "nhật ký XP"
+msgstr "XP log"
+
+msgid "Nhật ký XP"
+msgstr "XP log"
+
+msgid "thử thách"
+msgstr "challenge"
+
+msgid "Danh mục thử thách"
+msgstr "Challenges"
+
+msgid "tiến độ thử thách"
+msgstr "challenge progress"
+
+msgid "Tiến độ thử thách"
+msgstr "Challenge progress"
+
+msgid "bậc danh hiệu"
+msgstr "level tier"
+
+msgid "Bậc danh hiệu"
+msgstr "Level tiers"
+
+msgid "Tổng XP"
+msgstr "Total XP"
+
+msgid "XP tuần này"
+msgstr "XP this week"
+
+msgid "Điểm thưởng"
+msgstr "Reward points"
+
+msgid "Chuỗi ngày học"
+msgstr "Study streak"
+
+msgid "Chuỗi dài nhất"
+msgstr "Longest streak"
+
+msgid "Ngày học gần nhất"
+msgstr "Last study date"
+
+msgid "Số XP"
+msgstr "XP amount"
+
+msgid "Hành động"
+msgstr "Action"
+
+msgid "Mã thử thách"
+msgstr "Challenge code"
+
+msgid "Tên thử thách"
+msgstr "Challenge name"
+
+msgid "Hành động tính tiến độ"
+msgstr "Progress action"
+
+msgid "Mục tiêu"
+msgstr "Goal"
+
+msgid "Chu kỳ"
+msgstr "Period"
+
+msgid "XP thưởng"
+msgstr "XP reward"
+
+msgid "Thử thách"
+msgstr "Challenge"
+
+msgid "Kỳ"
+msgstr "Period key"
+
+msgid "Tiến độ"
+msgstr "Progress"
+
+msgid "Thời điểm hoàn thành"
+msgstr "Completed at"
+
+msgid "Danh hiệu"
+msgstr "Title"
+
+msgid "XP tối thiểu"
+msgstr "Minimum XP"
+
+msgid "Thứ tự"
+msgstr "Order"
+
+msgid "Không trích xuất được nội dung (tài liệu trống hoặc là ảnh không đọc được)."
+msgstr "No content could be extracted (the document is empty or an unreadable image)."
+
+msgid "Chỉ hỗ trợ tệp PDF, DOCX hoặc TXT."
+msgstr "Only PDF, DOCX or TXT files are supported."
+
+msgid "Lỗi hệ thống: %(error)s"
+msgstr "System error: %(error)s"
+
+msgid "Đang xử lý"
+msgstr "Processing"
+
+msgid "Hoàn tất"
+msgstr "Completed"
+
+msgid "tài liệu nguồn"
+msgstr "source document"
+
+msgid "Danh sách tài liệu nguồn"
+msgstr "Source documents"
+
+msgid "đoạn tri thức"
+msgstr "knowledge chunk"
+
+msgid "Ngân hàng tri thức"
+msgstr "Knowledge base"
+
+msgid "Tên tài liệu"
+msgstr "Document title"
+
+msgid "Trạng thái xử lý"
+msgstr "Processing status"
+
+msgid "Tổng số đoạn"
+msgstr "Total chunks"
+
+msgid "Số đoạn đã xử lý"
+msgstr "Processed chunks"
+
+msgid "Văn bản trích xuất"
+msgstr "Extracted text"
+
+msgid "Sinh câu hỏi từ tài liệu"
+msgstr "Generate questions from document"
+
+msgid "Lỗi xử lý"
+msgstr "Processing error"
+
+msgid "Tài liệu nguồn"
+msgstr "Source document"
+
+msgid "Thứ tự đoạn"
+msgstr "Chunk order"
+
+msgid "Vector nhúng"
+msgstr "Embedding vector"
+
+msgid "Thời điểm nhúng"
+msgstr "Embedded at"
+
+msgid "Tiêu đề không được để trống."
+msgstr "Title must not be empty."
+
+msgid "Nội dung quá ngắn (tối thiểu 20 ký tự)."
+msgstr "Content is too short (at least 20 characters)."
+
+msgid "Dung lượng tối đa %(size)sMB."
+msgstr "Maximum size is %(size)sMB."
+
+msgid "Dùng /source-documents/upload/ để tải tài liệu lên."
+msgstr "Use /source-documents/upload/ to upload documents."
+
+msgid "Đã tải lên, hệ thống đang đọc tài liệu"
+msgstr "Uploaded, the document is being processed"
+
+msgid "Đã cập nhật %(count)s câu hỏi"
+msgstr "Updated %(count)s questions"
+
+msgid "Ảnh bài làm tự luận"
+msgstr "Photo of the essay answer"
+
+msgid "Trắc nghiệm"
+msgstr "Multiple choice"
+
+msgid "Tự luận"
+msgstr "Essay"
+
+msgid "Nhận biết"
+msgstr "Recall"
+
+msgid "Thông hiểu"
+msgstr "Understanding"
+
+msgid "Vận dụng"
+msgstr "Application"
+
+msgid "Chờ duyệt"
+msgstr "Pending"
+
+msgid "Đã duyệt"
+msgstr "Approved"
+
+msgid "Từ chối"
+msgstr "Rejected"
+
+msgid "Nhập tay"
+msgstr "Manual"
+
+msgid "AI sinh"
+msgstr "AI generated"
+
+msgid "Từ tài liệu"
+msgstr "From document"
+
+msgid "Chinh phục kiến thức"
+msgstr "Knowledge challenge"
+
+msgid "câu hỏi"
+msgstr "question"
+
+msgid "Ngân hàng câu hỏi"
+msgstr "Question bank"
+
+msgid "bộ flashcard"
+msgstr "flashcard deck"
+
+msgid "Danh sách bộ flashcard"
+msgstr "Flashcard decks"
+
+msgid "sơ đồ tư duy"
+msgstr "mind map"
+
+msgid "Danh sách sơ đồ tư duy"
+msgstr "Mind maps"
+
+msgid "lượt làm bài"
+msgstr "quiz attempt"
+
+msgid "Lịch sử làm bài"
+msgstr "Quiz attempts"
+
+msgid "Lớp (riêng)"
+msgstr "Class (specific)"
+
+msgid "Nội dung câu hỏi"
+msgstr "Question text"
+
+msgid "Phương án"
+msgstr "Options"
+
+msgid "Đáp án"
+msgstr "Answer"
+
+msgid "Giải thích"
+msgstr "Explanation"
+
+msgid "Gợi ý"
+msgstr "Hint"
+
+msgid "Trạng thái duyệt"
+msgstr "Review status"
+
+msgid "Nguồn"
+msgstr "Origin"
+
+msgid "Tên bộ thẻ"
+msgstr "Deck name"
+
+msgid "Danh sách thẻ"
+msgstr "Cards"
+
+msgid "Tên sơ đồ"
+msgstr "Mind map name"
+
+msgid "Các nút"
+msgstr "Nodes"
+
+msgid "Loại bài"
+msgstr "Quiz type"
+
+msgid "Số câu"
+msgstr "Questions"
+
+msgid "Chi tiết bài làm"
+msgstr "Answer details"
+
+msgid "Không tìm thấy câu hỏi."
+msgstr "Question not found."
+
+msgid "Không tìm thấy bộ thẻ."
+msgstr "Flashcard deck not found."
+
+msgid "Em hãy viết bài làm hoặc gửi ảnh bài làm."
+msgstr "Please write your answer or upload a photo of it."
+
+msgid "Mỗi câu chỉ được nộp một lần."
+msgstr "Each question can only be submitted once."
+
+msgid "Bài nộp chưa có câu trả lời nào."
+msgstr "The submission has no answers."
+
+msgid "Bài nộp phải có từ 1 đến %(max)s câu."
+msgstr "A submission must have between 1 and %(max)s questions."
+
+msgid "Chưa tạo được nội dung cho chủ đề này, em thử chủ đề khác nhé."
+msgstr "Content for this topic could not be created, please try another topic."
+
+msgid "Câu hỏi %(id)s không tồn tại."
+msgstr "Question %(id)s does not exist."
+
+msgid "Thẻ số %(idx)s không có trong bộ."
+msgstr "Card %(idx)s is not in the deck."
+
+msgid "Chủ đề không được để trống."
+msgstr "Topic must not be empty."
+
+msgid "Sơ đồ phải có ít nhất 1 nút."
+msgstr "A mind map must have at least 1 node."
+
+msgid "Sơ đồ phải có đúng 1 nút gốc."
+msgstr "A mind map must have exactly 1 root node."
+
+msgid "Bộ thẻ phải có ít nhất 1 thẻ."
+msgstr "A deck must have at least 1 card."
+
+msgid "Mỗi nút phải có id và nhãn."
+msgstr "Each node must have an id and a label."
+
+msgid "Câu trắc nghiệm phải có đúng 4 phương án."
+msgstr "A multiple-choice question must have exactly 4 options."
+
+msgid "Các phương án không được trống hoặc trùng nhau."
+msgstr "Options must not be empty or duplicated."
+
+msgid "Đáp án đúng phải là một trong 4 phương án."
+msgstr "The correct answer must be one of the 4 options."
+
+msgid "Mỗi thẻ phải có đủ mặt trước và mặt sau."
+msgstr "Each card must have both a front and a back."
+
+msgid "Id nút '%(id)s' bị trùng."
+msgstr "Node id '%(id)s' is duplicated."
+
+msgid "Nút '%(label)s' trỏ tới nút cha không tồn tại."
+msgstr "Node '%(label)s' points to a parent that does not exist."
+
+msgid "Sơ đồ có vòng lặp tại nút '%(label)s'."
+msgstr "The mind map has a cycle at node '%(label)s'."
+
+msgid "phiên trò chuyện"
+msgstr "chat session"
+
+msgid "Phiên trò chuyện"
+msgstr "Chat sessions"
+
+msgid "tin nhắn"
+msgstr "message"
+
+msgid "Tin nhắn"
+msgstr "Messages"
+
+msgid "Tin nhắn gần nhất"
+msgstr "Last message"
+
+msgid "Phiên"
+msgstr "Session"
+
+msgid "Bị chặn"
+msgstr "Blocked"
+
+msgid "Lý do chặn"
+msgstr "Block reason"
+
+msgid "Đoạn tri thức đã dùng"
+msgstr "Knowledge chunks used"
+
+msgid "Chỉ nhận ảnh JPG, PNG hoặc WEBP."
+msgstr "Only JPG, PNG or WEBP images are accepted."
+
+msgid "Ảnh tối đa %(size)sMB."
+msgstr "Images must be at most %(size)sMB."
+
+msgid "Em hãy nhập câu hỏi hoặc gửi ảnh bài tập."
+msgstr "Please type a question or upload a photo of the exercise."
+
+msgid "Đã xóa cuộc trò chuyện"
+msgstr "Conversation deleted"

@@ -16,7 +16,7 @@ from apps.core.responses import success_response
 from apps.revision.models import Difficulty
 
 from . import services
-from .models import ArenaMatch, ArenaParticipant, MatchMode, MatchStatus
+from .models import ArenaParticipant, MatchMode, MatchStatus
 
 User = get_user_model()
 TAG = "Học sinh - Đấu trường"

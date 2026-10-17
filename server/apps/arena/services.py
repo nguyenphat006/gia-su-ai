@@ -23,7 +23,7 @@ from apps.gamification import services as gamification
 from apps.gamification.models import TriggerAction, XpAction
 from apps.knowledge.rag import retrieve_context
 from apps.revision.models import QuestionType
-from apps.revision.practice import pick_questions
+from apps.revision.practice import DEFAULT_TOPIC, pick_questions
 
 from .models import ArenaMatch, ArenaParticipant, MatchMode, MatchStatus
 
@@ -64,7 +64,7 @@ def create_match(*, mode: str, users: list, topic: str, grade=None, count: int =
         raise ValidationError({'topic': [_("Chưa có câu hỏi cho chủ đề này, em chọn chủ đề khác nhé.")]})
     with transaction.atomic():
         match = ArenaMatch.objects.create(
-            mode=mode, grade=grade, topic=topic or _("Ôn tập KHTN"), questions=[_snapshot(q) for q in questions],
+            mode=mode, grade=grade, topic=topic or DEFAULT_TOPIC, questions=[_snapshot(q) for q in questions],
             created_by=users[0], updated_by=users[0],
         )
         players = [*users, None] if mode == MatchMode.AI else users

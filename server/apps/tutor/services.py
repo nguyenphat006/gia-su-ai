@@ -6,7 +6,6 @@ import logging
 
 from django.db import transaction
 from django.utils import timezone
-from django.utils.translation import gettext as _
 
 from apps.ai.client import AiUnavailable, generate_json, generate_text
 from apps.ai_settings.services import get_bool, get_int, get_setting
@@ -21,6 +20,11 @@ from .models import ChatMessage, ChatRole, ChatSession
 logger = logging.getLogger(__name__)
 
 ATTACHMENT_ENTITY = 'CHAT_MESSAGE'
+# Prompt gửi AI / nội dung lưu CSDL -> luôn tiếng Việt, không dịch theo ngôn ngữ giao diện
+IMAGE_ONLY_QUERY = 'Giải bài tập trong ảnh'
+IMAGE_ONLY_PROMPT = 'Hãy giúp em giải bài tập trong ảnh.'
+NO_CONTEXT = '(không có tài liệu liên quan)'
+EMPTY_ANSWER = '(Gia sư chưa có câu trả lời)'
 TITLE_MAX = 60
 
 
@@ -83,12 +87,12 @@ def process_message(session: ChatSession, content: str, image_file=None) -> dict
                 'completed_challenges': []}
 
     grade = _student_grade(user)
-    context, chunk_ids = retrieve_context(content or _("Giải bài tập trong ảnh"), grade=grade)
-    system_prompt = get_setting('AI_SYSTEM_PROMPT').replace('{context}', context or _("(không có tài liệu liên quan)"))
+    context, chunk_ids = retrieve_context(content or IMAGE_ONLY_QUERY, grade=grade)
+    system_prompt = get_setting('AI_SYSTEM_PROMPT').replace('{context}', context or NO_CONTEXT)
     image = {'data': image_bytes, 'mime_type': image_file.content_type} if image_bytes else None
     try:
         answer = generate_text(
-            content or _("Hãy giúp em giải bài tập trong ảnh."), system_instruction=system_prompt,
+            content or IMAGE_ONLY_PROMPT, system_instruction=system_prompt,
             history=_history(session, user_msg.id), image=image, temperature=_temperature(),
         )
     except AiUnavailable as exc:
@@ -97,7 +101,7 @@ def process_message(session: ChatSession, content: str, image_file=None) -> dict
         _touch(session)
         raise
 
-    ai_msg = ChatMessage.objects.create(session=session, role=ChatRole.MODEL, content=answer or _("(Gia sư chưa có câu trả lời)"),
+    ai_msg = ChatMessage.objects.create(session=session, role=ChatRole.MODEL, content=answer or EMPTY_ANSWER,
                                         context_chunk_ids=chunk_ids or None)
     xp = gamification.add_xp(user, gamification.XP_CHAT, XpAction.CHAT_AI, source=('CHAT_MESSAGE', user_msg.id))
     completed = gamification.record_progress(user, TriggerAction.CHAT_AI)

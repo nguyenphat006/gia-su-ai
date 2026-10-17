@@ -26,6 +26,7 @@ from .models import FlashcardDeck, Mindmap, Origin, Question, QuestionStatus, Qu
 MAX_QUESTIONS = 20
 ESSAY_RESULT_TTL = 2 * 60 * 60
 GENERIC_TOPICS = ('', 'ôn tập khtn', 'tổng hợp')
+DEFAULT_TOPIC = 'Ôn tập KHTN'  # dữ liệu lưu CSDL -> không dịch theo ngôn ngữ giao diện
 
 
 def _visible_questions(user, grade, topic: str, question_type: str):
@@ -51,7 +52,7 @@ def pick_questions(user, *, grade, topic: str, count: int, question_type: str = 
     missing = count - len(chosen)
     if missing > 0:
         try:
-            drafts = generation.draft_questions(topic=topic or _("Ôn tập KHTN"), grade=grade, count=missing,
+            drafts = generation.draft_questions(topic=topic or DEFAULT_TOPIC, grade=grade, count=missing,
                                                 question_type=question_type, difficulties=difficulties or [])
         except AiUnavailable:
             if not chosen:
@@ -59,7 +60,7 @@ def pick_questions(user, *, grade, topic: str, count: int, question_type: str = 
             drafts = []  # AI lỗi / hết lượt nhưng ngân hàng đã có câu -> vẫn cho làm bài với số câu hiện có
         with transaction.atomic():
             chosen += [
-                Question.objects.create(grade=grade, topic=topic or _("Ôn tập KHTN"), origin=Origin.AI,
+                Question.objects.create(grade=grade, topic=topic or DEFAULT_TOPIC, origin=Origin.AI,
                                         status=QuestionStatus.APPROVED, **d)
                 for d in drafts
             ]
