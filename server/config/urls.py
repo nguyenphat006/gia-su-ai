@@ -22,6 +22,8 @@ api_v1_patterns = [
     path('', include('apps.ai_settings.urls')),
     path('', include('apps.knowledge.urls')),
     path('', include('apps.revision.urls')),
+    path('', include('apps.gamification.urls')),
+    path('', include('apps.tutor.urls')),
     # [startmodule] app mới được chèn phía trên dòng này
 ]
 

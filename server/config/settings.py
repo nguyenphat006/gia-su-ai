@@ -88,6 +88,9 @@ LOCAL_APPS = [
     'apps.ai',
     'apps.knowledge',
     'apps.revision',
+    'apps.gamification',
+    'apps.analytics',
+    'apps.tutor',
     # [startmodule] app mới được chèn phía trên dòng này
 ]
 
@@ -370,3 +373,13 @@ GEMINI_API_KEY = os.getenv('GEMINI_API_KEY', '')
 GEMINI_MODEL = os.getenv('GEMINI_MODEL', 'gemini-3.1-flash-lite-preview')
 GEMINI_EMBEDDING_MODEL = os.getenv('GEMINI_EMBEDDING_MODEL', 'gemini-embedding-001')
 GEMINI_EMBEDDING_DIMENSIONS = 768  # khớp cột KnowledgeChunks.Embedding vector(768) trong database.dbml
+
+# Lịch Celery beat (chạy `celery -A config worker -B` hoặc process beat riêng)
+from celery.schedules import crontab  # noqa: E402
+
+CELERY_BEAT_SCHEDULE = {
+    'reset-weekly-xp': {
+        'task': 'apps.gamification.tasks.reset_weekly_xp_task',
+        'schedule': crontab(minute=0, hour=0, day_of_week='mon'),
+    },
+}
