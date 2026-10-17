@@ -1,0 +1,47 @@
+{
+  "pageTitle": "Học sinh",
+  "title": "Học sinh",
+  "entity": "học sinh",
+  "searchPlaceholder": "Tìm theo mã, họ tên, tên đăng nhập, email…",
+  "fields": {
+    "studentCode": "Mã học sinh",
+    "schoolClass": "Lớp"
+  },
+  "form": {
+    "createTitle": "Thêm học sinh",
+    "editTitle": "Sửa học sinh {name}",
+    "studentCodeRequired": "Nhập mã học sinh",
+    "usernameHint": "Để trống để dùng mã học sinh (chữ thường)",
+    "gradeRequired": "Chọn khối",
+    "schoolClassPlaceholder": "Chọn lớp"
+  },
+  "import": {
+    "title": "Nhập học sinh từ Excel",
+    "description": "Cột bắt buộc: Họ và tên. Các cột khác có thể bỏ trống — mật khẩu trống sẽ được hệ thống tự sinh.",
+    "downloadTemplate": "Tải file mẫu",
+    "templateFile": "mau-nhap-hoc-sinh",
+    "dropTitle": "Kéo thả hoặc bấm để chọn file .xlsx",
+    "dropHint": "Chỉ nhận file Excel (.xlsx, .xls)",
+    "defaultGrade": "Khối mặc định",
+    "defaultGradeHint": "Dùng khi dòng không ghi khối",
+    "defaultClass": "Lớp mặc định",
+    "defaultClassHint": "Dùng khi dòng không ghi mã lớp",
+    "selectPlaceholder": "Không chọn",
+    "submit": "Nhập dữ liệu",
+    "fileRequired": "Chọn file Excel cần nhập",
+    "imported": "Đã nhập {count} học sinh",
+    "errorsTitle": "{count} dòng lỗi bị bỏ qua",
+    "credentialsTitle": "Thông tin đăng nhập ban đầu",
+    "credentialsWarning": "Danh sách mật khẩu chỉ hiện một lần. Hãy tải về và phát cho học sinh trước khi đóng.",
+    "passwordSetInFile": "Tự đặt trong file",
+    "downloadCredentials": "Tải danh sách mật khẩu (.xlsx)",
+    "credentialsFile": "mat-khau-hoc-sinh",
+    "importAnother": "Nhập file khác",
+    "columns": {
+      "fullName": "Họ và tên",
+      "studentCode": "Mã học sinh",
+      "username": "Tên đăng nhập",
+      "initialPassword": "Mật khẩu ban đầu"
+    }
+  }
+}

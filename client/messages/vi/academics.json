@@ -1,0 +1,28 @@
+{
+  "grade": "Khối {grade}",
+  "gradeLabel": "Khối",
+  "academicYear": "Năm học",
+  "fields": {
+    "username": "Tên đăng nhập",
+    "fullName": "Họ và tên",
+    "email": "Email",
+    "password": "Mật khẩu",
+    "lastLogin": "Đăng nhập gần nhất"
+  },
+  "neverLoggedIn": "Chưa đăng nhập",
+  "mustChangePassword": "Chưa đổi mật khẩu",
+  "passwordCreateHint": "Để trống để hệ thống tự sinh mật khẩu",
+  "passwordKeepHint": "Để trống nếu không đổi",
+  "fullNameRequired": "Nhập họ và tên",
+  "credentials": {
+    "title": "Thông tin đăng nhập ban đầu",
+    "description": "Tài khoản {username} đã được tạo",
+    "warning": "Mật khẩu chỉ hiện một lần. Hãy sao chép và gửi cho người dùng trước khi đóng.",
+    "username": "Tên đăng nhập",
+    "password": "Mật khẩu ban đầu",
+    "copyAll": "Sao chép tất cả",
+    "copied": "Đã sao chép",
+    "copyFailed": "Không sao chép được, hãy chép thủ công"
+  },
+  "usernameFormat": "Chỉ gồm chữ, số và @ . + - _"
+}

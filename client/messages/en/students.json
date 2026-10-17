@@ -1,0 +1,47 @@
+{
+  "pageTitle": "Students",
+  "title": "Students",
+  "entity": "student",
+  "searchPlaceholder": "Search by code, name, username, email…",
+  "fields": {
+    "studentCode": "Student code",
+    "schoolClass": "Class"
+  },
+  "form": {
+    "createTitle": "Add student",
+    "editTitle": "Edit student {name}",
+    "studentCodeRequired": "Enter the student code",
+    "usernameHint": "Leave blank to use the student code (lowercase)",
+    "gradeRequired": "Select a grade",
+    "schoolClassPlaceholder": "Select a class"
+  },
+  "import": {
+    "title": "Import students from Excel",
+    "description": "Required column: Full name. Other columns may be blank — blank passwords are generated automatically.",
+    "downloadTemplate": "Download template",
+    "templateFile": "student-import-template",
+    "dropTitle": "Drag and drop or click to choose an .xlsx file",
+    "dropHint": "Excel files only (.xlsx, .xls)",
+    "defaultGrade": "Default grade",
+    "defaultGradeHint": "Used when a row has no grade",
+    "defaultClass": "Default class",
+    "defaultClassHint": "Used when a row has no class code",
+    "selectPlaceholder": "None",
+    "submit": "Import",
+    "fileRequired": "Choose an Excel file to import",
+    "imported": "Imported {count, plural, one {# student} other {# students}}",
+    "errorsTitle": "{count, plural, one {# row} other {# rows}} skipped due to errors",
+    "credentialsTitle": "Initial sign-in details",
+    "credentialsWarning": "The password list is shown only once. Download it and hand it to the students before closing.",
+    "passwordSetInFile": "Set in file",
+    "downloadCredentials": "Download password list (.xlsx)",
+    "credentialsFile": "student-passwords",
+    "importAnother": "Import another file",
+    "columns": {
+      "fullName": "Full name",
+      "studentCode": "Student code",
+      "username": "Username",
+      "initialPassword": "Initial password"
+    }
+  }
+}

@@ -21,6 +21,7 @@ import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
 import { authService } from "@/modules/auth/services/auth.service";
 import { useAuthStore } from "@/stores/useAuthStore";
 import ChangePasswordModal from "@/components/auth/ChangePasswordModal";
+import ForcePasswordChangeDialog from "@/components/auth/ForcePasswordChangeDialog";
 import { RouteGuard } from "@/components/auth/RouteGuard";
 import { useNavigation } from "@/hooks/useNavigation";
 import { FloatingTaskWidget, NumberFormatModal } from "@/components/common";
@@ -259,6 +260,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
       </div>
 
       <ChangePasswordModal open={passwordModalOpen} onCancel={() => setPasswordModalOpen(false)} />
+      <ForcePasswordChangeDialog onLogout={handleLogout} />
       <NumberFormatModal open={numberFormatModalOpen} onCancel={() => setNumberFormatModalOpen(false)} />
       <CommandPalette open={paletteOpen} onClose={() => setPaletteOpen(false)} routes={paletteRoutes} actions={paletteActions} onNavigate={(url) => router.push(url)} userId={user?.id} />
       {/* Widget theo dõi tác vụ xuất dữ liệu ngầm toàn cục */}

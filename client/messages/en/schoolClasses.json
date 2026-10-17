@@ -1,0 +1,22 @@
+{
+  "pageTitle": "Classes",
+  "title": "Classes",
+  "entity": "class",
+  "searchPlaceholder": "Search by class code, name, academic year…",
+  "fields": {
+    "code": "Class code",
+    "name": "Class name",
+    "homeroomTeacher": "Homeroom teacher",
+    "studentCount": "Students"
+  },
+  "form": {
+    "createTitle": "Add class",
+    "editTitle": "Edit class {code}",
+    "codeFormat": "Uppercase letters, digits, underscores and hyphens only",
+    "namePlaceholder": "6A1",
+    "gradeRequired": "Select a grade",
+    "academicYearPlaceholder": "2026-2027",
+    "academicYearFormat": "Use the format 2026-2027",
+    "homeroomTeacherPlaceholder": "Select a homeroom teacher"
+  }
+}

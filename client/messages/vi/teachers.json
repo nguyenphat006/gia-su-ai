@@ -1,0 +1,15 @@
+{
+  "pageTitle": "Giáo viên",
+  "title": "Giáo viên",
+  "entity": "giáo viên",
+  "searchPlaceholder": "Tìm theo mã, họ tên, tên đăng nhập, bộ môn…",
+  "fields": {
+    "employeeCode": "Mã giáo viên",
+    "subject": "Bộ môn"
+  },
+  "form": {
+    "createTitle": "Thêm giáo viên",
+    "editTitle": "Sửa giáo viên {name}",
+    "subjectPlaceholder": "Khoa học tự nhiên"
+  }
+}

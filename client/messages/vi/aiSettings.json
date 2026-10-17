@@ -1,0 +1,30 @@
+{
+  "pageTitle": "Cấu hình AI",
+  "title": "Cấu hình AI",
+  "entity": "cấu hình AI",
+  "searchPlaceholder": "Tìm theo khóa, tên, giá trị, mô tả…",
+  "fields": {
+    "key": "Khóa",
+    "label": "Tên hiển thị",
+    "value": "Giá trị",
+    "valueType": "Kiểu giá trị",
+    "description": "Mô tả / ghi chú kỹ thuật"
+  },
+  "valueTypes": {
+    "TEXT": "Văn bản",
+    "PROMPT": "Prompt",
+    "NUMBER": "Số",
+    "BOOLEAN": "Bật / tắt"
+  },
+  "form": {
+    "createTitle": "Thêm cấu hình AI",
+    "editTitle": "Sửa cấu hình AI {code}",
+    "keyFormat": "Chỉ gồm chữ IN HOA, số và gạch dưới",
+    "systemKeyHint": "Khóa hệ thống đang được dùng trong code — không đổi được",
+    "valueRequired": "Nhập giá trị",
+    "numberInvalid": "Nhập một số hợp lệ",
+    "booleanOn": "Bật",
+    "booleanOff": "Tắt"
+  },
+  "systemProtected": "Khóa hệ thống — không xóa được"
+}

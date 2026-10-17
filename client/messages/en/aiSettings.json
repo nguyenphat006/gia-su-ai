@@ -1,0 +1,30 @@
+{
+  "pageTitle": "AI settings",
+  "title": "AI settings",
+  "entity": "AI setting",
+  "searchPlaceholder": "Search by key, label, value, description…",
+  "fields": {
+    "key": "Key",
+    "label": "Label",
+    "value": "Value",
+    "valueType": "Value type",
+    "description": "Description / technical notes"
+  },
+  "valueTypes": {
+    "TEXT": "Text",
+    "PROMPT": "Prompt",
+    "NUMBER": "Number",
+    "BOOLEAN": "On / off"
+  },
+  "form": {
+    "createTitle": "Add AI setting",
+    "editTitle": "Edit AI setting {code}",
+    "keyFormat": "Uppercase letters, digits and underscores only",
+    "systemKeyHint": "System key used by the code — cannot be changed",
+    "valueRequired": "Enter a value",
+    "numberInvalid": "Enter a valid number",
+    "booleanOn": "On",
+    "booleanOff": "Off"
+  },
+  "systemProtected": "System key — cannot be deleted"
+}

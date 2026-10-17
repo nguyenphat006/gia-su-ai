@@ -13,12 +13,14 @@ import {
   FlaskConical,
   GitBranch,
   History,
+  IdCard,
   Inbox,
   LayoutDashboard,
   LayoutGrid,
   Network,
   Palette,
   Plug,
+  School,
   Settings,
   Shirt,
   ShieldCheck,
@@ -64,6 +66,8 @@ export const ICON_MAP: Record<string, LucideIcon> = {
   CheckCircleOutlined: CircleCheck,
   ActivityOutlined: Activity,
   BlocksOutlined: Blocks,
+  ApartmentOutlined: School,
+  IdcardOutlined: IdCard,
 };
 
 /** Danh sách icon gợi ý để chọn trong form cấu hình Module */

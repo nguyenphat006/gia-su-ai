@@ -9,6 +9,8 @@ export interface UserProfile {
   permissions: string[];
   avatar?: string | null;
   department?: string;
+  /** Tài khoản dùng mật khẩu được cấp (tạo bởi quản trị / nhập Excel) -> bắt buộc đổi trước khi dùng */
+  must_change_password?: boolean;
 }
 
 export interface AuthTokens {

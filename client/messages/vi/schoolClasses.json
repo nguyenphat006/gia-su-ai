@@ -1,0 +1,22 @@
+{
+  "pageTitle": "Lớp học",
+  "title": "Lớp học",
+  "entity": "lớp học",
+  "searchPlaceholder": "Tìm theo mã lớp, tên lớp, năm học…",
+  "fields": {
+    "code": "Mã lớp",
+    "name": "Tên lớp",
+    "homeroomTeacher": "Giáo viên chủ nhiệm",
+    "studentCount": "Sĩ số"
+  },
+  "form": {
+    "createTitle": "Thêm lớp học",
+    "editTitle": "Sửa lớp học {code}",
+    "codeFormat": "Chỉ gồm chữ IN HOA, số, gạch dưới, gạch ngang",
+    "namePlaceholder": "6A1",
+    "gradeRequired": "Chọn khối",
+    "academicYearPlaceholder": "2026-2027",
+    "academicYearFormat": "Nhập theo dạng 2026-2027",
+    "homeroomTeacherPlaceholder": "Chọn giáo viên chủ nhiệm"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "grade": "Grade {grade}",
+  "gradeLabel": "Grade",
+  "academicYear": "Academic year",
+  "fields": {
+    "username": "Username",
+    "fullName": "Full name",
+    "email": "Email",
+    "password": "Password",
+    "lastLogin": "Last login"
+  },
+  "neverLoggedIn": "Never logged in",
+  "mustChangePassword": "Password not changed",
+  "passwordCreateHint": "Leave blank to generate a password automatically",
+  "passwordKeepHint": "Leave blank to keep the current password",
+  "fullNameRequired": "Enter the full name",
+  "credentials": {
+    "title": "Initial sign-in details",
+    "description": "Account {username} has been created",
+    "warning": "The password is shown only once. Copy it and give it to the user before closing.",
+    "username": "Username",
+    "password": "Initial password",
+    "copyAll": "Copy all",
+    "copied": "Copied",
+    "copyFailed": "Could not copy, please copy it manually"
+  },
+  "usernameFormat": "Letters, digits and @ . + - _ only"
+}

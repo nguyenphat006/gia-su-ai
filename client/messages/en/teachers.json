@@ -1,0 +1,15 @@
+{
+  "pageTitle": "Teachers",
+  "title": "Teachers",
+  "entity": "teacher",
+  "searchPlaceholder": "Search by code, name, username, subject…",
+  "fields": {
+    "employeeCode": "Teacher code",
+    "subject": "Subject"
+  },
+  "form": {
+    "createTitle": "Add teacher",
+    "editTitle": "Edit teacher {name}",
+    "subjectPlaceholder": "Natural science"
+  }
+}

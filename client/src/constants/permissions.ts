@@ -40,6 +40,42 @@ export const PERMISSIONS = {
     /** Quyền xóa phân hệ và gỡ action */
     DELETE: "SETTINGS_DELETE",
   },
+  CLASS: {
+    VIEW: "CLASS_VIEW",
+    READ: "CLASS_READ",
+    CREATE: "CLASS_CREATE",
+    UPDATE: "CLASS_UPDATE",
+    DELETE: "CLASS_DELETE",
+    EXPORT: "CLASS_EXPORT",
+    IMPORT: "CLASS_IMPORT",
+  },
+  STUDENT: {
+    VIEW: "STUDENT_VIEW",
+    READ: "STUDENT_READ",
+    CREATE: "STUDENT_CREATE",
+    UPDATE: "STUDENT_UPDATE",
+    DELETE: "STUDENT_DELETE",
+    EXPORT: "STUDENT_EXPORT",
+    IMPORT: "STUDENT_IMPORT",
+  },
+  TEACHER: {
+    VIEW: "TEACHER_VIEW",
+    READ: "TEACHER_READ",
+    CREATE: "TEACHER_CREATE",
+    UPDATE: "TEACHER_UPDATE",
+    DELETE: "TEACHER_DELETE",
+    EXPORT: "TEACHER_EXPORT",
+    IMPORT: "TEACHER_IMPORT",
+  },
+  AI_SETTING: {
+    VIEW: "AI_SETTING_VIEW",
+    READ: "AI_SETTING_READ",
+    CREATE: "AI_SETTING_CREATE",
+    UPDATE: "AI_SETTING_UPDATE",
+    DELETE: "AI_SETTING_DELETE",
+    EXPORT: "AI_SETTING_EXPORT",
+    IMPORT: "AI_SETTING_IMPORT",
+  },
   // [gen:module] Module sinh bởi `npm run gen:module` được chèn phía trên dòng này
 } as const;
 
