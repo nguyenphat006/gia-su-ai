@@ -1,176 +1,123 @@
-# Admin Template — Django + Next.js
+# Gia Sư AI KHTN — Django + Next.js
 
-Template quản trị (admin) full-stack dùng làm nền cho mọi dự án quản lý: **Django 5.2 LTS + DRF + PostgreSQL** ở backend, **Next.js 16 + Tailwind CSS v4 + shadcn/ui** ở frontend. Có sẵn đăng nhập, phân quyền RBAC động, quản lý người dùng, nhật ký thao tác, tệp đính kèm, xuất/nhập Excel, đa ngôn ngữ vi/en, giao diện sáng/tối, tìm kiếm toàn cục và công cụ sinh phân hệ CRUD — clone về là viết tính năng riêng.
+Nền tảng học **Khoa học Tự nhiên THCS (khối 6–9)** với trợ lý AI (Google Gemini): học sinh hỏi gia sư AI bám sát tài liệu
+giáo viên (RAG pgvector), ôn tập bằng quiz / flashcard / sơ đồ tư duy, thi đấu đấu trường realtime và tích lũy XP;
+giáo viên quản lý học sinh, ngân hàng câu hỏi, tài liệu tri thức, cấu hình AI và xem báo cáo học tập.
+
+Dựng trên template quản trị Django + Next.js của **ERICSS** (thay cho bản cũ `gia-su-ai-khtn` Express + React — kế hoạch
+chuyển đổi: [`docs/plan/migration-from-khtn.md`](docs/plan/migration-from-khtn.md)).
 
 **Tác giả:** ERICSS — GitHub [@nguyenphat006](https://github.com/nguyenphat006)
 
 | Tài liệu | Nội dung |
 |---|---|
-| [`docs/TEMPLATE.md`](docs/TEMPLATE.md) | Clone, đổi thương hiệu, sinh module, bỏ module mẫu, deploy |
-| [`docs/GLOBAL_SEARCH.md`](docs/GLOBAL_SEARCH.md) | Tìm kiếm toàn cục (Ctrl K): luồng, RBAC, thêm nguồn tìm |
-| [`server/README.md`](server/README.md) | Backend: cấu trúc, cấu hình, API, phân quyền, test |
-| [`client/README.md`](client/README.md) | Frontend: cấu trúc, lớp API, theme, quy ước component |
-| [`CLAUDE.md`](CLAUDE.md) · [`AGENTS.md`](AGENTS.md) | Quy chuẩn cho AI agent (Claude Code / agent khác) |
+| [`docs/DEPLOY.md`](docs/DEPLOY.md) | Deploy Render (API) + Vercel (web) + Neon, import dữ liệu bản cũ |
+| [`docs/plan/migration-from-khtn.md`](docs/plan/migration-from-khtn.md) | Ánh xạ tính năng bản cũ → bản mới, lỗi bản cũ đã sửa |
+| [`server/database.dbml`](server/database.dbml) | Thiết kế CSDL (nguồn chuẩn duy nhất) |
+| [`docs/TEMPLATE.md`](docs/TEMPLATE.md) | Tính năng lõi của template, sinh module CRUD |
+| [`CLAUDE.md`](CLAUDE.md) · [`AGENTS.md`](AGENTS.md) | Quy chuẩn cho AI agent |
 
 ---
 
-## 1. Phân hệ có sẵn
+## 1. Tính năng
 
-### 1.1 Lõi hệ thống (giữ lại ở mọi dự án)
+### 1.1 Học sinh — `/learn`
+| Phần | Nội dung |
+|---|---|
+| Gia sư AI | Chat theo phiên, gửi ảnh bài tập, nhập giọng nói; trả lời bám tài liệu giáo viên (RAG), hiển thị công thức LaTeX; bộ lọc nội dung (vi phạm bị chặn + trừ XP) |
+| Ôn tập | Quiz trắc nghiệm / tự luận (AI chấm), đề lấy từ ngân hàng, thiếu thì AI sinh bù; flashcard + kiểm tra flashcard; sơ đồ tư duy |
+| Đấu trường | Đấu với AI hoặc PvP realtime (thách đấu bạn đang online / ghép trận ngẫu nhiên), nhận xét AI sau trận, bảng vàng |
+| Thành tích | XP, chuỗi ngày học, thử thách ngày / tuần, danh hiệu, bảng xếp hạng tuần / tháng / tổng |
 
+### 1.2 Giáo viên / quản trị
 | Phân hệ | Route | Nội dung |
 |---|---|---|
-| Tổng quan | `/` | Dashboard KPI theo quyền, trạng thái hệ thống thật (DB, Redis, Celery) |
-| Người dùng | `/users`, `/users/[id]` | CRUD, khóa/mở hàng loạt, nhập/xuất Excel, gán vai trò, trang hồ sơ chi tiết |
-| Phân hệ & phân quyền | `/settings/modules` | ModuleRegistry (menu động), vai trò, ma trận quyền |
-| Cấu hình hệ thống | Cài đặt | Tên ứng dụng, logo, đơn vị sở hữu, múi giờ, định dạng ngày/số (bảng `SystemSettings`) |
-| Nhật ký thao tác | `/audit-logs` | Lịch sử thay đổi tự động bằng `django-pghistory` (trigger PostgreSQL) |
-| Hồ sơ cá nhân | `/profile` | Thông tin cá nhân, đổi mật khẩu |
-| Dùng chung | — | Tệp đính kèm đa hình + xem trước PDF/Word/Excel/ảnh, xuất Excel chạy nền (Celery) có theo dõi tiến độ, thông báo (chuông), tìm kiếm toàn cục |
+| Tổng quan | `/` | KPI học sinh hoạt động, câu hỏi gia sư, trận đấu |
+| Báo cáo học tập | `/reports` | Tổng quan theo khoảng thời gian / khối / lớp, heatmap giờ học, thống kê và trang chi tiết từng học sinh, nhật ký hỏi đáp AI, lịch sử đấu trường & ôn tập |
+| Học vụ | `/academics/{classes,students,teachers}` | Lớp học, học sinh (nhập Excel, mật khẩu ban đầu sinh ngẫu nhiên), giáo viên |
+| Ôn tập | `/revision/{questions,flashcards,mindmaps}` | Ngân hàng câu hỏi, flashcard, sơ đồ tư duy; AI soạn nháp |
+| Tri thức RAG | `/knowledge` | Tải tài liệu PDF / DOCX / TXT → cắt đoạn → nhúng vector → sinh câu hỏi chờ duyệt |
+| Cấu hình AI | `/ai-settings` | Prompt gia sư, model, nhiệt độ, bộ lọc nội dung, số đoạn RAG |
+| Lõi template | `/users`, `/settings/modules`, `/audit-logs`, `/profile` | Người dùng, vai trò & ma trận quyền, nhật ký thay đổi dữ liệu |
 
-### 1.2 Phân hệ mẫu (danh mục — tham khảo cách viết, xóa được)
+Vai trò: `ADMIN` (toàn quyền), `TEACHER` (quản lý học vụ / nội dung, xem báo cáo, dùng thử giao diện học sinh), `STUDENT` (chỉ `/learn`).
 
-| Phân hệ | Route | App backend | Điểm đáng tham khảo |
-|---|---|---|---|
-| Đơn vị tính | `/master-data/units` | `master_data` | CRUD chuẩn nhỏ nhất — mẫu để sao chép |
-| Nhóm nguyên vật liệu | `/master-data/material-categories` | `master_data` | Danh mục phân cấp |
-| Nguyên vật liệu | `/master-data/materials`, `/[id]` | `master_data` | Sinh mã tự động, bảng 1-1 (quy cách kim loại), trang chi tiết `DetailPage` |
-| Khách hàng | `/master-data/customers` | `customers` | Chọn quốc gia ISO có cờ, tải logo, lọc nhiều giá trị |
-| Nhà cung cấp | `/master-data/suppliers` | `suppliers` | Sinh hoàn toàn bằng `startmodule` + `gen:module` |
-
-`server/database.dbml` còn giữ thiết kế nghiệp vụ sản xuất (sản phẩm, biến thể, BOM...) của dự án gốc làm ví dụ thiết kế CSDL — **chưa có code**, xóa hoặc thay bằng thiết kế của dự án mới.
-
-## 2. Tính năng nền tảng
-
-| Nhóm | Tính năng |
-|---|---|
-| **Tài khoản** | Đăng nhập JWT (access + refresh, tự làm mới), đăng xuất (blacklist token) |
-| **Phân quyền RBAC** | Phân hệ → quyền (`<MODULE>_VIEW/READ/CREATE/UPDATE/DELETE/EXPORT/IMPORT`) → vai trò; menu sidebar, nút thao tác, kết quả tìm kiếm tự lọc theo quyền |
-| **Danh sách** | `ListPage`: tìm kiếm / lọc theo cột / sắp xếp / phân trang trên URL, ẩn hiện cột, thao tác hàng loạt, xuất Excel |
-| **Chi tiết & form** | `DetailPage` (hero + tab + đính kèm + nhật ký), `FormDialog` (react-hook-form, gắn lỗi backend vào ô nhập) |
-| **Đa ngôn ngữ** | vi / en ở cả frontend (next-intl) và backend (gettext); CI chặn khóa thiếu |
-| **Giao diện** | Sáng / tối / theo hệ thống, sidebar thu gọn + ngăn kéo trên điện thoại, trang 404 / lỗi / loading |
-| **Nền tảng API** | Response thống nhất `{success, message, data, errors, code}`, `BaseERPViewSet` (CRUD + batch + export), factory service/hook, kiểu TypeScript sinh từ OpenAPI |
-| **Công cụ** | `startmodule` + `gen:module` sinh phân hệ CRUD hoàn chỉnh; `bootstrap` khởi tạo hệ thống |
-| **Chất lượng** | Test Django, Vitest, Playwright; CI GitHub Actions; Dependabot (2 PR mỗi đầu tháng: frontend + backend) |
-| **Vận hành** | Docker production (nginx + gunicorn + Next standalone), health check |
-
-## 3. Công nghệ
+## 2. Công nghệ
 
 | Tầng | Công nghệ |
 |---|---|
-| Frontend | Next.js 16 (App Router, Turbopack) · React 19 · TypeScript · Tailwind CSS 4 · shadcn/ui (Radix) · react-hook-form · TanStack Query 5 · Zustand 5 · next-intl · Axios · SheetJS · recharts |
-| Backend | Python 3.12 · Django 5.2 LTS · DRF · SimpleJWT · drf-spectacular · django-filter · django-pghistory · Celery · openpyxl · Pillow |
-| Dữ liệu | PostgreSQL 16 (Docker hoặc Neon — không hỗ trợ SQLite) · Redis 7 (cache quyền + hàng đợi Celery) |
-| Vận hành | Docker Compose · nginx · gunicorn · whitenoise · GitHub Actions · Dependabot · Playwright |
+| Frontend | Next.js 16 · React 19 · TypeScript · Tailwind CSS 4 · shadcn/ui · TanStack Query 5 · Zustand · next-intl · recharts · react-markdown + KaTeX |
+| Backend | Python 3.12 · Django 5.2 LTS · DRF · SimpleJWT · Django Channels (WebSocket) · drf-spectacular · django-pghistory · Celery · google-genai |
+| Dữ liệu | PostgreSQL 16 + pgvector (Neon hoặc Docker) · Redis (cache quyền, hàng đợi Celery, channel layer) |
+| AI | Gemini (trả lời, sinh câu hỏi / flashcard / sơ đồ, chấm tự luận, bộ lọc nội dung), `gemini-embedding-001` 768 chiều |
+| Vận hành | Render (API) + Vercel (web) hoặc Docker Compose (nginx + gunicorn/uvicorn + Next standalone) · GitHub Actions |
 
-## 4. Kiến trúc
+## 3. Kiến trúc
 
 ```mermaid
 flowchart LR
-    Browser["Trình duyệt"] -->|"/"| Web["Next.js<br/>(client/)"]
-    Browser -->|"/api/v1"| API["Django REST<br/>(server/)"]
-    Web -.->|"axiosClient<br/>JWT"| API
-    API --> PG[("PostgreSQL")]
-    API --> Redis[("Redis<br/>cache")]
-    API -->|"tác vụ nền"| Worker["Celery worker"]
-    Worker --> Redis
+    Browser["Trình duyệt"] -->|"https"| Web["Next.js<br/>(client/)"]
+    Browser -->|"REST /api/v1"| API["Django ASGI<br/>(server/)"]
+    Browser -->|"wss /ws/arena/"| API
+    API --> PG[("PostgreSQL<br/>+ pgvector")]
+    API --> Redis[("Redis")]
+    API -->|"tác vụ nền"| Worker["Celery worker + beat"]
+    API --> Gemini["Google Gemini"]
+    Worker --> Gemini
     Worker --> PG
 ```
 
-- **Hợp đồng API**: backend sinh `server/schema.yml` (OpenAPI) → frontend sinh kiểu `client/src/types/api.generated.ts` (`npm run gen:api`).
-- **Production**: nginx là cổng vào duy nhất (`/api`, `/admin`, `/static` → Django; `/media` → file upload; còn lại → Next.js).
+- Hợp đồng API: `server/schema.yml` (OpenAPI) → `client/src/types/api.generated.ts` (`npm run gen:api`).
+- Server giữ đáp án và chấm điểm (ôn tập, đấu trường); đề gửi học sinh không kèm đáp án.
 
-## 5. Cấu trúc thư mục
+## 4. Cấu trúc thư mục
 
 ```text
-template-Django-Nextjs/
-├── server/                     # Backend Django — xem server/README.md
-│   ├── apps/
-│   │   ├── core/               #   Lõi: AuditModel, BaseERPViewSet, response, quyền, đính kèm, job nền, tìm kiếm, startmodule
-│   │   ├── authentication/     #   Người dùng, vai trò, quyền, phân hệ/menu, JWT, seed_core/bootstrap
-│   │   ├── audit/              #   API nhật ký thao tác
-│   │   ├── dashboard/          #   API trang Tổng quan
-│   │   ├── master_data/        #   Module MẪU: Đơn vị tính, Nhóm NVL, Nguyên vật liệu
-│   │   ├── customers/          #   Module MẪU: Khách hàng
-│   │   └── suppliers/          #   Module MẪU: Nhà cung cấp
-│   ├── config/                 #   settings, urls, celery
-│   ├── database.dbml           #   Thiết kế CSDL — nguồn chuẩn duy nhất
-│   └── schema.yml              #   OpenAPI sinh tự động
-├── client/                     # Frontend Next.js — xem client/README.md
-│   ├── src/                    #   app/ (route), modules/ (tính năng), components/, lib/api/, stores/...
-│   ├── messages/               #   Chữ hiển thị vi / en
-│   ├── scripts/                #   gen-module.mjs + khuôn module
-│   └── e2e/                    #   Smoke test Playwright
-├── deploy/nginx.conf           # Cổng vào production
-├── docker-compose.yml          # Dev: api, db, redis, celery_worker
-├── docker-compose.prod.yml     # Production
-├── .github/                    # CI + Dependabot
-├── .claude/ · .agents/         # Rules & skills cho AI agent
-└── docs/                       # Hướng dẫn template, thiết kế RBAC, tìm kiếm
+server/apps/
+  core/ authentication/ audit/ dashboard/   # lõi template
+  academics/      # lớp, học sinh, giáo viên, đăng nhập bằng mã HS, import_legacy
+  ai/             # client Gemini, prompt, parse JSON giữ LaTeX
+  ai_settings/    # cấu hình AI
+  knowledge/      # tài liệu nguồn, đoạn tri thức, RAG pgvector, nạp tài liệu (Celery)
+  revision/       # câu hỏi, flashcard, sơ đồ; API ôn tập học sinh
+  tutor/          # chat gia sư AI
+  arena/          # đấu trường: REST đấu AI + WebSocket PvP (consumers.py)
+  gamification/   # XP, chuỗi ngày, thử thách, danh hiệu, bảng xếp hạng
+  analytics/      # LearningEvents + báo cáo giáo viên
+client/src/
+  app/(dashboard)/...   # quản trị       app/(student)/learn/...   # học sinh
+  modules/...           # logic từng màn hình
 ```
 
-## 6. Chạy nhanh (dev)
+## 5. Chạy dev
 
-Yêu cầu: Docker Desktop, Python 3.12, Node.js 22+ (npm ≥ 10).
+Yêu cầu: Docker Desktop, Python 3.12, Node.js 22+.
 
 ```bash
-# 1. Biến môi trường
-cp server/.env.example server/.env
+cp server/.env.example server/.env          # điền GEMINI_API_KEY, ADMIN_PASSWORD
 cp client/.env.example client/.env.local
+docker compose up -d db redis               # Postgres (pgvector) + Redis; đổi cổng bằng DB_HOST_PORT / REDIS_HOST_PORT trong .env gốc
 
-# 2. Backend (Postgres + Redis + Django + Celery trong Docker)
-docker compose up -d
-docker compose exec api python manage.py bootstrap --demo   # migrate + dữ liệu lõi + dữ liệu mẫu + tài khoản admin
+cd server && python -m venv venv && source venv/Scripts/activate && pip install -r requirements.txt
+python manage.py bootstrap                  # migrate + vai trò / quyền / cấu hình AI / thử thách + tài khoản admin
+python manage.py runserver                  # HTTP + WebSocket (daphne)
+celery -A config worker -B --loglevel=info  # nạp tài liệu, nhúng vector, reset XP tuần
 
-# 3. Frontend
-cd client && npm install && npm run dev
+cd ../client && npm install && npm run dev  # http://localhost:3000
 ```
 
-| Địa chỉ | Mô tả |
-|---|---|
-| http://localhost:3000 | Giao diện quản trị |
-| http://localhost:8000/api/schema/swagger-ui/ | Tài liệu API (Swagger) |
-| http://localhost:8000/api/v1/health/ | Trạng thái hệ thống |
+Dữ liệu bản cũ: `python manage.py import_legacy --from-json <dump.json>` hoặc `--source-url <postgres cũ>` (xem `docs/DEPLOY.md`).
 
-Tài khoản mặc định: `admin` / mật khẩu trong `ADMIN_PASSWORD` (dev bỏ trống → `Admin@123456`).
-
-> **Windows đã cài sẵn PostgreSQL** (chiếm cổng 5432) sẽ báo `password authentication failed`: dừng service đó hoặc đổi cổng map của `db` (vd `55432:5432`) rồi sửa `DATABASE_URL`.
-
-## 7. Lệnh thường dùng
+## 6. Lệnh thường dùng
 
 | Việc | Lệnh |
 |---|---|
-| Khởi tạo hệ thống | `python manage.py bootstrap [--demo]` |
-| Cập nhật quyền sau khi thêm module | `python manage.py seed_core` |
-| Sinh phân hệ CRUD | `python manage.py startmodule <app> <Model> --label "..." --route nhom/duong-dan` → `npm run gen:api` → `npm run gen:module -- --entity <Model> --label "..." --route nhom/duong-dan` |
-| Test backend | `docker compose exec -e TEST_DATABASE_URL=postgres://postgres:postgres@db:5432/app_db api python manage.py test` |
-| Kiểm tra frontend | `npx tsc --noEmit` → `npm run lint -- --max-warnings=0` → `npm test` → `npm run build` |
-| Smoke test giao diện | `E2E_BASE_URL=http://localhost:3000 E2E_PASSWORD=... npm run test:e2e` |
-| Production | `docker compose -f docker-compose.prod.yml --env-file .env.prod up -d --build` |
+| Test backend | `python manage.py test` |
+| Sinh lại hợp đồng API | `python manage.py spectacular --file schema.yml --fail-on-warn` → `cd client && npm run gen:api` |
+| Kiểm tra frontend | `npx tsc --noEmit` → `npm run lint -- --max-warnings=0` → `npm test` → `npm run i18n:check` → `npm run build` |
+| Nhúng vector đoạn tri thức còn thiếu | `python manage.py shell -c "from apps.knowledge.tasks import embed_pending_chunks; embed_pending_chunks()"` |
 
-## 8. Quy chuẩn chung của template
-
-Bộ rules đặt ở **`.claude/rules/`** (Claude Code, nạp theo đường dẫn) và **`.agents/rules/`** (agent khác, mục lục ở `AGENTS.md`) — hai bộ luôn cập nhật song song.
-
-| Rule | Nội dung chính |
-|---|---|
-| `workflow.md` | Phê duyệt trước khi code, quy trình đổi schema, cập nhật rules |
-| `backend-django.md` | App theo domain, `AuditModel` (soft delete + audit), `BaseERPViewSet`, chống N+1, transaction, bẫy đã gặp |
-| `security-rbac.md` | Quyền module fail-closed, tài khoản admin, tệp đính kèm |
-| `frontend-architecture.md` | Module theo tính năng, TanStack Query, factory service/hook, bẫy đã gặp |
-| `frontend-forms.md` · `frontend-tables.md` · `frontend-detail-views.md` | `FormDialog`, `ListPage`, `DetailPage` |
-| `frontend-ux.md` | UI gọn, thang khoảng cách 4/8, chỉ tải dữ liệu đang hiển thị |
-| `frontend-i18n.md` | Không viết cứng chữ; vi là nguồn chuẩn, en phải khớp khóa |
-| `testing.md` | Chọn công cụ test: Django TestCase · Vitest · Playwright |
-
-Nguyên tắc cốt lõi:
-1. **DBML trước, code sau** — mọi bảng/cột mới được chốt trong `server/database.dbml`.
-2. **Health check trước khi báo xong** — backend: `makemigrations` → `migrate` → `check`; frontend: `tsc` → `lint --max-warnings=0` → `build`.
-3. **Không tự thêm tính năng ngoài yêu cầu.**
-4. **Conventional Commits** (`feat(scope): ...`, `fix(...)`, `docs(...)`).
-
-## 9. Tác giả
+## 7. Tác giả
 
 **ERICSS** — GitHub [@nguyenphat006](https://github.com/nguyenphat006)
 
