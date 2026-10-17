@@ -4759,6 +4759,10 @@ paths:
         schema:
           type: integer
       - in: query
+        name: q
+        schema:
+          type: string
+      - in: query
         name: school_class
         schema:
           type: integer
@@ -4768,6 +4772,14 @@ paths:
         description: A search term.
         schema:
           type: string
+      - in: query
+        name: status
+        schema:
+          type: string
+          enum:
+          - ABANDONED
+          - FINISHED
+          - IN_PROGRESS
       - in: query
         name: user
         schema:
@@ -5017,6 +5029,10 @@ paths:
         description: Number of results to return per page.
         schema:
           type: integer
+      - in: query
+        name: q
+        schema:
+          type: string
       - in: query
         name: quiz_type
         schema:
@@ -5270,81 +5286,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/PaginatedLearningEventList'
           description: ''
-  /api/v1/reports/students/batch-delete/:
-    post:
-      operationId: reports_students_batch_delete_create
-      description: 'Xóa mềm hàng loạt. Body: {"ids": [...]}. Bản ghi bị `check_can_destroy`
-        chặn sẽ được bỏ qua.'
-      tags:
-      - reports
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StudentReportRequest'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/StudentReportRequest'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/StudentReportRequest'
-        required: true
-      security:
-      - jwtAuth: []
-      - cookieAuth: []
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StudentReport'
-          description: ''
-  /api/v1/reports/students/batch-status/:
-    post:
-      operationId: reports_students_batch_status_create
-      description: 'Bật/tắt trạng thái hàng loạt. Body: {"ids": [...], "is_active":
-        true | false}.'
-      tags:
-      - reports
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StudentReportRequest'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/StudentReportRequest'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/StudentReportRequest'
-        required: true
-      security:
-      - jwtAuth: []
-      - cookieAuth: []
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StudentReport'
-          description: ''
-  /api/v1/reports/students/excel-template/:
-    get:
-      operationId: reports_students_excel_template_retrieve
-      description: API Tải file mẫu Excel (.xlsx) dùng cho chức năng Nhập dữ liệu
-        (Import).
-      tags:
-      - reports
-      security:
-      - jwtAuth: []
-      - cookieAuth: []
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StudentReport'
-          description: ''
   /api/v1/reports/students/export-columns/:
     get:
       operationId: reports_students_export_columns_retrieve
@@ -5397,22 +5338,6 @@ paths:
             schema:
               $ref: '#/components/schemas/StudentReportRequest'
         required: true
-      security:
-      - jwtAuth: []
-      - cookieAuth: []
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StudentReport'
-          description: ''
-  /api/v1/reports/students/statistics/:
-    get:
-      operationId: reports_students_statistics_retrieve
-      description: 'Số liệu tổng quan: tổng / đang hoạt động / ngưng / mới trong tháng.'
-      tags:
-      - reports
       security:
       - jwtAuth: []
       - cookieAuth: []
@@ -8369,6 +8294,10 @@ components:
           readOnly: true
         user_id:
           type: integer
+        student_id:
+          type: integer
+          nullable: true
+          readOnly: true
         student_name:
           type: string
         class_name:
@@ -8404,6 +8333,7 @@ components:
       - id
       - question
       - session_id
+      - student_id
       - student_name
       - user_id
     ChatSession:
@@ -9286,6 +9216,9 @@ components:
           type: integer
         user_id:
           type: integer
+        student_id:
+          type: integer
+          nullable: true
         full_name:
           type: string
         student_code:
@@ -9301,6 +9234,7 @@ components:
       - full_name
       - rank
       - student_code
+      - student_id
       - user_id
       - xp
     LeaderboardRow:
@@ -11985,6 +11919,10 @@ components:
           type: integer
           title: Học sinh
           readOnly: true
+        student_id:
+          type: integer
+          nullable: true
+          readOnly: true
         student_name:
           type: string
         class_name:
@@ -12036,6 +11974,7 @@ components:
       - correct_count
       - created_at
       - id
+      - student_id
       - student_name
       - total_questions
       - user_id

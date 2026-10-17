@@ -42,6 +42,14 @@ def parse_range(params) -> tuple[datetime, datetime]:
             timezone.make_aware(datetime.combine(end_day + timedelta(days=1), time.min), tz))
 
 
+def window_filter(params, field: str) -> dict:
+    """Lọc theo khoảng ngày; xem riêng 1 học sinh (`user`) mà không truyền ngày -> toàn bộ lịch sử."""
+    if params.get('user') and not params.get('date_from') and not params.get('date_to'):
+        return {}
+    start, end = parse_range(params)
+    return {f'{field}__gte': start, f'{field}__lt': end}
+
+
 def student_users(params):
     """Tài khoản học sinh trong phạm vi lọc khối / lớp."""
     qs = User.objects.filter(student_profile__isnull=False, student_profile__deleted_at__isnull=True)
@@ -122,10 +130,9 @@ def student_profiles(params):
 
 def chat_pairs(params):
     """Tin nhắn học sinh + câu trả lời ngay sau đó của gia sư (thay cho LEAD() SQL bản cũ)."""
-    start, end = parse_range(params)
     reply = ChatMessage.objects.filter(session=OuterRef('session'), id__gt=OuterRef('id')).order_by('id')
-    qs = (ChatMessage.objects.filter(role=ChatRole.USER, created_at__gte=start, created_at__lt=end,
-                                     session__user__in=student_users(params))
+    qs = (ChatMessage.objects.filter(role=ChatRole.USER, session__user__in=student_users(params),
+                                     **window_filter(params, 'created_at'))
           .select_related('session__user__student_profile__school_class')
           .annotate(reply_content=Subquery(reply.values('content')[:1]), reply_role=Subquery(reply.values('role')[:1]))
           .order_by('-created_at', '-id'))
@@ -140,9 +147,8 @@ def chat_pairs(params):
 
 
 def arena_matches(params):
-    start, end = parse_range(params)
-    qs = (ArenaMatch.objects.filter(created_at__gte=start, created_at__lt=end)
-          .prefetch_related('participants__user').order_by('-created_at', '-id'))
+    qs = (ArenaMatch.objects.filter(**window_filter(params, 'created_at'))
+          .prefetch_related('participants__user__student_profile').order_by('-created_at', '-id'))
     users = student_users(params)
     if params.get('grade') or params.get('school_class'):
         qs = qs.filter(participants__user__in=users).distinct()
@@ -150,17 +156,24 @@ def arena_matches(params):
         qs = qs.filter(participants__user_id=int(params['user'])).distinct()
     if params.get('mode') in ('PVP', 'AI'):
         qs = qs.filter(mode=params['mode'])
+    if params.get('status') in ('IN_PROGRESS', 'FINISHED', 'ABANDONED'):
+        qs = qs.filter(status=params['status'])
+    keyword = (params.get('q') or '').strip()
+    if keyword:
+        qs = qs.filter(topic__icontains=keyword)
     return qs
 
 
 def quiz_attempts(params):
-    start, end = parse_range(params)
-    qs = (QuizAttempt.objects.filter(user__in=student_users(params), created_at__gte=start, created_at__lt=end)
+    qs = (QuizAttempt.objects.filter(user__in=student_users(params), **window_filter(params, 'created_at'))
           .select_related('user__student_profile__school_class').order_by('-created_at', '-id'))
     if params.get('user') and str(params['user']).isdigit():
         qs = qs.filter(user_id=int(params['user']))
     if params.get('quiz_type'):
         qs = qs.filter(quiz_type=params['quiz_type'])
+    keyword = (params.get('q') or '').strip()
+    if keyword:
+        qs = qs.filter(Q(topic__icontains=keyword) | Q(user__full_name__icontains=keyword))
     return qs
 
 
@@ -169,17 +182,23 @@ def xp_leaderboard(params, limit: int = 10) -> list[dict]:
     from apps.gamification.models import XpLog
     start, end = parse_range(params)
     rows = (XpLog.objects.filter(user__in=student_users(params), created_at__gte=start, created_at__lt=end)
-            .values('user_id', 'user__full_name', 'user__student_profile__student_code',
+            .values('user_id', 'user__full_name', 'user__student_profile__id', 'user__student_profile__student_code',
                     'user__student_profile__school_class__name')
             .annotate(xp=Sum('amount')).filter(xp__gt=0).order_by('-xp', 'user_id')[:limit])
-    return [{'rank': i, 'user_id': r['user_id'], 'full_name': r['user__full_name'],
+    return [{'rank': i, 'user_id': r['user_id'], 'student_id': r['user__student_profile__id'], 'full_name': r['user__full_name'],
              'student_code': r['user__student_profile__student_code'],
              'class_name': r['user__student_profile__school_class__name'], 'xp': r['xp']}
             for i, r in enumerate(rows, start=1)]
 
 
+def _student_id(user):
+    profile = getattr(user, 'student_profile', None) if user else None
+    return profile.id if profile else None
+
+
 def arena_participant_rows(match: ArenaMatch) -> list[dict]:
-    return [{'user_id': p.user_id, 'name': p.user.full_name if p.user else str(_("Gia sư AI")), 'score': p.score,
+    return [{'user_id': p.user_id, 'student_id': _student_id(p.user),
+             'name': p.user.full_name if p.user else str(_("Gia sư AI")), 'score': p.score,
              'correct_count': p.correct_count, 'is_winner': p.is_winner}
             for p in match.participants.all()]
 

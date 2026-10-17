@@ -56,6 +56,7 @@ class HeatmapCellSerializer(serializers.Serializer):
 class LeaderRowSerializer(serializers.Serializer):
     rank = serializers.IntegerField()
     user_id = serializers.IntegerField()
+    student_id = serializers.IntegerField(allow_null=True)
     full_name = serializers.CharField()
     student_code = serializers.CharField(allow_null=True)
     class_name = serializers.CharField(allow_null=True)
@@ -110,6 +111,7 @@ class LearningEventSerializer(serializers.ModelSerializer):
 
 class ChatPairSerializer(serializers.ModelSerializer):
     user_id = serializers.IntegerField(source='session.user_id')
+    student_id = serializers.SerializerMethodField()
     student_name = serializers.CharField(source='session.user.full_name')
     class_name = serializers.SerializerMethodField()
     session_id = serializers.IntegerField()
@@ -120,8 +122,12 @@ class ChatPairSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ChatMessage
-        fields = ['id', 'user_id', 'student_name', 'class_name', 'session_id', 'question', 'answer', 'answer_role',
+        fields = ['id', 'user_id', 'student_id', 'student_name', 'class_name', 'session_id', 'question', 'answer', 'answer_role',
                   'is_blocked', 'block_reason', 'created_at']
+
+    def get_student_id(self, obj) -> int | None:
+        profile = getattr(obj.session.user, 'student_profile', None)
+        return profile.id if profile else None
 
     def get_class_name(self, obj) -> str | None:
         profile = getattr(obj.session.user, 'student_profile', None)
@@ -130,6 +136,7 @@ class ChatPairSerializer(serializers.ModelSerializer):
 
 class ArenaParticipantRowSerializer(serializers.Serializer):
     user_id = serializers.IntegerField(allow_null=True)
+    student_id = serializers.IntegerField(allow_null=True)
     name = serializers.CharField()
     score = serializers.IntegerField()
     correct_count = serializers.IntegerField()
@@ -176,18 +183,23 @@ class ArenaMatchDetailSerializer(ArenaMatchReportSerializer):
 
 class QuizAttemptReportSerializer(serializers.ModelSerializer):
     student_name = serializers.CharField(source='user.full_name')
+    student_id = serializers.SerializerMethodField()
     class_name = serializers.SerializerMethodField()
     accuracy = serializers.SerializerMethodField()
     created_at = serializers.DateTimeField(format=DT)
 
     class Meta:
         model = QuizAttempt
-        fields = ['id', 'user_id', 'student_name', 'class_name', 'quiz_type', 'grade', 'topic', 'total_questions',
+        fields = ['id', 'user_id', 'student_id', 'student_name', 'class_name', 'quiz_type', 'grade', 'topic', 'total_questions',
                   'correct_count', 'accuracy', 'xp_earned', 'answers', 'created_at']
 
     def get_class_name(self, obj) -> str | None:
         profile = getattr(obj.user, 'student_profile', None)
         return profile.school_class.name if profile and profile.school_class_id else None
+
+    def get_student_id(self, obj) -> int | None:
+        profile = getattr(obj.user, 'student_profile', None)
+        return profile.id if profile else None
 
     def get_accuracy(self, obj) -> int:
         return round(obj.correct_count * 100 / obj.total_questions) if obj.total_questions else 0
@@ -259,6 +271,9 @@ class StudentReportViewSet(BaseERPViewSet):
     def get_queryset(self):
         return reports.student_profiles(self.request.query_params).order_by('-last_active_at', 'id')
 
+    # Chỉ đọc + xuất Excel: gỡ các action ghi / thống kê kế thừa từ BaseERPViewSet
+    batch_delete = batch_status = excel_template = statistics = None
+
     def create(self, request, *args, **kwargs):
         from rest_framework.exceptions import MethodNotAllowed
         raise MethodNotAllowed('POST')
@@ -319,7 +334,8 @@ class ChatLogViewSet(_ReadOnlyReportViewSet):
 
 
 @extend_schema_view(list=extend_schema(tags=[TAG], summary="Lịch sử trận đấu", parameters=[
-    *SCOPE_PARAMS, OpenApiParameter('user', int), OpenApiParameter('mode', str, enum=['PVP', 'AI'])]),
+    *SCOPE_PARAMS, OpenApiParameter('user', int), OpenApiParameter('mode', str, enum=['PVP', 'AI']),
+    OpenApiParameter('status', str, enum=['IN_PROGRESS', 'FINISHED', 'ABANDONED']), OpenApiParameter('q', str)]),
     retrieve=extend_schema(tags=[TAG], summary="Chi tiết trận đấu (từng câu)"))
 class ArenaReportViewSet(_ReadOnlyReportViewSet):
     def get_serializer_class(self):
@@ -330,7 +346,7 @@ class ArenaReportViewSet(_ReadOnlyReportViewSet):
 
 
 @extend_schema_view(list=extend_schema(tags=[TAG], summary="Lịch sử ôn tập", parameters=[
-    *SCOPE_PARAMS, OpenApiParameter('user', int), OpenApiParameter('quiz_type', str)]),
+    *SCOPE_PARAMS, OpenApiParameter('user', int), OpenApiParameter('quiz_type', str), OpenApiParameter('q', str)]),
     retrieve=extend_schema(tags=[TAG], summary="Chi tiết lượt ôn tập"))
 class QuizReportViewSet(_ReadOnlyReportViewSet):
     serializer_class = QuizAttemptReportSerializer
