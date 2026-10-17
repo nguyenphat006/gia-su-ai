@@ -122,3 +122,13 @@ class ImportLegacyTests(TestCase):
     def test_dry_run_writes_nothing(self):
         call_command('import_legacy', from_json=self.path, dry_run=True, stdout=StringIO())
         self.assertFalse(User.objects.filter(username='hs_a').exists())
+
+
+class LegacyDatetimeTests(TestCase):
+    def test_naive_datetime_from_postgres_is_utc(self):
+        from datetime import datetime, timezone as dt_timezone
+
+        from apps.academics.management.commands.import_legacy import _dt
+        value = _dt(datetime(2026, 6, 1, 10, 0))  # Prisma "timestamp(3)" không kèm múi giờ = UTC
+        self.assertEqual(value, datetime(2026, 6, 1, 10, 0, tzinfo=dt_timezone.utc))
+        self.assertIsNone(_dt(None))

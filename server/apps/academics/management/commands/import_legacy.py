@@ -17,7 +17,7 @@ Chuyển dữ liệu từ hệ thống cũ (gia-su-ai-khtn: Express + Prisma) sa
 import json
 import re
 from contextlib import contextmanager
-from datetime import datetime
+from datetime import datetime, timezone as dt_timezone
 
 from django.contrib.auth import get_user_model
 from django.core.management.base import BaseCommand, CommandError
@@ -57,9 +57,9 @@ def _dt(value):
     if value in (None, ''):
         return None
     if isinstance(value, datetime):
-        return value if timezone.is_aware(value) else timezone.make_aware(value, timezone.utc)
+        return value if timezone.is_aware(value) else timezone.make_aware(value, dt_timezone.utc)
     parsed = parse_datetime(str(value))
-    return parsed if parsed is None or timezone.is_aware(parsed) else timezone.make_aware(parsed, timezone.utc)
+    return parsed if parsed is None or timezone.is_aware(parsed) else timezone.make_aware(parsed, dt_timezone.utc)
 
 
 def _json(value):
