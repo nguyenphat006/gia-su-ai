@@ -24,7 +24,7 @@ jobs:
         working-directory: server
     services:
       postgres:
-        image: postgres:16-alpine
+        image: pgvector/pgvector:pg16  # cần extension vector (RAG)
         env:
           POSTGRES_DB: app_db
           POSTGRES_USER: postgres
@@ -125,7 +125,7 @@ jobs:
     runs-on: ubuntu-latest
     services:
       postgres:
-        image: postgres:16-alpine
+        image: pgvector/pgvector:pg16  # cần extension vector (RAG)
         env:
           POSTGRES_DB: app_db
           POSTGRES_USER: postgres
