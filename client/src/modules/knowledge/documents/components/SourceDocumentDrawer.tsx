@@ -97,11 +97,11 @@ function DrawerBody({ doc, canUpdate, onEdit }: { doc: SourceDocumentDetail; can
             <Pencil />
             {tc("actions.edit")}
           </Button>
-          <Button type="button" size="sm" onClick={() => runReview("APPROVE_ALL")} disabled={!doc.question_count || review.isPending}>
+          <Button type="button" size="sm" onClick={() => runReview("APPROVE_ALL")} disabled={!doc.pending_question_count || review.isPending}>
             <CheckCheck />
             {t("detail.approveAll")}
           </Button>
-          <Button type="button" variant="outline" size="sm" onClick={() => runReview("REJECT_ALL")} disabled={!doc.question_count || review.isPending}>
+          <Button type="button" variant="outline" size="sm" onClick={() => runReview("REJECT_ALL")} disabled={!doc.pending_question_count || review.isPending}>
             <XCircle />
             {t("detail.rejectAll")}
           </Button>

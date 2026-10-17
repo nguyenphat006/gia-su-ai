@@ -11,6 +11,7 @@ DT_FORMAT = "%d/%m/%Y %H:%M"
 class SourceDocumentSerializer(serializers.ModelSerializer):
     """Serializer ĐỌC tài liệu nguồn (không kèm raw_text — xem ở trang chi tiết)."""
     question_count = serializers.IntegerField(read_only=True, default=0)
+    pending_question_count = serializers.IntegerField(read_only=True, default=0)
     chunk_count = serializers.IntegerField(read_only=True, default=0)
     progress = serializers.SerializerMethodField()
     created_by_name = serializers.CharField(source='created_by.full_name', read_only=True, default='')
@@ -20,7 +21,7 @@ class SourceDocumentSerializer(serializers.ModelSerializer):
     class Meta:
         model = SourceDocument
         fields = ['id', 'title', 'grade', 'topic', 'status', 'total_chunks', 'processed_chunks', 'progress',
-                  'chunk_count', 'question_count', 'generate_questions', 'error_message', 'description', 'is_active',
+                  'chunk_count', 'question_count', 'pending_question_count', 'generate_questions', 'error_message', 'description', 'is_active',
                   'created_by_name', 'created_at', 'updated_at']
         read_only_fields = fields
 
@@ -62,6 +63,10 @@ class SourceDocumentUploadSerializer(serializers.Serializer):
 
 class ReviewQuestionsSerializer(serializers.Serializer):
     action = serializers.ChoiceField(choices=['APPROVE_ALL', 'REJECT_ALL'])
+
+
+class ReviewQuestionsResultSerializer(serializers.Serializer):
+    count = serializers.IntegerField()
 
 
 class KnowledgeChunkSerializer(serializers.ModelSerializer):

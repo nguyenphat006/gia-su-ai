@@ -68,7 +68,7 @@ class QuestionViewSet(_AiDraftMixin, BaseERPViewSet):
 
     @extend_schema(tags=[TAG], summary="AI soạn nháp câu hỏi (không lưu)", request=AiDraftRequestSerializer,
                    responses=QuestionDraftSerializer(many=True))
-    @action(detail=False, methods=['post'], url_path='ai-draft')
+    @action(detail=False, methods=['post'], url_path='ai-draft', pagination_class=None)
     def ai_draft(self, request):
         data = self._draft_request(request)
         drafts = generation.draft_questions(
@@ -93,7 +93,7 @@ class FlashcardDeckViewSet(_AiDraftMixin, BaseERPViewSet):
 
     @extend_schema(tags=[TAG], summary="AI soạn nháp bộ flashcard (không lưu)", request=AiDraftRequestSerializer,
                    responses=FlashcardDraftSerializer)
-    @action(detail=False, methods=['post'], url_path='ai-draft')
+    @action(detail=False, methods=['post'], url_path='ai-draft', pagination_class=None)
     def ai_draft(self, request):
         data = self._draft_request(request)
         return success_response(data=generation.draft_flashcards(topic=data['topic'], grade=data.get('grade')))
@@ -114,7 +114,7 @@ class MindmapViewSet(_AiDraftMixin, BaseERPViewSet):
 
     @extend_schema(tags=[TAG], summary="AI soạn nháp sơ đồ tư duy (không lưu)", request=AiDraftRequestSerializer,
                    responses=MindmapDraftSerializer)
-    @action(detail=False, methods=['post'], url_path='ai-draft')
+    @action(detail=False, methods=['post'], url_path='ai-draft', pagination_class=None)
     def ai_draft(self, request):
         data = self._draft_request(request)
         return success_response(data=generation.draft_mindmap(topic=data['topic'], grade=data.get('grade')))

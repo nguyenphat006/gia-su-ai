@@ -16,7 +16,7 @@ from apps.core.viewsets import BaseERPViewSet
 
 from .models import KnowledgeChunk, SourceDocument
 from .serializers import (
-    KnowledgeChunkCreateUpdateSerializer, KnowledgeChunkSerializer, ReviewQuestionsSerializer,
+    KnowledgeChunkCreateUpdateSerializer, KnowledgeChunkSerializer, ReviewQuestionsResultSerializer, ReviewQuestionsSerializer,
     SourceDocumentDetailSerializer, SourceDocumentSerializer, SourceDocumentUpdateSerializer,
     SourceDocumentUploadSerializer,
 )
@@ -75,6 +75,7 @@ class SourceDocumentViewSet(BaseERPViewSet):
         .annotate(
             chunk_count=Count('chunks', filter=Q(chunks__deleted_at__isnull=True), distinct=True),
             question_count=Count('questions', filter=Q(questions__deleted_at__isnull=True), distinct=True),
+            pending_question_count=Count('questions', filter=Q(questions__deleted_at__isnull=True, questions__status='PENDING'), distinct=True),
         )
         .order_by('-updated_at', 'id')
     )
@@ -132,7 +133,7 @@ class SourceDocumentViewSet(BaseERPViewSet):
                                 message=_("Đã tải lên, hệ thống đang đọc tài liệu"))
 
     @extend_schema(tags=["Tri thức RAG"], summary="Duyệt / loại các câu hỏi AI sinh từ tài liệu",
-                   request=ReviewQuestionsSerializer)
+                   request=ReviewQuestionsSerializer, responses=ReviewQuestionsResultSerializer)
     @action(detail=True, methods=['post'], url_path='review-questions')
     def review_questions(self, request, pk=None):
         """`APPROVE_ALL`: đưa mọi câu chờ duyệt vào ngân hàng; `REJECT_ALL`: loại hết."""

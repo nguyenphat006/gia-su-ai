@@ -1988,6 +1988,19 @@ paths:
         schema:
           type: boolean
       - in: query
+        name: source_document__status
+        schema:
+          type: string
+          title: Trạng thái xử lý
+          enum:
+          - COMPLETED
+          - FAILED
+          - PROCESSING
+        description: |-
+          * `PROCESSING` - Đang xử lý
+          * `COMPLETED` - Hoàn tất
+          * `FAILED` - Lỗi
+      - in: query
         name: title__icontains
         schema:
           type: string
@@ -4493,18 +4506,6 @@ paths:
         description: Multiple values may be separated by commas.
         explode: false
         style: form
-      - name: page
-        required: false
-        in: query
-        description: A page number within the paginated result set.
-        schema:
-          type: integer
-      - name: page_size
-        required: false
-        in: query
-        description: Number of results to return per page.
-        schema:
-          type: integer
       - in: query
         name: question_type
         schema:
@@ -4605,7 +4606,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PaginatedQuestionDraftList'
+                type: array
+                items:
+                  $ref: '#/components/schemas/QuestionDraft'
           description: ''
   /api/v1/questions/batch-delete/:
     post:
@@ -6200,7 +6203,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SourceDocument'
+                $ref: '#/components/schemas/ReviewQuestionsResult'
           description: ''
   /api/v1/source-documents/batch-delete/:
     post:
@@ -10666,39 +10669,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Permission'
-    PaginatedQuestionDraftList:
-      type: object
-      required:
-      - count
-      - total_pages
-      - current_page
-      - page_size
-      - results
-      properties:
-        count:
-          type: integer
-          example: 123
-        total_pages:
-          type: integer
-          example: 13
-        current_page:
-          type: integer
-          example: 1
-        page_size:
-          type: integer
-          example: 10
-        next:
-          type: string
-          nullable: true
-          format: uri
-        previous:
-          type: string
-          nullable: true
-          format: uri
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/QuestionDraft'
     PaginatedQuestionList:
       type: object
       required:
@@ -12184,6 +12154,13 @@ components:
           $ref: '#/components/schemas/ActionEnum'
       required:
       - action
+    ReviewQuestionsResult:
+      type: object
+      properties:
+        count:
+          type: integer
+      required:
+      - count
     Role:
       type: object
       description: Serializer quản lý và hiển thị thông tin Vai trò (Role).
@@ -12588,6 +12565,10 @@ components:
           type: integer
           readOnly: true
           default: 0
+        pending_question_count:
+          type: integer
+          readOnly: true
+          default: 0
         generate_questions:
           type: boolean
           readOnly: true
@@ -12628,6 +12609,7 @@ components:
       - grade
       - id
       - is_active
+      - pending_question_count
       - processed_chunks
       - progress
       - question_count
@@ -12684,6 +12666,10 @@ components:
           type: integer
           readOnly: true
           default: 0
+        pending_question_count:
+          type: integer
+          readOnly: true
+          default: 0
         generate_questions:
           type: boolean
           readOnly: true
@@ -12729,6 +12715,7 @@ components:
       - grade
       - id
       - is_active
+      - pending_question_count
       - processed_chunks
       - progress
       - question_count

@@ -4979,21 +4979,6 @@ export interface components {
             previous?: string | null;
             results: components["schemas"]["Permission"][];
         };
-        PaginatedQuestionDraftList: {
-            /** @example 123 */
-            count: number;
-            /** @example 13 */
-            total_pages: number;
-            /** @example 1 */
-            current_page: number;
-            /** @example 10 */
-            page_size: number;
-            /** Format: uri */
-            next?: string | null;
-            /** Format: uri */
-            previous?: string | null;
-            results: components["schemas"]["QuestionDraft"][];
-        };
         PaginatedQuestionList: {
             /** @example 123 */
             count: number;
@@ -5657,6 +5642,9 @@ export interface components {
         ReviewQuestionsRequest: {
             action: components["schemas"]["ActionEnum"];
         };
+        ReviewQuestionsResult: {
+            count: number;
+        };
         /** @description Serializer quản lý và hiển thị thông tin Vai trò (Role). */
         Role: {
             readonly id: number;
@@ -5821,6 +5809,8 @@ export interface components {
             readonly chunk_count: number;
             /** @default 0 */
             readonly question_count: number;
+            /** @default 0 */
+            readonly pending_question_count: number;
             /** Sinh câu hỏi từ tài liệu */
             readonly generate_questions: boolean;
             /** Lỗi xử lý */
@@ -5856,6 +5846,8 @@ export interface components {
             readonly chunk_count: number;
             /** @default 0 */
             readonly question_count: number;
+            /** @default 0 */
+            readonly pending_question_count: number;
             /** Sinh câu hỏi từ tài liệu */
             readonly generate_questions: boolean;
             /** Lỗi xử lý */
@@ -8012,6 +8004,12 @@ export interface operations {
                 search?: string;
                 source_document?: number;
                 source_document__isnull?: boolean;
+                /**
+                 * @description * `PROCESSING` - Đang xử lý
+                 *     * `COMPLETED` - Hoàn tất
+                 *     * `FAILED` - Lỗi
+                 */
+                source_document__status?: "COMPLETED" | "FAILED" | "PROCESSING";
                 title__icontains?: string;
                 topic__icontains?: string;
                 updated_at__date__gte?: string;
@@ -10020,10 +10018,6 @@ export interface operations {
                 origin?: "AI" | "DOCUMENT" | "MANUAL";
                 /** @description Multiple values may be separated by commas. */
                 origin__in?: string[];
-                /** @description A page number within the paginated result set. */
-                page?: number;
-                /** @description Number of results to return per page. */
-                page_size?: number;
                 /**
                  * @description * `MULTIPLE_CHOICE` - Trắc nghiệm
                  *     * `ESSAY` - Tự luận
@@ -10066,7 +10060,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["PaginatedQuestionDraftList"];
+                    "application/json": components["schemas"]["QuestionDraft"][];
                 };
             };
         };
@@ -11325,7 +11319,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["SourceDocument"];
+                    "application/json": components["schemas"]["ReviewQuestionsResult"];
                 };
             };
         };
