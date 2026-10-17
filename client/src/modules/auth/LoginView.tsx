@@ -12,6 +12,7 @@ import { useSystemSettings } from "@/hooks/useSystemSettings";
 import { useAuthStore } from "@/stores/useAuthStore";
 import { extractErrorMessage } from "@/lib/api/errorUtils";
 import { useChangeLocale } from "@/i18n/useChangeLocale";
+import { homePathFor } from "@/modules/student/shared/portalAccess";
 import { authService } from "./services/auth.service";
 import type { LoginRequest } from "./types";
 
@@ -32,7 +33,8 @@ export function LoginView() {
       const response = await authService.login(values);
       if (response?.tokens) {
         setAuth(response.user, response.tokens);
-        router.push("/");
+        // Học sinh -> cổng học sinh /learn; giáo viên / quản trị -> trang quản trị
+        router.push(homePathFor(response.user));
       }
     } catch (err) {
       setErrorMsg(extractErrorMessage(err, t("login.invalid")));

@@ -11,6 +11,15 @@ export interface UserProfile {
   department?: string;
   /** Tài khoản dùng mật khẩu được cấp (tạo bởi quản trị / nhập Excel) -> bắt buộc đổi trước khi dùng */
   must_change_password?: boolean;
+  /** Hồ sơ học sinh rút gọn (null với giáo viên / quản trị) — giao diện học sinh lấy khối / lớp mặc định */
+  student_profile?: StudentProfileBrief | null;
+}
+
+export interface StudentProfileBrief {
+  student_code: string;
+  grade: number;
+  school_class_id: number | null;
+  school_class_name: string | null;
 }
 
 export interface AuthTokens {

@@ -112,6 +112,20 @@ export const PERMISSIONS = {
     EXPORT: "KNOWLEDGE_EXPORT",
     IMPORT: "KNOWLEDGE_IMPORT",
   },
+  LEARN: {
+    /** Vào cổng học sinh (/learn) */
+    VIEW: "LEARN_VIEW",
+    /** Dùng tính năng học tập (gia sư AI, ôn tập, đấu trường, thành tích) */
+    USE: "LEARN_USE",
+  },
+  REPORT: {
+    /** Vào trang Báo cáo học tập (/reports, /reports/students/[id]) & hiển thị menu */
+    VIEW: "REPORT_VIEW",
+    /** Đọc số liệu báo cáo (tổng quan, học sinh, hỏi đáp AI, đấu trường, ôn tập) */
+    READ: "REPORT_READ",
+    /** Xuất báo cáo học sinh ra Excel / CSV */
+    EXPORT: "REPORT_EXPORT",
+  },
   // [gen:module] Module sinh bởi `npm run gen:module` được chèn phía trên dòng này
 } as const;
 

@@ -1,0 +1,48 @@
+{
+  "pageTitle": "Gia sư AI",
+  "typing": "Cô Trang đang soạn câu trả lời…",
+  "sendError": "Chưa gửi được câu hỏi, em thử lại nhé.",
+  "blockedToast": "Câu hỏi không phù hợp nên đã bị chặn.",
+  "emptySession": "Hãy đặt câu hỏi đầu tiên cho gia sư.",
+  "sessions": {
+    "title": "Lịch sử trò chuyện",
+    "new": "Cuộc trò chuyện mới",
+    "empty": "Chưa có cuộc trò chuyện nào",
+    "untitled": "Cuộc trò chuyện mới",
+    "rename": "Đổi tên",
+    "loadMore": "Xem thêm",
+    "deleteTitle": "Xóa cuộc trò chuyện?",
+    "deleteDescription": "Cuộc trò chuyện \"{title}\" sẽ bị xóa khỏi danh sách.",
+    "deleted": "Đã xóa cuộc trò chuyện"
+  },
+  "welcome": {
+    "title": "Chào em, cô là gia sư AI môn KHTN",
+    "subtitle": "Em có thể hỏi bài, gửi ảnh đề bài hoặc nói câu hỏi bằng giọng nói.",
+    "suggestions": {
+      "s1": "Giải thích quá trình quang hợp ở thực vật",
+      "s2": "Vì sao có lực ma sát? Cho ví dụ trong đời sống",
+      "s3": "Cân bằng phương trình: Fe + O2 → Fe3O4",
+      "s4": "Phân biệt nguyên tử và phân tử"
+    }
+  },
+  "message": {
+    "imageAlt": "Ảnh đính kèm",
+    "xpGained": "+{xp} XP",
+    "xpPenalty": "-{xp} XP"
+  },
+  "composer": {
+    "placeholder": "Nhập câu hỏi của em…",
+    "listening": "Đang nghe…",
+    "hint": "Enter để gửi, Shift + Enter để xuống dòng",
+    "send": "Gửi",
+    "attachImage": "Đính kèm ảnh",
+    "imagePreview": "Ảnh sẽ gửi",
+    "removeImage": "Bỏ ảnh",
+    "imageType": "Chỉ nhận ảnh JPG, PNG hoặc WEBP.",
+    "imageSize": "Ảnh tối đa {size}MB.",
+    "voice": "Nói câu hỏi",
+    "stopVoice": "Dừng nghe",
+    "micDenied": "Trình duyệt chưa cho phép dùng micro.",
+    "micError": "Không nhận được giọng nói, em thử lại nhé."
+  }
+}

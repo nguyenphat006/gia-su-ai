@@ -3,7 +3,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { Check, KeyRound, Languages, LogOut, Monitor, Moon, PanelLeftClose, PanelLeftOpen, Sigma, Sun, User } from "lucide-react";
+import { Check, GraduationCap, KeyRound, Languages, LogOut, Monitor, Moon, PanelLeftClose, PanelLeftOpen, Sigma, Sun, User } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -23,6 +23,8 @@ import { useAuthStore } from "@/stores/useAuthStore";
 import ChangePasswordModal from "@/components/auth/ChangePasswordModal";
 import ForcePasswordChangeDialog from "@/components/auth/ForcePasswordChangeDialog";
 import { RouteGuard } from "@/components/auth/RouteGuard";
+import { PERMISSIONS } from "@/constants/permissions";
+import { usePermission } from "@/hooks/usePermission";
 import { useNavigation } from "@/hooks/useNavigation";
 import { FloatingTaskWidget, NumberFormatModal } from "@/components/common";
 import { APP_CONFIG } from "@/config/app";
@@ -61,6 +63,9 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const pathname = usePathname();
   const router = useRouter();
   const { user, logout } = useAuthStore();
+  const tLearn = useTranslations("learn");
+  // Giáo viên / quản trị có quyền LEARN_VIEW -> lối sang giao diện học sinh
+  const canLearn = usePermission().can(PERMISSIONS.LEARN.VIEW);
   const { data: navData, isLoading: isNavLoading } = useNavigation();
   const themeMode = useThemeStore((s) => s.mode);
   const resolvedTheme = useThemeStore((s) => s.resolved);
@@ -235,6 +240,12 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                     ))}
                   </DropdownMenuSubContent>
                 </DropdownMenuSub>
+                {canLearn && (
+                  <DropdownMenuItem onSelect={() => router.push("/learn")}>
+                    <GraduationCap />
+                    {tLearn("shell.studentPortal")}
+                  </DropdownMenuItem>
+                )}
                 <DropdownMenuItem onSelect={() => setPasswordModalOpen(true)}>
                   <KeyRound />
                   {t("changePassword")}

@@ -1,0 +1,90 @@
+{
+  "pageTitle": "Góc học tập",
+  "nav": {
+    "label": "Điều hướng học tập",
+    "home": "Trang chủ",
+    "chat": "Gia sư AI",
+    "practice": "Ôn tập",
+    "arena": "Đấu trường",
+    "achievements": "Thành tích",
+    "short": {
+      "home": "Trang chủ",
+      "chat": "Gia sư",
+      "practice": "Ôn tập",
+      "arena": "Đấu",
+      "achievements": "Thành tích"
+    }
+  },
+  "shell": {
+    "adminPortal": "Trang quản trị",
+    "studentPortal": "Giao diện học sinh",
+    "noAccess": "Tài khoản của em chưa được mở cổng học tập. Hãy liên hệ giáo viên hoặc quản trị viên.",
+    "logout": "Đăng xuất",
+    "classLabel": "Lớp {name}",
+    "gradeLabel": "Khối {grade}",
+    "statsChip": "Chuỗi {streak} ngày, {xp} XP"
+  },
+  "streakDays": "Chuỗi {count} ngày",
+  "xpReward": "+{xp} XP",
+  "xpUnit": "XP",
+  "challengeCompleted": "Hoàn thành thử thách: {name}",
+  "checkIn": {
+    "toast": "Điểm danh thành công — chuỗi {count} ngày!"
+  },
+  "leaveGuard": {
+    "title": "Rời trận đấu?",
+    "description": "Rời trang lúc này sẽ bị xử thua trận đang đấu.",
+    "confirm": "Rời trận"
+  },
+  "home": {
+    "greeting": "Chào {name}!",
+    "subtitle": "Hôm nay em muốn học gì?",
+    "quickActions": "Lối tắt",
+    "challengesTitle": "Thử thách hôm nay",
+    "weeklyTop": "Top tuần này",
+    "seeAll": "Xem tất cả",
+    "actions": {
+      "chat": "Hỏi bài mọi lúc",
+      "practice": "Làm bài, flashcard",
+      "arena": "Thi đấu kiến thức",
+      "achievements": "XP và xếp hạng"
+    }
+  },
+  "level": {
+    "current": "Danh hiệu hiện tại",
+    "newbie": "Tân binh",
+    "totalXp": "Tổng {xp} XP",
+    "weeklyRank": "Hạng {rank} tuần",
+    "progressLabel": "Tiến độ lên danh hiệu kế tiếp",
+    "toNext": "Còn {xp} XP nữa để đạt {title}",
+    "maxLevel": "Em đã đạt danh hiệu cao nhất!"
+  },
+  "challenges": {
+    "empty": "Chưa có thử thách nào",
+    "period": {
+      "daily": "Hằng ngày",
+      "weekly": "Hằng tuần",
+      "once": "Một lần"
+    }
+  },
+  "leaderboard": {
+    "empty": "Chưa có ai trên bảng xếp hạng",
+    "me": "Em"
+  },
+  "setup": {
+    "grade": "Khối",
+    "gradePlaceholder": "Chọn khối",
+    "gradeOption": "Khối {grade}",
+    "topic": "Chủ đề",
+    "topicPlaceholder": "Vd. Quang hợp, Lực ma sát…",
+    "count": "Số câu",
+    "type": "Dạng câu hỏi",
+    "difficulty": "Mức độ",
+    "difficultyHint": "Không chọn = trộn mọi mức độ"
+  },
+  "difficulty": {
+    "NHAN_BIET": "Nhận biết",
+    "THONG_HIEU": "Thông hiểu",
+    "VAN_DUNG": "Vận dụng"
+  }
+}

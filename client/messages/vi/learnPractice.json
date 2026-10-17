@@ -1,0 +1,107 @@
+{
+  "pageTitle": "Ôn tập",
+  "title": "Ôn tập",
+  "subtitle": "Làm bài, lật thẻ ghi nhớ và xem sơ đồ tư duy theo chủ đề.",
+  "tabs": {
+    "quiz": "Làm bài",
+    "flashcard": "Flashcard",
+    "mindmap": "Sơ đồ tư duy",
+    "history": "Lịch sử"
+  },
+  "questionType": {
+    "MULTIPLE_CHOICE": "Trắc nghiệm",
+    "ESSAY": "Tự luận"
+  },
+  "quiz": {
+    "setupTitle": "Thiết lập bài ôn tập",
+    "start": "Bắt đầu",
+    "preparing": "Đang chuẩn bị đề…",
+    "preparingHint": "Có thể mất vài giây nếu AI cần soạn thêm câu hỏi.",
+    "startError": "Chưa lấy được đề, em thử lại nhé.",
+    "noQuestions": "Chưa có câu hỏi cho chủ đề này, em thử chủ đề khác nhé.",
+    "checkError": "Chưa chấm được câu trả lời, em thử lại nhé.",
+    "submitError": "Chưa nộp được bài, em thử lại nhé.",
+    "progress": "Tiến độ làm bài",
+    "counter": "Câu {current}/{total}",
+    "answeredCount": "Đã trả lời {done}/{total} câu",
+    "options": "Các lựa chọn",
+    "showHint": "Xem gợi ý",
+    "correct": "Chính xác!",
+    "incorrect": "Chưa đúng",
+    "explanation": "Giải thích",
+    "modelAnswer": "Đáp án tham khảo",
+    "essayScore": "{score}/10 điểm",
+    "essayPlaceholder": "Viết bài làm của em…",
+    "essayImage": "Ảnh bài làm",
+    "attachPhoto": "Chụp / gửi ảnh bài làm",
+    "removeImage": "Bỏ ảnh",
+    "imageType": "Chỉ nhận ảnh JPG, PNG hoặc WEBP.",
+    "imageSize": "Ảnh tối đa {size}MB.",
+    "submitAnswer": "Nộp câu này",
+    "grading": "Cô đang chấm bài…",
+    "next": "Câu tiếp",
+    "skip": "Bỏ qua",
+    "finish": "Nộp bài",
+    "quit": "Thoát bài",
+    "quitTitle": "Thoát bài đang làm?",
+    "quitDescription": "Kết quả các câu đã làm sẽ không được lưu."
+  },
+  "result": {
+    "correct": "câu đúng",
+    "summary": "Em trả lời đúng {correct} trên {total} câu.",
+    "xp": "+{xp} XP",
+    "retry": "Làm lại",
+    "newSetup": "Đổi thiết lập",
+    "review": "Xem lại bài làm",
+    "yourAnswer": "Em chọn",
+    "noAnswer": "(bỏ trống)",
+    "correctAnswer": "Đáp án đúng",
+    "verdict": {
+      "great": "Xuất sắc!",
+      "good": "Khá lắm, cố thêm chút nữa!",
+      "keepGoing": "Đừng nản, ôn lại rồi thử tiếp nhé!"
+    }
+  },
+  "flashcard": {
+    "setupTitle": "Bộ thẻ ghi nhớ",
+    "load": "Lấy bộ thẻ",
+    "loading": "Đang tạo thẻ…",
+    "loadError": "Chưa lấy được bộ thẻ, em thử lại nhé.",
+    "empty": "Bộ thẻ chưa có thẻ nào",
+    "cardCount": "{count} thẻ",
+    "front": "Mặt trước",
+    "back": "Mặt sau",
+    "showFront": "Xem mặt trước",
+    "showBack": "Lật xem mặt sau",
+    "flip": "Lật thẻ",
+    "shuffle": "Trộn thẻ",
+    "prev": "Thẻ trước",
+    "next": "Thẻ sau",
+    "keyboardHint": "Phím ← → để chuyển thẻ, Space để lật",
+    "startTest": "Kiểm tra",
+    "backToCards": "Quay lại xem thẻ",
+    "testPrompt": "Chọn mặt sau đúng của thẻ"
+  },
+  "mindmap": {
+    "setupTitle": "Sơ đồ tư duy",
+    "load": "Xem sơ đồ",
+    "loading": "Đang vẽ sơ đồ…",
+    "loadError": "Chưa lấy được sơ đồ, em thử lại nhé.",
+    "empty": "Sơ đồ chưa có nội dung",
+    "nodeCount": "{count} ý",
+    "expand": "Mở nhánh",
+    "collapse": "Thu nhánh",
+    "expandAll": "Mở tất cả",
+    "collapseAll": "Thu gọn"
+  },
+  "history": {
+    "title": "Lịch sử ôn tập",
+    "empty": "Chưa có lượt ôn tập nào",
+    "emptyHint": "Làm bài hoặc kiểm tra flashcard để lưu kết quả tại đây.",
+    "noTopic": "Ôn tập tổng hợp",
+    "type": {
+      "quiz": "Làm bài",
+      "flashcard": "Kiểm tra flashcard"
+    }
+  }
+}

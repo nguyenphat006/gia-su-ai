@@ -1,0 +1,90 @@
+{
+  "pageTitle": "Learning hub",
+  "nav": {
+    "label": "Learning navigation",
+    "home": "Home",
+    "chat": "AI tutor",
+    "practice": "Practice",
+    "arena": "Arena",
+    "achievements": "Achievements",
+    "short": {
+      "home": "Home",
+      "chat": "Tutor",
+      "practice": "Practice",
+      "arena": "Arena",
+      "achievements": "Awards"
+    }
+  },
+  "shell": {
+    "adminPortal": "Admin portal",
+    "studentPortal": "Student view",
+    "noAccess": "Your account does not have access to the learning portal yet. Please contact your teacher or an administrator.",
+    "logout": "Log out",
+    "classLabel": "Class {name}",
+    "gradeLabel": "Grade {grade}",
+    "statsChip": "{streak}-day streak, {xp} XP"
+  },
+  "streakDays": "{count}-day streak",
+  "xpReward": "+{xp} XP",
+  "xpUnit": "XP",
+  "challengeCompleted": "Challenge completed: {name}",
+  "checkIn": {
+    "toast": "Checked in — {count, plural, one {# day} other {# days}} in a row!"
+  },
+  "leaveGuard": {
+    "title": "Leave the match?",
+    "description": "Leaving now counts as a loss for the current match.",
+    "confirm": "Leave match"
+  },
+  "home": {
+    "greeting": "Hi {name}!",
+    "subtitle": "What would you like to learn today?",
+    "quickActions": "Shortcuts",
+    "challengesTitle": "Today's challenges",
+    "weeklyTop": "This week's top",
+    "seeAll": "See all",
+    "actions": {
+      "chat": "Ask anytime",
+      "practice": "Quizzes, flashcards",
+      "arena": "Knowledge battles",
+      "achievements": "XP and rankings"
+    }
+  },
+  "level": {
+    "current": "Current title",
+    "newbie": "Rookie",
+    "totalXp": "{xp} XP total",
+    "weeklyRank": "Rank {rank} this week",
+    "progressLabel": "Progress to the next title",
+    "toNext": "{xp} XP to reach {title}",
+    "maxLevel": "You've reached the highest title!"
+  },
+  "challenges": {
+    "empty": "No challenges yet",
+    "period": {
+      "daily": "Daily",
+      "weekly": "Weekly",
+      "once": "One-time"
+    }
+  },
+  "leaderboard": {
+    "empty": "Nobody on the leaderboard yet",
+    "me": "You"
+  },
+  "setup": {
+    "grade": "Grade",
+    "gradePlaceholder": "Select grade",
+    "gradeOption": "Grade {grade}",
+    "topic": "Topic",
+    "topicPlaceholder": "e.g. Photosynthesis, Friction…",
+    "count": "Questions",
+    "type": "Question type",
+    "difficulty": "Difficulty",
+    "difficultyHint": "None selected = mix all levels"
+  },
+  "difficulty": {
+    "NHAN_BIET": "Recall",
+    "THONG_HIEU": "Understanding",
+    "VAN_DUNG": "Application"
+  }
+}

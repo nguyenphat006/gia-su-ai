@@ -29,6 +29,12 @@ import knowledgeChunks from "./knowledgeChunks.json";
 import revision from "./revision.json";
 import sourceDocuments from "./sourceDocuments.json";
 import knowledge from "./knowledge.json";
+import reports from "./reports.json";
+import learn from "./learn.json";
+import learnChat from "./learnChat.json";
+import learnPractice from "./learnPractice.json";
+import learnArena from "./learnArena.json";
+import learnAchievements from "./learnAchievements.json";
 
-const messages = { common, validation, meta, layout, list, detail, form, auth, errors, dashboard, users, settings, auditLogs, profile, attachments, dataTransfer, numberFormat, notifications, schoolClasses, students, teachers, aiSettings, academics, questions, flashcardDecks, mindmaps, knowledgeChunks, revision, sourceDocuments, knowledge };
+const messages = { common, validation, meta, layout, list, detail, form, auth, errors, dashboard, users, settings, auditLogs, profile, attachments, dataTransfer, numberFormat, notifications, schoolClasses, students, teachers, aiSettings, academics, questions, flashcardDecks, mindmaps, knowledgeChunks, revision, sourceDocuments, knowledge, reports, learn, learnChat, learnPractice, learnArena, learnAchievements };
 export default messages;

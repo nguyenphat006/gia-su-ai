@@ -1,0 +1,48 @@
+{
+  "pageTitle": "AI tutor",
+  "typing": "Ms. Trang is writing an answer…",
+  "sendError": "Couldn't send your question, please try again.",
+  "blockedToast": "Your message was blocked as inappropriate.",
+  "emptySession": "Ask the tutor your first question.",
+  "sessions": {
+    "title": "Chat history",
+    "new": "New chat",
+    "empty": "No chats yet",
+    "untitled": "New chat",
+    "rename": "Rename",
+    "loadMore": "Load more",
+    "deleteTitle": "Delete chat?",
+    "deleteDescription": "The chat \"{title}\" will be removed from your list.",
+    "deleted": "Chat deleted"
+  },
+  "welcome": {
+    "title": "Hi, I'm your AI science tutor",
+    "subtitle": "Ask questions, send a photo of an exercise or speak your question.",
+    "suggestions": {
+      "s1": "Explain how photosynthesis works in plants",
+      "s2": "Why does friction exist? Give an everyday example",
+      "s3": "Balance the equation: Fe + O2 → Fe3O4",
+      "s4": "What is the difference between atoms and molecules?"
+    }
+  },
+  "message": {
+    "imageAlt": "Attached image",
+    "xpGained": "+{xp} XP",
+    "xpPenalty": "-{xp} XP"
+  },
+  "composer": {
+    "placeholder": "Type your question…",
+    "listening": "Listening…",
+    "hint": "Enter to send, Shift + Enter for a new line",
+    "send": "Send",
+    "attachImage": "Attach image",
+    "imagePreview": "Image to send",
+    "removeImage": "Remove image",
+    "imageType": "Only JPG, PNG or WEBP images are allowed.",
+    "imageSize": "Images can be up to {size}MB.",
+    "voice": "Speak your question",
+    "stopVoice": "Stop listening",
+    "micDenied": "Microphone access is blocked in your browser.",
+    "micError": "Couldn't catch that, please try again."
+  }
+}

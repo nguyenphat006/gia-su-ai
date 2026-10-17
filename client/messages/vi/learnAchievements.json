@@ -1,0 +1,20 @@
+{
+  "pageTitle": "Thành tích",
+  "title": "Thành tích",
+  "subtitle": "Theo dõi XP, chuỗi ngày học, thử thách và thứ hạng của em.",
+  "stats": {
+    "weeklyXp": "XP tuần này",
+    "points": "Điểm thưởng",
+    "currentStreak": "Chuỗi hiện tại",
+    "longestStreak": "Chuỗi dài nhất"
+  },
+  "challengesTitle": "Thử thách",
+  "leaderboardTitle": "Bảng xếp hạng",
+  "allGrades": "Mọi khối",
+  "scope": {
+    "weekly": "Tuần",
+    "month": "Tháng",
+    "all": "Tất cả"
+  },
+  "xpHint": "Hỏi gia sư, làm bài và thi đấu để nhận thêm XP"
+}

@@ -1,0 +1,107 @@
+{
+  "pageTitle": "Practice",
+  "title": "Practice",
+  "subtitle": "Take quizzes, flip flashcards and explore mind maps by topic.",
+  "tabs": {
+    "quiz": "Quiz",
+    "flashcard": "Flashcards",
+    "mindmap": "Mind map",
+    "history": "History"
+  },
+  "questionType": {
+    "MULTIPLE_CHOICE": "Multiple choice",
+    "ESSAY": "Written"
+  },
+  "quiz": {
+    "setupTitle": "Set up your quiz",
+    "start": "Start",
+    "preparing": "Preparing questions…",
+    "preparingHint": "This may take a few seconds if the AI needs to write more questions.",
+    "startError": "Couldn't load the quiz, please try again.",
+    "noQuestions": "No questions for this topic yet, try another one.",
+    "checkError": "Couldn't check your answer, please try again.",
+    "submitError": "Couldn't submit, please try again.",
+    "progress": "Quiz progress",
+    "counter": "Question {current}/{total}",
+    "answeredCount": "Answered {done}/{total}",
+    "options": "Choices",
+    "showHint": "Show hint",
+    "correct": "Correct!",
+    "incorrect": "Not quite",
+    "explanation": "Explanation",
+    "modelAnswer": "Model answer",
+    "essayScore": "{score}/10 points",
+    "essayPlaceholder": "Write your answer…",
+    "essayImage": "Photo of your work",
+    "attachPhoto": "Add a photo of your work",
+    "removeImage": "Remove image",
+    "imageType": "Only JPG, PNG or WEBP images are allowed.",
+    "imageSize": "Images can be up to {size}MB.",
+    "submitAnswer": "Submit answer",
+    "grading": "Grading your answer…",
+    "next": "Next question",
+    "skip": "Skip",
+    "finish": "Submit quiz",
+    "quit": "Quit quiz",
+    "quitTitle": "Quit this quiz?",
+    "quitDescription": "Your answers so far won't be saved."
+  },
+  "result": {
+    "correct": "correct",
+    "summary": "You got {correct} out of {total} right.",
+    "xp": "+{xp} XP",
+    "retry": "Try again",
+    "newSetup": "Change settings",
+    "review": "Review answers",
+    "yourAnswer": "Your answer",
+    "noAnswer": "(blank)",
+    "correctAnswer": "Correct answer",
+    "verdict": {
+      "great": "Excellent!",
+      "good": "Nice work, almost there!",
+      "keepGoing": "Don't give up — review and try again!"
+    }
+  },
+  "flashcard": {
+    "setupTitle": "Flashcard deck",
+    "load": "Get deck",
+    "loading": "Creating cards…",
+    "loadError": "Couldn't load the deck, please try again.",
+    "empty": "This deck has no cards",
+    "cardCount": "{count, plural, one {# card} other {# cards}}",
+    "front": "Front",
+    "back": "Back",
+    "showFront": "Show front",
+    "showBack": "Flip to see the back",
+    "flip": "Flip",
+    "shuffle": "Shuffle",
+    "prev": "Previous card",
+    "next": "Next card",
+    "keyboardHint": "Use ← → to switch cards, Space to flip",
+    "startTest": "Test yourself",
+    "backToCards": "Back to cards",
+    "testPrompt": "Pick the correct back of this card"
+  },
+  "mindmap": {
+    "setupTitle": "Mind map",
+    "load": "Show mind map",
+    "loading": "Drawing mind map…",
+    "loadError": "Couldn't load the mind map, please try again.",
+    "empty": "This mind map is empty",
+    "nodeCount": "{count, plural, one {# idea} other {# ideas}}",
+    "expand": "Expand branch",
+    "collapse": "Collapse branch",
+    "expandAll": "Expand all",
+    "collapseAll": "Collapse all"
+  },
+  "history": {
+    "title": "Practice history",
+    "empty": "No practice yet",
+    "emptyHint": "Finish a quiz or flashcard test to see your results here.",
+    "noTopic": "General review",
+    "type": {
+      "quiz": "Quiz",
+      "flashcard": "Flashcard test"
+    }
+  }
+}

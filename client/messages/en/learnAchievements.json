@@ -1,0 +1,20 @@
+{
+  "pageTitle": "Achievements",
+  "title": "Achievements",
+  "subtitle": "Track your XP, study streak, challenges and ranking.",
+  "stats": {
+    "weeklyXp": "XP this week",
+    "points": "Reward points",
+    "currentStreak": "Current streak",
+    "longestStreak": "Longest streak"
+  },
+  "challengesTitle": "Challenges",
+  "leaderboardTitle": "Leaderboard",
+  "allGrades": "All grades",
+  "scope": {
+    "weekly": "Week",
+    "month": "Month",
+    "all": "All time"
+  },
+  "xpHint": "Ask the tutor, practice and battle to earn more XP"
+}
