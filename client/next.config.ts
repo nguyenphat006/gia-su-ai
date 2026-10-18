@@ -11,8 +11,9 @@ const API_ORIGIN = (process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/ap
 const PUBLIC_MEDIA = ["materials", "branding", "avatars"];
 
 const nextConfig: NextConfig = {
-  // Docker production: đóng gói server tối giản (.next/standalone) — xem client/Dockerfile
-  output: "standalone",
+  // Docker production: đóng gói server tối giản (.next/standalone) — xem client/Dockerfile.
+  // Vercel (biến VERCEL=1 khi build) tự đóng gói theo cách riêng -> không dùng standalone.
+  output: process.env.VERCEL ? undefined : "standalone",
   // Dev (frontend :3000, backend :8000): chuyển ảnh công khai sang backend. Production: nginx phục vụ /media trước.
   async rewrites() {
     return PUBLIC_MEDIA.map((dir) => ({ source: `/media/${dir}/:path*`, destination: `${API_ORIGIN}/media/${dir}/:path*` }));

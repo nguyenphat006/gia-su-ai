@@ -1,0 +1,7 @@
+# Vercel CLI: không tải lên bản build / thư viện / biến môi trường máy dev
+.next
+node_modules
+.env*.local
+.vercel
+test-results
+playwright-report
