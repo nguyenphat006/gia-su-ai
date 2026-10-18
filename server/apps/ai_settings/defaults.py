@@ -43,4 +43,7 @@ DEFAULT_SETTINGS = {
                                  'Mỗi lần vi phạm trong tháng trừ base × 2^n XP (n tối đa 4).'),
     'AI_GUARD_BLOCK_MESSAGE': ('Thông báo khi chặn', GUARD_BLOCK_MESSAGE, 'PROMPT', 'Gia sư trả lời câu này khi tin nhắn bị chặn.'),
     'RAG_TOP_K': ('Số đoạn tài liệu RAG', '5', 'NUMBER', 'Số đoạn tri thức gần nghĩa nhất đưa vào {context}.'),
+    'RAG_MAX_DISTANCE': ('Ngưỡng liên quan RAG', '0.4', 'NUMBER',
+                         'Khoảng cách cosine tối đa (0 = trùng nghĩa, 2 = ngược nghĩa) để một đoạn tài liệu được coi là liên '
+                         'quan. Thấp hơn = chặt hơn. Đo thực tế: câu hỏi liên quan ~0.25–0.39, không liên quan ≥ 0.41.'),
 }

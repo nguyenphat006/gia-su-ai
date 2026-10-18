@@ -19,8 +19,9 @@ logger = logging.getLogger(__name__)
 CHUNK_MAX_CHARS = 3000
 CHUNK_MIN_CHARS = 100
 EMBED_BATCH = 50
-# Khoảng cách cosine tối đa để coi là liên quan (0 = trùng nghĩa, 2 = ngược nghĩa)
-MAX_DISTANCE = 0.6
+# Khoảng cách cosine tối đa để coi là liên quan (0 = trùng nghĩa, 2 = ngược nghĩa) — chỉnh trên Cấu hình AI
+# (RAG_MAX_DISTANCE). Đo với gemini-embedding-001 768 chiều: liên quan ~0.25–0.39, không liên quan ≥ 0.41.
+DEFAULT_MAX_DISTANCE = 0.4
 
 
 def split_text(text: str, max_chars: int = CHUNK_MAX_CHARS) -> list[str]:
@@ -56,6 +57,11 @@ def embed_chunks(chunks) -> int:
     return done
 
 
+def _max_distance() -> float:
+    from apps.ai_settings.services import get_float
+    return get_float('RAG_MAX_DISTANCE', DEFAULT_MAX_DISTANCE)
+
+
 def search_chunks(query: str, *, grade=None, limit: int = 5):
     """Đoạn tri thức gần nghĩa nhất với câu hỏi, lọc theo khối (đoạn không gắn khối = dùng chung)."""
     if not query.strip():
@@ -70,7 +76,7 @@ def search_chunks(query: str, *, grade=None, limit: int = 5):
         qs = qs.filter(Q(grade=grade) | Q(grade__isnull=True))
     return list(
         qs.annotate(distance=CosineDistance('embedding', vector))
-        .filter(distance__lte=MAX_DISTANCE)
+        .filter(distance__lte=_max_distance())
         .order_by('distance')[:limit]
     )
 
