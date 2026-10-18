@@ -775,3 +775,57 @@ body.is-resizing-column, body.is-resizing-column * { cursor: col-resize !importa
 .theme-learn[data-theme="dark"] {
   --c-learn-band: #0C4A6E;
 }
+
+/* Trang chủ công khai: nền xanh rất nhạt, bóng "clay" mềm cho khối điểm nhấn, font riêng (modules/landing/fonts.ts) */
+@layer components {
+  .landing {
+    --c-landing-footer: #0B2A42;  /* nền footer cố định, chữ trắng ở cả sáng / tối */
+    --c-learn-surface: #F0F9FF;
+    --c-clay-shadow: inset 0 1px 0 rgb(255 255 255 / 0.8), 0 1px 2px rgb(15 23 42 / 0.06), 0 12px 28px -16px rgb(2 132 199 / 0.45);
+    font-family: var(--font-landing-body), var(--font-sans);
+    background: var(--c-learn-surface);
+  }
+
+  [data-theme="dark"] .landing {
+    --c-landing-footer: #071624;
+    --c-learn-surface: #0B1726;
+    --c-clay-shadow: inset 0 1px 0 rgb(255 255 255 / 0.05), 0 12px 28px -16px rgb(0 0 0 / 0.7);
+  }
+
+  .landing-display { font-family: var(--font-landing-display), var(--font-sans); }
+
+  .clay-card {
+    border: 1px solid var(--c-border);
+    border-radius: 1rem;
+    background: var(--c-surface);
+    box-shadow: var(--c-clay-shadow);
+  }
+
+  .clay-pill {
+    box-shadow: var(--c-clay-shadow);
+    transition: transform 150ms ease-out, box-shadow 150ms ease-out;
+  }
+  .clay-pill:active { transform: translateY(1px); }
+
+  @keyframes landing-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  @keyframes landing-rise {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes landing-progress {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+  .landing-float { animation: landing-float 7s ease-in-out infinite; }
+  .landing-rise { animation: landing-rise 400ms ease-out both; }
+  /* Thanh tiến độ slide hero: thời lượng đặt inline theo INTERVAL */
+  .landing-progress { transform-origin: left; animation: landing-progress linear both; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .landing-float, .landing-rise, .landing-progress { animation: none; }
+    .clay-pill:active { transform: none; }
+  }
+}

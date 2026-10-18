@@ -11,17 +11,62 @@
     "goAdmin": "Trang quản trị"
   },
   "hero": {
-    "eyebrow": "Khoa học Tự nhiên THCS · khối 6–9",
     "title": "Học Khoa học Tự nhiên cùng gia sư AI",
     "subtitle": "Hỏi gia sư AI bám sát tài liệu của thầy cô, ôn tập bằng quiz, flashcard, sơ đồ tư duy và thi đấu cùng bạn bè trên đấu trường trí tuệ.",
     "secondary": "Xem tính năng",
-    "school": "Dành cho học sinh và giáo viên {school}"
+    "school": "Dành cho học sinh và giáo viên {school}",
+    "slides": {
+      "tutor": {
+        "eyebrow": "Gia sư AI luôn sẵn sàng",
+        "title": "Hỏi bài KHTN bất cứ lúc nào",
+        "subtitle": "Gia sư AI trả lời bám sát sách và tài liệu của thầy cô, giải thích từng bước, có công thức và ví dụ dễ hiểu.",
+        "imageAlt": "Học sinh đeo tai nghe tự học với máy tính xách tay"
+      },
+      "practice": {
+        "eyebrow": "Ôn tập thông minh",
+        "title": "Ôn tập vui, nhớ bài lâu",
+        "subtitle": "Quiz trắc nghiệm, flashcard, sơ đồ tư duy theo từng chủ đề và tự luận có AI chấm, nhận XP sau mỗi bài.",
+        "imageAlt": "Bé gái quan sát mẫu vật qua kính hiển vi"
+      },
+      "arena": {
+        "eyebrow": "Đấu trường trí tuệ",
+        "title": "Thi đấu cùng bạn, leo bảng xếp hạng",
+        "subtitle": "Thách đấu bạn cùng khối hoặc đấu với AI theo thời gian thực, giữ chuỗi ngày học và lên danh hiệu mới.",
+        "imageAlt": "Học sinh giơ tay giành quyền trả lời trong lớp"
+      }
+    },
+    "carousel": {
+      "label": "Giới thiệu nổi bật",
+      "slideLabel": "{index} / {total}",
+      "prev": "Slide trước",
+      "next": "Slide sau",
+      "pause": "Tạm dừng tự chuyển slide",
+      "play": "Tiếp tục tự chuyển slide",
+      "goTo": "Xem slide {index}"
+    },
+    "quiz": {
+      "title": "Ôn tập · Câu 3/10",
+      "xp": "+10 XP",
+      "question": "Quang hợp ở cây xanh tạo ra khí nào?",
+      "options": {
+        "a": "Oxygen",
+        "b": "Carbon dioxide",
+        "c": "Nitrogen",
+        "d": "Hydrogen"
+      }
+    },
+    "duel": {
+      "title": "Đấu trường",
+      "you": "Bạn",
+      "rival": "Đối thủ",
+      "round": "Câu 5/10 · trả lời nhanh để ghi thêm điểm"
+    }
   },
   "preview": {
     "question": "Vận tốc là gì ạ? Cho em công thức với.",
     "answer": "Vận tốc cho biết vật chuyển động nhanh hay chậm, bằng quãng đường đi được trong một đơn vị thời gian:",
     "title": "Gia sư AI",
-    "units": "Trong đó v là vận tốc (m/s), s là quãng đường (m), t là thời gian (s)."
+    "status": "Đang trực tuyến"
   },
   "features": {
     "title": "Mọi thứ để học tốt môn KHTN",
@@ -57,7 +102,9 @@
     "reports": {
       "title": "Báo cáo học tập",
       "description": "Xem giờ học, câu hỏi gửi gia sư, kết quả ôn tập và đấu trường của từng học sinh."
-    }
+    },
+    "cta": "Giáo viên đăng nhập",
+    "imageAlt": "Thầy giáo hướng dẫn học sinh làm thí nghiệm hóa học"
   },
   "steps": {
     "title": "Bắt đầu thật đơn giản",
@@ -75,7 +122,18 @@
       "description": "Học đều đặn để giữ chuỗi ngày học, lên danh hiệu và đứng đầu bảng xếp hạng."
     }
   },
+  "finalCta": {
+    "title": "Sẵn sàng học cùng gia sư AI?",
+    "subtitle": "Đăng nhập bằng tài khoản nhà trường cấp để bắt đầu ngay hôm nay."
+  },
   "footer": {
-    "poweredBy": "Gia Sư AI KHTN · trợ lý học tập dùng Google Gemini"
+    "poweredBy": "Gia Sư AI KHTN · trợ lý học tập dùng Google Gemini",
+    "about": "Nền tảng học Khoa học Tự nhiên khối 6–9 với gia sư AI, ôn tập và đấu trường trí tuệ, dành cho học sinh và giáo viên.",
+    "explore": "Khám phá",
+    "start": "Bắt đầu",
+    "students": "Học sinh",
+    "teachers": "Giáo viên",
+    "backToTop": "Lên đầu trang",
+    "credits": "Ảnh: Unsplash · Icon 3D: Microsoft Fluent Emoji"
   }
 }

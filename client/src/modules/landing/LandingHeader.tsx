@@ -43,7 +43,7 @@ export function LandingHeader({ branding, action }: { branding: AppBranding; act
             <Languages />
             <span className="hidden sm:inline">{locale === "vi" ? tc("language.en") : tc("language.vi")}</span>
           </Button>
-          <Button asChild size="sm">
+          <Button asChild size="sm" className="clay-pill rounded-full">
             <Link href={action.href}>{t(action.labelKey)}</Link>
           </Button>
         </nav>

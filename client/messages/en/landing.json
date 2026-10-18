@@ -11,17 +11,62 @@
     "goAdmin": "Admin portal"
   },
   "hero": {
-    "eyebrow": "Lower-secondary Natural Science · grades 6–9",
     "title": "Learn Natural Science with an AI tutor",
     "subtitle": "Ask an AI tutor grounded in your teachers' materials, practise with quizzes, flashcards and mind maps, and compete with classmates in the knowledge arena.",
     "secondary": "See features",
-    "school": "For students and teachers of {school}"
+    "school": "For students and teachers of {school}",
+    "slides": {
+      "tutor": {
+        "eyebrow": "Your AI tutor, always on",
+        "title": "Ask science questions any time",
+        "subtitle": "The AI tutor answers from the textbook and your teachers' materials, explaining step by step with formulas and clear examples.",
+        "imageAlt": "A student with headphones studying on a laptop"
+      },
+      "practice": {
+        "eyebrow": "Smart practice",
+        "title": "Fun practice that sticks",
+        "subtitle": "Quizzes, flashcards, mind maps for every topic and AI-graded essays, with XP after every set.",
+        "imageAlt": "A girl looking at a sample through a microscope"
+      },
+      "arena": {
+        "eyebrow": "Knowledge arena",
+        "title": "Compete with friends, climb the leaderboard",
+        "subtitle": "Challenge classmates or play against the AI in real time, keep your streak and unlock new titles.",
+        "imageAlt": "Students raising their hands to answer in class"
+      }
+    },
+    "carousel": {
+      "label": "Highlights",
+      "slideLabel": "{index} / {total}",
+      "prev": "Previous slide",
+      "next": "Next slide",
+      "pause": "Pause slideshow",
+      "play": "Resume slideshow",
+      "goTo": "Go to slide {index}"
+    },
+    "quiz": {
+      "title": "Practice · Question 3/10",
+      "xp": "+10 XP",
+      "question": "Which gas do green plants release during photosynthesis?",
+      "options": {
+        "a": "Oxygen",
+        "b": "Carbon dioxide",
+        "c": "Nitrogen",
+        "d": "Hydrogen"
+      }
+    },
+    "duel": {
+      "title": "Arena",
+      "you": "You",
+      "rival": "Opponent",
+      "round": "Question 5/10 · answer fast for bonus points"
+    }
   },
   "preview": {
     "question": "What is velocity? Can you give me the formula?",
     "answer": "Velocity tells how fast an object moves — the distance travelled per unit of time:",
     "title": "AI tutor",
-    "units": "Here v is velocity (m/s), s is distance (m) and t is time (s)."
+    "status": "Online"
   },
   "features": {
     "title": "Everything you need for Natural Science",
@@ -57,7 +102,9 @@
     "reports": {
       "title": "Learning reports",
       "description": "See study hours, questions asked, practice and arena results for every student."
-    }
+    },
+    "cta": "Teacher sign-in",
+    "imageAlt": "A teacher guiding a student through a chemistry experiment"
   },
   "steps": {
     "title": "Getting started is easy",
@@ -75,7 +122,18 @@
       "description": "Study regularly to keep your streak, level up and top the leaderboard."
     }
   },
+  "finalCta": {
+    "title": "Ready to learn with your AI tutor?",
+    "subtitle": "Sign in with the account your school gave you and start today."
+  },
   "footer": {
-    "poweredBy": "Gia Sư AI KHTN · learning assistant powered by Google Gemini"
+    "poweredBy": "Gia Sư AI KHTN · learning assistant powered by Google Gemini",
+    "about": "A grade 6–9 Natural Science learning platform with an AI tutor, practice and a knowledge arena, for students and teachers.",
+    "explore": "Explore",
+    "start": "Get started",
+    "students": "Students",
+    "teachers": "Teachers",
+    "backToTop": "Back to top",
+    "credits": "Photos: Unsplash · 3D icons: Microsoft Fluent Emoji"
   }
 }
