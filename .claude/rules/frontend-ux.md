@@ -12,6 +12,7 @@ Quy chuẩn riêng từng loại trang: `frontend-tables.md` (danh sách), `fron
 - Mỗi màn hình **1 mục tiêu chính**. Trước khi thêm một khối, hỏi: người dùng có cần nó để làm việc chính không? Không → bỏ hoặc đưa vào lớp sau.
 - **Hiển thị theo lớp (progressive disclosure):** thông tin chính ở màn hình → chi tiết trong tab / Sheet / Popover / Tooltip → hiếm dùng trong dropdown `...`.
 - Không thêm khối trang trí: MetricCard, banner chào mừng, Alert hướng dẫn dài, icon minh họa, số liệu không ai dùng. Hướng dẫn cần thiết → 1 dòng chữ phụ hoặc Tooltip `?`.
+- **Không hiện thứ người dùng không cần biết**: nguồn ảnh / icon (Unsplash, Fluent…), tên công nghệ, nhà cung cấp, model AI ("dùng Google Gemini", "Powered by…"), tên đơn vị làm phần mềm / template (ERICSS) trên giao diện học sinh, giáo viên và trang công khai. Ghi công / giấy phép để trong comment code (vd. `modules/landing/assets/index.ts`). Ngoại lệ: trang quản trị cần cấu hình đúng thứ đó (Cấu hình AI chọn model).
 - Không lặp thông tin giữa các vùng (header ↔ thân ↔ tab).
 - Chữ ngắn, động từ rõ ("Thêm vai trò", không "Tạo Mới Vai Trò Hệ Thống"). Viết hoa chữ đầu câu, không VIẾT HOA TOÀN BỘ, không emoji trong UI.
 - Text dài → `ellipsis` + Tooltip; số liệu luôn có đơn vị và qua `useNumberFormat()`.

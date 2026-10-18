@@ -1,7 +1,7 @@
 /**
  * Ảnh và icon của trang chủ công khai (import tĩnh -> next/image tự lấy kích thước + ảnh mờ giữ chỗ).
  *
- * Nguồn (dùng miễn phí, không bắt buộc ghi công — vẫn ghi ở footer):
+ * Nguồn (dùng miễn phí, không bắt buộc ghi công; chỉ ghi ở đây, không hiện trên giao diện):
  * - Ảnh: Unsplash License (https://unsplash.com/license)
  *   - tutor-study.jpg          Julio Lopez — unsplash.com/photos/Imz-pn2LMbg
  *   - practice-microscope.jpg  Anna Khromova — unsplash.com/photos/DQ1QLSf_bP0

@@ -13,6 +13,7 @@ Quy chuẩn riêng từng loại trang: `02c` (danh sách), `02d` (chi tiết), 
 - Mỗi màn hình **1 mục tiêu chính**; khối không phục vụ việc chính → bỏ hoặc đưa vào lớp sau.
 - **Hiển thị theo lớp:** thông tin chính ở màn hình → chi tiết trong tab / Sheet / Popover / Tooltip → hiếm dùng trong dropdown `...`.
 - Không thêm khối trang trí (MetricCard, banner chào mừng, Alert hướng dẫn dài, số liệu không ai dùng). Hướng dẫn cần thiết → 1 dòng chữ phụ hoặc Tooltip `?`.
+- **Không hiện thứ người dùng không cần biết**: nguồn ảnh / icon, tên công nghệ, nhà cung cấp, model AI ("dùng Google Gemini", "Powered by…"), tên đơn vị làm phần mềm / template (ERICSS) trên giao diện người dùng và trang công khai. Ghi công / giấy phép để trong comment code. Ngoại lệ: trang quản trị cần cấu hình đúng thứ đó (Cấu hình AI).
 - Không lặp thông tin giữa header, thân và tab.
 - Chữ ngắn, động từ rõ; viết hoa chữ đầu câu, không VIẾT HOA TOÀN BỘ, không emoji trong UI.
 - Text dài → `ellipsis` + Tooltip; số liệu có đơn vị, định dạng qua `useNumberFormat()`.

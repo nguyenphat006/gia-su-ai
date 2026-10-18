@@ -127,13 +127,11 @@
     "subtitle": "Đăng nhập bằng tài khoản nhà trường cấp để bắt đầu ngay hôm nay."
   },
   "footer": {
-    "poweredBy": "Gia Sư AI KHTN · trợ lý học tập dùng Google Gemini",
     "about": "Nền tảng học Khoa học Tự nhiên khối 6–9 với gia sư AI, ôn tập và đấu trường trí tuệ, dành cho học sinh và giáo viên.",
     "explore": "Khám phá",
     "start": "Bắt đầu",
     "students": "Học sinh",
     "teachers": "Giáo viên",
-    "backToTop": "Lên đầu trang",
-    "credits": "Ảnh: Unsplash · Icon 3D: Microsoft Fluent Emoji"
+    "backToTop": "Lên đầu trang"
   }
 }

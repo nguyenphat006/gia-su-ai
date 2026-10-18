@@ -127,13 +127,11 @@
     "subtitle": "Sign in with the account your school gave you and start today."
   },
   "footer": {
-    "poweredBy": "Gia Sư AI KHTN · learning assistant powered by Google Gemini",
     "about": "A grade 6–9 Natural Science learning platform with an AI tutor, practice and a knowledge arena, for students and teachers.",
     "explore": "Explore",
     "start": "Get started",
     "students": "Students",
     "teachers": "Teachers",
-    "backToTop": "Back to top",
-    "credits": "Photos: Unsplash · 3D icons: Microsoft Fluent Emoji"
+    "backToTop": "Back to top"
   }
 }

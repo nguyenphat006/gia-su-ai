@@ -12,8 +12,8 @@ export const APP_CONFIG = {
   tagline: "Học KHTN cùng trợ lý AI",
   /** Mô tả dùng cho thẻ meta / trang đăng nhập */
   description: "Nền tảng học Khoa học Tự nhiên THCS với gia sư AI, ôn tập thông minh và đấu trường trí tuệ",
-  /** Chủ sở hữu hiển thị ở footer */
-  owner: "ERICSS",
+  /** Đơn vị sở hữu (khớp mặc định `company_name` ở backend) — hiện dưới tên ứng dụng, footer */
+  owner: "Trường THCS Phước Tân 3",
 } as const;
 
 /** Khóa localStorage dùng chung (đổi tiền tố khi clone để tránh đụng dữ liệu giữa các dự án chạy cùng domain) */

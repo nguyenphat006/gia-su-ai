@@ -11,7 +11,7 @@ import { Icon3D } from "./Icon3D";
 
 type FooterLink = { href: string; label: string };
 
-/** Chân trang: thương hiệu + giới thiệu ngắn, liên kết theo nhóm, bản quyền, nguồn ảnh, đổi ngôn ngữ, lên đầu trang */
+/** Chân trang: thương hiệu + giới thiệu ngắn, liên kết theo nhóm, bản quyền, đổi ngôn ngữ, lên đầu trang */
 export function LandingFooter({ branding }: { branding: AppBranding }) {
   const t = useTranslations("landing");
   const tc = useTranslations("common");
@@ -95,12 +95,9 @@ export function LandingFooter({ branding }: { branding: AppBranding }) {
 
       <div className="relative border-t border-white/10">
         <div className="mx-auto flex w-full max-w-6xl flex-col gap-4 px-4 py-6 text-xs text-sky-100/70 sm:px-6 md:flex-row md:items-center md:justify-between">
-          <div className="space-y-1">
-            <p>
-              © {new Date().getFullYear()} {branding.owner || branding.name} · {t("footer.poweredBy")}
-            </p>
-            <p>{t("footer.credits")}</p>
-          </div>
+          <p>
+            © {new Date().getFullYear()} {branding.owner || branding.name}
+          </p>
           <div className="flex items-center gap-2">
             <button
               type="button"
