@@ -74,7 +74,7 @@ export function SystemSettingsTab({ canEdit }: { canEdit: boolean }) {
     mutationFn: (file: File) => {
       const body = new FormData();
       body.append("file", file);
-      return http.post<Settings>("/system-settings/logo/", body);
+      return http.post<Settings>("/system-settings/logo/", body, { headers: { "Content-Type": "multipart/form-data" } });
     },
     onSuccess: (next) => {
       onSaved(next);
