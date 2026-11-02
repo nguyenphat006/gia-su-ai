@@ -132,6 +132,7 @@
     "start": "Bắt đầu",
     "students": "Học sinh",
     "teachers": "Giáo viên",
-    "backToTop": "Lên đầu trang"
+    "backToTop": "Lên đầu trang",
+    "author": "Tác giả: {name}"
   }
 }

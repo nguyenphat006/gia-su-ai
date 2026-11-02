@@ -132,6 +132,7 @@
     "start": "Get started",
     "students": "Students",
     "teachers": "Teachers",
-    "backToTop": "Back to top"
+    "backToTop": "Back to top",
+    "author": "Author: {name}"
   }
 }

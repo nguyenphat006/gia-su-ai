@@ -11,6 +11,8 @@ import { Icon3D } from "./Icon3D";
 
 type FooterLink = { href: string; label: string };
 
+const AUTHOR_NAME = "Vũ Thị Thu Trang";
+
 /** Chân trang: thương hiệu + giới thiệu ngắn, liên kết theo nhóm, bản quyền, đổi ngôn ngữ, lên đầu trang */
 export function LandingFooter({ branding }: { branding: AppBranding }) {
   const t = useTranslations("landing");
@@ -97,6 +99,8 @@ export function LandingFooter({ branding }: { branding: AppBranding }) {
         <div className="mx-auto flex w-full max-w-6xl flex-col gap-4 px-4 py-6 text-xs text-sky-100/70 sm:px-6 md:flex-row md:items-center md:justify-between">
           <p>
             © {new Date().getFullYear()} {branding.owner || branding.name}
+            <span className="mx-2" aria-hidden>·</span>
+            {t("footer.author", { name: AUTHOR_NAME })}
           </p>
           <div className="flex items-center gap-2">
             <button
