@@ -1,16 +1,15 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Loader2, Trash2, Upload } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { ComboboxField, FieldShell, FormSection, SelectField, TextField } from "@/components/form";
+import { ComboboxField, FormSection, SelectField, TextField } from "@/components/form";
 import { RelativeTime } from "@/components/list";
-import { BrandMark } from "@/components/layouts/BrandMark";
 import { http } from "@/lib/api/axiosClient";
 import { extractErrorMessage } from "@/lib/api/errorUtils";
 import { applyServerErrors } from "@/lib/api/formErrors";
@@ -43,7 +42,6 @@ export function SystemSettingsTab({ canEdit }: { canEdit: boolean }) {
   ];
   const form = useForm<SettingsInput>();
   const qc = useQueryClient();
-  const fileRef = useRef<HTMLInputElement>(null);
 
   const { data, isLoading } = useQuery({
     queryKey: [...SYSTEM_SETTINGS_KEY, "admin"],
@@ -70,28 +68,6 @@ export function SystemSettingsTab({ canEdit }: { canEdit: boolean }) {
     },
   });
 
-  const uploadLogo = useMutation({
-    mutationFn: (file: File) => {
-      const body = new FormData();
-      body.append("file", file);
-      return http.post<Settings>("/system-settings/logo/", body, { headers: { "Content-Type": "multipart/form-data" } });
-    },
-    onSuccess: (next) => {
-      onSaved(next);
-      toast.success(t("logoUpdated"));
-    },
-    onError: (error) => toast.error(extractErrorMessage(error, t("logoUploadError"))),
-  });
-
-  const removeLogo = useMutation({
-    mutationFn: () => http.delete<Settings>("/system-settings/logo/"),
-    onSuccess: (next) => {
-      onSaved(next);
-      toast.success(t("logoRemoved"));
-    },
-    onError: (error) => toast.error(extractErrorMessage(error, t("logoRemoveError"))),
-  });
-
   if (isLoading || !data) {
     return (
       <div className="max-w-3xl space-y-3">
@@ -111,37 +87,6 @@ export function SystemSettingsTab({ canEdit }: { canEdit: boolean }) {
             <TextField<SettingsInput> name="app_badge" label={t("appBadge")} placeholder={t("appBadgePlaceholder")} rules={{ maxLength: { value: 30, message: tv("maxLength", { max: 30 }) } }} />
             <TextField<SettingsInput> name="tagline" label={t("tagline")} rules={{ maxLength: { value: 150, message: tv("maxLength", { max: 150 }) } }} />
             <TextField<SettingsInput> name="company_name" label={t("companyName")} rules={{ maxLength: { value: 255, message: tv("maxLength", { max: 255 }) } }} />
-            <FieldShell id="f-logo" label={t("logo")} hint={t("logoHint")} className="form-section__full">
-              <div className="flex flex-wrap items-center gap-3">
-                <BrandMark logoUrl={data.logo_url ?? null} name={data.app_name} size={48} />
-                {canEdit && (
-                  <>
-                    <input
-                      ref={fileRef}
-                      id="f-logo"
-                      type="file"
-                      accept=".png,.jpg,.jpeg,.webp,.svg"
-                      className="hidden"
-                      onChange={(e) => {
-                        const file = e.target.files?.[0];
-                        if (file) uploadLogo.mutate(file);
-                        e.target.value = "";
-                      }}
-                    />
-                    <Button type="button" variant="outline" onClick={() => fileRef.current?.click()} disabled={uploadLogo.isPending}>
-                      {uploadLogo.isPending ? <Loader2 className="animate-spin" /> : <Upload />}
-                      {t("uploadLogo")}
-                    </Button>
-                    {data.logo_url && (
-                      <Button type="button" variant="ghost" onClick={() => removeLogo.mutate()} disabled={removeLogo.isPending}>
-                        <Trash2 />
-                        {t("removeLogo")}
-                      </Button>
-                    )}
-                  </>
-                )}
-              </div>
-            </FieldShell>
           </FormSection>
 
           <FormSection title={t("formatsTitle")} description={t("formatsDescription")}>

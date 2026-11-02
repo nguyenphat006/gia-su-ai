@@ -14,6 +14,8 @@ export const APP_CONFIG = {
   description: "Nền tảng học Khoa học Tự nhiên THCS với gia sư AI, ôn tập thông minh và đấu trường trí tuệ",
   /** Đơn vị sở hữu (khớp mặc định `company_name` ở backend) — hiện dưới tên ứng dụng, footer */
   owner: "Trường THCS Phước Tân 3",
+  /** Logo trường (client/public). Cố định ở client: server Render gói free không giữ / không phục vụ tệp tải lên */
+  logo: "/logo-thcs-phuoc-tan-3.png",
 } as const;
 
 /** Khóa localStorage dùng chung (đổi tiền tố khi clone để tránh đụng dữ liệu giữa các dự án chạy cùng domain) */

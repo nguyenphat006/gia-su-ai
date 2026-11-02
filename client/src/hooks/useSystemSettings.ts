@@ -38,7 +38,7 @@ export function useSystemSettings(): AppBranding & { isLoaded: boolean } {
     tagline: data?.tagline ?? APP_CONFIG.tagline,
     owner: data?.company_name ?? APP_CONFIG.owner,
     description: APP_CONFIG.description,
-    logoUrl: data?.logo_url || null,
+    logoUrl: APP_CONFIG.logo,
     numberFormat: (data?.number_format as "INTL" | "VN") || "INTL",
     dateFormat: data?.date_format || "DD/MM/YYYY",
   };
